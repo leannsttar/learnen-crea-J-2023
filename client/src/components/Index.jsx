@@ -89,6 +89,14 @@ export function IndexSteps(){
     )
 }
 
+export function Home () {
+    return(
+        <>
+            <IndexCard />
+            <IndexSteps />
+        </>
+    )
+}
 
 
 

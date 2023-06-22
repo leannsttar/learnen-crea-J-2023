@@ -1,24 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { IndexCard, IndexSteps } from "./components/Index.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import {Community} from './pages/Community.jsx'
+import { Home } from "./components/Index.jsx";
+import {Community} from './pages/Community'
+import {Header} from './components/Header'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <React.StrictMode>
-        <IndexCard />
-        <IndexSteps />
-      </React.StrictMode>
+      <>
+        <Header />
+        <Home />
+      </>
     ),
   },
   {
     path: "community",
     element: (
-      <Community />
+      <>
+        <Header />
+        <Community />
+      </>
     ),
   },
 ]);
