@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./components/Index.jsx";
 import {Community} from './pages/Community'
+import {Blog} from './pages/Blog'
 import {Header} from './components/Header'
 
 const router = createBrowserRouter([
@@ -22,6 +23,15 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Community />
+      </>
+    ),
+  },
+  {
+    path: "blog",
+    element: (
+      <>
+        <Header />
+        <Blog />
       </>
     ),
   },

@@ -2,7 +2,7 @@ import React from 'react';
 
 export function IndexCard() {
     const cardsData = [
-        { imgSrc: '/assets/Male.png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
+        { imgSrc: '../assets/Male.png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
         { imgSrc: '/assets/Male(1).png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
         { imgSrc: '/assets/Male(2).png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
         { imgSrc: '/assets/Female.png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
