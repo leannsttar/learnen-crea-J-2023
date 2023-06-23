@@ -5,6 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      '1920': '1920px',
+      '1800': '1800px',
+      '1280': '1280px',
+      '1080': '1080px',
+      '800': '800px',
+      '450': '450px'
+
+
+    },
     extend: {
       boxShadow: {
         'square': '-4px 4px 0px 0px #000;',
