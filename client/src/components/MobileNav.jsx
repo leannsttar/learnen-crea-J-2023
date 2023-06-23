@@ -4,6 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
+
 import {ButtonHeader} from './Header.jsx'
 
 //mierdas de animacion
