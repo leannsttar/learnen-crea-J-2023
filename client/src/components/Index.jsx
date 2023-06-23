@@ -1,16 +1,7 @@
 import {React, useState} from "react";
 
 export function IndexCard() {
-<<<<<<< HEAD
-    const cardsData = [
-        { imgSrc: '../assets/Male.png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
-        { imgSrc: '/assets/Male(1).png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
-        { imgSrc: '/assets/Male(2).png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
-        { imgSrc: '/assets/Female.png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
-        { imgSrc: '/assets/Female(1).png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
-        { imgSrc: '/assets/Female(2).png', description: 'Rob: Habla inglés pero quiere practicar su alemán' },
-    ];
-=======
+
   const cardsData = [
     {
       imgSrc: "/assets/Male.png",
@@ -37,8 +28,6 @@ export function IndexCard() {
       description: "Rob: Habla inglés pero quiere practicar su alemán",
     },
   ];
->>>>>>> cc3a61ae284967dac3dacba8df847488763d6965
-
   return (
     <>
       {/* Introducción al index */}
