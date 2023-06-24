@@ -1,6 +1,9 @@
 import React from "react";
 import FemalePhoto from "../assets/FemaleCommunity.png";
 import GreenCircle from "../assets/greencircle.svg";
+import germanFlag from "../assets/Flags/germanFlag.svg";
+import greekFlag from "../assets/Flags/greekFlag.svg";
+import frenchFlag from "../assets/Flags/frenchFlag.svg";
 
 export function AppTitle({ title, className }) {
   return <h1 className={className}>{title}</h1>;
@@ -35,7 +38,36 @@ function SearchBar() {
   );
 }
 
-export function CommunityCard({}) {
+export function RoundedFlag(props) {
+  return <img src={props.country} alt="" className={props.className} />;
+}
+
+
+
+export function LanguagesCommunityCard( {languages} ) {
+  return (
+    <div className="flex items-center gap-2">
+      <p className="font-[700] text-[13px]">HABLA</p>
+      <div className="flex">
+        {languages.map((language, index) => (
+          <RoundedFlag key={index} country={language} className="w-6 h-6" />
+        ))}
+        
+        {/* <RoundedFlag country={greekFlag} className="w-6 h-6" /> */}
+      </div>
+    </div>
+  );
+}
+
+const german = germanFlag;
+const greek = greekFlag;
+const french = frenchFlag;
+
+const person1LanguagesKnown = [german, greek]
+const person1LanguagesLearning = [french]
+
+export function CommunityCard() {
+
   return (
     <>
       <div className="flex gap-x-5 bg-[#F7F2EF] p-4 rounded-xl">
@@ -53,9 +85,20 @@ export function CommunityCard({}) {
               me?
             </p>
           </div>
-          <div className="flex">
-            <p>Habla</p>
-            <p>Aprende</p>
+          <div className="flex gap-x-6">
+            <LanguagesCommunityCard languages={person1LanguagesKnown}/>
+            <LanguagesCommunityCard languages={person1LanguagesLearning} />
+            {/* <div className="flex items-center gap-2">
+              <p className="font-[700] text-[13px]">HABLA</p>
+              <div className="flex">
+                <RoundedFlag country={germanFlag} className="w-6 h-6" />
+                <RoundedFlag country={greekFlag} className="w-6 h-6" />
+              </div>
+            </div>
+            <div className="flex items-center">
+              <p className="font-[700] text-[13px]">APRENDE</p>
+              <RoundedFlag country={frenchFlag} className="w-6 h-6" />
+            </div> */}
           </div>
         </div>
       </div>
@@ -67,7 +110,7 @@ export function Community() {
   return (
     <>
       <div className="">
-        <div className=" lg:px-[80px] pt-[40px] 1800:px-[20px] px-[20px] 1080:w-full ">
+        <div className="pt-[40px] 1800:px-[80px] px-[20px] 1080:w-full ">
           <div className="800:flex 800:justify-between 800:items-center 800:mb-[70px] mb-[30px] space-y-6">
             <AppTitle
               title="Comunidad"
