@@ -1,9 +1,9 @@
 import React from "react";
-import FemalePhoto from "../assets/FemaleCommunity.png";
-import GreenCircle from "../assets/greencircle.svg";
-import germanFlag from "../assets/Flags/germanFlag.svg";
-import greekFlag from "../assets/Flags/greekFlag.svg";
-import frenchFlag from "../assets/Flags/frenchFlag.svg";
+import FemalePhoto from "../../assets/FemaleCommunity.png";
+import GreenCircle from "../../assets/greencircle.svg";
+import germanFlag from "../../assets/Flags/germanFlag.svg";
+import greekFlag from "../../assets/Flags/greekFlag.svg";
+import frenchFlag from "../../assets/Flags/frenchFlag.svg";
 
 export function AppTitle({ title, className }) {
   return <h1 className={className}>{title}</h1>;

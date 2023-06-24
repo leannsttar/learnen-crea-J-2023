@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 
-import {ButtonHeader} from './Header.jsx'
+import {ButtonHeader} from './ButtonHeader.jsx'
 
 //mierdas de animacion
 const menuVariants = {

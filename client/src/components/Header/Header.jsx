@@ -2,19 +2,9 @@ import { React, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import LogoMobile from "/src/assets/logo_right_text.svg";
 import LogoDesktop from "/src/assets/logo_right_text_desktop.svg";
-import Arrow from "../assets/arrow.svg";
-import { MobileNav } from "./MobileNav.jsx";
 
-export function ButtonHeader(props) {
-  return (
-    <Link to={props.to}>
-      <button className={props.className}>
-        <img src={Arrow} alt="" className={props.imgClassName} />
-        {props.text}
-      </button>
-    </Link>
-  );
-}
+import { ButtonHeader } from "./ButtonHeader";
+import { MobileNav } from "./MobileNav.jsx";
 
 const linksClass = {
   nonactive: "hover:border-b-4 border-[#FFEC45] font-medium transition-border ease-in-out duration-100",

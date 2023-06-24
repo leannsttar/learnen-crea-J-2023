@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "./components/Index.jsx";
-import {Community} from './pages/Community'
-import {AllBlogContent} from './pages/Blog'
-import {Header} from './components/Header'
+import { Home } from "./pages/Home/Index.jsx";
+import {Community} from './pages/Community/Community'
+import {AllBlogContent} from './pages/Blog/Blog'
+import {Header} from './components/Header/Header'
 
 const router = createBrowserRouter([
   {

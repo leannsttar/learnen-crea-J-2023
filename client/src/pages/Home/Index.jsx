@@ -68,9 +68,9 @@ export function IndexSteps() {
   const dataCards = [
     {
       img: "/assets/paso1.png",
-      h1: <h1>1. Únete a la comunidad</h1>,
+      h1: "1. Únete a la comunidad",
       p: (
-        <p>
+        <p className="text-2xl">
           Crea una cuenta e inicia <br /> sesión, así podrás <br /> acceder a
           todas nuestras <br />
           funcionalidades.
@@ -80,9 +80,9 @@ export function IndexSteps() {
     },
     {
       img: "/assets/paso2.png",
-      h1: <h1>2. Encuentra amigos</h1>,
+      h1: "2. Encuentra amigos",
       p: (
-        <p>
+        <p className="text-2xl">
           Puedes encontrar <br /> personas fácilmente que <br /> practican tu
           idioma <br /> y comparten tus interéses.
         </p>
@@ -91,9 +91,9 @@ export function IndexSteps() {
     },
     {
       img: "/assets/paso3.png",
-      h1: <h1>3. ¡Interactúa!</h1>,
+      h1: "3. ¡Interactúa!",
       p: (
-        <p>
+        <p className="text-2xl">
           Puedes compartir <br /> publicaciones con la <br /> comunidad y
           chatear con <br /> personas.
         </p>
@@ -119,7 +119,7 @@ export function IndexSteps() {
               <div className="flex flex-row  justify-center gap-x-40 gap-y-36">
                 <div className="flex flex-col">
                   <h1 className="mb-4 font-bold text-[1.5rem]">{card.h1}</h1>
-                  <p className="text-2xl">{card.p}</p>
+                  {card.p}
                 </div>
                 <img className="w-1/4" src={card.img} alt="" />
               </div>
@@ -189,7 +189,7 @@ export function Slider() {
       author: "Nacely Orellana"
     },
     {
-      id: 1,
+      id: 2,
       image: "/assets/slider1.png",
       quote: "Desde que uso Learnen mi nivel de Inglés se ha visto mejorado de manera exponencialmente",
       author: "Nacely "
