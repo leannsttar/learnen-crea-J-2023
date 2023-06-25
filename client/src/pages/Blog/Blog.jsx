@@ -144,7 +144,7 @@ export function CardsBlog() {
   return (
     <>
       <div className="">
-        <div className="flex flex-wrap gap-10 justify-center mt-48">
+        <div className="flex flex-wrap gap-10 justify-center mt-48 mb-40">
           {dataCards.map((card, index) => (
             <div key={index} className="mb-8 w-96">
               <div className="">
