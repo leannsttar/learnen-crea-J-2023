@@ -16,7 +16,7 @@ const linksClass = {
 };
 
 export function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const [activeLink, setActiveLink] = useState("");
 
