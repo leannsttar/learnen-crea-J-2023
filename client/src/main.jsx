@@ -47,7 +47,6 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Chat />
-        <Footer/>
       </>
     ),
   },
