@@ -22,6 +22,9 @@ export default {
         'circle': '-4px 4px 0px 0px #000;'
       }
     },
+    backgroundImage: {
+      'custom-bg': "url('/assets/ImagenBlog.jpg')",
+    }
   },
 
   plugins: [],

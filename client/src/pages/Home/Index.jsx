@@ -202,7 +202,7 @@ export function Slider() {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center pb-32">
       <div className="max-w-screen-lg">
         <div className="flex items-center bg-gray-100 mt-20 transform rotate-[2deg]">
           <div className="w-40 h-40">

@@ -8,6 +8,7 @@ import {AllBlogContent} from './pages/Blog/Blog'
 import {Header} from './components/Header/Header'
 import {Feed} from './pages/Feed/Feed.jsx'
 import {Chat} from './pages/Chat/Chat.jsx'
+import { Footer } from "./components/Footer/Footer";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Home />
+        <Footer/>
       </>
     ),
   },
@@ -25,6 +27,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Community />
+        <Footer/>
       </>
     ),
   },
@@ -34,6 +37,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Feed />
+        <Footer/>
       </>
     ),
   },
@@ -43,6 +47,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Chat />
+        <Footer/>
       </>
     ),
   },
@@ -52,6 +57,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <AllBlogContent/>
+        <Footer/>
       </>
     ),
   },
