@@ -32,8 +32,8 @@ export function CommunityCard() {
             </p>
           </div>
           <div className="flex gap-x-6">
-            <LanguagesCommunityCard languages={person1LanguagesKnown} />
-            <LanguagesCommunityCard languages={person1LanguagesLearning} />
+            <LanguagesCommunityCard languages={person1LanguagesKnown} status="HABLA"/>
+            <LanguagesCommunityCard languages={person1LanguagesLearning} status="APRENDE"/>
           </div>
         </div>
       </div>
