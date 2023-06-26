@@ -68,35 +68,36 @@ export function CardPrincipal() {
         Nuestro blog
       </p>
 
-      <div className="flex flex-row pl-24 pr-24 justify-center">
-        <div className="flex flex-col bg-custom-bg w-[60%] bg-cover h-[500px] rounded ">
-          <div className="flex flex-col w-[50%] overflow-hidden">
-            <h1 className="text-4xl mt-10 ml-10">
-              Something about <br /> lenguages
-            </h1>
-            <p className="mt-8 ml-10">Rodri Pineda</p>
-            <p className="mt-8 ml-10">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta
-              ipsa facere nobis itaque doloremque, accusamus magnam iste,
-              voluptatibus dignissimos quis numquam repellendus modi architecto
-              error praesentium possimus?
-            </p>
-          </div>
-        </div>
-        <div>
-          <div className="flex flex-col bg-gray-100 ml-20 w-full rounded flex-grow">
-            <h3 className="mt-4 ml-8 font-bold text-xl">Top posters</h3>
+      <div className="flex flex-row justify-center mx-auto pl-24 pr-24 mb-32">
+  <div className="flex flex-col bg-custom-bg w-[60%] bg-cover h-[500px] rounded">
+    <div className="flex flex-col w-[50%] overflow-hidden">
+      <h1 className="text-4xl mt-10 ml-10">
+        Something about <br /> lenguages
+      </h1>
+      <p className="mt-8 ml-10">Rodri Pineda</p>
+      <p className="mt-8 ml-10">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta ipsa
+        facere nobis itaque doloremque, accusamus magnam iste, voluptatibus
+        dignissimos quis numquam repellendus modi architecto error praesentium
+        possimus?
+      </p>
+    </div>
+  </div>
+  <div>
+    <div className="flex flex-col bg-gray-100 ml-20 w-full rounded flex-grow">
+      <h3 className="mt-4 ml-8 font-bold text-xl">Top posters</h3>
 
-            <div className="flex flex-row ml-6 mt-6 mb-6">
-              <img className="w-[60px]" src="/assets/Group3.png" alt="" />
-              <div className="flex flex-col">
-                <p className="ml-4">Andrea Wise</p>
-                <p className="ml-4 mt-2 text-xs">135 Articles</p>
-              </div>
-            </div>
-          </div>
+      <div className="flex flex-row ml-6 mt-6 mb-6">
+        <img className="w-[60px]" src="/assets/Group3.png" alt="" />
+        <div className="flex flex-col">
+          <p className="ml-4">Andrea Wise</p>
+          <p className="ml-4 mt-2 text-xs">135 Articles</p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
     </>
   );
 }
@@ -143,25 +144,26 @@ export function CardsBlog() {
 
   return (
     <>
-      <div className="">
-        <div className="flex flex-wrap gap-10 justify-center mt-48 mb-40">
+      <div className="mb-24">
+        <div className="flex flex-wrap gap-10 justify-center mt-20">
           {dataCards.map((card, index) => (
             <div key={index} className="mb-8 w-96">
               <div className="">
                 <img src={card.img} className="w-full" alt="" />
               </div>
-              <div className="bg-gray-100 p-10">
+              <div className="bg-gray-200 p-10 relative">
                 <h6 className="text-blue-400 text-sm">{card.language}</h6>
                 <h2 className="mt-4 font-bold text-[1.3rem]">{card.title}</h2>
                 <h4 className="mt-4 text-base">{card.p}</h4>
-                <hr className="mt-12" />
-                <p className="text-sm flex justify-end">2 días</p>
+                <hr className="mt-12 border border-gray-400" />
+                <p className="text-sm absolute bottom-2 right-10">2 días</p>
               </div>
             </div>
           ))}
         </div>
       </div>
     </>
+
   );
 }
 

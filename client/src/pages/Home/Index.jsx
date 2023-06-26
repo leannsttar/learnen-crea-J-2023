@@ -161,14 +161,14 @@ export function IndexBlog() {
           {dataCards.map((card, index) => (
             <div key={index} className="mb-8 w-96">
               <div className="">
-                <img src={card.img} className='w-full' alt="" />
+                <img src={card.img} className="w-full" alt="" />
               </div>
-              <div className="bg-white p-10">
+              <div className="bg-white p-10 relative">
                 <h6 className="text-blue-400 text-sm">{card.language}</h6>
                 <h2 className="mt-4 font-bold text-[1.3rem]">{card.title}</h2>
                 <h4 className="mt-4 text-base">{card.p}</h4>
-                <hr className='mt-12' />
-                <p className="text-sm flex justify-end">2 días</p>
+                <hr className="mt-12" />
+                <p className="text-sm absolute bottom-2 right-10">2 días</p>
               </div>
             </div>
           ))}
@@ -176,6 +176,9 @@ export function IndexBlog() {
       </div>
     </>
   );
+  
+  
+  
 }
 
 export function Slider() {
