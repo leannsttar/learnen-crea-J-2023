@@ -16,6 +16,7 @@ export function Footer(){
                         <li className='text-base'>Comunidad</li>
                         <li className='text-base'>Chat</li>
                         <li className='text-base'>Blog</li>
+                        <li className='text-base'>Notificaciones</li>
                     </ul>
                 </div>
                 <div className='flex flex-row pt-14 gap-28'>
@@ -30,3 +31,6 @@ export function Footer(){
 
     )
 }
+  
+  
+  

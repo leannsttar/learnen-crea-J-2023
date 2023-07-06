@@ -1,7 +1,6 @@
 import {React, useState} from "react";
 
 export function IndexCard() {
-
   const cardsData = [
     {
       imgSrc: "/assets/Male.png",
@@ -28,41 +27,42 @@ export function IndexCard() {
       description: "Rob: Habla inglés pero quiere practicar su alemán",
     },
   ];
+
   return (
-    <>
-      {/* Introducción al index */}
+    <div className="flex flex-col items-center justify-center h-full">
       <div className="flex flex-col items-center">
         <img className="w-44 mt-24" src="../assets/learnen.svg" alt="" />
-        <p className="p-6 text-xl	">
+        <p className="p-6 text-xl text-center">
           Un sitio donde puedes aprender cualquier idioma con la comunidad
         </p>
       </div>
 
-      {/* Cards de presentación */}
-      <div className="w-full flex justify-center">
-        <div className="grid grid-cols-3 pt-6 px-32 gap-6 max-w-7xl">
-          {cardsData.map((card, index) => (
-            <div key={index}>
-              <div className="relative">
-                <img src={card.imgSrc} alt="" className="" />
-                <p className="absolute bottom-4 left-0 m-2 text-white text-xl">
-                  {card.description}
-                </p>
+      <div className="flex items-center justify-center">
+        <div className="overflow-x-auto w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 max-w-7xl mx-4">
+            {cardsData.map((card, index) => (
+              <div key={index} className="flex justify-center">
+                <div className="relative w-full">
+                  <img src={card.imgSrc} alt="" className="w-full" />
+                  <p className="absolute bottom-4 left-0 m-2 text-white text-xl">
+                    {card.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Botón */}
-      <div className="flex items-center justify-center">
-        <button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 mt-10 mb-14 text-xl">
+      <div className="flex items-center justify-center mt-8">
+        <button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl">
           Únete a la comunidad
         </button>
       </div>
-    </>
+    </div>
   );
 }
+
 
 export function IndexSteps() {
   const dataCards = [
@@ -104,24 +104,22 @@ export function IndexSteps() {
 
   return (
     <>
-      <hr />
+      <hr className="mt-14" />
       <div className="flex flex-row justify-center mt-10 text-[1.8rem] font-extrabold">
-        <p>
+        <p className="text-center">
           ¿Cómo funciona?<span className="text-indigo-600"> Learnen</span>
         </p>
       </div>
 
       {/* Pasos de cómo funciona */}
       <div className="flex flex-col mt-32">
-        <div className="grid grid-cols-1 gap-x-32 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-32 gap-y-8">
           {dataCards.map((card, index) => (
-            <div key={index} className="flex flex-col mb-8">
-              <div className="flex flex-row  justify-center gap-x-40 gap-y-36">
-                <div className="flex flex-col">
-                  <h1 className="mb-4 font-bold text-[1.5rem]">{card.h1}</h1>
-                  {card.p}
-                </div>
-                <img className="w-1/4" src={card.img} alt="" />
+            <div key={index} className="flex flex-col items-center mb-8">
+              <img className="w-3/5 mb-4 md:w-3/5" src={card.img} alt="" />
+              <div className="flex flex-col items-center">
+                <h1 className="mb-4 font-bold text-[1.5rem]">{card.h1}</h1>
+                {card.p}
               </div>
             </div>
           ))}
@@ -130,6 +128,8 @@ export function IndexSteps() {
     </>
   );
 }
+
+
 
 export function IndexBlog() {
   const dataCards = [
@@ -155,11 +155,13 @@ export function IndexBlog() {
 
   return (
     <>
-      <div className="bg-gray-100">
-        <p className="font-bold text-4xl pl-32 pt-24">De nuestro blog</p>
-        <div className="flex flex-row gap-10 justify-center mt-20">
+      <div className="bg-gray-100 pb-14">
+        <p className="font-bold text-4xl pt-24 text-center md:text-center md:text-left">
+          De nuestro <span className="text-indigo-600"> Blog</span>
+        </p>
+        <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
-            <div key={index} className="mb-8 w-96">
+            <div key={index} className="mb-8 w-96 mx-4">
               <div className="">
                 <img src={card.img} className="w-full" alt="" />
               </div>
@@ -176,10 +178,9 @@ export function IndexBlog() {
       </div>
     </>
   );
-  
-  
-  
 }
+
+
 
 export function Slider() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -205,11 +206,11 @@ export function Slider() {
   };
 
   return (
-    <div className="flex justify-center pb-32">
+    <div className="flex justify-center pb-8 pt-4 md:pb-12 md:pt-8">
       <div className="max-w-screen-lg">
-        <div className="flex items-center bg-gray-100 mt-20 transform rotate-[2deg]">
-          <div className="w-40 h-40">
-            <div className="bg-gray-100 p-4 transform -skew-x-6">
+        <div className="flex flex-col md:flex-row items-center bg-gray-100 mt-4 md:mt-8 transform rotate-[2deg]">
+          <div className="w-32 md:w-40 h-32 md:h-40">
+            <div className="bg-gray-100 p-2 md:p-4 transform -skew-x-6">
               <img
                 className="rounded-full w-full h-full object-cover"
                 src={slides[activeIndex].image}
@@ -217,10 +218,10 @@ export function Slider() {
               />
             </div>
           </div>
-          <div className="w-1/2 flex-shrink-0">
-            <div className="p-4">
-              <p className="font-bold text-xl mt-4">{slides[activeIndex].quote}</p>
-              <p className="text-lg mt-10">{slides[activeIndex].author}</p>
+          <div className="w-full md:w-2/3 flex-shrink-0">
+            <div className="p-4 md:p-8">
+              <p className="font-bold text-xl mt-2 md:mt-4">{slides[activeIndex].quote}</p>
+              <p className="text-lg mt-2 md:mt-4">{slides[activeIndex].author}</p>
             </div>
             <div className="flex justify-center space-x-2 mt-4 pb-8">
               {slides.map((slide, index) => (
@@ -237,6 +238,9 @@ export function Slider() {
     </div>
   );
 };
+
+
+
 
 export function Home() {
   return (
