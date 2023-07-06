@@ -9,6 +9,9 @@ import {Header} from './components/Header/Header'
 import {Feed} from './pages/Feed/Feed.jsx'
 import {Chat} from './pages/Chat/Chat.jsx'
 import { Footer } from "./components/Footer/Footer";
+import { SignUp } from "./pages/Sign up/SignUp";
+import { Login } from "./pages/Login/Login"
+import { Notificaciones } from "./pages/Notificaciones/Notificaciones";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +60,36 @@ const router = createBrowserRouter([
         <Header />
         <AllBlogContent/>
         <Footer/>
+      </>
+    ),
+  },
+  {
+    path: "notifications",
+    element: (
+      <>
+        <Header />
+        <Notificaciones />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "login",
+    element: (
+      <>
+        <Header />
+        <Login />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "signup",
+    element: (
+      <>
+        <Header />
+        <SignUp />
+        <Footer />
       </>
     ),
   },

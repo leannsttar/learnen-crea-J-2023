@@ -95,7 +95,9 @@ export function Header() {
         </nav>
         {isLoggedIn ? (
           <div className="lg:flex lg:gap-5 lg:items-center hidden ">
-            <img src={Notification} alt="" className="w-8 h-8" />
+            <Link to={"/notifications"}>
+              <img src={Notification} alt="" className="w-8 h-8" />
+            </Link>
             <p className="font-medium">Nacely Orellana</p>
             <img src={HeaderPhoto} alt="" className="w-16 h-16" />
           </div>
@@ -103,24 +105,23 @@ export function Header() {
           <div className="lg:flex lg:gap-5 hidden">
             <ButtonHeader
               className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-white hover:scale-105 hover: transition-scale ease-in duration-200"
-              to="/"
+              to="/login"
               text="Iniciar sesión"
             />
             <ButtonHeader
               className="flex gap-3 px-6 py-2.5 shadow-square border border-white bg-black text-white flex-row-reverse hover:scale-105 hover: transition-scale ease-in duration-200"
               imgClassName="invert"
-              to="/"
+              to="/signup"
               text="Registrarse"
             />
           </div>
         )}
 
-        <MobileNav isLogged={isLoggedIn}/>
+        <MobileNav isLogged={isLoggedIn} />
       </div>
     </header>
   );
 }
-
 
 // export function HeaderLoggedIn() {
 //   const [activeLink, setActiveLink] = useState("");
