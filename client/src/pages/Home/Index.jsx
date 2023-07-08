@@ -1,4 +1,43 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
+import people from "../../assets/peopleIndex.jpg";
+import erntedankfest from "../../assets/erntedankfest.jpg";
+import { ButtonHeader } from "../../components/Header/ButtonHeader";
+import downArrow from '../../assets/downArrow.svg'
+
+export function IndexStart() {
+  return (
+    <div className="h-screen w-full flex">
+      <div className="w-full 1370:w-[40%] 800:w-[60%] flex justify-center items-center">
+        <div className="flex flex-col gap-16 relative">
+          <div>
+            <p className="font-normal text-[30px] text-[#6c6d75] ml-2">
+              Learn and
+            </p>
+            <p className="font-bold text-[120px] leading-[9rem]">Interact</p>
+          </div>
+          <ButtonHeader
+            className="ml-2 text-[22px] flex items-center gap-3 px-6 py-2.5 shadow-squareIndex bg-[#FF8399] text-black hover:scale-105 hover: transition-scale ease-in duration-200"
+            imgClassName=" w-8"
+            text="Empieza ya"
+            to="/login"
+          />
+          <img src={downArrow} alt="" className="w-8 absolute bottom-[-14rem] left-0"/>
+        </div>
+      </div>
+      <div className="1370:w-[60%] 800:w-[40%] flex h-full">
+        <img src={people} alt="" className="hidden 1080:w-full 1370:w-[50%] h-full object-cover 800:block " />
+        <div className="hidden w-[50%] h-full 1370:block">
+          <img src={erntedankfest} alt="" className="pt-20 w-full h-[55%] object-cover" />
+          <div className=" bg-[#FF8399] w-full h-[45%] p-20">
+            <p className="text-white text-[50px]">
+              Practica tu idioma con personas reales
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function IndexCard() {
   const cardsData = [
@@ -62,7 +101,6 @@ export function IndexCard() {
     </div>
   );
 }
-
 
 export function IndexSteps() {
   const dataCards = [
@@ -129,8 +167,6 @@ export function IndexSteps() {
   );
 }
 
-
-
 export function IndexBlog() {
   const dataCards = [
     {
@@ -180,8 +216,6 @@ export function IndexBlog() {
   );
 }
 
-
-
 export function Slider() {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -189,14 +223,16 @@ export function Slider() {
     {
       id: 1,
       image: "/assets/slider1.png",
-      quote: "Desde que uso Learnen mi nivel de Inglés se ha visto mejorado de manera exponencialmente",
-      author: "Nacely Orellana"
+      quote:
+        "Desde que uso Learnen mi nivel de Inglés se ha visto mejorado de manera exponencialmente",
+      author: "Nacely Orellana",
     },
     {
       id: 2,
       image: "/assets/slider1.png",
-      quote: "Desde que uso Learnen mi nivel de Inglés se ha visto mejorado de manera exponencialmente",
-      author: "Nacely "
+      quote:
+        "Desde que uso Learnen mi nivel de Inglés se ha visto mejorado de manera exponencialmente",
+      author: "Nacely ",
     },
     // Agrega aquí los otros elementos del slider
   ];
@@ -220,14 +256,20 @@ export function Slider() {
           </div>
           <div className="w-full md:w-2/3 flex-shrink-0">
             <div className="p-4 md:p-8">
-              <p className="font-bold text-xl mt-2 md:mt-4">{slides[activeIndex].quote}</p>
-              <p className="text-lg mt-2 md:mt-4">{slides[activeIndex].author}</p>
+              <p className="font-bold text-xl mt-2 md:mt-4">
+                {slides[activeIndex].quote}
+              </p>
+              <p className="text-lg mt-2 md:mt-4">
+                {slides[activeIndex].author}
+              </p>
             </div>
             <div className="flex justify-center space-x-2 mt-4 pb-8">
               {slides.map((slide, index) => (
                 <span
                   key={slide.id}
-                  className={`w-3 h-3 rounded-full bg-gray-500 ${activeIndex === index && 'bg-blue-500'}`}
+                  className={`w-3 h-3 rounded-full bg-gray-500 ${
+                    activeIndex === index && "bg-blue-500"
+                  }`}
                   onClick={() => handleSlideChange(index)}
                 ></span>
               ))}
@@ -237,18 +279,16 @@ export function Slider() {
       </div>
     </div>
   );
-};
-
-
-
+}
 
 export function Home() {
   return (
     <>
+      <IndexStart />
       <IndexCard />
       <IndexSteps />
       <IndexBlog />
-      <Slider/>
+      <Slider />
     </>
   );
 }

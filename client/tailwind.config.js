@@ -9,6 +9,7 @@ export default {
       '1920': '1920px',
       '1800': '1800px',
       '1280': '1280px',
+      '1370': '1370px',
       '1080': '1080px',
       '800': '800px',
       '450': '450px',
@@ -19,6 +20,7 @@ export default {
     extend: {
       boxShadow: {
         'square': '-4px 4px 0px 0px #000;',
+        'squareIndex': '-6.666666507720947px 6.666666507720947px 0px 0px #000;',
         'circle': '-4px 4px 0px 0px #000;'
       }
     },

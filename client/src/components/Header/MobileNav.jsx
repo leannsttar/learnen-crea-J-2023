@@ -27,7 +27,7 @@ export function MobileNav({ isLogged }) {
 
   const [openMenu, setOpenMenu] = useState(false);
   return (
-    <nav className="lg:hidden flex">
+    <nav className="lg:hidden flex sticky">
       <div
         onClick={() => setOpenMenu(true)}
         className="text-3xl cursor-pointer"

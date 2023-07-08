@@ -8,7 +8,7 @@ export function ButtonHeader(props) {
       <Link to={props.to}>
         <button className={props.className}>
           <img src={Arrow} alt="" className={props.imgClassName} />
-          {props.text}
+          <p>{props.text}</p>
         </button>
       </Link>
     );
