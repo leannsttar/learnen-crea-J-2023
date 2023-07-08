@@ -2,32 +2,92 @@ import { React, useState } from "react";
 import people from "../../assets/peopleIndex.jpg";
 import erntedankfest from "../../assets/erntedankfest.jpg";
 import { ButtonHeader } from "../../components/Header/ButtonHeader";
-import downArrow from '../../assets/downArrow.svg'
+import downArrow from "../../assets/downArrow.svg";
+import bggHome from "../../assets/bggHome.svg";
+import germanFlag from "../../assets/Flags/germanFlag.svg";
+import greekFlag from "../../assets/Flags/greekFlag.svg";
+import norwayFlag from "../../assets/Flags/norwayFlag.svg";
+import portugalFlag from "../../assets/Flags/portugalFlag.svg";
+import englishFlag from "../../assets/Flags/englishFlag.svg";
+import frenchFlag from "../../assets/Flags/frenchFlag.svg";
+
+export function FloatFlag({ img, className }) {
+  return <img src={img} alt="" className={className} />;
+}
 
 export function IndexStart() {
   return (
-    <div className="h-screen w-full flex">
+    <div className="mt-10 800:mt-0 h-screen w-full flex">
       <div className="w-full 1370:w-[40%] 800:w-[60%] flex justify-center items-center">
-        <div className="flex flex-col gap-16 relative">
-          <div>
+        <div className="flex flex-col gap-16 relative px-8 800:px-0">
+          <FloatFlag
+            img={germanFlag}
+            className={"800:w-12 w-9 absolute top-[8rem] left-[1rem] 800:top-[23rem] z-10"}
+          />
+          <FloatFlag
+            img={greekFlag}
+            className={"800:w-12 w-9 absolute top-[7rem] right-[1.2rem] 800:top-[-5rem] 800:left-[2.7rem] z-10"}
+          />
+          <FloatFlag
+            img={norwayFlag}
+            className={"800:w-12 w-9 absolute top-[18rem] left-[0.8rem] 800:top-[-7rem] 800:left-[26rem] z-10"}
+          />
+          <FloatFlag
+            img={frenchFlag}
+            className={"800:w-12 w-9 absolute top-[14rem] right-[2rem] 800:top-[29rem] 800:right-[-2em] z-10"}
+          />
+          <FloatFlag
+            img={portugalFlag}
+            className={
+              "800:w-12 w-9 absolute bottom-[9rem] right-[1.7rem] 800:bottom-[-16rem] left-[14rem] z-10"
+            }
+          />
+          <FloatFlag
+            img={englishFlag}
+            className={
+              "800:w-12 w-9 absolute bottom-[6.6rem] left-[2.5rem] 800:top-[1rem] 800:left-[17rem] z-10"
+            }
+          />
+          <div className="">
             <p className="font-normal text-[30px] text-[#6c6d75] ml-2">
               Learn and
             </p>
-            <p className="font-bold text-[120px] leading-[9rem]">Interact</p>
+            <p className="font-bold text-[80px] 800:text-[120px] leading-[4rem] 800:leading-[9rem]">
+              Interact
+            </p>
           </div>
-          <ButtonHeader
-            className="ml-2 text-[22px] flex items-center gap-3 px-6 py-2.5 shadow-squareIndex bg-[#FF8399] text-black hover:scale-105 hover: transition-scale ease-in duration-200"
-            imgClassName=" w-8"
-            text="Empieza ya"
-            to="/login"
+          <img
+            src={bggHome}
+            alt=""
+            className="800:hidden w-full h-full object-cover"
           />
-          <img src={downArrow} alt="" className="w-8 absolute bottom-[-14rem] left-0"/>
+          <div className="flex justify-center 800:justify-start">
+            <ButtonHeader
+              className="ml-2 text-[22px] flex items-center gap-3 px-6 py-2.5 shadow-squareIndex bg-[#FF8399] text-black hover:scale-105 hover: transition-scale ease-in duration-200"
+              imgClassName=" w-8"
+              text="Empieza ya"
+              to="/login"
+            />
+          </div>
+          <img
+            src={downArrow}
+            alt=""
+            className="hidden 800:block hover:translate-y-8 transition-all ease-out duration-500 cursor-pointer w-8 absolute bottom-[-14rem] left-0"
+          />
         </div>
       </div>
       <div className="1370:w-[60%] 800:w-[40%] flex h-full">
-        <img src={people} alt="" className="hidden 1080:w-full 1370:w-[50%] h-full object-cover 800:block " />
+        <img
+          src={people}
+          alt=""
+          className="hidden 1080:w-full 1370:w-[50%] h-full object-cover 800:block "
+        />
         <div className="hidden w-[50%] h-full 1370:block">
-          <img src={erntedankfest} alt="" className="pt-20 w-full h-[55%] object-cover" />
+          <img
+            src={erntedankfest}
+            alt=""
+            className="pt-20 w-full h-[55%] object-cover"
+          />
           <div className=" bg-[#FF8399] w-full h-[45%] p-20">
             <p className="text-white text-[50px]">
               Practica tu idioma con personas reales
