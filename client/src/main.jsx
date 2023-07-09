@@ -12,6 +12,7 @@ import { Footer } from "./components/Footer/Footer";
 import { SignUp } from "./pages/Sign up/SignUp";
 import { Login } from "./pages/Login/Login"
 import { Notificaciones } from "./pages/Notificaciones/Notificaciones";
+import { Profile } from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,16 @@ const router = createBrowserRouter([
       <>
         <Header />
         <SignUp />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "profile",
+    element: (
+      <>
+        <Header />
+        <Profile />
         <Footer />
       </>
     ),

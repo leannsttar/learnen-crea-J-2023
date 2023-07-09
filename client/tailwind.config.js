@@ -22,10 +22,14 @@ export default {
         'square': '-4px 4px 0px 0px #000;',
         'squareIndex': '-6.666666507720947px 6.666666507720947px 0px 0px #000;',
         'circle': '-4px 4px 0px 0px #000;'
-      }
+      },
+      fontFamily: {
+        Poppins: ['Poppins', 'sans-serif'],
+      },
     },
     backgroundImage: {
       'custom-bg': "url('/assets/ImagenBlog.jpg')",
+      'bgProfile': "url('/assets/bgProfile.jpg')"
     }
   },
 

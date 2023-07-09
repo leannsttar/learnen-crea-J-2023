@@ -1,0 +1,83 @@
+import React from "react";
+import { SinglePost } from "./SinglePost";
+import { DataProfile } from "./DataProfile";
+import { LanguagesProfile } from "./LanguagesProfile";
+import { AboutProfile } from "./AboutProfile";
+import {flags} from '../../data/languages'
+
+
+export function LowerProfile() {
+  const postsImages = [
+    {
+      imgSrc: "/src/assets/Posts/post1.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post2.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post3.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post4.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post5.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post6.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post7.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post8.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post9.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post10.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post11.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post12.jpg",
+    },
+  ];
+
+
+  //Comento esto porque se me va a olvidar
+  //Simulo un array de info del user. Meto el idioma y la bandera, las banderas estan en un js aparte
+  const userLanguages = {
+    motherLanguages: ["Alemán", flags.Aleman],
+    fluentLanguages: [["Francés", flags.Frances]],
+    learningLanguages: [["Griego", flags.Griego], ["Francés", flags.Frances]],
+  };
+
+  return (
+    <div className="mx-[150px] mb-20 flex gap-20 relative">
+      <div className="grid grid-cols-3 gap-3 w-[75%]">
+        {postsImages.map((post, index) => (
+          <img key={index} src={post.imgSrc} />
+        ))}
+      </div>
+      <div className="w-[25%] h-full flex flex-col gap-5 sticky top-0">
+        <DataProfile posts={4} followers={154} following={449} />
+
+        {/* {Acá solo pues mando la info de ese userLanguages} */}
+        <LanguagesProfile
+          motherLanguages={userLanguages.motherLanguages}
+          fluentLanguages={userLanguages.fluentLanguages}
+          learningLanguages={userLanguages.learningLanguages}
+        />
+        {console.log(userLanguages.fluentLanguages[0])}
+        <AboutProfile 
+        name="Nacely"
+        meGusta="Los deportes, la comida, los idiomas y los libros"
+        Objetivos="Vivir en otro país"
+        ComoSoy="Reservada, tímida pero muy empática"/>
+      </div>
+    </div>
+  );
+}

@@ -115,7 +115,10 @@ export function Header() {
               <img src={Notification} alt="" className="w-8 h-8" />
             </Link>
             <p className="font-medium">Nacely Orellana</p>
+            <Link to={'/profile'}>
+            
             <img src={HeaderPhoto} alt="" className="w-16 h-16" />
+            </Link>
           </div>
         ) : (
           <div className="lg:flex lg:gap-5 hidden">

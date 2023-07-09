@@ -19,22 +19,30 @@ export function IndexStart() {
   return (
     <div className="mt-10 800:mt-0 h-screen w-full flex">
       <div className="w-full 1370:w-[40%] 800:w-[60%] flex justify-center items-center">
-        <div className="flex flex-col gap-16 relative px-8 800:px-0">
+        <div className="flex flex-col gap-8 relative px-8 800:px-0">
           <FloatFlag
             img={germanFlag}
-            className={"800:w-12 w-9 absolute top-[8rem] left-[1rem] 800:top-[23rem] z-10"}
+            className={
+              "800:w-12 w-9 absolute top-[8rem] left-[1rem] 800:top-[23rem] z-10"
+            }
           />
           <FloatFlag
             img={greekFlag}
-            className={"800:w-12 w-9 absolute top-[7rem] right-[1.2rem] 800:top-[-5rem] 800:left-[2.7rem] z-10"}
+            className={
+              "800:w-12 w-9 absolute top-[7rem] right-[1.2rem] 800:top-[-5rem] 800:left-[2.7rem] z-10"
+            }
           />
           <FloatFlag
             img={norwayFlag}
-            className={"800:w-12 w-9 absolute top-[18rem] left-[0.8rem] 800:top-[-7rem] 800:left-[26rem] z-10"}
+            className={
+              "800:w-12 w-9 absolute top-[18rem] left-[0.8rem] 800:top-[-7rem] 800:left-[29rem] z-10"
+            }
           />
           <FloatFlag
             img={frenchFlag}
-            className={"800:w-12 w-9 absolute top-[14rem] right-[2rem] 800:top-[29rem] 800:right-[-2em] z-10"}
+            className={
+              "800:w-12 w-9 absolute top-[14rem] right-[2rem] 800:top-[27rem] 800:right-[-2em] z-10"
+            }
           />
           <FloatFlag
             img={portugalFlag}
@@ -52,7 +60,7 @@ export function IndexStart() {
             <p className="font-normal text-[30px] text-[#6c6d75] ml-2">
               Learn and
             </p>
-            <p className="font-bold text-[80px] 800:text-[120px] leading-[4rem] 800:leading-[9rem]">
+            <p className="font-[700] text-[#242635] text-[80px] 800:text-[120px] leading-[4rem] 800:leading-[9rem]">
               Interact
             </p>
           </div>
@@ -63,7 +71,7 @@ export function IndexStart() {
           />
           <div className="flex justify-center 800:justify-start">
             <ButtonHeader
-              className="ml-2 text-[22px] flex items-center gap-3 px-6 py-2.5 shadow-squareIndex bg-[#FF8399] text-black hover:scale-105 hover: transition-scale ease-in duration-200"
+              className="ml-2 text-[22px] flex items-center gap-3 px-8 py-5 shadow-squareIndex bg-[#FF8399] text-black hover:scale-105 hover: transition-scale ease-in duration-200"
               imgClassName=" w-8"
               text="Empieza ya"
               to="/login"
@@ -344,11 +352,13 @@ export function Slider() {
 export function Home() {
   return (
     <>
-      <IndexStart />
-      <IndexCard />
-      <IndexSteps />
-      <IndexBlog />
-      <Slider />
+      <div className="font-Poppins">
+        <IndexStart />
+        <IndexCard />
+        <IndexSteps />
+        <IndexBlog />
+        <Slider />
+      </div>
     </>
   );
 }
