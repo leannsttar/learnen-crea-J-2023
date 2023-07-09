@@ -3,8 +3,7 @@ import { SinglePost } from "./SinglePost";
 import { DataProfile } from "./DataProfile";
 import { LanguagesProfile } from "./LanguagesProfile";
 import { AboutProfile } from "./AboutProfile";
-import {flags} from '../../data/languages'
-
+import { flags } from "../../data/languages";
 
 export function LowerProfile() {
   const postsImages = [
@@ -46,37 +45,43 @@ export function LowerProfile() {
     },
   ];
 
-
   //Comento esto porque se me va a olvidar
   //Simulo un array de info del user. Meto el idioma y la bandera, las banderas estan en un js aparte
   const userLanguages = {
     motherLanguages: ["Alemán", flags.Aleman],
     fluentLanguages: [["Francés", flags.Frances]],
-    learningLanguages: [["Griego", flags.Griego], ["Francés", flags.Frances]],
+    learningLanguages: [
+      ["Griego", flags.Griego],
+      ["Francés", flags.Frances],
+    ],
   };
 
   return (
-    <div className="mx-[150px] mb-20 flex gap-20 relative">
-      <div className="grid grid-cols-3 gap-3 w-[75%]">
-        {postsImages.map((post, index) => (
-          <img key={index} src={post.imgSrc} />
-        ))}
-      </div>
-      <div className="w-[25%] h-full flex flex-col gap-5 sticky top-0">
-        <DataProfile posts={4} followers={154} following={449} />
+    <div className=" flex justify-center mx-auto">
+      <div className=" mb-20 flex flex-col 800:flex-row-reverse gap-8 800:gap-4 1280:gap-20 1280:w-[80%] w-[95%]">
 
-        {/* {Acá solo pues mando la info de ese userLanguages} */}
-        <LanguagesProfile
-          motherLanguages={userLanguages.motherLanguages}
-          fluentLanguages={userLanguages.fluentLanguages}
-          learningLanguages={userLanguages.learningLanguages}
-        />
-        {console.log(userLanguages.fluentLanguages[0])}
-        <AboutProfile 
-        name="Nacely"
-        meGusta="Los deportes, la comida, los idiomas y los libros"
-        Objetivos="Vivir en otro país"
-        ComoSoy="Reservada, tímida pero muy empática"/>
+        <div className="800:w-[25%] 800:h-full flex flex-col w-full gap-5">
+          <DataProfile posts={4} followers={154} following={449} />
+
+          {/* {Acá solo pues mando la info de ese userLanguages} */}
+          <LanguagesProfile
+            motherLanguages={userLanguages.motherLanguages}
+            fluentLanguages={userLanguages.fluentLanguages}
+            learningLanguages={userLanguages.learningLanguages}
+          />
+          {console.log(userLanguages.fluentLanguages[0])}
+          <AboutProfile
+            name="Nacely"
+            meGusta="Los deportes, la comida, los idiomas y los libros"
+            Objetivos="Vivir en otro país"
+            ComoSoy="Reservada, tímida pero muy empática"
+          />
+        </div>
+        <div className="grid grid-cols-3 auto-rows-min gap-1 relative w-full 800:w-[75%] h-auto">
+          {postsImages.map((post, index) => (
+            <img key={index} src={post.imgSrc} />
+          ))}
+        </div>  
       </div>
     </div>
   );
