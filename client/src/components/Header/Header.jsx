@@ -47,7 +47,7 @@ export function Header() {
       <div className="flex items-center lg:flex-row lg:items-center w-full justify-between">
         {/*logo*/}
         <Link to={"/"}>
-          <img src={LogoDesktop} alt="" className="h-[200px] w-[200px]" />
+          <img src={LogoDesktop} alt="" className="h-min w-[200px]" />
         </Link>
         <nav className="hidden lg:flex lg:gap-5 lg:translate-x-10">
           <div className="space-x-8">

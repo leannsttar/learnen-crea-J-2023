@@ -13,6 +13,7 @@ import { SignUp } from "./pages/Sign up/SignUp";
 import { Login } from "./pages/Login/Login"
 import { Notificaciones } from "./pages/Notificaciones/Notificaciones";
 import { Profile } from "./pages/Profile/Profile";
+import { Settings } from "./pages/Settings/Settings.jsx"
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,16 @@ const router = createBrowserRouter([
         <Header />
         <Profile />
         <Footer />
+      </>
+    ),
+  },
+  {
+    path: "settings",
+    element: (
+      <>
+        <Header />
+        <Settings />
+        
       </>
     ),
   },
