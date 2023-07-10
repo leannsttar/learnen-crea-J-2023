@@ -38,15 +38,14 @@ export function SliderBlog() {
 
   return (
     <>
-      <div className="w-full h-1/6 overflow-hidden relative">
+      <div className="w-full h-auto md:h-1/6 overflow-hidden relative">
         <img
           src={data[currentIndex].src}
           alt={`Slider Image ${currentIndex + 1}`}
-          className="w-full h-auto object-cover"
-          style={{ maxHeight: "700px" }}
+          className="w-full h-auto md:h-full object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-          <div className="text-white text-2xl font-bold">
+          <div className="text-white text-2xl md:text-4xl font-bold text-center">
             {data[currentIndex].text}
           </div>
         </div>
@@ -54,6 +53,7 @@ export function SliderBlog() {
     </>
   );
 }
+
 
 export function CardPrincipal() {
   const dataTop = [
@@ -84,6 +84,7 @@ export function CardPrincipal() {
     </div>
   </div>
   <div>
+    
     <div className="flex flex-col bg-gray-100 ml-20 w-full rounded flex-grow">
       <h3 className="mt-4 ml-8 font-bold text-xl">Top posters</h3>
 
@@ -144,18 +145,18 @@ export function CardsBlog() {
 
   return (
     <>
-      <div className="mb-24">
-        <div className="flex flex-wrap gap-10 justify-center mt-20">
+      <div className="pb-24">
+        <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
-            <div key={index} className="mb-8 w-96">
+            <div key={index} className="mb-8 w-96 mx-4">
               <div className="">
                 <img src={card.img} className="w-full" alt="" />
               </div>
-              <div className="bg-gray-200 p-10 relative">
+              <div className="bg-gray-100 p-10 relative">
                 <h6 className="text-blue-400 text-sm">{card.language}</h6>
                 <h2 className="mt-4 font-bold text-[1.3rem]">{card.title}</h2>
                 <h4 className="mt-4 text-base">{card.p}</h4>
-                <hr className="mt-12 border border-gray-400" />
+                <hr className="mt-12" />
                 <p className="text-sm absolute bottom-2 right-10">2 días</p>
               </div>
             </div>
@@ -163,7 +164,6 @@ export function CardsBlog() {
         </div>
       </div>
     </>
-
   );
 }
 
