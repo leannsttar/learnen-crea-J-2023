@@ -8,10 +8,12 @@ export function DiffLanguages({ label, languages }) {
                 <p>{label}</p>
                 <EditButton />
             </div>
-            <div className='flex gap-4'>
-                <img src={languages[1]} alt="" />
-                <p>{languages[0]}</p>
-            </div>
+            {languages.map((language, index) => {
+                <div key={index} className='flex gap-4'>
+                    <img src={language[1]} alt="" />
+                    <p>{language[0]}</p>
+                </div>
+            })}
         </div>
     )
 }
