@@ -16,6 +16,10 @@ export function ChangePhoto() {
           Cambiar foto de perfil
         </button>
         <Modal
+          okButtonProps={{
+            className:"bg-[#FF8399] active:bg-red-200",
+          }}
+          okText="Guardar"
           title="Vertically centered modal dialog"
           centered
           open={modal2Open}
