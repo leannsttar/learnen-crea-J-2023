@@ -43,8 +43,15 @@ export function Header() {
   // }, []);
 
   return (
-    <header className={activeLink === "/" ? "fixed bg-white border-b border-[#9B9B9B] w-full px-[30px] lg:px-[40px] z-30 h-[100px] lg:h-[100px] flex items-center" : "sticky top-0 bg-white border-b border-[#9B9B9B] w-full px-[30px] lg:px-[40px] z-30 h-[100px] lg:h-[100px] flex items-center"}>
-      <div className="flex items-center lg:flex-row lg:items-center w-full justify-between">
+    <div className="mb-[10.3vh]">
+      <header
+      className={
+        activeLink === "/"
+          ? "fixed bg-white border-b border-[#9B9B9B] w-full px-[30px] lg:px-[40px] z-10 h-[10.3vh] flex items-center"
+          : "fixed bg-white border-b border-[#9B9B9B] w-full px-[30px] lg:px-[40px] z-10 h-[10.3vh] flex items-center"
+      }
+    >
+      <div className="flex items-center lg:flex-row lg:items-center w-full justify-between bg-white">
         {/*logo*/}
         <Link to={"/"}>
           <img src={LogoDesktop} alt="" className="h-min w-[200px]" />
@@ -115,9 +122,8 @@ export function Header() {
               <img src={Notification} alt="" className="w-8 h-8" />
             </Link>
             <p className="font-medium">Nacely Orellana</p>
-            <Link to={'/profile'}>
-            
-            <img src={HeaderPhoto} alt="" className="w-16 h-16" />
+            <Link to={"/profile"}>
+              <img src={HeaderPhoto} alt="" className="w-16 h-16" />
             </Link>
           </div>
         ) : (
@@ -139,6 +145,7 @@ export function Header() {
         <MobileNav isLogged={isLoggedIn} />
       </div>
     </header>
+    </div>
   );
 }
 

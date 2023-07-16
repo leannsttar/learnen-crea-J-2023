@@ -17,8 +17,8 @@ export function FloatFlag({ img, className }) {
 
 export function IndexStart() {
   return (
-    <div className="mt-10 800:mt-0 h-screen w-full flex">
-      <div className="w-full 1370:w-[40%] 800:w-[60%] flex justify-center items-center">
+    <div className="mt-10 800:mt-0 h-[89.7vh] w-full flex">
+      <div className="w-full 1370:w-[40%] 800:w-[60%] flex justify-center items-center 800:translate-y-[-50px] 400:scale-90 1370:scale-100 scale-75">
         <div className="flex flex-col gap-8 relative px-8 800:px-0">
           <FloatFlag
             img={germanFlag}
@@ -94,10 +94,10 @@ export function IndexStart() {
           <img
             src={erntedankfest}
             alt=""
-            className="pt-20 w-full h-[55%] object-cover"
+            className="w-full h-[50%] object-cover"
           />
-          <div className=" bg-[#FF8399] w-full h-[45%] p-20">
-            <p className="text-white text-[50px]">
+          <div className=" bg-[#FF8399] w-full h-[50%] px-16 py-10 grid place-content-center">
+            <p className="text-white text-[47px]">
               Practica tu idioma con personas reales
             </p>
           </div>

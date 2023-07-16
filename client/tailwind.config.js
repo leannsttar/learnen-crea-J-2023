@@ -14,7 +14,9 @@ export default {
       '880': '880px',
       '800': '800px',
       '450': '450px',
-      'lg': '1024px'
+      '400': '400px',
+      'lg': '1024px',
+      'lgv': {'raw': '(orientation: portrait) and (min-height: 500px)'},
 
 
     },
