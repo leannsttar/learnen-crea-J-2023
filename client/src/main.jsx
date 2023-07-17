@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./pages/Home/Index.jsx";
 import {Community} from './pages/Community/Community'
 import {AllBlogContent} from './pages/Blog/Blog'
+import { Article } from "./pages/Blog/Article/Article";
 import {Header} from './components/Header/Header'
 import {Feed} from './pages/Feed/Feed.jsx'
 import {Chat} from './pages/Chat/Chat.jsx'
@@ -66,6 +67,17 @@ const router = createBrowserRouter([
       <>
         <Header />
         <AllBlogContent/>
+        <ScrollButton />
+        <Footer/>
+      </>
+    ),
+  },
+  {
+    path: "blog/article",
+    element: (
+      <>
+        <Header />
+        <Article />
         <ScrollButton />
         <Footer/>
       </>
