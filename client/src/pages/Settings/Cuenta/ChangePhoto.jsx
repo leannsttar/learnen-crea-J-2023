@@ -1,8 +1,8 @@
-import { React, Fragment, useState } from "react";
+import { React, Fragment, useState, useRef } from "react";
 import ConfigPhoto from "../../../assets/Female.png";
 import { Dialog, Transition } from "@headlessui/react";
 
-export function ChangePhoto() {
+export function ChangePhoto({ userPhoto }) {
   // const [modal2Open, setModal2Open] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
 
@@ -13,6 +13,26 @@ export function ChangePhoto() {
   function openModal() {
     setIsOpen(true);
   }
+
+  const [selectedImage, setSelectedImage] = useState(userPhoto);
+  const fileInputRef = useRef(null);
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setSelectedImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
 
   return (
     <div>
@@ -31,7 +51,7 @@ export function ChangePhoto() {
     `}
       </style> */}
       <div className="flex items-center gap-12 ">
-        <img src={ConfigPhoto} alt="" />
+        <img src={userPhoto} alt="" className="rounded-full"/>
         <button
           // onClick={() => setModal2Open(true)}
           onClick={openModal}
@@ -40,7 +60,11 @@ export function ChangePhoto() {
           Cambiar foto de perfil
         </button>
         <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-10 h-screen" onClose={closeModal}>
+          <Dialog
+            as="div"
+            className="relative z-10 h-screen"
+            onClose={closeModal}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -69,23 +93,34 @@ export function ChangePhoto() {
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Payment successful
+                      Foto de perfil
                     </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Your payment has been successfully submitted. We’ve sent
-                        you an email with all of the details of your order.
-                      </p>
+                    <div className="mt-2 flex justify-center mb-7">
+                      <img src={selectedImage} alt="" className="w-48 h-48 rounded-full object-cover" />
                     </div>
 
-                    <div className="mt-4">
+                    <div className="mt-4 flex justify-center gap-8">
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={closeModal}
                       >
-                        Got it, thanks!
+                        Cancelar
                       </button>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={handleButtonClick}
+                      >
+                        Cambiar foto
+                      </button>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        ref={fileInputRef}
+                        className="hidden"
+                      />
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>
