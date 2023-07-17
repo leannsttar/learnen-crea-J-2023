@@ -29,7 +29,7 @@ export function SignUp () {
       else if (formNo === 2 && state.varsity && state.session && state.address) {
         setFormNo(formNo + 1)
       } else {
-        toast.error('Por favor l')
+        toast.error('Por favor llena todos los campos')
       }
     }
     const pre = () => {
@@ -37,19 +37,18 @@ export function SignUp () {
     }
     const finalSubmit = () => {
       if (state.district && state.thana && state.post) {
-        toast.success('form submit success')
+        toast.success('Formulario enviado exitosamente')
       } else {
         toast.error('Please fillup all input field')
       }
     }
     return (
-      <div className="h-screen pl-48 flex  items-center">
+      <div className="h-screen pl-48 flex items-center">
         <ToastContainer />
-        <div className="card w-[370px] rounded-md shadow-md bg-white p-5">
+        <div className="card w-[400px] rounded-md bg-white p-5">
           <div className='flex justify-center items-center'>
             {
-              formArray.map((v, i) => <><div className={`w-[35px] my-3 text-white rounded-full ${formNo - 1 === i || formNo - 1 === i + 1 || formNo === formArray.length ? 'bg-blue-500' : 'bg-slate-400'} h-[35px] flex justify-center items-center`}>
-                {v}
+              formArray.map((v, i) => <><div className={`my-10 text-white ${formNo - 1 === i || formNo - 1 === i + 1 || formNo === formArray.length ? 'bg-blue-500' : 'bg-slate-400'} flex justify-center items-center`}>
               </div>
                 {
                   i !== formArray.length - 1 && <div className={`w-[85px] h-[2px] ${formNo === i + 2 || formNo === formArray.length ? 'bg-blue-500' : 'bg-slate-400'}`}></div>
