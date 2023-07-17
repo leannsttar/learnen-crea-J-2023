@@ -52,6 +52,7 @@ export function EditInfoAccount({ dataName, dataUser, pass }) {
 
   function notOnEdit() {
     setOnEdit(false);
+    setInputValue(dataUser);
     
   }
 

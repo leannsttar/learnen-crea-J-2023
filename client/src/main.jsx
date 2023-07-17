@@ -15,6 +15,7 @@ import { Login } from "./pages/Login/Login"
 import { Notificaciones } from "./pages/Notificaciones/Notificaciones";
 import { Profile } from "./pages/Profile/Profile";
 import { Settings } from "./pages/Settings/Settings.jsx"
+import {Dashboard} from "./pages/Dashboard/Dashboard.jsx"
 
 const router = createBrowserRouter([
   {
@@ -117,7 +118,15 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Settings />
-        
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "dashboard",
+    element: (
+      <>
+        <Dashboard />
       </>
     ),
   },

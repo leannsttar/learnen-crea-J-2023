@@ -14,22 +14,31 @@ export function ChangePhoto({ userPhoto }) {
     setIsOpen(true);
   }
 
+  //useStat para meter la imagen que se va a mostrar, por default va a ser la que ya tiene el usuario
   const [selectedImage, setSelectedImage] = useState(userPhoto);
+
+  //useRef que lo usamos para que al darle click a un <button> en verdad le de click a un input que esta hidden
   const fileInputRef = useRef(null);
 
+  //Función para guardar la imagen y leer el archivo
   const handleImageUpload = (event) => {
+    //Acá guardamos la imagen como un objeto 'FileList', ponemos cero ya que es la primera imagen, igual solo va a ser una pero igualmente se pone cero, y si queremos mas imagenes se pone un atributo multiple
     const file = event.target.files[0];
+    //Instanciamos un objeto de tipo filereader para leer el contenido de lo subido
     const reader = new FileReader();
 
+    //Cuando se termine de leer vamos a cambiar el state a ese resultado, asi para cambiar la imagen que se muestra
     reader.onload = () => {
       setSelectedImage(reader.result);
     };
 
+    //Acá decimos que si existe un file vamos a usar el metodo 'readAsDataURL()' que es del objeto filreader y esto basicamente convierte el archivo en una url de datos para poder mostrar la vista previa de la imagen
     if (file) {
       reader.readAsDataURL(file);
     }
   };
 
+  //Esto es lo que dijimos anteriormente, que si le da click al <button> que actué como si le dimos click al input
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
