@@ -9,6 +9,7 @@ import {Header} from './components/Header/Header'
 import {Feed} from './pages/Feed/Feed.jsx'
 import {Chat} from './pages/Chat/Chat.jsx'
 import { Footer } from "./components/Footer/Footer";
+import { ScrollButton } from "./components/buttons/scrollbtn";
 import { SignUp } from "./pages/Sign up/SignUp";
 import { Login } from "./pages/Login/Login"
 import { Notificaciones } from "./pages/Notificaciones/Notificaciones";
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Home />
+        <ScrollButton />
         <Footer/>
       </>
     ),
@@ -32,6 +34,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Community />
+        <ScrollButton />
         <Footer/>
       </>
     ),
@@ -42,6 +45,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Feed />
+        <ScrollButton />
         <Footer/>
       </>
     ),
@@ -61,6 +65,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <AllBlogContent/>
+        <ScrollButton />
         <Footer/>
       </>
     ),
@@ -101,6 +106,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Profile />
+        <ScrollButton />
         <Footer />
       </>
     ),
