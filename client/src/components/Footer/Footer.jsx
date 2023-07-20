@@ -5,7 +5,7 @@ export function Footer() {
     <>
       <div className="bg-[#1E2833]">
         <div className="flex flex-col items-center pt-16 pb-20 bottom-0 w-full">
-          <img className="w-[104px] h-[104px]" src="assets/learnen.png" alt="" />
+          <img className="w-[104px] h-[104px]" src="../../assets/learnen.png" alt="" />
           <p className="text-white text-center pt-8 pb-8 text-lg italic">
             La red social donde todo el mundo <br />puede aprender y practicar.
           </p>
