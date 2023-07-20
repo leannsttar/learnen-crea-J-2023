@@ -44,7 +44,7 @@ export function Article() {
                 </div>
                 <div className='bg-gray-100'>
                     <div className=' flex justify-center '>
-                    <h1 className='text-2xl -mb-16 '>Recommended <br />Articles</h1>
+                    <h1 className='text-2xl -mb-16 my-12 font-semibold'>Recommended <br />Articles</h1>
                     </div>
                     <div className="bg-gray-100 pb-14">
                         <div className="flex flex-row flex-wrap justify-center mt-20 ">
