@@ -29,7 +29,7 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -50}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
           <Home />
           <ScrollButton />
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
           <Community />
           <ScrollButton />
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
           <Feed />
           <ScrollButton />
@@ -90,7 +90,7 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
           <Chat />
         </motion.div>
@@ -107,7 +107,7 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
         <AllBlogContent/>
         <ScrollButton />
@@ -125,10 +125,10 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
-        <Article />
-        <ScrollButton />
+          <Article />
+          <ScrollButton />
         <Footer/>
         </motion.div>
       </>
@@ -143,10 +143,10 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
-        <Notificaciones />
-        <Footer />
+          <Notificaciones />
+          <Footer />
         </motion.div>
       </>
     ),
@@ -160,10 +160,10 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
-        <Login />
-        <Footer />
+          <Login />
+          <Footer />
         </motion.div>
       </>
     ),
@@ -178,7 +178,7 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
           <SignUp />
           <Footer />
@@ -197,7 +197,7 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
           <Profile />
           <ScrollButton />
@@ -217,7 +217,7 @@ const router = createBrowserRouter([
           initial={{ opacity: 0, x: -100}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
-          transition={{ duration: 2}}
+          transition={{ duration: 3.5}}
         >
           <Settings />
           <Footer />
@@ -235,7 +235,7 @@ const router = createBrowserRouter([
             initial={{ opacity: 0, x: -100}}
             animate={{opacity: 1, x:0 }}
             exit={{opacity: 0, x:100 }}
-            transition={{ duration: 2}}
+            transition={{ duration: 3.5}}
           >
           <Dashboard />
         </motion.div>
