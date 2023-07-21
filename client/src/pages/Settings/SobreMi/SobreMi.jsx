@@ -1,6 +1,6 @@
-import { React, useState, useRef, useEffect } from "react";
+import { React, useState} from "react";
 import { SobreMiData } from "./SobreMiData";
-import { EditButton } from "./EditButton";
+// import { EditButton } from "./EditButton";
 import editProfile from "../../../assets/editProfile.svg";
 
 export function SobreMi() {
