@@ -65,7 +65,7 @@ export function EditInfoAccount({ dataName, dataUser, pass }) {
   const handleInputBlur = () => {
     setOnEdit(false);
   };
-
+  
 
   return (
     <div className="flex border-b-2 border-[#e2e2e2] py-4 text-[20px] justify-between">

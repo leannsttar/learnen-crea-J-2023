@@ -1,6 +1,6 @@
 import { React, useState, useRef, useEffect } from "react";
 
-export function SobreMiData({ label, data, onEdit, notEdit }) {
+export function SobreMiData({ label, data, onEdit  }) {
 
     const [inputValue, setInputValue] = useState(data);
 
@@ -14,7 +14,9 @@ export function SobreMiData({ label, data, onEdit, notEdit }) {
       setInputValue(data)
     }
 
-    
+    useEffect(() => {
+      resetData()
+    }, [!onEdit])
 
   return (
     <div className="">
@@ -22,7 +24,7 @@ export function SobreMiData({ label, data, onEdit, notEdit }) {
       {onEdit ? (
         <input
           value={inputValue}
-          onChange={notEdit ? resetData : handleInputChange}
+          onChange={handleInputChange}
           //Esto se pone para tipo referenciar el Ref XD, nose
           // onBlur={handleInputBlur}
           className="font-[300] bg-[#e2e2e2a9] rounded-md px-2 outline-none w-full"

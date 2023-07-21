@@ -1,4 +1,4 @@
-import { React, useState} from "react";
+import { React, useState } from "react";
 import { SobreMiData } from "./SobreMiData";
 // import { EditButton } from "./EditButton";
 import editProfile from "../../../assets/editProfile.svg";
@@ -11,17 +11,14 @@ export function SobreMi() {
   };
 
   let [onEdit, setOnEdit] = useState(false);
-  let [notEdit, setNotEdit] = useState(true);
 
   function yesOnEdit() {
     setOnEdit(true);
-    setNotEdit(false)
     // inputRef.current.focus();
   }
 
   function notOnEdit() {
     setOnEdit(false);
-    setNotEdit(true)
 
   }
 
@@ -56,19 +53,18 @@ export function SobreMi() {
       )}
       <div className="flex flex-col gap-10 mt-10 text-[20px]">
         <SobreMiData
-          notEdit={notEdit ? true : false}
           onEdit={onEdit ? true : false}
           label="Describe cómo eres"
           data={sobreMiUserData.comoEres}
         />
         <SobreMiData
-          notEdit={notEdit ? true : false}
+
           onEdit={onEdit ? true : false}
           label="Cuáles son tus metas para aprender idiomas?"
           data={sobreMiUserData.tusMetas}
         />
         <SobreMiData
-          notEdit={notEdit ? true : false}
+
           onEdit={onEdit ? true : false}
           label="De qué te gusta hablar?"
           data={sobreMiUserData.gustosConversacion}
