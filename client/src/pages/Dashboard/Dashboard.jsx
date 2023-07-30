@@ -2,14 +2,14 @@ import React from "react";
 
 export const AsideMenu = ({ onLogout }) => {
   return (
-    <aside className="w-1/5 pl-6 pr-8 mr-4  flex flex-col justify-between h-screen">
+    <aside className="w-1/5 pl-6 pr-8 mr-4 flex flex-col justify-between h-screen">
       <div>
         <div className="flex flex-row items-center mb-4 p-4">
           <img className="w-18 h-16" src="/assets/learnen.png" alt="Ícono" />
           <div className="flex flex-col">
             <img
               className="mr-2 w-24 h-24 mb-4"
-              src="src/assets/learnen-palabra.png"
+              src="/src/assets/learnen-palabra.png"
               alt="Texto"
             />
             <p className="absolute mt-16">Admin Dashboard</p>
@@ -20,7 +20,7 @@ export const AsideMenu = ({ onLogout }) => {
           <button className="w-full py-2 px-4 mb-2 rounded flex items-center">
             <img
               className="w-6 h-6 mr-2 invert"
-              src="src/assets/House.png"
+              src="/src/assets/House.png"
               alt="Ícono General"
             />
             <div className="pl-2">General</div>
@@ -29,7 +29,7 @@ export const AsideMenu = ({ onLogout }) => {
           <button className="w-full py-2 px-4 mb-2 rounded flex items-center">
             <img
               className="w-6 h-6 mr-2"
-              src="src/assets/ChartPieSlice.png"
+              src="/src/assets/ChartPieSlice.png"
               alt="Ícono Publicaciones"
             />
             <div className="pl-2">Publicaciones</div>
@@ -39,20 +39,19 @@ export const AsideMenu = ({ onLogout }) => {
             <button
               className="w-full py-2 px-4 rounded flex items-center"
               onClick={() => {
-                const dropdownContent =
-                  document.getElementById("dropdown-content");
+                const dropdownContent = document.getElementById("dropdown-content");
                 dropdownContent.classList.toggle("hidden");
               }}
             >
               <img
                 className="w-6 h-6 mr-2"
-                src="src/assets/Users.png"
+                src="/src/assets/Users.png"
                 alt="Ícono Opciones"
               />
-              <div className="pl-2">Usuarios </div>
+              <div className="pl-2">Usuarios</div>
               <img
                 className="w-6 h-6 ml-2"
-                src="src/assets/arrow.png"
+                src="/src/assets/arrow.png"
                 alt="Flecha"
               />
             </button>
@@ -79,7 +78,7 @@ export const AsideMenu = ({ onLogout }) => {
       >
         <img
           className="w-6 h-6 mr-2"
-          src="src/assets/SignOut.png"
+          src="/src/assets/SignOut.png"
           alt="Ícono Cerrar Sesión"
         />
         <div>Cerrar sesión</div>
@@ -91,8 +90,7 @@ export const AsideMenu = ({ onLogout }) => {
 export const Navbar = ({ userName, userRole, userAvatar }) => {
   return (
     <nav className="flex justify-between mb-16 bg-white p-6">
-      {/* Contenido del navbar */}
-      {/* ... */}
+      <div className="text-xl font-bold">{userName}</div>
       <div className="flex items-center justify-center">
         <img
           className="w-8 h-8 rounded-full mr-2"
@@ -120,20 +118,12 @@ export const InfoCard = ({ title, value, icon }) => {
   );
 };
 
+
 export const AdminCard = ({ admin }) => {
   return (
-    <div
-      key={admin.id}
-      className="relative p-4 rounded bg-white flex flex-col items-center w-52 gap-4"
-    >
-      <button className="absolute top-0 right-0 text-gray rounded-full p-2">
-        X
-      </button>
-      <img
-        className="w-20 h-20 rounded-full mb-2"
-        src={admin.foto}
-        alt={`Foto de ${admin.nombre}`}
-      />
+    <div key={admin.id} className="relative p-4 rounded bg-white flex flex-col items-center w-52 gap-4">
+      <button className="absolute top-0 right-0 text-gray rounded-full p-2">X</button>
+      <img className="w-20 h-20 rounded-full mb-2" src={admin.foto} alt={`Foto de ${admin.nombre}`} />
       <div className="text-lg mb-2 text-center">{admin.nombre}</div>
       <div className="text-sm mb-2">{admin.puesto}</div>
     </div>
@@ -148,11 +138,7 @@ export const LastUsers = ({ users }) => {
         {/* Renderizar la lista de últimos usuarios */}
         {users.map((user) => (
           <div key={user.id} className="flex items-center mt-8">
-            <img
-              className="w-12 h-12 rounded-full mr-4"
-              src={user.avatar}
-              alt="Foto de último usuario"
-            />
+            <img className="w-12 h-12 rounded-full mr-4" src={user.avatar} alt="Foto de último usuario" />
             <div className="">
               <div className="text-sm font-medium mb-2">{user.name}</div>
               <div className="text-sm text-gray-500">{user.email}</div>
@@ -168,7 +154,7 @@ export function Dashboard() {
   const administradoresData = [
     {
       id: 1,
-      foto: "src/assets/administrador.png",
+      foto: "/src/assets/administrador.png",
       nombre: "Rodrigo Pineda",
       puesto: "Diseñador",
     },
@@ -179,50 +165,30 @@ export function Dashboard() {
       id: 1,
       name: "Nombre Usuario 1",
       email: "correo1@example.com",
-      avatar: "src/assets/chica-usuario.png",
+      avatar: "/src/assets/chica-usuario.png",
     },
   ];
 
   return (
     <div className="flex h-screen">
-      {/* AsideMenu */}
+      {/* AsideMenu reutilizable para las demás páginas XD */}
       <AsideMenu onLogout={() => console.log("Cerrar sesión")} />
 
-      {/* Main content */}
+      {/* Main content de lo demás */}
       <div className="w-4/5 p-4 bg-gray-100">
         {/* Navbar */}
-        <Navbar
-          userName="Hola Rodri"
-          userRole="Cargo"
-          userAvatar="src/assets/chica-admin.png"
-        />
+        <Navbar userName="Hola Rodri" userRole="Cargo" userAvatar="/src/assets/chica-admin.png" />
 
         <div className="flex">
-          {/* InfoCards */}
+          {/* InfoCards de las que están los div purpuras*/}
           <div className="w-1/2 pl-8">
             <div className="flex p-2">
-              <InfoCard
-                title="Usuarios"
-                value="100"
-                icon="src/assets/users-div.png"
-              />
-              <InfoCard
-                title="Publicaciones"
-                value="678"
-                icon="src/assets/file-div.png"
-              />
+              <InfoCard title="Usuarios" value="100" icon="/src/assets/users-div.png" />
+              <InfoCard title="Publicaciones" value="678" icon="/src/assets/file-div.png" />
             </div>
             <div className="flex">
-              <InfoCard
-                title="Reportes"
-                value="45"
-                icon="src/assets/reports-div.png"
-              />
-              <InfoCard
-                title="Artículos"
-                value="345"
-                icon="src/assets/articles-div.png"
-              />
+              <InfoCard title="Reportes" value="45" icon="/src/assets/reports-div.png" />
+              <InfoCard title="Artículos" value="345" icon="/src/assets/articles-div.png" />
             </div>
 
             {/* Administradores */}
@@ -243,3 +209,5 @@ export function Dashboard() {
     </div>
   );
 }
+
+export default Dashboard;

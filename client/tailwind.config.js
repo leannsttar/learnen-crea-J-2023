@@ -36,6 +36,8 @@ export default {
     }
   },
 
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+  ],
 }
 
