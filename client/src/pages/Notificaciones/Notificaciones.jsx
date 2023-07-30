@@ -4,7 +4,7 @@ import React from 'react';
 export function Notificaciones()  {
   return (
     <>
-       <h1 className="text-3xl font-bold text-pink-400 ml-16 mt-24">
+          <h1 className="text-3xl font-bold text-pink-400 ml-16 mt-32">
             Notificaciones
           </h1>
     <div className="flex items-center ml-10 mr-10 mt-14 mb-8 bg-gray-100 border-b border-zinc-400 p-2 rounded-xl">

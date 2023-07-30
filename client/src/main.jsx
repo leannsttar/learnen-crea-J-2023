@@ -181,7 +181,6 @@ const router = createBrowserRouter([
           transition={{ duration: 3.5}}
         >
           <SignUp />
-          <Footer />
         </motion.div>
       </AnimatePresence>
       </>
