@@ -29,17 +29,16 @@ export default {
       fontFamily: {
         Poppins: ['Poppins', 'sans-serif'],
       },
-    },
-    backgroundImage: {
-      'custom-bg': "url('/assets/ImagenBlog.jpg')",
-      'bgProfile': "url('/assets/bgProfile.jpg')"
+      backgroundImage: {
+        'custom-bg': "url('/assets/ImagenBlog.jpg')",
+        'bgProfile': "url('/assets/bgProfile.jpg')"
+      }, 
+      colors:{
+        pinkish: '#FF8399',
+        gray: '#F8F9FF'
+      }
     },
     
-    colors:{
-      pinkish: '#FF8399',
-      gray: '#F8F9FF'
-
-    }
   },
 
   plugins: [

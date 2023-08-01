@@ -40,9 +40,7 @@ const router = createBrowserRouter([
           transition={{ duration: 3.5}}
         >
           <Error404 />
-
         </motion.div>
-
       </AnimatePresence>
       </>
     ),
