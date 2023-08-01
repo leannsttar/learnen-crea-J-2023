@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
-export function Usuarios () {
-    return(
-        <h1>Usuarios</h1>
-    )
+export function Usuarios() {
+  return (
+    <>
+      <h1>Usuarios</h1>
+    </>
+  );
 }

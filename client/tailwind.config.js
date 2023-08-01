@@ -33,6 +33,12 @@ export default {
     backgroundImage: {
       'custom-bg': "url('/assets/ImagenBlog.jpg')",
       'bgProfile': "url('/assets/bgProfile.jpg')"
+    },
+    
+    colors:{
+      pinkish: '#FF8399',
+      gray: '#F8F9FF'
+
     }
   },
 
