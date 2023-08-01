@@ -246,7 +246,7 @@ export function SignUp() {
             alt={`Slider Image ${currentIndex + 1}`}
             className="w-full h-screen md:h-full object-cover"
           />
-          <div className="absolute bottom-60 left-20 w-full h-full flex items-end ">
+          <div className="absolute bottom-60 p-2 rounded backdrop-contrast-50 left-20 w-[700px] h-fit flex items-end ">
             <div className="text-white text-xl md:text-xl w-1/2 italic break-words  ">
               {data[currentIndex].text}
             </div>
@@ -254,10 +254,9 @@ export function SignUp() {
               {data[currentIndex].author}
             </div>
             <div className=''>
-              <img className='w-20 ml-6' src={data[currentIndex].brand} alt="" />
+              <img className='relative w-20 left-16' src={data[currentIndex].brand} alt="" />
             </div>
           </div>
-
         </div>
       </div>
 

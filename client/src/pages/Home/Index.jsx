@@ -98,7 +98,7 @@ export function IndexStart() {
           />
           <div className=" bg-[#FF8399] w-full h-[50%] px-16 py-10 grid place-content-center">
             <p className="text-white text-[47px]">
-              Practica tu idioma con personas reales
+              Practica tu idioma con personas alrededor del mundo
             </p>
           </div>
         </div>

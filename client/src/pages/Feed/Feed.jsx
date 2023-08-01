@@ -5,7 +5,7 @@ import { BsChatText } from "react-icons/bs";
 export function Feed() {
   return (
     <>
-      <div className="grid grid-cols-[1fr_650px] h-screen">
+      <div className="grid grid-cols-[1fr_650px] h-screen font-Poppins">
         <div className="">
           <h1 className="text-4xl font-bold text-pink-400 mt-24 ml-28 mb-12">
             Your feed

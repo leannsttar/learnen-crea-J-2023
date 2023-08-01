@@ -35,7 +35,7 @@ export default {
       }, 
       colors:{
         pinkish: '#FF8399',
-        gray: '#F8F9FF'
+        gray: '#F8F9FF',
       }
     },
     

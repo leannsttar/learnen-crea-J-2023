@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export function Footer() {
   return (
     <>
-      <div className="bg-[#1E2833]">
+      <div className="bg-[#1E2833] font-Poppins">
         <div className="flex flex-col items-center pt-16 pb-20 bottom-0 w-full">
             <Link to={"/"}>
               <img className="w-[104px] h-[104px]" src="../../assets/learnen.png" alt="" />

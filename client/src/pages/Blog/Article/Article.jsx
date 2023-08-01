@@ -17,7 +17,8 @@ export function Article() {
     ];
     return (
         <>
-            <div className='flex flex-row justify-center'>
+        <div className='font-Poppins'>
+        <div className='flex flex-row justify-center'>
                 <img className='w-[100%] h-[450px]' src="../src/assets/fondo_articulo.png" alt="" />
                 <p className='absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-3xl text-white'>Las mejores películas en Inglés</p>
             </div>
@@ -66,6 +67,8 @@ export function Article() {
                     </div>
             </div>
         </div >
+        </div>
+            
         </>
     )
 }
