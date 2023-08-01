@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const AsideMenu = ({ onLogout }) => {
   return (
-    <aside className="w-1/5 pl-6 pr-8 mr-4 flex flex-col justify-between h-screen">
+    <aside className="pl-6 pr-8 mr-4 flex flex-col justify-between h-screen">
       <div>
         <div className="flex flex-row items-center mb-4 p-4">
           <img className="w-18 h-16" src="/assets/learnen.png" alt="Ícono" />
@@ -17,6 +17,7 @@ export const AsideMenu = ({ onLogout }) => {
           </div>
         </div>
 
+      {/*hover:bg-pink-300 hover:rounded-lg hover:border-4 hover:border-pink-300 */}
         <div className="mb-8 p-8">
           <button className="w-full py-2 px-4 mb-2 rounded flex items-center">
             <img
@@ -35,8 +36,8 @@ export const AsideMenu = ({ onLogout }) => {
               src="/src/assets/ChartPieSlice.png"
               alt="Ícono Publicaciones"
             />
-            <Link to={"/dashboard/posts"}>
-              <div className="pl-2">Publicaciones</div>
+            <Link to={"/dashboard/lenguajes"}>
+              <div className="pl-2">Lenguajes</div>
             </Link>
           </button>
 
@@ -68,27 +69,45 @@ export const AsideMenu = ({ onLogout }) => {
               {/* <a href="#" className="font-bold text-sm text-left pb-2 pl-12">
                 Estadísticas
               </a> */}
-              <Link to={'/dashboard/users'}>
-              <div className="font-bold text-sm text-left pb-2 pl-12">Usuarios</div>
+              <Link to={"/dashboard/users"}>
+                <div className="font-bold text-sm text-left pb-2 pl-12">
+                  Cliente
+                </div>
               </Link>
-              <Link to={'/dashboard/reports'}>
-              <div className="font-bold text-sm text-left pb-2 pl-12">Reportes</div>
+              <Link to={"/dashboard/administradores"}>
+                <div className="font-bold text-sm text-left pb-2 pl-12">
+                  Administradores
+                </div>
               </Link>
             </div>
           </div>
         </div>
       </div>
-      <button
-        className="w-full py-2 px-4 rounded flex items-center mb-8 pr-4"
-        onClick={onLogout}
-      >
-        <img
-          className="w-6 h-6 mr-2"
-          src="/src/assets/SignOut.png"
-          alt="Ícono Cerrar Sesión"
-        />
-        <div>Cerrar sesión</div>
-      </button>
+      <div className="pl-8 pb-12">
+        <button className="w-full py-2 px-4 mb-2 rounded flex items-center ">
+          <img
+            className="w-6 h-6 mr-2"
+            src="/src/assets/reports-icon.png"
+            alt="Ícono General"
+          />
+          <Link to={"dashboard/reportes"}>
+            <div className="pl-2">Reportes</div>
+          </Link>
+        </button>
+      </div>
+      <div className="pl-8">
+        <button
+          className="w-full py-2 px-4 rounded flex items-center mb-8 pr-6"
+          onClick={onLogout}
+        >
+          <img
+            className="w-6 h-6 mr-2"
+            src="/src/assets/SignOut.png"
+            alt="Ícono Cerrar Sesión"
+          />
+          <div>Cerrar sesión</div>
+        </button>
+      </div>
     </aside>
   );
 };

@@ -5,7 +5,7 @@ import { Navbar } from "./NavBar.jsx";
 
 export const InfoCard = ({ title, value, icon }) => {
   return (
-    <div className="flex-1 mb-4 m-2 flex items-center p-4 gap-2 bg-white rounded border border-purple-100">
+    <div className="flex-1 mb-4 m-2 flex items-center p-4 gap-2 rounded border border-purple-100">
       <img src={icon} alt="Ícono" className="w-8 h-8 m-2" />
       <div className="flex flex-row gap-2 items-center">
         <h1 className="text-lg mb-0">{title}</h1>
@@ -18,7 +18,7 @@ export const InfoCard = ({ title, value, icon }) => {
 
 export const AdminCard = ({ admin }) => {
   return (
-    <div key={admin.id} className="relative p-4 rounded bg-white flex flex-col items-center w-52 gap-4">
+    <div key={admin.id} className="relative p-4 rounded flex flex-col items-center w-52 gap-4">
       <button className="absolute top-0 right-0 text-gray rounded-full p-2">X</button>
       <img className="w-20 h-20 rounded-full mb-2" src={admin.foto} alt={`Foto de ${admin.nombre}`} />
       <div className="text-lg mb-2 text-center">{admin.nombre}</div>
