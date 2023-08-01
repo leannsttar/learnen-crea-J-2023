@@ -1,22 +1,60 @@
-import React, { useState } from 'react';
-import learnenLogo from '../../assets/logo_no_text.svg';
+import React, { useState, useEffect } from 'react';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const data = [
     {
         src: "/assets/slider-blog2.jpg",
         text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
         author: "Maestra Marielos",
+        brand: "/assets/learnen.png",
     },
     {
         src: "/assets/slider-blog4.jpg",
         text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
-        author: "Maestra Marielosssssss",
+        author: "Nacely Orellana",
+        brand: "/assets/learnen.png",
     },
 ];
+
 
 export function Login() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+        }, 3000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
+    // Codigo del ojito
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleShowPassword = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
+    const handleFormSubmit = () => {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (!email || !password) {
+            toast.error('Porfavor llena todos los campos.', {
+                position: 'top-right',
+                autoClose: 3000,
+            });
+            return;
+        }
+
+        toast.success('Formulario enviado exitosamente!', {
+            position: 'top-right',
+            autoClose: 3000,
+        });
+    };
     return (
         <div className='grid grid-cols-2 gap-2 place-items-center font-Poppins'>
             <div className='flex flex-col space-y-12'>
@@ -25,9 +63,10 @@ export function Login() {
                     <p className='text-xl'>¡Nos alegra verte de vuelta!</p>
                 </div>
                 <div className="flex items-center">
+                    <ToastContainer />
                     <div className="card w-[400px]">
                         <div className='flex'>
-                    </div>
+                        </div>
                         <div className='space-y-12'>
                             <div className='flex flex-col mb-4'>
                                 <label htmlFor="email">Tu correo electrónico<span className='text-red-600'>*</span></label>
@@ -41,17 +80,26 @@ export function Login() {
                             </div>
                             <div className='flex flex-col mb-4'>
                                 <label htmlFor="password">Contraseña<span className='text-red-600'>*</span></label>
-                                <input
-                                    className='p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg'
-                                    type="password"
-                                    name='password'
-                                    placeholder='Ingrese su contraseña'
-                                    id='password'
-                                />
+                                <div className='relative'>
+                                    <input
+                                        className='p-2 mt-1 bg-slate-100 w-full rounded-md focus:outline-none focus:shadow-lg'
+                                        type={showPassword ? 'text' : 'password'}
+                                        name='password'
+                                        placeholder='Ingrese su contraseña'
+                                        id='password'
+                                    />
+                                    <div
+                                        className='absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer'
+                                        onClick={toggleShowPassword}
+                                    >
+                                        {showPassword ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}
+                                    </div>
+                                </div>
                             </div>
                             <div className='mt-4 flex justify-center'>
                                 <button
-                                    className='px-2 py-1 w-full text-xl font-sans uppercase leading-relaxed rounded-md opacity-50 bg-indigo-800 text-white hover:bg-indigo-900'
+                                    className='px-2 py-1 w-full text-xl font-sans uppercase leading-relaxed rounded-md opacity-50 bg-indigo-800 text-white hover:bg-indigo-600'
+                                    onClick={handleFormSubmit}
                                 >
                                     Iniciar sesión
                                 </button>
@@ -76,15 +124,14 @@ export function Login() {
                     <div className="text-white text-xl md:text-xl w-1/2 italic break-words  ">
                         {data[currentIndex].text}
                     </div>
-                    <div className="absolute bottom-52 left-20 w-full h-full flex items-end ">
-                        <div className="text-white text-xl right-0 md:text-xl">
-                            {data[currentIndex].author}
-                        </div>
+                    <div className="text-white text-xl right-0 md:text-xl ">
+                        {data[currentIndex].author}
                     </div>
-                    <div className="absolute left-20 w-full h-full flex items-end ">
-                        <img className='w-14' src={learnenLogo} alt="" srcset="" />
+                    <div>
+                        <img className='w-20 ml-6' src={data[currentIndex].brand} alt="" />
                     </div>
                 </div>
+
             </div>
         </div>
     );

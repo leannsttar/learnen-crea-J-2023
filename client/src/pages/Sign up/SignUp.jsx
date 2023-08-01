@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import 'react-toastify/dist/ReactToastify.css';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import rightArrow from '../../assets/right-arrow-svgrepo-com.svg';
 import learnenLogo from '../../assets/logo_no_text.svg';
 
 const data = [
   {
-    src: "/assets/slider-blog2.jpg",
+    src: "/assets/slider_signup1.png",
     text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
     author: "Maestra Marielos",
+    brand: "/assets/learnen.png",
   },
   {
-    src: "/assets/slider-blog4.jpg",
+    src: "/assets/slider_signup2.png",
     text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
-    author: "Maestra Marielosssssss",
+    author: "Nacely Orellana",
+    brand: "/assets/learnen.png",
+  },
+  {
+    src: "/assets/slider_signup3.png",
+    text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
+    author: "Juana Sanchez",
+    brand: "/assets/learnen.png",
+  },
+  {
+    src: "/assets/slider_signup4.png",
+    text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
+    author: "Victor Garcia",
+    brand: "/assets/learnen.png",
   },
 ];
 
@@ -132,11 +148,11 @@ export function SignUp() {
                 formNo === 1 &&
                 <div className='space-y-10'>
                   <div className='flex flex-col'>
-                    <label htmlFor="email">Tu correo electrónico*</label>
+                    <label htmlFor="email">Tu correo electrónico<span className='text-red-600'>*</span></label>
                     <input value={state.email} onChange={inputHandle} className='p-2  bg-slate-100 rounded-md focus:outline-none focus:shadow-lg' type="email" name='email' placeholder='Por favor introduzca su correo electrónico' id='email' />
                   </div>
                   <div className='flex flex-col'>
-                    <label htmlFor="password">Contraseña*</label>
+                    <label htmlFor="password">Contraseña<span className='text-red-600'>*</span></label>
                     <div className='relative'>
                       <input value={state.password} onChange={inputHandle} className='p-2 bg-slate-100 rounded-md focus:outline-none
                     focus:shadow-lg w-full' type={showPassword ? 'text' : 'password'} name='password' placeholder='Ingrese su contraseña' id='password' />
@@ -150,7 +166,7 @@ export function SignUp() {
 
                   </div>
                   <div className='flex flex-col'>
-                    <label htmlFor="password_ok">Confirmar Contraseña*</label>
+                    <label htmlFor="password_ok">Confirmar Contraseña<span className='text-red-600'>*</span></label>
                     <div className='relative'>
                       <input value={state.password_ok} onChange={inputHandle} className='p-2 bg-slate-100 rounded-md w-full focus:outline-none
                       focus:shadow-lg' type={showPassword ? 'text' : 'password'} name='password_ok' placeholder='Introducir la contraseña' />
@@ -161,7 +177,7 @@ export function SignUp() {
                         {showPassword ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}
                       </div>
                     </div>
-                    
+
                   </div>
                   <div className='mt-4 flex justify-center'>
                     <button onClick={next} className='px-2 py-2 text-xl rounded-md text-[#FF8399] hover:text-red-500'> Following<img className='w-10 fill-[#FF8399]' src={rightArrow} alt="" srcset="" />
@@ -172,19 +188,24 @@ export function SignUp() {
               {
                 formNo === 2 && <div>
                   <div className='flex flex-col '>
-                    <label className='' htmlFor="Name">Nombre*</label>
+                    <label className='' htmlFor="Name">Nombre<span className='text-red-600'>*</span></label>
                     <input value={state.Name} onChange={inputHandle} className='p-2 mt-1 bg-slate-100 rounded-md focus:outline-none
                     focus:shadow-lg' type="text" name='Name' placeholder='Por favor, escriba su nombre' id='Name' />
                   </div>
                   <div className='flex flex-col mb-4'>
-                    <label className='' htmlFor="Lastname">Apellido*</label>
+                    <label className='' htmlFor="Lastname">Apellido<span className='text-red-600'>*</span></label>
                     <input value={state.Lastname} onChange={inputHandle} className='p-2 mt-1 bg-slate-100 rounded-md focus:outline-none
                     focus:shadow-lg' type="text" name='Lastname' placeholder='Ingresa tu apellido' id='Lastname' />
                   </div>
                   <div className='flex flex-col mb-4'>
-                    <label className='' htmlFor="BirthDate">Fecha de cumpleaños*</label>
-                    <input value={state.BirthDate} onChange={inputHandle} className='p-2 mt-1 bg-slate-100 rounded-md focus:outline-none
-                    focus:shadow-lg' type="date" name='BirthDate' id='BirthDate' />
+                    <label className='' htmlFor="BirthDate">Fecha de cumpleaños<span className='text-red-600'>*</span></label>
+                    <DatePicker
+                      selected={state.BirthDate}
+                      onChange={(date) => inputHandle({ target: { name: 'BirthDate', value: date } })}
+                      className='p-2 mt-1 bg-slate-100 w-full rounded-md focus:outline-none focus:shadow-lg'
+                      dateFormat="dd/MM/yyyy"
+                      placeholderText='dd/MM/yyyy'
+                    />
                   </div>
                   <div className='mt-4 gap-3 flex justify-center items-center'>
                     <button onClick={pre} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399] hover:text-red-500'>Regresar</button>
@@ -196,16 +217,16 @@ export function SignUp() {
               {
                 formNo === 3 && <div>
                   <div className='flex flex-col mb-4'>
-                    <label htmlFor="Sex" className='flex justify-center'>Selecciona tu género</label>
+                    <label htmlFor="Sex" className='flex justify-center'>Selecciona tu género<span className='text-red-600'>*</span></label>
                     <div className='flex justify-center'>
-                      <input value={state.BirthDate} onChange={inputHandle} type="radio" name="" id="" /> <p className='p-6 text-lg'>Masculino</p>
-                      <input value={state.BirthDate} onChange={inputHandle} type="radio" name="" id="" /> <p className='p-6'>Femenino</p>
+                      <input className='w-5' value={state.BirthDate} onChange={inputHandle} type="radio" name="gender" id="masculino" /> <p className='p-6 text-lg '>Masculino</p>
+                      <input className='w-5' value={state.BirthDate} onChange={inputHandle} type="radio" name="gender" id="femenino" /> <p className='p-6 text-lg'>Femenino</p>
                     </div>
 
                   </div>
                   <div className='mt-4 gap-3 flex justify-center items-center'>
                     <button onClick={pre} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399] '>Siguiente</button>
-                    <button onClick={finalSubmit} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399] '>Enviar</button>
+                    <button onClick={next} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399] '>Enviar</button>
                   </div>
                 </div>
               }
@@ -231,6 +252,9 @@ export function SignUp() {
             </div>
             <div className="text-white text-xl right-0 md:text-xl">
               {data[currentIndex].author}
+            </div>
+            <div className=''>
+              <img className='w-20 ml-6' src={data[currentIndex].brand} alt="" />
             </div>
           </div>
 
