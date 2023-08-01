@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { Error404 } from "./pages/404/404";
 import { Home } from "./pages/Home/Index.jsx";
 import {Community} from './pages/Community/Community'
 import {AllBlogContent} from './pages/Blog/Blog'
@@ -23,6 +24,26 @@ import { Usuarios } from "./pages/Dashboard/Usuarios/Usuarios"
 import { Reportes } from "./pages/Dashboard/Reportes/Reportes";
 import { AsideMenu } from "./pages/Dashboard/AsideMenu";
 const router = createBrowserRouter([
+  {
+    path: "*",
+    element: (
+      <>
+      <AnimatePresence wait>
+        <Header />
+        <motion.div
+          initial={{ opacity: 0, x: -50}}
+          animate={{opacity: 1, x:0 }}
+          exit={{opacity: 0, x:100 }}
+          transition={{ duration: 3.5}}
+        >
+          <Error404 />
+
+        </motion.div>
+
+      </AnimatePresence>
+      </>
+    ),
+  },
   {
     path: "/",
     element: (
@@ -167,7 +188,6 @@ const router = createBrowserRouter([
           transition={{ duration: 3.5}}
         >
           <Login />
-          <Footer />
         </motion.div>
       </>
     ),
