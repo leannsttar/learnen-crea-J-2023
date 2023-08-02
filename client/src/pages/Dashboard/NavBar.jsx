@@ -3,7 +3,10 @@ import React from 'react'
 export const Navbar = ({ userName, userRole, userAvatar }) => {
     return (
       <nav className="flex justify-between mb-16 bg-white p-6">
+        <div>
         <div className="text-xl font-bold">{userName}</div>
+        <div className="text-sm">¡Veamos que hay de nuevo hoy!</div>
+        </div>
         <div className="flex items-center justify-center">
           <img
             className="w-8 h-8 rounded-full mr-2"

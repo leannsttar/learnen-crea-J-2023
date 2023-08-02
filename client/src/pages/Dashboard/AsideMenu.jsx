@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const AsideMenu = ({ onLogout }) => {
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+
   return (
-    <aside className="pl-6 pr-8 mr-4 flex flex-col justify-between h-screen">
+    <>
+    <style>
+        {`
+      *{
+        font-family: 'Poppins'
+      }
+    `}
+      </style>
+    <aside className="pl-4 pr-8 mr-4 flex flex-col justify-between h-screen relative w-[317px]">
       <div>
         <div className="flex flex-row items-center mb-4 p-4">
-          <img className="w-18 h-16" src="/assets/learnen.png" alt="Ícono" />
+          <img
+            className="w-18 h-16"
+            src="/assets/learnen.png"
+            alt="Ícono"
+          />
           <div className="flex flex-col">
             <img
               className="mr-2 w-24 h-24 mb-4"
@@ -17,7 +35,6 @@ export const AsideMenu = ({ onLogout }) => {
           </div>
         </div>
 
-      {/*hover:bg-pink-300 hover:rounded-lg hover:border-4 hover:border-pink-300 */}
         <div className="mb-8 p-8">
           <button className="w-full py-2 px-4 mb-2 rounded flex items-center">
             <img
@@ -44,11 +61,7 @@ export const AsideMenu = ({ onLogout }) => {
           <div className="relative">
             <button
               className="w-full py-2 px-4 rounded flex items-center"
-              onClick={() => {
-                const dropdownContent =
-                  document.getElementById("dropdown-content");
-                dropdownContent.classList.toggle("hidden");
-              }}
+              onClick={handleDropdownToggle}
             >
               <img
                 className="w-6 h-6 mr-2"
@@ -57,18 +70,15 @@ export const AsideMenu = ({ onLogout }) => {
               />
               <div className="pl-2">Usuarios</div>
               <img
-                className="w-6 h-6 ml-2"
+                className={`w-6 h-6 ml-2 ${isDropdownVisible ? "rotate-180" : ""}`}
                 src="/src/assets/arrow.png"
                 alt="Flecha"
               />
             </button>
             <div
               id="dropdown-content"
-              className="dropdown-content p-2 flex flex-col"
+              className={`dropdown-content p-2 flex flex-col absolute right-0 top-full mt-2 ${isDropdownVisible ? "" : "hidden"}`}
             >
-              {/* <a href="#" className="font-bold text-sm text-left pb-2 pl-12">
-                Estadísticas
-              </a> */}
               <Link to={"/dashboard/users"}>
                 <div className="font-bold text-sm text-left pb-2 pl-12">
                   Cliente
@@ -90,7 +100,7 @@ export const AsideMenu = ({ onLogout }) => {
             src="/src/assets/reports-icon.png"
             alt="Ícono General"
           />
-          <Link to={"dashboard/reportes"}>
+          <Link to={"/dashboard/reportes"}>
             <div className="pl-2">Reportes</div>
           </Link>
         </button>
@@ -109,5 +119,6 @@ export const AsideMenu = ({ onLogout }) => {
         </button>
       </div>
     </aside>
+    </>
   );
 };
