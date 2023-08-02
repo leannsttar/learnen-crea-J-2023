@@ -16,3 +16,12 @@ export const flags = {
     Noruego: norwayFlag ,
     
 };
+
+export const allLanguages = [
+    ["Griego", flags.Griego],
+    ["Portugués", flags.Portugues],
+    ["Francés", flags.Frances],
+    ["Alemán", flags.Aleman],
+    ["Inglés", flags.Ingles],
+    ["Noruego", flags.Noruego]
+]
