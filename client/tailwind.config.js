@@ -34,8 +34,7 @@ export default {
         'bgProfile': "url('/assets/bgProfile.jpg')"
       }, 
       colors:{
-        pinkish: '#FF8399',
-,
+        pinkish: '#FF8399'
       }
     },
     
