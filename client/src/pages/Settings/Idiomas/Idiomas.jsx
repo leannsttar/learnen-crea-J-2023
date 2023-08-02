@@ -5,7 +5,7 @@ import { allLanguages } from '../../../data/languages';
 
 const userLanguages = {
     motherLanguages: [["Alemán", flags.Aleman]],
-    fluentLanguages: [["Francés", flags.Frances]],
+    fluentLanguages: [["Portugués", flags.Portugues]],
     learningLanguages: [
         ["Griego", flags.Griego],
         ["Francés", flags.Frances],
@@ -15,9 +15,9 @@ const userLanguages = {
 export function Idiomas() {
     return (
         <div className='flex flex-col gap-12'>
-            <DiffLanguages label="Soy nativo en" languages={userLanguages.motherLanguages} native allLanguages={allLanguages}/>
-            <DiffLanguages label="También hablo" languages={userLanguages.fluentLanguages} fluent allLanguages={allLanguages}/>
-            <DiffLanguages label="Estoy aprendiendo" languages={userLanguages.learningLanguages} learning allLanguages={allLanguages}/>
+            <DiffLanguages label="Soy nativo en" languages={userLanguages.motherLanguages} allUserLanguages={userLanguages} native allLanguages={allLanguages}/>
+            <DiffLanguages label="También hablo" languages={userLanguages.fluentLanguages} allUserLanguages={userLanguages} fluent allLanguages={allLanguages}/>
+            <DiffLanguages label="Estoy aprendiendo" languages={userLanguages.learningLanguages} allUserLanguages={userLanguages} learning allLanguages={allLanguages}/>
         </div>
     )
 }

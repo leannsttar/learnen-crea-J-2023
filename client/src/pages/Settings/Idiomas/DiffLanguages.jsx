@@ -2,6 +2,9 @@ import { EditButtonLanguages } from "./EditButtonLanguages.jsx";
 import { React, Fragment, useState } from "react";
 import ConfigPhoto from "../../../assets/Female.png";
 import { Dialog, Transition } from "@headlessui/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Check from "../../../assets/check.svg";
 
 export function DiffLanguages({
   label,
@@ -10,6 +13,7 @@ export function DiffLanguages({
   fluent,
   learning,
   allLanguages,
+  allUserLanguages,
 }) {
   const [selectedLanguages, setSelectedLanguages] = useState(languages);
 
@@ -32,6 +36,7 @@ export function DiffLanguages({
   // console.log(languages)
   return (
     <div className="flex flex-col gap-5 text-[20px]">
+      <ToastContainer />
       <div className="flex justify-between border-b-2 border-[#e2e2e2] py-4 ">
         <p>{label}</p>
         <EditButtonLanguages size="9" fontSize="text-md" onClick={openModal} />
@@ -83,10 +88,8 @@ export function DiffLanguages({
                       </p>
                       <div className="flex flex-col gap-3 pr-4 max-h-[120px] overflow-y-scroll">
                         {selectedLanguages.map((language, index) => (
-                          <div
-                            key={index}
                             className="flex justify-between "
-                          >
+                          <div key={index} className="flex justify-between ">
                             <div className="flex gap-4 items-center text-[#4d4d4d]">
                               <img src={language[1]} alt="" className="w-8" />
                               <p>{language[0]}</p>
@@ -110,9 +113,24 @@ export function DiffLanguages({
                         {allLanguages.map((language, index) => (
                           <div
                             key={index}
-                            className="flex gap-4 items-center text-[#4d4d4d]"
+                            className="flex gap-4 items-center justify-between text-[#4d4d4d]"
                             onClick={() => {
-                              if (!selectedLanguages.includes(language)) {
+                              // Verificar lang
+                              const isNativoOrHablaOrAprende =
+                                allUserLanguages.motherLanguages[0][0].includes(
+                                  language[0]
+                                ) ||
+                                allUserLanguages.fluentLanguages.some(
+                                  (lang) => lang[0] === language[0]
+                                ) ||
+                                allUserLanguages.learningLanguages.some(
+                                  (lang) => lang[0] === language[0]
+                                );
+
+                              if (
+                                !selectedLanguages.includes(language) &&
+                                !isNativoOrHablaOrAprende
+                              ) {
                                 setSelectedLanguages([
                                   ...selectedLanguages,
                                   language,
@@ -121,8 +139,50 @@ export function DiffLanguages({
                               }
                             }}
                           >
-                            <img src={language[1]} alt="" className="w-8" />
-                            <p>{language[0]}</p>
+                            <div
+                              className={`flex gap-4 items-center cursor-pointer ${
+                                allUserLanguages.motherLanguages[0][0].includes(
+                                  language[0]
+                                )
+                                  ? "opacity-50"
+                                  : allUserLanguages.fluentLanguages.some(
+                                      (lang) => lang[0] === language[0]
+                                    )
+                                  ? "opacity-50"
+                                  : allUserLanguages.learningLanguages.some(
+                                      (lang) => lang[0] === language[0]
+                                    )
+                                  ? "opacity-50"
+                                  : null
+                              } `}
+                            >
+                              <img src={language[1]} alt="" className="w-8" />
+                              <p>{language[0]}</p>
+                            </div>
+                            {allUserLanguages.motherLanguages[0][0].includes(
+                              language[0]
+                            ) ? (
+                              <div className="flex items-center gap-1 mr-3 opacity-50">
+                                <p>Nativo</p>
+                                <img src={Check} alt="" />
+                              </div>
+                            ) : allUserLanguages.fluentLanguages.some(
+                                (lang) => lang[0] === language[0]
+                              ) ? (
+                              <div className="flex items-center gap-1 mr-3 opacity-50">
+                                <p>Habla</p>
+                                <img src={Check} alt="" />
+                              </div>
+                            ) : allUserLanguages.learningLanguages.some(
+                                (lang) => lang[0] === language[0]
+                              ) ? (
+                              <div className="flex items-center gap-1 mr-3 opacity-50">
+                                <p>Aprende</p>
+                                <img src={Check} alt="" />
+                              </div>
+                            ) : (
+                              ""
+                            )}
                           </div>
                         ))}
                       </div>
@@ -139,7 +199,13 @@ export function DiffLanguages({
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={closeModal}
+                        onClick={() =>
+                          selectedLanguages.length === 0
+                            ? toast.error(
+                                "Debes seleccionar al menos un idioma"
+                              )
+                            : closeModal
+                        }
                       >
                         Guardar
                       </button>
@@ -153,7 +219,7 @@ export function DiffLanguages({
       </div>
       {languages.map((language, index) => (
         <div key={index} className="flex gap-4">
-          <img src={language[1]} alt="" />
+          <img src={language[1]} alt="" className="w-9" />
           <p>{language[0]}</p>
         </div>
       ))}
