@@ -101,7 +101,7 @@ export function Chat() {
     };
 
     return (
-        <div className="container mx-auto w-">
+        <div className="container mx-auto font-Poppins">
             <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2 ">
                 <div className="font-semibold text-black text-4xl">Messages <span className='text-[#6F84CD] '>(2)</span></div>
                 <div className="w-1/2 flex items-center">

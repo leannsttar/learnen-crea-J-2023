@@ -3,44 +3,65 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { Error404 } from "./pages/404/404";
 import { Home } from "./pages/Home/Index.jsx";
-import {Community} from './pages/Community/Community'
-import {AllBlogContent} from './pages/Blog/Blog'
+import { Community } from "./pages/Community/Community";
+import { AllBlogContent } from "./pages/Blog/Blog";
 import { Article } from "./pages/Blog/Article/Article";
-import {Header} from './components/Header/Header'
-import {Feed} from './pages/Feed/Feed.jsx'
-import {Chat} from './pages/Chat/Chat.jsx'
+import { Header } from "./components/Header/Header";
+import { Feed } from "./pages/Feed/Feed.jsx";
+import { Chat } from "./pages/Chat/Chat.jsx";
 import { Footer } from "./components/Footer/Footer";
 import { ScrollButton } from "./components/buttons/scrollbtn";
 import { SignUp } from "./pages/Sign up/SignUp";
-import { Login } from "./pages/Login/Login"
+import { Login } from "./pages/Login/Login";
 import { Notificaciones } from "./pages/Notificaciones/Notificaciones";
 import { Profile } from "./pages/Profile/Profile";
-import { Settings } from "./pages/Settings/Settings.jsx"
-import {Dashboard} from "./pages/Dashboard/Dashboard.jsx"
-import { Publicaciones } from "./pages/Dashboard/Publicaciones/Publicaciones";
-import { Usuarios } from "./pages/Dashboard/Usuarios/Usuarios"
+import { Settings } from "./pages/Settings/Settings.jsx";
+import { Dashboard } from "./pages/Dashboard/Dashboard.jsx";
+import { Lenguajes } from "./pages/Dashboard/Lenguajes/Lenguajes";
+import { Usuarios } from "./pages/Dashboard/Usuarios/Usuarios";
+import { Administradores } from "./pages/Dashboard/Usuarios/Administradores";
 import { Reportes } from "./pages/Dashboard/Reportes/Reportes";
 import { AsideMenu } from "./pages/Dashboard/AsideMenu";
+import { Navbar } from "@material-tailwind/react";
+
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "*",
     element: (
       <>
       <AnimatePresence wait>
         <Header />
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -50}}
           animate={{opacity: 1, x:0 }}
           exit={{opacity: 0, x:100 }}
           transition={{ duration: 3.5}}
         >
-          <Home />
-          <ScrollButton />
-          <Footer/>
+          <Error404 />
         </motion.div>
       </AnimatePresence>
-
+      </>
+    ),
+  },
+  {
+    path: "/",
+    element: (
+      <>
+        <AnimatePresence wait>
+          <Header />
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
+          >
+            <Home />
+            <ScrollButton />
+            <Footer />
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
@@ -48,19 +69,19 @@ const router = createBrowserRouter([
     path: "community",
     element: (
       <>
-      <AnimatePresence wait>
-        <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
-        >
-          <Community />
-          <ScrollButton />
-          <Footer/>
+        <AnimatePresence wait>
+          <Header />
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
+          >
+            <Community />
+            <ScrollButton />
+            <Footer />
           </motion.div>
-      </AnimatePresence>
+        </AnimatePresence>
       </>
     ),
   },
@@ -68,19 +89,19 @@ const router = createBrowserRouter([
     path: "feed",
     element: (
       <>
-      <AnimatePresence wait>
-        <Header />
-        <motion.div
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
-        >
-          <Feed />
-          <ScrollButton />
-          <Footer/>
-        </motion.div>
-      </AnimatePresence>
+        <AnimatePresence wait>
+          <Header />
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
+          >
+            <Feed />
+            <ScrollButton />
+            <Footer />
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
@@ -88,17 +109,17 @@ const router = createBrowserRouter([
     path: "chat",
     element: (
       <>
-      <AnimatePresence wait>
-        <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
-        >
-          <Chat />
-        </motion.div>
-      </AnimatePresence>
+        <AnimatePresence wait>
+          <Header />
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
+          >
+            <Chat />
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
@@ -107,15 +128,15 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 100 }}
+          transition={{ duration: 3.5 }}
         >
-        <AllBlogContent/>
-        <ScrollButton />
-        <Footer/>
+          <AllBlogContent />
+          <ScrollButton />
+          <Footer />
         </motion.div>
       </>
     ),
@@ -125,15 +146,15 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 100 }}
+          transition={{ duration: 3.5 }}
         >
           <Article />
           <ScrollButton />
-        <Footer/>
+          <Footer />
         </motion.div>
       </>
     ),
@@ -143,11 +164,11 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 100 }}
+          transition={{ duration: 3.5 }}
         >
           <Notificaciones />
           <Footer />
@@ -160,14 +181,13 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 100 }}
+          transition={{ duration: 3.5 }}
         >
           <Login />
-          <Footer />
         </motion.div>
       </>
     ),
@@ -176,17 +196,17 @@ const router = createBrowserRouter([
     path: "signup",
     element: (
       <>
-      <AnimatePresence wait>
-        <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
-        >
-          <SignUp />
-        </motion.div>
-      </AnimatePresence>
+        <AnimatePresence wait>
+          <Header />
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
+          >
+            <SignUp />
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
@@ -194,19 +214,19 @@ const router = createBrowserRouter([
     path: "profile",
     element: (
       <>
-      <AnimatePresence wait>
-        <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
-        >
-          <Profile />
-          <ScrollButton />
-          <Footer />
-        </motion.div>
-      </AnimatePresence>
+        <AnimatePresence wait>
+          <Header />
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
+          >
+            <Profile />
+            <ScrollButton />
+            <Footer />
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
@@ -214,18 +234,18 @@ const router = createBrowserRouter([
     path: "settings",
     element: (
       <>
-      <AnimatePresence wait>
-        <Header />
-        <motion.div 
-          initial={{ opacity: 0, x: -100}}
-          animate={{opacity: 1, x:0 }}
-          exit={{opacity: 0, x:100 }}
-          transition={{ duration: 3.5}}
-        >
-          <Settings />
-          <Footer />
-        </motion.div>
-      </AnimatePresence>
+        <AnimatePresence wait>
+          <Header />
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
+          >
+            <Settings />
+            <Footer />
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
@@ -233,71 +253,97 @@ const router = createBrowserRouter([
     path: "dashboard",
     element: (
       <>
-      <AnimatePresence wait>
-        <motion.div 
-            initial={{ opacity: 0, x: -100}}
-            animate={{opacity: 1, x:0 }}
-            exit={{opacity: 0, x:100 }}
-            transition={{ duration: 3.5}}
+        <AnimatePresence wait>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
           >
-            
-          <Dashboard />
-        </motion.div>
-      </AnimatePresence>
+            <Dashboard/>
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
   {
-    path: "dashboard/posts",
+    path: "dashboard/lenguajes",
     element: (
       <>
-      <AnimatePresence wait>
-        <motion.div 
-            initial={{ opacity: 0, x: -100}}
-            animate={{opacity: 1, x:0 }}
-            exit={{opacity: 0, x:100 }}
-            transition={{ duration: 3.5}}
+        <AnimatePresence wait>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
           >
-          <AsideMenu />
-          <Publicaciones />
-        </motion.div>
-      </AnimatePresence>
+            <div className="grid grid-cols-[max-content_1fr]">
+              <AsideMenu />
+              <Lenguajes />
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
+
   {
     path: "dashboard/users",
     element: (
       <>
-      <AnimatePresence wait>
-        <motion.div 
-            initial={{ opacity: 0, x: -100}}
-            animate={{opacity: 1, x:0 }}
-            exit={{opacity: 0, x:100 }}
-            transition={{ duration: 3.5}}
+        <AnimatePresence wait>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
           >
-          <AsideMenu />
-          <Usuarios />
-        </motion.div>
-      </AnimatePresence>
+            <div className="grid grid-cols-[max-content_1fr]">
+              <AsideMenu />
+              <Usuarios />
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },
   {
-    path: "dashboard/reports",
+    path: "dashboard/administradores",
     element: (
       <>
-      <AnimatePresence wait>
-        <motion.div 
-            initial={{ opacity: 0, x: -100}}
-            animate={{opacity: 1, x:0 }}
-            exit={{opacity: 0, x:100 }}
-            transition={{ duration: 3.5}}
+        <AnimatePresence wait>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
           >
-            <AsideMenu />
-          <Reportes />
-        </motion.div>
-      </AnimatePresence>
+            <div className="grid grid-cols-[max-content_1fr]">
+              <AsideMenu />
+              <Administradores />
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </>
+    ),
+  },
+  {
+    path: "dashboard/reportes",
+    element: (
+      <>
+        <AnimatePresence wait>
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 3.5 }}
+          >
+            <div className="grid grid-cols-[max-content_1fr]">
+              <AsideMenu />
+              <Reportes />
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </>
     ),
   },

@@ -6,7 +6,7 @@ import { CommunityCard } from "./CommunityCard";
 export function Community() {
   return (
     <>
-      <div className="">
+      <div className="font-Poppins">
         <div className="pt-[40px] 1800:px-[80px] px-[20px] 1080:w-full mb-64">
           <div className="800:flex 800:justify-between 800:items-center 800:mb-[70px] mb-[30px] space-y-6">
             <AppTitle title="Comunidad" />

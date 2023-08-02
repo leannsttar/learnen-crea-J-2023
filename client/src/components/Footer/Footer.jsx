@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export function Footer() {
   return (
     <>
-      <div className="bg-[#1E2833]">
+      <div className="bg-[#1E2833] font-Poppins">
         <div className="flex flex-col items-center pt-16 pb-20 bottom-0 w-full">
             <Link to={"/"}>
               <img className="w-[104px] h-[104px]" src="../../assets/learnen.png" alt="" />
@@ -36,7 +36,7 @@ export function Footer() {
             </ul>
           </div>
           <div className="flex flex-row pt-14 gap-8">
-            <img className="w-[19px] h-[19px]" src="/assets/facebook.png" alt="" />
+            <img className="w-[13px] h-[20px]" src="/assets/facebook.png" alt="" />
             <img className="w-[19px] h-[19px]" src="/assets/instagram.png" alt="" />
             <img className="w-[19px] h-[19px]" src="/assets/twitter.png" alt="" />
           </div>
