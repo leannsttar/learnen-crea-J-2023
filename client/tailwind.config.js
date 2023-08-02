@@ -35,7 +35,7 @@ export default {
       }, 
       colors:{
         pinkish: '#FF8399',
-
+,
       }
     },
     
