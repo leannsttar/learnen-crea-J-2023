@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -54,6 +55,7 @@ export function Login() {
             position: 'top-right',
             autoClose: 3000,
         });
+
     };
     return (
         <div className='grid grid-cols-2 gap-2 place-items-center font-Poppins'>
@@ -96,18 +98,21 @@ export function Login() {
                                     </div>
                                 </div>
                             </div>
-                            <div className='mt-4 flex justify-center'>
+                                <div className='mt-10 flex justify-center'>
                                 <button
                                     className='px-2 py-1 w-full text-xl font-sans uppercase leading-relaxed rounded-md opacity-50 bg-indigo-800 text-white hover:bg-indigo-600'
                                     onClick={handleFormSubmit}
+                                    type='submit'
                                 >
                                     Iniciar sesión
                                 </button>
-                            </div>
-                            <div className='mt-2 flex justify-center'>
-                                <div className=' text-neutral-500 underline decoration-solid'>
-                                    <a href="">¿Todavía no tienes una cuenta?</a>
                                 </div>
+                            <div className='mt-2 flex justify-center'>
+                                <Link to={"/signup"}>
+                                <div className=' text-neutral-500 underline decoration-solid'>
+                                        <a href="">¿Todavía no tienes una cuenta?</a>
+                                </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -120,18 +125,17 @@ export function Login() {
                     alt={`Slider Image ${currentIndex + 1}`}
                     className="w-full h-screen md:h-full object-cover"
                 />
-                <div className="absolute bottom-60 left-20 w-full h-full flex items-end ">
+                <div className="absolute bottom-60 p-2 rounded-xl backdrop-contrast-[.90] backdrop-blur-sm left-20 w-[800px] h-fit flex items-end ">
                     <div className="text-white text-xl md:text-xl w-1/2 italic break-words  ">
                         {data[currentIndex].text}
                     </div>
-                    <div className="text-white text-xl right-0 md:text-xl ">
+                    <div className="text-white text-xl right-0 md:text-xl">
                         {data[currentIndex].author}
                     </div>
-                    <div>
-                        <img className='w-20 ml-6' src={data[currentIndex].brand} alt="" />
+                    <div className=''>
+                        <img className='relative w-20 left-16' src={data[currentIndex].brand} alt="" />
                     </div>
                 </div>
-
             </div>
         </div>
     );
