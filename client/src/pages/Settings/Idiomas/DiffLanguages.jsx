@@ -88,7 +88,6 @@ export function DiffLanguages({
                       </p>
                       <div className="flex flex-col gap-3 pr-4 max-h-[120px] overflow-y-scroll">
                         {selectedLanguages.map((language, index) => (
-                            className="flex justify-between "
                           <div key={index} className="flex justify-between ">
                             <div className="flex gap-4 items-center text-[#4d4d4d]">
                               <img src={language[1]} alt="" className="w-8" />
