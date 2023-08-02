@@ -196,7 +196,7 @@ export function IndexSteps() {
       props: "",
     },
     {
-      img: "/assets/paso3.png",
+      img: "/assets/paso3-prueba.jpeg",
       h1: "3. ¡Interactúa!",
       p: (
         <p className="text-2xl">
@@ -302,7 +302,6 @@ export function Slider() {
         "Desde que uso Learnen mi nivel de Inglés se ha visto mejorado de manera exponencialmente",
       author: "Nacely ",
     },
-    // Agrega aquí los otros elementos del slider
   ];
 
   const handleSlideChange = (index) => {

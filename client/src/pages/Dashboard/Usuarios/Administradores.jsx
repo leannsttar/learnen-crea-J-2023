@@ -17,20 +17,22 @@ export const Administradores = () => {
   ];
 
   return (
-    <div className="flex bg-gray-100">
-      {administradoresData.map((administrador) => (
-        <div key={administrador.id}>
-        <AdminCard admin={administrador} />
+    <>
+      <div className="flex bg-gray-100">
+        {administradoresData.map((administrador) => (
+          <div key={administrador.id}>
+            <AdminCard admin={administrador} />
+          </div>
+        ))}
+        <AddAdmin />
       </div>
-    ))}
-    <AddAdmin />
-  </div>
+    </>
   );
 };
 
 export const AdminCard = ({ admin }) => {
   return (
-    <div className="relative p-4 m-16 rounded-2xl bg-gray-100 flex flex-col items-center w-52 gap-4 h-52">
+    <div className="relative p-4 m-16 rounded-2xl bg-white flex flex-col items-center w-52 gap-4 h-52">
       <button className="absolute top-0 right-0 text-gray rounded-full p-2">
         X
       </button>
@@ -48,7 +50,7 @@ export const AdminCard = ({ admin }) => {
 export const AddAdmin = () => {
   return (
     <>
-      <div className="p-4 m-16 border-pinkish border rounded-2xl flex flex-col justify-center items-center w-52 gap-4 h-52">
+      <div className="p-4 m-16 border-pinkish border rounded-2xl bg-white flex flex-col justify-center items-center w-52 gap-4 h-52">
         <p className="font-bold text-pinkish text-6xl">+</p>
         <p className="text-pinkish">Añadir admin</p>
       </div>
