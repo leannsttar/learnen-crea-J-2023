@@ -3,7 +3,6 @@ import { React, Fragment, useState } from "react";
 import ConfigPhoto from "../../../assets/Female.png";
 import { Dialog, Transition } from "@headlessui/react";
 
-
 export function DiffLanguages({
   label,
   languages,
@@ -19,6 +18,12 @@ export function DiffLanguages({
   function closeModal() {
     setIsOpen(false);
     setSelectedLanguages(languages);
+  }
+
+  function removeLanguage(languageToRemove) {
+    setSelectedLanguages((prevLanguages) =>
+      prevLanguages.filter((language) => language !== languageToRemove)
+    );
   }
 
   function openModal() {
@@ -76,14 +81,23 @@ export function DiffLanguages({
                       <p className="text-[16px] font-semibold">
                         Idioma seleccionado
                       </p>
-                      <div className="flex flex-col gap-3" >
+                      <div className="flex flex-col gap-3 pr-4 max-h-[120px] overflow-y-scroll">
                         {selectedLanguages.map((language, index) => (
                           <div
                             key={index}
-                            className="flex gap-4 items-center text-[#4d4d4d]"
+                            className="flex justify-between "
                           >
-                            <img src={language[1]} alt="" className="w-8" />
-                            <p>{language[0]}</p>
+                            <div className="flex gap-4 items-center text-[#4d4d4d]">
+                              <img src={language[1]} alt="" className="w-8" />
+                              <p>{language[0]}</p>
+                            </div>
+                            <button
+                              type="button"
+                              className="text-[#FF8399]"
+                              onClick={() => removeLanguage(language)}
+                            >
+                              Remove
+                            </button>
                           </div>
                         ))}
                       </div>
