@@ -108,11 +108,11 @@ export function DiffLanguages({
                       <p className="text-[16px] font-semibold">
                         Todos los idiomas
                       </p>
-                      <div className="flex flex-col gap-5 overflow-y-scroll h-[300px]">
+                      <div className="flex flex-col gap-1 overflow-y-scroll h-[300px]">
                         {allLanguages.map((language, index) => (
                           <div
                             key={index}
-                            className="flex gap-4 items-center justify-between text-[#4d4d4d]"
+                            className="flex gap-4 items-center justify-between text-[#4d4d4d] hover:bg-[#e4e4e4] rounded-lg p-2 cursor-pointer"
                             onClick={() => {
                               // Verificar lang
                               const isNativoOrHablaOrAprende =
@@ -161,23 +161,23 @@ export function DiffLanguages({
                             {allUserLanguages.motherLanguages[0][0].includes(
                               language[0]
                             ) ? (
-                              <div className="flex items-center gap-1 mr-3 opacity-50">
+                              <div className="flex items-center gap-1 opacity-50">
                                 <p>Nativo</p>
-                                <img src={Check} alt="" />
+                                <img src={Check} alt="" className="w-8"/>
                               </div>
                             ) : allUserLanguages.fluentLanguages.some(
                                 (lang) => lang[0] === language[0]
                               ) ? (
-                              <div className="flex items-center gap-1 mr-3 opacity-50">
+                              <div className="flex items-center gap-1 opacity-50">
                                 <p>Habla</p>
-                                <img src={Check} alt="" />
+                                <img src={Check} alt="" className="w-8"/>
                               </div>
                             ) : allUserLanguages.learningLanguages.some(
                                 (lang) => lang[0] === language[0]
                               ) ? (
-                              <div className="flex items-center gap-1 mr-3 opacity-50">
+                              <div className="flex items-center gap-1 opacity-50">
                                 <p>Aprende</p>
-                                <img src={Check} alt="" />
+                                <img src={Check} alt="" className="w-8"/>
                               </div>
                             ) : (
                               ""
@@ -203,7 +203,7 @@ export function DiffLanguages({
                             ? toast.error(
                                 "Debes seleccionar al menos un idioma"
                               )
-                            : closeModal
+                            : closeModal()
                         }
                       >
                         Guardar

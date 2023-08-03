@@ -122,8 +122,8 @@ export function Header() {
           
           {isLoggedIn ? (
             <div className="lg:flex lg:gap-5 lg:items-center hidden ">
-              <Link to={"/notifications"}>
-                <img src={Notification} alt="" className="w-8 h-8" />
+              <Link to={"/notifications"} className="rounded-full hover:bg-[#e6e6e6] p-1">
+                <img src={Notification} alt="" className="w-8 h-8 " />
               </Link>
               <p className="font-medium">Nacely Orellana</p>
               <Link to={"/profile"}>

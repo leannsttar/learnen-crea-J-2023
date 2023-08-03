@@ -38,11 +38,11 @@ export function SliderBlog() {
 
   return (
     <>
-      <div className="w-full h-auto md:h-1/6 overflow-hidden relative font-Poppins">
+      <div className="w-full h-[60vh] md:h-1/6 overflow-hidden relative font-Poppins">
         <img
           src={data[currentIndex].src}
           alt={`Slider Image ${currentIndex + 1}`}
-          className="w-full h-auto md:h-full object-cover"
+          className="w-full h-full md:h-full object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
           <div className="text-white text-2xl md:text-4xl font-bold text-center">
@@ -153,7 +153,7 @@ export function CardsBlog() {
       <div className="pb-24 font-Poppins">
         <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
-            <div key={index} className="mb-8 w-96 mx-4">
+            <div key={index} className="mb-8 w-[350px] mx-4">
               <div className="">
                 <img src={card.img} className="w-full" alt="" />
               </div>

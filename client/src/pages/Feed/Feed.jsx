@@ -1,6 +1,17 @@
-import React from "react";
-import { AiOutlineEllipsis, AiOutlineHeart } from "react-icons/ai";
+import { React, Fragment, useState, useRef } from "react";
+import {
+  AiOutlineEllipsis,
+  AiOutlineHeart,
+  AiOutlinePlus,
+} from "react-icons/ai";
 import { BsChatText } from "react-icons/bs";
+import { AppTitle } from "../../components/AppTitle";
+import { Dialog, Transition } from "@headlessui/react";
+import galleryAdd from "../../assets/gallery-add.svg";
+import ProfilePhoto from "../../assets/Female.png";
+import { allLanguages } from "../../data/languages";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const feedData = {
   name: "Esteban",
@@ -30,7 +41,6 @@ const blogData = {
 const PostCard = () => {
   return (
     <div className="flex flex-col items-center mt-16">
-      <h1 className="text-4xl font-bold text-pink-400 absolute top-36">Your feed</h1>
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-row items-center p-4 w-[431px]">
         <img className="w-12 h-12 -mr-6" src={feedData.image} alt="" />
         <img className="w-12 h-12" src={feedData.avatar} alt="" />
@@ -56,8 +66,7 @@ const PeopleSection = () => {
   return (
     <div>
       <h1 className="text-4xl font-bold text-pink-400 mt-14 ml-10">People</h1>
-      <div className="flex flex-row mt-16 ml-8">
-        <h3 className="p-6">1</h3>
+      <div className="flex flex-row mt-16 ml-8 items-center">
         <img className="p-2" src={peopleData[0].image} alt="" />
         <h3 className="p-6 font-bold text-lg">{peopleData[0].name}</h3>
         <div className="ml-auto flex items-center">
@@ -86,11 +95,206 @@ const BlogSection = () => {
 };
 
 export function Feed() {
+  let [isOpen, setIsOpen] = useState(false);
+
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const [caption, setCaption] = useState("");
+
+  const handleLanguageClick = (language) => {
+    setSelectedLanguage(language);
+  };
+
+  const handleImageSelect = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setSelectedImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCaptionChange = (event) => {
+    const value = event.target.value;
+    if (value.length <= 200) {
+      setCaption(value);
+    }
+  };
+
+  function closeModal() {
+    setIsOpen(false);
+    setSelectedLanguage(null);
+    setSelectedImage(null);
+    setCaption("");
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
   return (
     <>
       {/* Pasos de cómo funciona */}
       <div className="grid grid-cols-[1fr_650px] h-screen">
-        <div className="flex flex-col mt-16">
+        <div className="mt-[40px] mx-[80px]">
+          <AppTitle title="Tu feed" />
+          <button
+            onClick={openModal}
+            className="flex items-center gap-3 px-5 mt-6 py-2.5 shadow-square border border-black bg-[#FFE9E9] hover:bg-[#FFD0D0] hover:transition-bg ease-in duration-200"
+          >
+            <AiOutlinePlus className="w-6 h-6" />
+            <p>Crear una publicación</p>
+          </button>
+          <ToastContainer />
+          <Transition appear show={isOpen} as={Fragment}>
+            <Dialog
+              as="div"
+              className="relative z-10 h-screen"
+              onClose={closeModal}
+            >
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+              </Transition.Child>
+
+              <div className="fixed inset-0 overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <Dialog.Panel className="w-full max-w-[70vw] h-[80vh] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
+                      <Dialog.Title
+                        as="div"
+                        className="flex justify-between border-b-[1px] py-2 px-5"
+                      >
+                        <button
+                          className="text-indigo-800 font-semibold"
+                          onClick={closeModal}
+                        >
+                          Cancelar
+                        </button>
+                        <h3 className="text-lg font-medium leading-6 text-gray-900 text-center ">
+                          Crea nueva publicación
+                        </h3>
+                        <button
+                          onClick={() => {
+                            if (selectedImage === null) {
+                              toast.error("Debes subir una imagen");
+                            } else if (selectedLanguage === null) {
+                              toast.error("Debes seleccionar el idioma");
+                            } else {
+                              closeModal();
+                            }
+                          }}
+                          className="text-[#FF8399] font-semibold"
+                        >
+                          Compartir
+                        </button>
+                      </Dialog.Title>
+                      <div className="flex h-full">
+                        {!selectedImage && (
+                          <div className="w-[75%] flex justify-center items-center border-r-[1px]">
+                            <div className="flex flex-col gap-7">
+                              <img
+                                src={galleryAdd}
+                                alt=""
+                                className="w-full h-full"
+                              />
+                              <label className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 cursor-pointer">
+                                Selecciona una imagen
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={handleImageSelect}
+                                />
+                              </label>
+                            </div>
+                          </div>
+                        )}
+
+                        {selectedImage && (
+                          <div className="w-[75%] flex justify-center items-center border-r-[1px]">
+                            <img
+                              src={selectedImage}
+                              alt=""
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                        <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
+                          <div className="flex gap-3 items-center">
+                            <img src={ProfilePhoto} alt="" className="w-9" />
+                            <p className="font-semibold">nacelyorellana_</p>
+                          </div>
+                          <textarea
+                            className="outline-none resize-none"
+                            name=""
+                            id=""
+                            cols="30"
+                            rows="7"
+                            placeholder="Escribe un pie de foto"
+                            value={caption}
+                            onChange={handleCaptionChange}
+                          ></textarea>
+                          <p className="text-sm text-end text-gray-500">
+                            {caption.length}/200 caracteres
+                          </p>
+                          <div className="flex flex-col gap-4">
+                            <p className="text-[#646464] text-[18px]">Idioma</p>
+
+                            <div className="flex flex-col gap-1 overflow-y-scroll h-[260px]">
+                              {allLanguages.map((language, index) => (
+                                <div
+                                  key={index}
+                                  className="flex gap-4 items-center hover:bg-[#e4e4e4] rounded-lg p-2 cursor-pointer"
+                                  onClick={() => handleLanguageClick(language)}
+                                >
+                                  <img
+                                    src={language[1]}
+                                    alt=""
+                                    className="w-8"
+                                  />
+                                  <p>{language[0]}</p>
+                                </div>
+                              ))}
+                            </div>
+                            {selectedLanguage && (
+                              <div className="mt-4 flex max-w-[200px] mx-auto py-2 px-5 rounded-lg bg-[#f5f5f5] justify-center items-center gap-2">
+                                <img
+                                  src={selectedLanguage[1]}
+                                  alt=""
+                                  className="w-8"
+                                />
+                                <p>{selectedLanguage[0]}</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
+            </Dialog>
+          </Transition>
           <PostCard />
         </div>
         <div className="border-l border-solid border-black">
