@@ -45,7 +45,7 @@ export function SliderBlog() {
           className="w-full h-auto md:h-full object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-          <div className="text-white text-2xl md:text-4xl font-bold text-center">
+          <div className="text-white text-4xl md:text-4xl font-bold text-center">
             {data[currentIndex].text}
           </div>
         </div>

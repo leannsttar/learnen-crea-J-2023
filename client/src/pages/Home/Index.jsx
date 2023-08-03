@@ -162,7 +162,7 @@ export function IndexCard() {
       </div>
 
       <div className="flex items-center justify-center mt-8">
-        <button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl">
+        <button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl hover:scale-105 hover: transition-scale ease-in duration-200">
           Únete a la comunidad
         </button>
       </div>
@@ -176,7 +176,7 @@ export function IndexSteps() {
       img: "/assets/paso1.png",
       h1: "1. Únete a la comunidad",
       p: (
-        <p className="text-2xl">
+        <p className="text-2xl text-center">
           Crea una cuenta e inicia <br /> sesión, así podrás <br /> acceder a
           todas nuestras <br />
           funcionalidades.
@@ -188,7 +188,7 @@ export function IndexSteps() {
       img: "/assets/paso2.png",
       h1: "2. Encuentra amigos",
       p: (
-        <p className="text-2xl">
+        <p className="text-2xl text-center">
           Puedes encontrar <br /> personas fácilmente que <br /> practican tu
           idioma <br /> y comparten tus interéses.
         </p>
@@ -199,7 +199,7 @@ export function IndexSteps() {
       img: "/assets/paso3-prueba.jpeg",
       h1: "3. ¡Interactúa!",
       p: (
-        <p className="text-2xl">
+        <p className="text-2xl text-center">
           Puedes compartir <br /> publicaciones con la <br /> comunidad y
           chatear con <br /> personas.
         </p>
@@ -217,8 +217,7 @@ export function IndexSteps() {
         </p>
       </div>
 
-      {/* Pasos de cómo funciona */}
-      <div className="flex flex-col mt-32">
+      <div className="flex flex-col mt-20 mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-32 gap-y-8">
           {dataCards.map((card, index) => (
             <div key={index} className="flex flex-col items-center mb-8">
@@ -292,15 +291,15 @@ export function Slider() {
       id: 1,
       image: "/assets/slider1.png",
       quote:
-        "Desde que uso Learnen mi nivel de Inglés se ha visto mejorado de manera exponencialmente",
+        "Desde que alguien se cortó el pelo todo se arruinó, todo era lindo",
       author: "Nacely Orellana",
     },
     {
       id: 2,
       image: "/assets/slider1.png",
       quote:
-        "Desde que uso Learnen mi nivel de Inglés se ha visto mejorado de manera exponencialmente",
-      author: "Nacely ",
+        "Desearía no haberme cortado el pelo, todo valió desde ese día",
+      author: "Leandro Valencia",
     },
   ];
 

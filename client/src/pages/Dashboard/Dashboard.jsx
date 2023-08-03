@@ -44,7 +44,6 @@ export const LastUsers = ({ users }) => {
   return (
     <div className="bg-white pl-8 pr-8 pt-6 pb-8 rounded-2xl">
       <h1 className="text-2xl">Últimos usuarios</h1>
-      {/* Renderizar la lista de últimos usuarios */}
       {users.map((user) => (
         <div key={user.id} className="flex items-center mt-8">
           <img

@@ -2,7 +2,9 @@ import React from "react";
 import { AiOutlineEllipsis, AiOutlineHeart } from "react-icons/ai";
 import { BsChatText } from "react-icons/bs";
 
-const feedData = {
+const feedData = 
+{
+  id: 1,
   name: "Esteban",
   time: "3 minutes ago",
   image: "/assets/person-post.png",
@@ -10,7 +12,8 @@ const feedData = {
   imagePost: "/assets/post1.png",
   likes: 12,
   comments: 13,
-};
+}
+;
 
 const peopleData = [
   {
@@ -30,7 +33,9 @@ const blogData = {
 const PostCard = () => {
   return (
     <div className="flex flex-col items-center mt-16">
-      <h1 className="text-4xl font-bold text-pink-400 absolute top-36">Your feed</h1>
+      <h1 className="text-4xl font-bold text-pink-400 absolute top-36">
+        Your feed
+      </h1>
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-row items-center p-4 w-[431px]">
         <img className="w-12 h-12 -mr-6" src={feedData.image} alt="" />
         <img className="w-12 h-12" src={feedData.avatar} alt="" />
@@ -61,7 +66,7 @@ const PeopleSection = () => {
         <img className="p-2" src={peopleData[0].image} alt="" />
         <h3 className="p-6 font-bold text-lg">{peopleData[0].name}</h3>
         <div className="ml-auto flex items-center">
-          <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] m-6">
+          <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] m-6 hover:scale-105 hover: transition-scale ease-in duration-200">
             Seguir
           </button>
         </div>
@@ -88,12 +93,11 @@ const BlogSection = () => {
 export function Feed() {
   return (
     <>
-      {/* Pasos de cómo funciona */}
-      <div className="grid grid-cols-[1fr_650px] h-screen">
-        <div className="flex flex-col mt-16">
+      <div className="grid grid-cols-[1fr_650px] h-screen md:grid-cols-1fr sm:grid-cols-1fr">
+        <div className="flex flex-col mt-16 mx-auto md:w-[431px]">
           <PostCard />
         </div>
-        <div className="border-l border-solid border-black">
+        <div className="border-l border-solid border-black md:flex sm:hidden">
           <PeopleSection />
           <BlogSection />
         </div>
