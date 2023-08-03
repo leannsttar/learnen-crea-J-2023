@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 
 export const Administradores = () => {
   const administradoresData = [
@@ -47,13 +48,62 @@ export const AdminCard = ({ admin }) => {
   );
 };
 
+
 export const AddAdmin = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
-      <div className="p-4 m-16 border-pinkish border rounded-2xl bg-white flex flex-col justify-center items-center w-52 gap-4 h-52">
-        <p className="font-bold text-pinkish text-6xl">+</p>
+      <div
+        className="p-4 m-16 border-pinkish border rounded-2xl bg-white flex flex-col justify-center items-center w-52 gap-4 h-52 cursor-pointer"
+        onClick={openModal}
+      >
+        <button className="font-bold text-pinkish text-6xl">+</button>
         <p className="text-pinkish">Añadir admin</p>
       </div>
+      
+      {/*todo esto es el modal xd */}
+      {isOpen && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg p-8 w-544 h-451">
+            <h2 className="text-2xl font-bold mb-6">Agregar Admin</h2>
+            <div className="mb-4">
+              <label className="block font-semibold text-gray-800 mb-2">
+                Nombre:
+              </label>
+              <input
+                type="text"
+                className="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-pinkish"
+              />
+            </div>
+            <div className="mb-6">
+              <label className="block font-semibold text-gray-800 mb-2">
+                Rol:
+              </label>
+              <input
+                type="text"
+                className="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-pinkish"
+              />
+            </div>
+            <div className="flex justify-end">
+              <button
+                className="px-4 py-2 bg-pinkish text-white rounded font-semibold w-full"
+                onClick={closeModal}
+              >
+                Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
