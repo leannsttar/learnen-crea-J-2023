@@ -13,8 +13,7 @@ import { allLanguages } from "../../data/languages";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const feedData = 
-{
+const feedData = {
   id: 1,
   name: "Esteban",
   time: "3 minutes ago",
@@ -44,12 +43,6 @@ const blogData = {
 const PostCard = () => {
   return (
     <div className="flex flex-col items-center mt-16">
-<<<<<<< HEAD
-=======
-      <h1 className="text-4xl font-bold text-pink-400 absolute top-36">
-        Your feed
-      </h1>
->>>>>>> b6fc344ae111d12988f8b00c2428c8d50e58fc66
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-row items-center p-4 w-[431px]">
         <img className="w-12 h-12 -mr-6" src={feedData.image} alt="" />
         <img className="w-12 h-12" src={feedData.avatar} alt="" />
@@ -82,6 +75,7 @@ const PeopleSection = () => {
           <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] m-6 hover:scale-105 hover: transition-scale ease-in duration-200">
             Seguir
           </button>
+          
         </div>
       </div>
     </div>
@@ -116,6 +110,7 @@ export function Feed() {
     setSelectedLanguage(language);
   };
 
+  //no voy a mentir, esto de la imagen me lo hizo mi papi chat
   const handleImageSelect = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -147,7 +142,6 @@ export function Feed() {
 
   return (
     <>
-<<<<<<< HEAD
       {/* Pasos de cómo funciona */}
       <div className="grid grid-cols-[1fr_650px] h-screen">
         <div className="mt-[40px] mx-[80px]">
@@ -305,10 +299,6 @@ export function Feed() {
               </div>
             </Dialog>
           </Transition>
-=======
-      <div className="grid grid-cols-[1fr_650px] h-screen md:grid-cols-1fr sm:grid-cols-1fr">
-        <div className="flex flex-col mt-16 mx-auto md:w-[431px]">
->>>>>>> b6fc344ae111d12988f8b00c2428c8d50e58fc66
           <PostCard />
         </div>
         <div className="border-l border-solid border-black md:flex sm:hidden">
