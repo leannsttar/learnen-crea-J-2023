@@ -23,11 +23,5 @@ export const allLanguages = [
     ["Francés", flags.Frances],
     ["Alemán", flags.Aleman],
     ["Inglés", flags.Ingles],
-    ["Noruego", flags.Noruego],
-    ["Griego", flags.Griego],
-    ["Portugués", flags.Portugues],
-    ["Francés", flags.Frances],
-    ["Alemán", flags.Aleman],
-    ["Inglés", flags.Ingles],
     ["Noruego", flags.Noruego]
 ]
