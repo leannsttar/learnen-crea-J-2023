@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Scrollbar } from 'react-scrollbars-custom'
 import greekFlag from '../../assets/Flags/greekFlag.svg'
 import portugalFlag from '../../assets/Flags/portugalFlag.svg'
 import frenchFlag from '../../assets/Flags/frenchFlag.svg'
@@ -68,7 +67,7 @@ const data = [
 ];
 
 export function SignUp() {
-  const formArray = [1, 2, 3, 4, 5, 6, 7, 8];
+  const formArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const [formNo, setFormNo] = useState(formArray[0])
 
@@ -104,7 +103,8 @@ export function SignUp() {
       (formNo === 4 && state.photoProfile) ||
       (formNo === 5 && state.mother_language) ||
       (formNo === 6 && state.more_languages) ||
-      (formNo === 7 && state.languages)
+      (formNo === 7 && state.languages) ||
+      (formNo === 8 && state.aboutYou)
     ) {
       setFormNo(formNo + 1);
     } else {
@@ -123,13 +123,13 @@ export function SignUp() {
     setFormNo(formNo - 1)
   }
 
-  const finalSubmit = () => {
-    if (state.aboutYou && state.goals && state.topics) {
-      toast.success('Formulario enviado exitosamente')
-    } else {
-      toast.error('Por favor, llena todos los campos')
-    }
-  }
+  // const finalSubmit = () => {
+  //   if (state.aboutYou && state.goals && state.topics) {
+  //     toast.success('Formulario enviado exitosamente')
+  //   } else {
+  //     toast.error('Por favor, llena todos los campos')
+  //   }
+  // }
 
   const [idioma, updateIdioma] = useState();
   const [idiomasSeleccionados, updateIdiomasSeleccionados] = useState([])
@@ -259,8 +259,8 @@ export function SignUp() {
                 </div>
               }
               {
-                formNo === 2 && <div>
-                  <div className='flex flex-col '>
+                formNo === 2 && <div className='space-y-5'>
+                  <div className='flex flex-col'>
                     <label className='' htmlFor="Name">Nombre<span className='text-red-600'>*</span></label>
                     <input value={state.Name} onChange={inputHandle} className='p-2 mt-1 bg-slate-100 rounded-md focus:outline-none
                     focus:shadow-lg' type="text" name='Name' placeholder='Por favor, escriba su nombre' id='Name' />
@@ -305,7 +305,7 @@ export function SignUp() {
                 formNo === 4 && <div>
                   <div className='flex flex-col mb-4'>
                     <div className='flex flex-row items-center space-x-2 text-indigo-800 mb-10'>
-                    <div><button className='text-xl' onClick={() => setFormNo(formNo + 1)}>Omitir</button></div>
+                      <div><button className='text-xl' onClick={() => setFormNo(formNo + 1)}>Omitir</button></div>
                       <div>
                         <svg className='w-7 fill-indigo-800' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 23" fill="none">
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2929 4.29289C12.6834 3.90237 13.3166 3.90237 13.7071 4.29289L20.7071 11.2929C21.0976 11.6834 21.0976 12.3166 20.7071 12.7071L13.7071 19.7071C13.3166 20.0976 12.6834 20.0976 12.2929 19.7071C11.9024 19.3166 11.9024 18.6834 12.2929 18.2929L17.5858 13H4C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11H17.5858L12.2929 5.70711C11.9024 5.31658 11.9024 4.68342 12.2929 4.29289Z" />
@@ -403,8 +403,8 @@ export function SignUp() {
               {
                 formNo === 6 && <div>
                   <div className='flex flex-col mb-4 space-y-7'>
-                  <div className='flex flex-row items-center space-x-2 text-indigo-800 mb-2'>
-                    <div><button className='text-xl' onClick={() => setFormNo(formNo + 1)}>Omitir</button></div>
+                    <div className='flex flex-row items-center space-x-2 text-indigo-800 mb-2'>
+                      <div><button className='text-xl' onClick={() => setFormNo(formNo + 1)}>Omitir</button></div>
                       <div>
                         <svg className='w-7 fill-indigo-800' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 23" fill="none">
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2929 4.29289C12.6834 3.90237 13.3166 3.90237 13.7071 4.29289L20.7071 11.2929C21.0976 11.6834 21.0976 12.3166 20.7071 12.7071L13.7071 19.7071C13.3166 20.0976 12.6834 20.0976 12.2929 19.7071C11.9024 19.3166 11.9024 18.6834 12.2929 18.2929L17.5858 13H4C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11H17.5858L12.2929 5.70711C11.9024 5.31658 11.9024 4.68342 12.2929 4.29289Z" />
@@ -438,7 +438,7 @@ export function SignUp() {
                             <button
                               onClick={() => eliminarIdiomaSeleccionado(idioma)}
                             >
-                              <svg  xmlns="http://www.w3.org/2000/svg" fill="#686868" width='20px' viewBox="-3.5 0 19 19" class="cf-icon-svg"><path d="M11.383 13.644A1.03 1.03 0 0 1 9.928 15.1L6 11.172 2.072 15.1a1.03 1.03 0 1 1-1.455-1.456l3.928-3.928L.617 5.79a1.03 1.03 0 1 1 1.455-1.456L6 8.261l3.928-3.928a1.03 1.03 0 0 1 1.455 1.456L7.455 9.716z"/></svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="#686868" width='20px' viewBox="-3.5 0 19 19" class="cf-icon-svg"><path d="M11.383 13.644A1.03 1.03 0 0 1 9.928 15.1L6 11.172 2.072 15.1a1.03 1.03 0 1 1-1.455-1.456l3.928-3.928L.617 5.79a1.03 1.03 0 1 1 1.455-1.456L6 8.261l3.928-3.928a1.03 1.03 0 0 1 1.455 1.456L7.455 9.716z" /></svg>
                             </button>
                           </div>
                         ))}
@@ -481,7 +481,7 @@ export function SignUp() {
                             <button
                               onClick={() => eliminarIdiomaSeleccionado(idioma)}
                             >
-                              <svg  xmlns="http://www.w3.org/2000/svg" fill="#686868" width='20px' viewBox="-3.5 0 19 19" class="cf-icon-svg"><path d="M11.383 13.644A1.03 1.03 0 0 1 9.928 15.1L6 11.172 2.072 15.1a1.03 1.03 0 1 1-1.455-1.456l3.928-3.928L.617 5.79a1.03 1.03 0 1 1 1.455-1.456L6 8.261l3.928-3.928a1.03 1.03 0 0 1 1.455 1.456L7.455 9.716z"/></svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="#686868" width='20px' viewBox="-3.5 0 19 19" class="cf-icon-svg"><path d="M11.383 13.644A1.03 1.03 0 0 1 9.928 15.1L6 11.172 2.072 15.1a1.03 1.03 0 1 1-1.455-1.456l3.928-3.928L.617 5.79a1.03 1.03 0 1 1 1.455-1.456L6 8.261l3.928-3.928a1.03 1.03 0 0 1 1.455 1.456L7.455 9.716z" /></svg>
                             </button>
                           </div>
                         ))}
@@ -495,18 +495,15 @@ export function SignUp() {
                 </div>
               }
               {
-                formNo === 8 && <div className=''>
-                  <div className='flex flex-col mb-4 space-y-7'>
-                    <div className='space-y-10'>
-                      <label htmlFor="Sex" className='flex justify-first'>Estas preguntas las puedes contestar después*</label>
-                    </div>
-                    <div className=''>
-
-                    </div>
+                formNo === 8 &&
+                <div className='space-y-10'>
+                  <div className='flex flex-col h-20 max-w-20 overflow-y-scroll'>
+                    <label htmlFor="email">Describe como eres</label>
+                    <input value={state.email} onChange={inputHandle} className='p-2 h-20 max-w-md overflow-y-scroll bg-slate-100 rounded-md focus:outline-none focus:shadow-lg' type="email" name='email' id='email'/>
                   </div>
                   <div className='mt-4 gap-3 flex justify-center items-center'>
                     <button onClick={pre} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399]'>Regresar</button>
-                    <button onClick={next} disabled={!idioma} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399] '>Siguiente</button>
+                    <button onClick={next} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399]'>Siguiente</button>
                   </div>
                 </div>
               }
@@ -522,7 +519,7 @@ export function SignUp() {
           </div>
         </div>
 
-          {/* slider */}
+        {/* slider */}
         <div className="flex w-full h-screen overflow-hidden relative">
           <img
             src={data[currentIndex].src}
