@@ -55,7 +55,7 @@ export function Bloqueados() {
                                 </div>
                             </div>
                             <div className='flex w-full'>
-                                <button className='w-full h-14 rounded-xl bg-black text-white text-xl hover:bg-white hover:text-black hover:border-black hover:border-2'>Desbloquear</button>
+                                <button className='w-full h-12 rounded-xl bg-black text-white text-xl hover:bg-white hover:text-black hover:border-black hover:border-2'>Desbloquear</button>
                             </div>
                         </div>
 

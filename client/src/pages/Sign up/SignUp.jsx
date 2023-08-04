@@ -67,7 +67,7 @@ const data = [
 ];
 
 export function SignUp() {
-  const formArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const formArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const [formNo, setFormNo] = useState(formArray[0])
 
@@ -103,8 +103,7 @@ export function SignUp() {
       (formNo === 4 && state.photoProfile) ||
       (formNo === 5 && state.mother_language) ||
       (formNo === 6 && state.more_languages) ||
-      (formNo === 7 && state.languages) ||
-      (formNo === 8 && state.aboutYou)
+      (formNo === 7 && state.languages)
     ) {
       setFormNo(formNo + 1);
     } else {
@@ -114,7 +113,7 @@ export function SignUp() {
         toast.error('Por favor llena todos los campos');
       }
       if (idioma) {
-        setFormNo(formNo + 1)
+        setFormNo(formNo + 1);
       }
     }
   };
@@ -123,15 +122,16 @@ export function SignUp() {
     setFormNo(formNo - 1)
   }
 
-  // const finalSubmit = () => {
-  //   if (state.aboutYou && state.goals && state.topics) {
-  //     toast.success('Formulario enviado exitosamente')
-  //   } else {
-  //     toast.error('Por favor, llena todos los campos')
-  //   }
-  // }
+  const finalSubmit = () => {
+    if (state.aboutYou && state.goals && state.topics) {
+      toast.success('Formulario enviado exitosamente')
+    } else {
+      toast.error('Por favor, llena todos los campos')
+    }
+  }
 
   const [idioma, updateIdioma] = useState();
+
   const [idiomasSeleccionados, updateIdiomasSeleccionados] = useState([])
   const selectIdioma = (idioma) => {
     if (idiomasSeleccionados.includes(idioma)) {
@@ -497,13 +497,21 @@ export function SignUp() {
               {
                 formNo === 8 &&
                 <div className='space-y-10'>
-                  <div className='flex flex-col h-20 max-w-20 overflow-y-scroll'>
+                  <div className='flex flex-col h-24 max-w-20'>
                     <label htmlFor="email">Describe como eres</label>
-                    <input value={state.email} onChange={inputHandle} className='p-2 h-20 max-w-md overflow-y-scroll bg-slate-100 rounded-md focus:outline-none focus:shadow-lg' type="email" name='email' id='email'/>
+                    <textarea value={state.aboutYou} onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' name='aboutYou' id='email'/>
+                  </div>
+                  <div className='flex flex-col h-24 max-w-20'>
+                    <label htmlFor="email">¿Cuáles son tus metas para aprender idiomas?<span className='text-red-600'>*</span></label>
+                    <textarea value={state.goals} name='goals' onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' id='email'/>
+                  </div>
+                  <div className='flex flex-col h-24 max-w-20'>
+                    <label htmlFor="email">¿Sobre qué temas te gustaría hablar?<span className='text-red-600'>*</span></label>
+                    <textarea value={state.topics} name='topics' onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' id='email'/>
                   </div>
                   <div className='mt-4 gap-3 flex justify-center items-center'>
                     <button onClick={pre} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399]'>Regresar</button>
-                    <button onClick={next} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399]'>Siguiente</button>
+                    <button onClick={finalSubmit} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399]'>Enviar</button>
                   </div>
                 </div>
               }
