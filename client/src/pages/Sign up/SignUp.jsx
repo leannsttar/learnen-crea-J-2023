@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import DatePicker from 'react-datepicker';
+import { DatePicker } from 'antd';
 import 'react-datepicker/dist/react-datepicker.css';
 import greekFlag from '../../assets/Flags/greekFlag.svg'
 import portugalFlag from '../../assets/Flags/portugalFlag.svg'
@@ -274,10 +274,8 @@ export function SignUp() {
                     <label className='' htmlFor="BirthDate">Fecha de cumpleaños<span className='text-red-600'>*</span></label>
                     <DatePicker
                       selected={state.BirthDate}
-                      onChange={(date) => inputHandle({ target: { name: 'BirthDate', value: date } })}
-                      className='p-2 mt-1 bg-slate-100 w-full rounded-md focus:outline-none focus:shadow-lg'
-                      dateFormat="dd/MM/yyyy"
-                      placeholderText='dd/MM/yyyy'
+                      onChange={(date) => inputHandle({ target: {name: 'BirthDate', value: date}})}
+                      className='p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg'
                     />
                   </div>
                   <div className='mt-4 gap-3 flex justify-center items-center'>
@@ -317,9 +315,7 @@ export function SignUp() {
                       <div className='flex justify-center'>
                         <div className="flex items-center justify-center w-full">
                           <label className="flex flex-col w-64 h-48 bg-zinc-100 rounded-2xl cursor-pointer">
-                            {/* Wrap the container in a relative div */}
                             <div className="relative flex flex-col items-center justify-center pt-7">
-                              {/* Delete Button */}
                               {previewImage && (
                                 <button
                                   className="absolute top-2 right-2 p-1 bg-white rounded-full shadow"
@@ -499,15 +495,15 @@ export function SignUp() {
                 <div className='space-y-10'>
                   <div className='flex flex-col h-24 max-w-20'>
                     <label htmlFor="email">Describe como eres</label>
-                    <textarea value={state.aboutYou} onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' name='aboutYou' id='email'/>
+                    <textarea value={state.aboutYou} onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' name='aboutYou' id='email' />
                   </div>
                   <div className='flex flex-col h-24 max-w-20'>
                     <label htmlFor="email">¿Cuáles son tus metas para aprender idiomas?<span className='text-red-600'>*</span></label>
-                    <textarea value={state.goals} name='goals' onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' id='email'/>
+                    <textarea value={state.goals} name='goals' onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' id='email' />
                   </div>
                   <div className='flex flex-col h-24 max-w-20'>
                     <label htmlFor="email">¿Sobre qué temas te gustaría hablar?<span className='text-red-600'>*</span></label>
-                    <textarea value={state.topics} name='topics' onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' id='email'/>
+                    <textarea value={state.topics} name='topics' onChange={inputHandle} className='p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg' id='email' />
                   </div>
                   <div className='mt-4 gap-3 flex justify-center items-center'>
                     <button onClick={pre} className='px-2 py-2 text-xl rounded-md w-full text-[#FF8399]'>Regresar</button>
