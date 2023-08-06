@@ -1,4 +1,7 @@
 import { React, useState } from "react";
+import { Fade, Flip, Slide } from 'react-reveal';
+import { motion } from "framer-motion";
+import { Element } from "react-scroll";
 import people from "../../assets/peopleIndex.jpg";
 import erntedankfest from "../../assets/erntedankfest.jpg";
 import { ButtonHeader } from "../../components/Header/ButtonHeader";
@@ -137,25 +140,29 @@ export function IndexCard() {
 
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <div className="flex flex-col items-center">
-        <img className="w-44 mt-24" src="../assets/learnen.svg" alt="" />
-        <p className="p-6 text-xl text-center">
-          Un sitio donde puedes aprender cualquier idioma con la comunidad
-        </p>
-      </div>
+      <Element className="flex flex-col items-center">
+        <Flip top delay={500}>
+          <img className="w-44 mt-24" src="../assets/learnen.svg" alt="" />
+          <p className="p-6 text-xl text-center">
+            Un sitio donde puedes aprender cualquier idioma con la comunidad
+          </p>
+        </Flip>
+      </Element>
 
       <div className="flex items-center justify-center">
         <div className="overflow-x-auto w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 max-w-7xl mx-4">
             {cardsData.map((card, index) => (
-              <div key={index} className="flex justify-center">
-                <div className="relative w-full">
-                  <img src={card.imgSrc} alt="" className="w-full" />
-                  <p className="absolute bottom-4 left-0 m-2 text-white text-xl">
-                    {card.description}
-                  </p>
-                </div>
-              </div>
+              <Element key={index} className="flex justify-center overflow-hidden" name={`card-${index}`}>
+                <Flip left delay={index * 200}>
+                  <div className="relative w-full">
+                    <img src={card.imgSrc} alt="" className="w-full" />
+                    <p className="absolute bottom-4 left-0 m-2 text-white text-xl">
+                      {card.description}
+                    </p>
+                  </div>
+                </Flip>
+              </Element>
             ))}
           </div>
         </div>
@@ -220,13 +227,15 @@ export function IndexSteps() {
       <div className="flex flex-col mt-20 mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-32 gap-y-8">
           {dataCards.map((card, index) => (
-            <div key={index} className="flex flex-col items-center mb-8">
-              <img className="w-3/5 mb-4 md:w-3/5" src={card.img} alt="" />
-              <div className="flex flex-col items-center">
-                <h1 className="mb-4 font-bold text-[1.5rem]">{card.h1}</h1>
-                {card.p}
-              </div>
-            </div>
+            <Element key={index} className="flex flex-col items-center mb-8" name={`card-${index}`}>
+              <Fade bottom delay={index * 300}>
+                <img className="w-3/5 mb-4 md:w-3/5" src={card.img} alt="" />
+                <div className="flex flex-col items-center">
+                  <h1 className="mb-4 font-bold text-[1.5rem]">{card.h1}</h1>
+                  {card.p}
+                </div>
+              </Fade>
+            </Element>
           ))}
         </div>
       </div>
@@ -264,18 +273,21 @@ export function IndexBlog() {
         </p>
         <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
-            <div key={index} className="mb-8 w-96 mx-4">
-              <div className="">
-                <img src={card.img} className="w-full" alt="" />
-              </div>
-              <div className="bg-white p-10 relative">
-                <h6 className="text-blue-400 text-sm">{card.language}</h6>
-                <h2 className="mt-4 font-bold text-[1.3rem]">{card.title}</h2>
-                <h4 className="mt-4 text-base">{card.p}</h4>
-                <hr className="mt-12" />
-                <p className="text-sm absolute bottom-2 right-10">2 días</p>
-              </div>
-            </div>
+            <Element key={index} className="mb-8 w-96 mx-4"
+              name={`card-${index}`}>
+              <Fade bottom delay={index * 300}>
+                <div className="relative">
+                  <img src={card.img} className="w-full" alt="" />
+                </div>
+                <div className="bg-white p-10 relative">
+                  <h6 className="text-blue-400 text-sm">{card.language}</h6>
+                  <h2 className="mt-4 font-bold text-[1.3rem]">{card.title}</h2>
+                  <h4 className="mt-4 text-base">{card.p}</h4>
+                  <hr className="mt-12" />
+                  <p className="text-sm absolute bottom-2 right-10">2 días</p>
+                </div>
+              </Fade>
+            </Element>
           ))}
         </div>
       </div>
@@ -309,40 +321,48 @@ export function Slider() {
 
   return (
     <div className="flex justify-center pb-8 pt-4 md:pb-12 md:pt-8">
-      <div className="max-w-screen-lg">
+      <Element className="max-w-screen-lg">
         <div className="flex flex-col md:flex-row items-center bg-gray-100 mt-4 md:mt-8 transform rotate-[2deg]">
-          <div className="w-32 md:w-40 h-32 md:h-40">
-            <div className="bg-gray-100 p-2 md:p-4 transform -skew-x-6">
-              <img
-                className="rounded-full w-full h-full object-cover"
-                src={slides[activeIndex].image}
-                alt="Imagen"
-              />
+          <motion.div
+            className="flex flex-col md:flex-row items-center mt-4 md:mt-8 transform rotate-[2deg]"
+            key={slides[activeIndex].id}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <div className="w-32 md:w-40 h-32 md:h-40">
+              <div className="bg-gray-100 p-2 md:p-4 transform -skew-x-6">
+                <img
+                  className="rounded-full w-full h-full object-cover"
+                  src={slides[activeIndex].image}
+                  alt="Imagen"
+                />
+              </div>
             </div>
-          </div>
-          <div className="w-full md:w-2/3 flex-shrink-0">
-            <div className="p-4 md:p-8">
-              <p className="font-bold text-xl mt-2 md:mt-4">
-                {slides[activeIndex].quote}
-              </p>
-              <p className="text-lg mt-2 md:mt-4">
-                {slides[activeIndex].author}
-              </p>
+            <div className="w-full md:w-2/3 flex-shrink-0">
+
+              <div className="p-4 md:p-8">
+                <p className="font-bold text-xl mt-2 md:mt-4">
+                  {slides[activeIndex].quote}
+                </p>
+                <p className="text-lg mt-2 md:mt-4">
+                  {slides[activeIndex].author}
+                </p>
+              </div>
+              <div className="flex justify-center space-x-2 mt-4 pb-8">
+                {slides.map((slide, index) => (
+                  <span
+                    key={slide.id}
+                    className={`w-3 h-3 rounded-full bg-gray-500 ${activeIndex === index && "bg-blue-500"
+                      }`}
+                    onClick={() => handleSlideChange(index)}
+                  ></span>
+                ))}
+              </div>
             </div>
-            <div className="flex justify-center space-x-2 mt-4 pb-8">
-              {slides.map((slide, index) => (
-                <span
-                  key={slide.id}
-                  className={`w-3 h-3 rounded-full bg-gray-500 ${
-                    activeIndex === index && "bg-blue-500"
-                  }`}
-                  onClick={() => handleSlideChange(index)}
-                ></span>
-              ))}
-            </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </Element>
     </div>
   );
 }

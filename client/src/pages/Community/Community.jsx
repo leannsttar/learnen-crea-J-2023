@@ -1,4 +1,6 @@
 import React from "react";
+import Shake from 'react-reveal';
+import { Element } from "react-scroll";
 import { AppTitle } from "../../components/AppTitle";
 import { SearchBar } from "../Community/SearchBar";
 import { CommunityCard } from "./CommunityCard";
@@ -12,7 +14,8 @@ export function Community() {
             <AppTitle title="Comunidad" />
             <SearchBar />
           </div>
-          <div className="grid auto-cols-fr grid-cols-1 800:grid-cols-2 1280:grid-cols-3 1920:grid-cols-4 gap-4 justify-center">
+          <Element className="grid auto-cols-fr grid-cols-1 800:grid-cols-2 1280:grid-cols-3 1920:grid-cols-4 gap-4 justify-center">
+            <Shake>
             <CommunityCard />
             <CommunityCard />
             <CommunityCard />
@@ -24,7 +27,8 @@ export function Community() {
             <CommunityCard />
             <CommunityCard />
             <CommunityCard />
-          </div>
+            </Shake>
+          </Element>
         </div>
       </div>
     </>
