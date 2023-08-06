@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Fade, Flip, Slide } from 'react-reveal';
+import { Fade, Flip } from 'react-reveal';
 import { motion } from "framer-motion";
 import { Element } from "react-scroll";
 import people from "../../assets/peopleIndex.jpg";
@@ -340,7 +340,6 @@ export function Slider() {
               </div>
             </div>
             <div className="w-full md:w-2/3 flex-shrink-0">
-
               <div className="p-4 md:p-8">
                 <p className="font-bold text-xl mt-2 md:mt-4">
                   {slides[activeIndex].quote}
