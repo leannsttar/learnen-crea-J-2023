@@ -16,6 +16,7 @@ model Cliente {
   apellido           String
   correo             String           @unique
   contrasenia        String
+  contrasenia_ok     String
   fecha_nacimiento   DateTime
   genero             Boolean //Si es True Fenemino, false masculino
   imagen_perfil      String
