@@ -1,5 +1,7 @@
 import React from "react";
 import { SinglePost } from "./SinglePost";
+import { Element } from "react-scroll";
+import { Fade } from "react-reveal";
 import { DataProfile } from "./DataProfile";
 import { LanguagesProfile } from "./LanguagesProfile";
 import { AboutProfile } from "./AboutProfile";
@@ -57,32 +59,36 @@ export function LowerProfile() {
   };
 
   return (
-    <div className=" flex justify-center mx-auto">
-      <div className=" mb-20 flex flex-col 800:flex-row-reverse gap-8 800:gap-4 1280:gap-20 1280:w-[80%] w-[95%]">
+    <Element className=" flex justify-center mx-auto">
+      <Fade bottom delay={300}>
+        <div className=" mb-20 flex flex-col 800:flex-row-reverse gap-8 800:gap-4 1280:gap-20 1280:w-[80%] w-[95%]">
 
-        <div className="800:w-[25%] 800:h-full flex flex-col w-full gap-5">
-          <DataProfile posts={4} followers={154} following={449} />
+          <div className="800:w-[25%] 800:h-full flex flex-col w-full gap-5">
+            <DataProfile posts={4} followers={154} following={449} />
 
-          {/* {Acá solo pues mando la info de ese userLanguages} */}
-          <LanguagesProfile
-            motherLanguages={userLanguages.motherLanguages}
-            fluentLanguages={userLanguages.fluentLanguages}
-            learningLanguages={userLanguages.learningLanguages}
-          />
-          {console.log(userLanguages.fluentLanguages[0])}
-          <AboutProfile
-            name="Nacely"
-            meGusta="Los deportes, la comida, los idiomas y los libros"
-            Objetivos="Vivir en otro país"
-            ComoSoy="Reservada, tímida pero muy empática"
-          />
+            {/* {Acá solo pues mando la info de ese userLanguages} */}
+            <LanguagesProfile
+              motherLanguages={userLanguages.motherLanguages}
+              fluentLanguages={userLanguages.fluentLanguages}
+              learningLanguages={userLanguages.learningLanguages}
+            />
+            {console.log(userLanguages.fluentLanguages[0])}
+            <AboutProfile
+              name="Nacely"
+              meGusta="Los deportes, la comida, los idiomas y los libros"
+              Objetivos="Vivir en otro país"
+              ComoSoy="Reservada, tímida pero muy empática"
+            />
+          </div>
+          <div className="grid grid-cols-3 auto-rows-min gap-1 relative w-full 800:w-[75%] h-auto">
+            {postsImages.map((post, index) => (
+              <Fade bottom delay={index * 300}>
+                <img key={index} src={post.imgSrc} />
+              </Fade>
+            ))}
+          </div>
         </div>
-        <div className="grid grid-cols-3 auto-rows-min gap-1 relative w-full 800:w-[75%] h-auto">
-          {postsImages.map((post, index) => (
-            <img key={index} src={post.imgSrc} />
-          ))}
-        </div>  
-      </div>
-    </div>
+      </Fade>
+    </Element>
   );
 }
