@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id                 Int              @id @default(autoincrement())
+  nombre             String
+  apellido           String
+  correo             String           @unique
+  contrasenia        String
+  fecha_nacimiento   DateTime
+  genero             Boolean //Si es True Fenemino, false masculino
+  imagen_perfil      String
+  me_gusta           String
+  objetivos          String
+  como_soy           String
+  idiomas            ClienteIdiomas[]
+  publicaciones      Publicaciones[]
+  comentarios        Comentarios[]
+  likes              Likes[]
+  reportes           Reportes[]
+  seguidores         Follows[]        @relation("Seguidores")
+  seguidos           Follows[]        @relation("Seguidos")
+  mensajes_enviados  Mensajes[]       @relation("mensajes_enviados")
+  mensajes_recibidos Mensajes[]       @relation("mensajes_recibidos")
+}
+
+model Idiomas {
+  id             Int              @id @default(autoincrement())
+  idioma         String           @unique
+  ClienteIdiomas ClienteIdiomas[]
+}
+
+model ClienteIdiomas {
+  id           Int     @id @default(autoincrement())
+  nivel_idioma String
+  id_cliente   Int
+  id_idioma    Int
+  cliente      Cliente @relation(fields: [id_cliente], references: [id])
+  idioma       Idiomas @relation(fields: [id_idioma], references: [id])
+}
+
+model Publicaciones {
+  id             Int           @id @default(autoincrement())
+  descripcion    String
+  idioma         String
+  imagen         String
+  fecha_creacion DateTime      @default(now())
+  id_cliente     Int
+  cliente        Cliente       @relation(fields: [id_cliente], references: [id])
+  Comentarios    Comentarios[]
+  Likes          Likes[]
+  Reportes       Reportes[]
+}
+
+model Comentarios {
+  id             Int           @id @default(autoincrement())
+  descripcion    String        @db.VarChar(200)
+  id_cliente     Int
+  id_publicacion Int
+  cliente        Cliente       @relation(fields: [id_cliente], references: [id])
+  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id])
+}
+
+model Likes {
+  id             Int           @id @default(autoincrement())
+  id_publicacion Int
+  id_cliente     Int
+  cliente        Cliente       @relation(fields: [id_cliente], references: [id])
+  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id])
+}
+
+model Reportes {
+  id             Int           @id @default(autoincrement())
+  descripcion    String
+  id_cliente     Int
+  id_publicacion Int
+  cliente        Cliente       @relation(fields: [id_cliente], references: [id])
+  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id])
+}
+
+model Follows {
+  id              Int     @id @default(autoincrement())
+  id_user_sigue_a Int
+  id_user_seguido Int
+  user_sigue_a    Cliente @relation(name: "Seguidores", fields: [id_user_sigue_a], references: [id])
+  user_seguido    Cliente @relation(name: "Seguidos", fields: [id_user_seguido], references: [id])
+}
+
+model Mensajes {
+  id                Int      @id @default(autoincrement())
+  mensaje           String
+  fecha             DateTime @default(now())
+  id_cliente_envia  Int
+  id_cliente_recibe Int
+  cliente_envia     Cliente  @relation(name: "mensajes_enviados", fields: [id_cliente_envia], references: [id])
+  cliente_recibe    Cliente  @relation(name: "mensajes_recibidos", fields: [id_cliente_recibe], references: [id])
+}
+
+model Administradores {
+  id       Int    @id @default(autoincrement())
+  nombre   String
+  apellido String
+}
