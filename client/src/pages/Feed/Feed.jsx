@@ -1,4 +1,5 @@
 import { React, Fragment, useState, useRef } from "react";
+import { useForm } from "react-hook-form";
 import {
   AiOutlineEllipsis,
   AiOutlineHeart,
@@ -22,9 +23,7 @@ const feedData = {
   imagePost: "/assets/post1.png",
   likes: 12,
   comments: 13,
-}
-;
-
+};
 const peopleData = [
   {
     id: 1,
@@ -75,7 +74,6 @@ const PeopleSection = () => {
           <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] m-6 hover:scale-105 hover: transition-scale ease-in duration-200">
             Seguir
           </button>
-          
         </div>
       </div>
     </div>
@@ -98,6 +96,26 @@ const BlogSection = () => {
 };
 
 export function Feed() {
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    // Check if the "Compartir" button was clicked and both selectedImage and selectedLanguage are not null
+    if (selectedImage !== null && selectedLanguage !== null) {
+      console.log(data);
+      setSelectedLanguage(null);
+      setSelectedImage(null);
+      setCaption("");
+      closeModal();
+    }
+    // Reset the compartirClicked flag after processing the form
+  };
+
+
   let [isOpen, setIsOpen] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -107,7 +125,9 @@ export function Feed() {
   const [caption, setCaption] = useState("");
 
   const handleLanguageClick = (language) => {
-    setSelectedLanguage(language);
+    setSelectedLanguage((prevLanguage) =>
+      prevLanguage === language ? null : language
+    );
   };
 
   //no voy a mentir, esto de la imagen me lo hizo mi papi chat
@@ -131,9 +151,13 @@ export function Feed() {
 
   function closeModal() {
     setIsOpen(false);
+  }
+
+  function closeModal2() {
     setSelectedLanguage(null);
     setSelectedImage(null);
     setCaption("");
+    setIsOpen(false);
   }
 
   function openModal() {
@@ -158,7 +182,7 @@ export function Feed() {
             <Dialog
               as="div"
               className="relative z-10 h-screen"
-              onClose={closeModal}
+              onClose={closeModal2}
             >
               <Transition.Child
                 as={Fragment}
@@ -184,115 +208,140 @@ export function Feed() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <Dialog.Panel className="w-full max-w-[70vw] h-[80vh] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
-                      <Dialog.Title
-                        as="div"
-                        className="flex justify-between border-b-[1px] py-2 px-5"
-                      >
-                        <button
-                          className="text-indigo-800 font-semibold"
-                          onClick={closeModal}
+                      <form onSubmit={handleSubmit(onSubmit)}>
+                        <Dialog.Title
+                          as="div"
+                          className="flex justify-between border-b-[1px] py-2 px-5"
                         >
-                          Cancelar
-                        </button>
-                        <h3 className="text-lg font-medium leading-6 text-gray-900 text-center ">
-                          Crea nueva publicación
-                        </h3>
-                        <button
-                          onClick={() => {
-                            if (selectedImage === null) {
-                              toast.error("Debes subir una imagen");
-                            } else if (selectedLanguage === null) {
-                              toast.error("Debes seleccionar el idioma");
-                            } else {
-                              closeModal();
-                            }
-                          }}
-                          className="text-[#FF8399] font-semibold"
-                        >
-                          Compartir
-                        </button>
-                      </Dialog.Title>
-                      <div className="flex h-full">
-                        {!selectedImage && (
-                          <div className="w-[75%] flex justify-center items-center border-r-[1px]">
-                            <div className="flex flex-col gap-7">
-                              <img
-                                src={galleryAdd}
-                                alt=""
-                                className="w-full h-full"
-                              />
-                              <label className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 cursor-pointer">
-                                Selecciona una imagen
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  className="hidden"
-                                  onChange={handleImageSelect}
+                          <button
+                            className="text-indigo-800 font-semibold"
+                            onClick={closeModal2}
+                          >
+                            Cancelar
+                          </button>
+                          <h3 className="text-lg font-medium leading-6 text-gray-900 text-center ">
+                            Crea nueva publicación
+                          </h3>
+                          <input
+                            type="submit"
+                            // onClick={() => {
+                            //   if (selectedImage === null) {
+                            //     toast.error("Debes subir una imagen");
+                            //   } else if (selectedLanguage === null) {
+                            //     toast.error("Debes seleccionar el idioma");
+                            //   } else {
+                            //     closeModal();
+                            //   }
+                            // }}
+                            onClick={() => { 
+                              if (selectedImage === null) {
+                                toast.error("Debes subir una imagen");
+                              } else if (selectedLanguage === null) {
+                                toast.error("Debes seleccionar el idioma");
+                              } else {
+                                // Set the compartirClicked flag to true when the "Compartir" button is clicked
+                                closeModal
+                              }
+                            }}
+                            className="text-[#FF8399] font-semibold cursor-pointer"
+                            value={"Compartir"}
+                          ></input>
+                        </Dialog.Title>
+
+                        <div className="flex h-full">
+                          {!selectedImage && (
+                            <div className="w-[75%] flex justify-center items-center border-r-[1px]">
+                              <div className="flex flex-col gap-7">
+                                <img
+                                  src={galleryAdd}
+                                  alt=""
+                                  className="w-full h-full"
                                 />
-                              </label>
+                                <label className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 cursor-pointer">
+                                  Selecciona una imagen
+                                  <input
+                                    {...register("imagen")}
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={handleImageSelect}
+                                  />
+                                </label>
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
 
-                        {selectedImage && (
-                          <div className="w-[75%] flex justify-center items-center border-r-[1px]">
-                            <img
-                              src={selectedImage}
-                              alt=""
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        )}
-                        <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
-                          <div className="flex gap-3 items-center">
-                            <img src={ProfilePhoto} alt="" className="w-9" />
-                            <p className="font-semibold">nacelyorellana_</p>
-                          </div>
-                          <textarea
-                            className="outline-none resize-none"
-                            name=""
-                            id=""
-                            cols="30"
-                            rows="7"
-                            placeholder="Escribe un pie de foto"
-                            value={caption}
-                            onChange={handleCaptionChange}
-                          ></textarea>
-                          <p className="text-sm text-end text-gray-500">
-                            {caption.length}/200 caracteres
-                          </p>
-                          <div className="flex flex-col gap-4">
-                            <p className="text-[#646464] text-[18px]">Idioma</p>
+                          {selectedImage && (
+                            <div className="w-[75%] flex justify-center items-center border-r-[1px]">
+                              <img
+                                src={selectedImage}
+                                alt=""
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
+                          <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
+                            <div className="flex gap-3 items-center">
+                              <img src={ProfilePhoto} alt="" className="w-9" />
+                              <p className="font-semibold">nacelyorellana_</p>
+                            </div>
+                            <textarea
+                              {...register("descripcion")}
+                              className="outline-none resize-none"
+                              id=""
+                              cols="30"
+                              rows="7"
+                              placeholder="Escribe un pie de foto"
+                              value={caption}
+                              onChange={handleCaptionChange}
+                            ></textarea>
+                            <p className="text-sm text-end text-gray-500">
+                              {caption.length}/200 caracteres
+                            </p>
+                            <div className="flex flex-col gap-4">
+                              <p className="text-[#646464] text-[18px]">
+                                Idioma
+                              </p>
 
-                            <div className="flex flex-col gap-1 overflow-y-scroll h-[260px]">
-                              {allLanguages.map((language, index) => (
-                                <div
-                                  key={index}
-                                  className="flex gap-4 items-center hover:bg-[#e4e4e4] rounded-lg p-2 cursor-pointer"
-                                  onClick={() => handleLanguageClick(language)}
-                                >
+                              <div className="flex flex-col gap-1 overflow-y-scroll h-[260px]">
+                                {allLanguages.map((language, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex gap-4 items-center hover:bg-[#e4e4e4] rounded-lg p-2 cursor-pointer"
+                                    onClick={() =>
+                                      handleLanguageClick(language)
+                                    }
+                                  >
+                                    <img
+                                      src={language[1]}
+                                      alt=""
+                                      className="w-8"
+                                    />
+                                    <p>{language[0]}</p>
+                                  </div>
+                                ))}
+                              </div>
+                              {selectedLanguage && (
+                                <div className="mt-4 flex max-w-[200px] mx-auto py-2 px-5 rounded-lg bg-[#f5f5f5] justify-center items-center gap-2">
                                   <img
-                                    src={language[1]}
+                                    src={selectedLanguage[1]}
                                     alt=""
                                     className="w-8"
                                   />
-                                  <p>{language[0]}</p>
+                                  <p>{selectedLanguage[0]}</p>
+                                  <input
+                                    className="hidden"
+                                    {...register("idioma")}
+                                    type="text"
+                                    value={selectedLanguage[0]}
+                                  />
+                                  {console.log(selectedLanguage[0])}
                                 </div>
-                              ))}
+                              )}
                             </div>
-                            {selectedLanguage && (
-                              <div className="mt-4 flex max-w-[200px] mx-auto py-2 px-5 rounded-lg bg-[#f5f5f5] justify-center items-center gap-2">
-                                <img
-                                  src={selectedLanguage[1]}
-                                  alt=""
-                                  className="w-8"
-                                />
-                                <p>{selectedLanguage[0]}</p>
-                              </div>
-                            )}
                           </div>
                         </div>
-                      </div>
+                      </form>
                     </Dialog.Panel>
                   </Transition.Child>
                 </div>
