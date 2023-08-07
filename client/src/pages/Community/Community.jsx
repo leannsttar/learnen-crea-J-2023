@@ -1,5 +1,5 @@
 import React from "react";
-import Shake from 'react-reveal';
+import { Flip } from 'react-reveal';
 import { Element } from "react-scroll";
 import { AppTitle } from "../../components/AppTitle";
 import { SearchBar } from "../Community/SearchBar";
@@ -15,19 +15,19 @@ export function Community() {
             <SearchBar />
           </div>
           <Element className="grid auto-cols-fr grid-cols-1 800:grid-cols-2 1280:grid-cols-3 1920:grid-cols-4 gap-4 justify-center">
-            <Shake>
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            <CommunityCard />
-            </Shake>
+            <Flip left delay={700}>
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+              <CommunityCard />
+            </Flip>
           </Element>
         </div>
       </div>
