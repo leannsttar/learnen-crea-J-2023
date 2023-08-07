@@ -25,23 +25,17 @@ import { Administradores } from "./pages/Dashboard/Usuarios/Administradores";
 import { Reportes } from "./pages/Dashboard/Reportes/Reportes";
 import { AsideMenu } from "./pages/Dashboard/AsideMenu";
 import { Navbar } from "@material-tailwind/react";
+import { Fade } from 'react-reveal'
 
 const router = createBrowserRouter([
   {
     path: "*",
     element: (
       <>
-        <AnimatePresence wait>
-          <Header />
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 3.5 }}
-          >
-            <Error404 />
-          </motion.div>
-        </AnimatePresence>
+        <Header />
+        <Fade>
+          <Error404 />
+        </Fade>
       </>
     ),
   },

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Slider } from "../../components/slider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -40,32 +41,6 @@ const LanguageFlags = [
   },
 ];
 
-const data = [
-  {
-    src: "/assets/slider_signup1.png",
-    text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
-    author: "Maestra Marielos",
-    brand: "/assets/learnen.png",
-  },
-  {
-    src: "/assets/slider_signup2.png",
-    text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
-    author: "Nacely Orellana",
-    brand: "/assets/learnen.png",
-  },
-  {
-    src: "/assets/slider_signup3.png",
-    text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
-    author: "Juana Sanchez",
-    brand: "/assets/learnen.png",
-  },
-  {
-    src: "/assets/slider_signup4.png",
-    text: "“Learnen is the best social network for people who want to practice a language by interacting with real people..”",
-    author: "Victor Garcia",
-    brand: "/assets/learnen.png",
-  },
-];
 
 export function SignUp() {
   const formArray = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -177,18 +152,6 @@ export function SignUp() {
     }
   };
 
-  // Slider
-  const [currentIndex, setCurrentIndex] = useState(0);
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
-    }, 3000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-  //
 
   // Codigo del ojito
   const [showPassword, setShowPassword] = useState(false);
@@ -216,11 +179,10 @@ export function SignUp() {
                     <div className={`my-6`}></div>
                     {i !== formArray.length - 1 && (
                       <div
-                        className={`w-full h-[7px] ${
-                          formNo === i + 2 || formNo === formArray.length
-                            ? "bg-black"
-                            : "bg-slate-400"
-                        }`}
+                        className={`w-full h-[7px] ${formNo === i + 2 || formNo === formArray.length
+                          ? "bg-black"
+                          : "bg-slate-400"
+                          }`}
                       ></div>
                     )}
                   </>
@@ -577,6 +539,7 @@ export function SignUp() {
                           <div
                             key={idioma.country}
                             onClick={() => updateIdioma(idioma)}
+                            name={state.mother_language}
                             className="p-[14px] w-full border-b-2 border-stone-200 hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex"
                           >
                             <img
@@ -659,11 +622,10 @@ export function SignUp() {
                           <div
                             key={idioma.country}
                             onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${
-                              idiomasSeleccionados.includes(idioma)
-                                ? "border-[#FF8399]"
-                                : "border-stone-200"
-                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
+                              ? "border-[#FF8399]"
+                              : "border-stone-200"
+                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
@@ -741,11 +703,10 @@ export function SignUp() {
                           <div
                             key={idioma.country}
                             onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${
-                              idiomasSeleccionados.includes(idioma)
-                                ? "border-[#FF8399]"
-                                : "border-stone-200"
-                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
+                              ? "border-[#FF8399]"
+                              : "border-stone-200"
+                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
@@ -873,30 +834,7 @@ export function SignUp() {
             </div>
           </div>
         </div>
-
-        {/* slider */}
-        <div className="flex w-full h-screen overflow-hidden relative">
-          <img
-            src={data[currentIndex].src}
-            alt={`Slider Image ${currentIndex + 1}`}
-            className="w-full h-screen md:h-full object-cover"
-          />
-          <div className="absolute bottom-60 p-2 rounded-xl backdrop-contrast-[.90] backdrop-blur-sm left-20 w-[800px] h-fit flex items-end ">
-            <div className="text-white text-xl md:text-xl w-1/2 italic break-words  ">
-              {data[currentIndex].text}
-            </div>
-            <div className="text-white text-xl right-0 md:text-xl">
-              {data[currentIndex].author}
-            </div>
-            <div className="">
-              <img
-                className="relative w-20 left-16"
-                src={data[currentIndex].brand}
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
+        <Slider/>
       </div>
     </>
   );

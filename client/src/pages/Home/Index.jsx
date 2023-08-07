@@ -168,11 +168,14 @@ export function IndexCard() {
         </div>
       </div>
 
-      <div className="flex items-center justify-center mt-8">
-        <button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl hover:scale-105 hover: transition-scale ease-in duration-200">
-          Únete a la comunidad
-        </button>
-      </div>
+      <Element className="flex items-center justify-center mt-8">
+        <Fade bottom delay={500}>
+          <button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl hover:scale-105 hover: transition-scale ease-in duration-200">
+            Únete a la comunidad
+          </button>
+        </Fade>
+
+      </Element>
     </div>
   );
 }
