@@ -13,6 +13,7 @@ import ProfilePhoto from "../../assets/Female.png";
 import { allLanguages } from "../../data/languages";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const feedData = {
   id: 1,
@@ -96,31 +97,50 @@ const BlogSection = () => {
 };
 
 export function Feed() {
-
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    // Check if the "Compartir" button was clicked and both selectedImage and selectedLanguage are not null
-    if (selectedImage !== null && selectedLanguage !== null) {
-      console.log(data);
-      setSelectedLanguage(null);
-      setSelectedImage(null);
-      setCaption("");
-      closeModal();
-    }
-    // Reset the compartirClicked flag after processing the form
-  };
 
+  const onSubmit = async (data) => {
+    if (selectedImage !== null && selectedLanguage !== null) {
+      try {
+        console.log(selectedImage2);
+        console.log(selectedImage3);
+        console.log(caption);
+        const response = await axios.post(
+          "http://localhost:5000/feed",
+          {
+            imagen: selectedImage3,
+            idioma: selectedLanguage[0],
+            descripcion: caption,
+          },
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
+
+        console.log(response.data);
+        setSelectedLanguage(null);
+        setSelectedImage(null);
+        setCaption("");
+        closeModal();
+      } catch (error) {
+        console.error("Error creating post:", error);
+      }
+    }
+  };
 
   let [isOpen, setIsOpen] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage2, setSelectedImage2] = useState(null);
+  const [selectedImage3, setSelectedImage3] = useState(null);
 
   const [caption, setCaption] = useState("");
 
@@ -128,17 +148,27 @@ export function Feed() {
     setSelectedLanguage((prevLanguage) =>
       prevLanguage === language ? null : language
     );
+    setValue("idioma", language[0]);
   };
 
   //no voy a mentir, esto de la imagen me lo hizo mi papi chat
   const handleImageSelect = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setSelectedImage3(event.target.files[0]);
+
       const reader = new FileReader();
+
       reader.onload = (e) => {
         setSelectedImage(e.target.result);
       };
       reader.readAsDataURL(file);
+
+      const reader2 = new FileReader();
+      reader2.onload = (e) => {
+        setSelectedImage2(e.target.result);
+      };
+      reader2.readAsArrayBuffer(file);
     }
   };
 
@@ -151,12 +181,18 @@ export function Feed() {
 
   function closeModal() {
     setIsOpen(false);
+    // setValue("idioma", null);
+    setValue("descripcion", "");
+    // setValue("imagen", selectedImage);
   }
 
   function closeModal2() {
     setSelectedLanguage(null);
     setSelectedImage(null);
     setCaption("");
+    setValue("idioma", selectedLanguage);
+    setValue("descripcion", "");
+    setValue("imagen", selectedImage);
     setIsOpen(false);
   }
 
@@ -208,7 +244,10 @@ export function Feed() {
                     leaveTo="opacity-0 scale-95"
                   >
                     <Dialog.Panel className="w-full max-w-[70vw] h-[80vh] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
-                      <form onSubmit={handleSubmit(onSubmit)}>
+                      <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        encType="multipart/form-data"
+                      >
                         <Dialog.Title
                           as="div"
                           className="flex justify-between border-b-[1px] py-2 px-5"
@@ -233,14 +272,14 @@ export function Feed() {
                             //     closeModal();
                             //   }
                             // }}
-                            onClick={() => { 
+                            onClick={() => {
                               if (selectedImage === null) {
                                 toast.error("Debes subir una imagen");
                               } else if (selectedLanguage === null) {
                                 toast.error("Debes seleccionar el idioma");
                               } else {
                                 // Set the compartirClicked flag to true when the "Compartir" button is clicked
-                                closeModal
+                                closeModal;
                               }
                             }}
                             className="text-[#FF8399] font-semibold cursor-pointer"
@@ -292,7 +331,6 @@ export function Feed() {
                               cols="30"
                               rows="7"
                               placeholder="Escribe un pie de foto"
-                              value={caption}
                               onChange={handleCaptionChange}
                             ></textarea>
                             <p className="text-sm text-end text-gray-500">
@@ -333,9 +371,7 @@ export function Feed() {
                                     className="hidden"
                                     {...register("idioma")}
                                     type="text"
-                                    value={selectedLanguage[0]}
                                   />
-                                  {console.log(selectedLanguage[0])}
                                 </div>
                               )}
                             </div>

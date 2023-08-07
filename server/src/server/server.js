@@ -19,6 +19,10 @@ app.post('/auth/login', loginUser);
 const {createUser} = require('../controladores/register-controlador.js');
 app.post('/auth/register', createUser);
 
+const {createPost, readPosts} = require('../controladores/feed-controlador.js');
+app.post('/feed', createPost);
+app.get('/feed', readPosts)
+
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });

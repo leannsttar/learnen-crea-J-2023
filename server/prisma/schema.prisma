@@ -55,8 +55,8 @@ model Publicaciones {
   idioma         String
   imagen         String
   fecha_creacion DateTime      @default(now())
-  id_cliente     Int
-  cliente        Cliente       @relation(fields: [id_cliente], references: [id])
+  id_cliente     Int?
+  cliente        Cliente?       @relation(fields: [id_cliente], references: [id])
   Comentarios    Comentarios[]
   Likes          Likes[]
   Reportes       Reportes[]
