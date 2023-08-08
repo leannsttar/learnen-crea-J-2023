@@ -29,8 +29,6 @@ const createUser = async (req, res) => {
     //   return res.status(400).json({ message: "El usuario ya existe" });
     // }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const newUser = await prisma.cliente.create({
       data: {
         correo: email,

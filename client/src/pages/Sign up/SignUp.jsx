@@ -41,7 +41,7 @@ const LanguageFlags = [
   },
 ];
 
-
+//register xd
 export function SignUp() {
   const formArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -65,9 +65,10 @@ export function SignUp() {
     topics: "",
   });
 
-  const sendRegister = async () => {
+  const sendRegister = async ({data}) => {
     try {
       const res = await axios.post("http://localhost:5000/auth/register", state);
+
     } catch (error) {
       console.log(error)
     }
@@ -824,6 +825,7 @@ export function SignUp() {
                   </div>
                 </div>
               )}
+
               <div className="mt-2 flex justify-center">
                 <Link to={"/login"}>
                   <div className=" text-neutral-500 underline decoration-solid">
