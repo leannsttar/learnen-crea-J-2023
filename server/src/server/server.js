@@ -3,9 +3,12 @@ const app = express();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const cors = require('cors')
+const path = require('path')
 
 app.use(cors())
 app.use(express.json());
+app.use('/imagenes', express.static('./public/images/postImages/'));
+
 
 const port = 5000;
 

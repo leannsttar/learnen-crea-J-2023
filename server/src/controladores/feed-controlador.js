@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     cb(null, (__dirname, "../server/public/images/postImages"));
   },
   filename: function (req, file, cb) {
-    cb(null, "-" + Date.now() + ".jpeg");
+    cb(null, Date.now() + ".jpeg");
   },
 });
 // const storage = multer.memoryStorage();
@@ -40,21 +40,25 @@ const createPost = async (req, res) => {
 
       console.log("waza");
 
+      const processedImagePath = path.join(
+        req.file.destination,
+        "processed-" + req.file.filename
+      );
       await sharp(req.file.path)
         .toFormat("jpeg")
         .jpeg({ quality: 80 })
-        .toFile(req.file.destination + req.file.filename);
+        .toFile(processedImagePath);
 
       fs.unlinkSync(req.file.path);
 
       const newPost = await prisma.publicaciones.create({
         data: {
-            descripcion: descripcion,
-            idioma: idioma,
-            imagen: req.file.filename
-        }
-      })
-      
+          descripcion: descripcion,
+          idioma: idioma,
+          imagen: req.file.filename,
+        },
+      });
+
       res.json({
         message: "Publicación guardada",
       });
@@ -68,8 +72,15 @@ const createPost = async (req, res) => {
   }
 };
 
-const readPosts = (req, res) => {
-  res.send("adsflkaj");
+const readPosts = async (req, res) => {
+  try {
+    const allPosts = await prisma.publicaciones.findMany();
+    res.json(allPosts);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error al obtener las publicaciones" });
+  }
 };
 
 module.exports = {

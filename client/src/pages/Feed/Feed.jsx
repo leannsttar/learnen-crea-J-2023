@@ -1,4 +1,4 @@
-import { React, Fragment, useState, useRef } from "react";
+import { React, Fragment, useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   AiOutlineEllipsis,
@@ -40,19 +40,60 @@ const blogData = {
   image: "/assets/feed-blog.png",
 };
 
-const PostCard = () => {
+const PostCard = ({ keyProp, posts }) => {
+  let matchingLanguage;
+
+  allLanguages.forEach((language) => {
+    if (posts.idioma === language[0]) {
+      matchingLanguage = language;
+    }
+  });
+
+  function timeAgoSincePublication(publicationDate) {
+    const now = new Date();
+    const publicationTime = new Date(publicationDate);
+
+    const timeDifferenceInSeconds = Math.floor((now - publicationTime) / 1000);
+
+    if (timeDifferenceInSeconds < 60) {
+      return `${timeDifferenceInSeconds} segundos`;
+    } else if (timeDifferenceInSeconds < 3600) {
+      const minutes = Math.floor(timeDifferenceInSeconds / 60);
+      return `${minutes} minutos`;
+    } else if (timeDifferenceInSeconds < 86400) {
+      const hours = Math.floor(timeDifferenceInSeconds / 3600);
+      return `${hours} horas`;
+    } else {
+      const days = Math.floor(timeDifferenceInSeconds / 86400);
+      return `${days} días`;
+    }
+  }
+
+  const postDate = posts.fecha_creacion;
+  const timeAgo = timeAgoSincePublication(postDate);
+
   return (
-    <div className="flex flex-col items-center mt-16">
-      <div className="border-l border-r border-t border-black bg-gray-100 flex flex-row items-center p-4 w-[431px]">
-        <img className="w-12 h-12 -mr-6" src={feedData.image} alt="" />
-        <img className="w-12 h-12" src={feedData.avatar} alt="" />
-        <div className="flex flex-col ml-6">
-          <h6 className="font-bold">{feedData.name}</h6>
-          <h6 className="text-sm">{feedData.time}</h6>
+    <div key={keyProp} className="flex flex-col items-center mt-16">
+      <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
+        <div className="flex flex-row items-center justify-between w-full">
+          <img className="w-12 h-12 -mr-3 z-[1]" src={feedData.image} alt="" />
+          <img className="w-12 h-12 " src={matchingLanguage[1]} alt="" />
+
+          <div className="flex flex-col ml-6">
+            <h6 className="font-bold">{feedData.name}</h6>
+            <h6 className="text-sm">Hace {timeAgo}</h6>
+          </div>
+          <AiOutlineEllipsis className="ml-auto w-12 h-12" />
         </div>
-        <AiOutlineEllipsis className="ml-auto w-12 h-12" />
+        <div className="mt-4">
+          <p>{posts.descripcion}</p>
+        </div>
       </div>
-      <img className="w-[431px]" src={feedData.imagePost} alt="" />
+      <img
+        className="w-[431px] border-black border-[1px]"
+        src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+        alt=""
+      />
       <div className="border-l border-r border-b border-black bg-gray-100 flex flex-row items-center w-[431px] p-4">
         <AiOutlineHeart className="mr-2 w-6 h-6" />
         <p>{feedData.likes}</p>
@@ -97,6 +138,23 @@ const BlogSection = () => {
 };
 
 export function Feed() {
+  const [posts, setPosts] = useState(null);
+
+  const [sentPost, setSentPost] = useState(null);
+
+  const obtenerPosts = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:5000/feed");
+      setPosts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerPosts();
+  }, [sentPost]);
+
   const {
     register,
     handleSubmit,
@@ -124,6 +182,9 @@ export function Feed() {
         );
 
         console.log(response.data);
+
+        setSentPost(data);
+
         setSelectedLanguage(null);
         setSelectedImage(null);
         setCaption("");
@@ -203,8 +264,8 @@ export function Feed() {
   return (
     <>
       {/* Pasos de cómo funciona */}
-      <div className="grid grid-cols-[1fr_650px] h-screen">
-        <div className="mt-[40px] mx-[80px]">
+      <div className="grid grid-cols-[1fr_650px]">
+        <div className="mt-[40px] mx-[80px] h-full mb-10">
           <AppTitle title="Tu feed" />
           <button
             onClick={openModal}
@@ -289,7 +350,7 @@ export function Feed() {
 
                         <div className="flex h-full">
                           {!selectedImage && (
-                            <div className="w-[75%] flex justify-center items-center border-r-[1px]">
+                            <div className="w-[75%]  flex justify-center items-center border-r-[1px]">
                               <div className="flex flex-col gap-7">
                                 <img
                                   src={galleryAdd}
@@ -384,7 +445,10 @@ export function Feed() {
               </div>
             </Dialog>
           </Transition>
-          <PostCard />
+          {posts &&
+            posts.map((post) => (
+              <PostCard keyProp={post.id} posts={post} key={post.id} />
+            ))}
         </div>
         <div className="border-l border-solid border-black md:flex sm:hidden">
           <PeopleSection />
