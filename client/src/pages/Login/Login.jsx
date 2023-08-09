@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios, {AxiosError} from "axios";
+import {useForm} from 'react-hook-form'
 
 
 const data = [
@@ -21,6 +23,8 @@ const data = [
 ];
 
 export function Login() {
+
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -60,32 +64,46 @@ export function Login() {
   };
   
 
+  const {register, handleSubmit} = useForm();
+  const [mensaje, setMensaje] = useState();
+  const [userImage, setUserImage] = useState("");
+  const [userId, setUserId] = useState("");
+
   //el login xd 
-  const enviarLogin = async () => {
+  const enviarLogin = async (user) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/auth/login", state
+        "http://localhost:5000/auth/login",
+        user
       );
-
+  
       localStorage.setItem("token", data.token);
-
       setToken(data.token);
-
+      setUserId(data.userId);  
+  
       setMensaje("Logueado");
-
+  
     } catch (error) {
+      console.log(error)
       if (error instanceof AxiosError) {
         setMensaje(error.response.data.message);
       }
     }
+  }
+  const cerrarSesion = () => {
+    localStorage.removeItem("token");
+    setToken("");
+  };
 
   return (
-    <div className="grid grid-cols-2 gap-2 place-items-center font-Poppins">
+    <form action="post" onSubmit={handleSubmit(enviarLogin)}>
+      <div className="grid grid-cols-2 gap-2 place-items-center font-Poppins">
       <div className="flex flex-col space-y-12">
         <div className="space-y-2">
           <h1 className="text-2xl font-bold">Inicia Sesión</h1>
           <p className="text-xl">¡Nos alegra verte de vuelta!</p>
         </div>
+        
         <div className="flex items-center">
           <ToastContainer />
           <div className="card w-[400px]">
@@ -132,12 +150,6 @@ export function Login() {
               <div className="mt-10 flex justify-center">
                 <button
                   className="px-2 py-1 w-full text-xl font-sans uppercase leading-relaxed rounded-md opacity-50 bg-indigo-800 text-white hover:bg-indigo-600"
-                  onClick={() => {
-                    handleFormSubmit();
-                    enviarLogin();
-                  }}
-                  
-                  type="submit"
                 >
                   Iniciar sesión
                 </button>
@@ -177,6 +189,8 @@ export function Login() {
         </div>
       </div>
     </div>
+    </form>
   );
 }
-}
+
+

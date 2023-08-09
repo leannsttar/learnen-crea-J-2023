@@ -72,6 +72,7 @@ const PostCard = ({ keyProp, posts }) => {
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
 
+  
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">

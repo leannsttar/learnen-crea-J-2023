@@ -1,21 +1,30 @@
-const { PrismaClient } = require('@prisma/client');
+const jwt = require('jsonwebtoken');
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await prisma.user.findUnique({ where: { email, password } });
+    const user = await prisma.cliente.findFirst({
+      where: { correo: email, contrasenia: password },
+    });
 
     if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    res.json({ message: 'Login exitoso' });
+    //token 
+    const token = jwt.sign({ userId: user.id }, 'tu_secreto');
 
+    res.json({
+      message: "Login exitoso",
+      token,
+      userId: user.id,  
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error al procesar la solicitud' });
+    res.status(500).json({ message: "Error al procesar la solicitud" });
   }
 };
 
