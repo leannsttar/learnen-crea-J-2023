@@ -72,8 +72,8 @@ export function MobileNav({ isLogged }) {
           </li>
           {isLoggedIn ? (
             <div className="flex gap-x-4">
-              <img src={Notification} alt="" />
-              <img src={HeaderPhoto} alt="" className="h-14 w-14" />
+              <Link to="/notifications"><img src={Notification} alt="" /></Link>
+              <Link to="/profile"><img src={HeaderPhoto} alt="" className="h-14 w-14" /></Link>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-5">
