@@ -334,7 +334,7 @@ export function SignUp() {
                       selected={state.BirthDate}
                       onChange={(date) =>
                         inputHandle({
-                          target: { name: "BirthDate", value: date },
+                          target: { name: "BirthDate", value: date.$d },
                         })
                       }
                       className="p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg"
