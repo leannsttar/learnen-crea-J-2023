@@ -13,6 +13,7 @@ import norwayFlag from "../../assets/Flags/norwayFlag.svg";
 import portugalFlag from "../../assets/Flags/portugalFlag.svg";
 import englishFlag from "../../assets/Flags/englishFlag.svg";
 import frenchFlag from "../../assets/Flags/frenchFlag.svg";
+import { Link } from "react-router-dom";
 
 export function FloatFlag({ img, className }) {
   return <img src={img} alt="" className={className} />;
@@ -170,9 +171,9 @@ export function IndexCard() {
 
       <Element className="flex items-center justify-center mt-8">
         <Fade bottom delay={500}>
-          <button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl hover:scale-105 hover: transition-scale ease-in duration-200">
+          <Link to="/community"><button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl hover:scale-105 hover: transition-scale ease-in duration-200">
             Únete a la comunidad
-          </button>
+          </button></Link>
         </Fade>
 
       </Element>
