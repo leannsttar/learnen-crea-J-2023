@@ -56,7 +56,7 @@ model Publicaciones {
   imagen         String
   fecha_creacion DateTime      @default(now())
   id_cliente     Int?
-  cliente        Cliente?       @relation(fields: [id_cliente], references: [id])
+  cliente        Cliente?      @relation(fields: [id_cliente], references: [id])
   Comentarios    Comentarios[]
   Likes          Likes[]
   Reportes       Reportes[]
@@ -110,4 +110,5 @@ model Administradores {
   id       Int    @id @default(autoincrement())
   nombre   String
   apellido String
+  rol      String
 }

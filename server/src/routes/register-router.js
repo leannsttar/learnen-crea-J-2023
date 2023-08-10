@@ -4,4 +4,4 @@ const registerController = require('../controladores/register-controlador.js');
 
 router.post('/register', registerController.createUser);
 
-module.exports = router;
+module.exports = router; 
