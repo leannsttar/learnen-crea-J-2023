@@ -146,11 +146,7 @@ export function Chat() {
                                         className="object-cover h-16 w-16 rounded-full"
                                         alt=""
                                     />
-                                    {user.online ? (
-                                        <div className="bg-green-500 h-3 w-3 rounded-full absolute bottom-0 right-0 border-2 border-white"></div>
-                                    ) : (
-                                        <div className="bg-red-500 h-3 w-3 rounded-full absolute bottom-0 right-0 border-2 border-white"></div>
-                                    )}
+                                    
                                 </div>
                                 <div className="w-full ml-4">
                                     <div className="flex justify-between items-center">
