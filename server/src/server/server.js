@@ -7,10 +7,13 @@ const path = require('path')
 const multer = require("multer");
 const sharp = require("sharp");
 const fs = require("fs");
+const { loginUser } = require('../controladores/login-controlador.js');
 
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+const {createUser} = require('../controladores/register-controlador.js');
+const {createPost, readPosts} = require('../controladores/feed-controlador.js');
 
 app.use(cors())
 app.use(express.json());
@@ -23,13 +26,10 @@ app.get('/', (req, res) => {
   res.send('Server funcionando');
 });
 
-const { loginUser } = require('../controladores/login-controlador.js');
 app.post('/auth/login', loginUser);
 
-const {createUser} = require('../controladores/register-controlador.js');
 app.post('/auth/register', upload.single("photoProfile"), createUser);
 
-const {createPost, readPosts} = require('../controladores/feed-controlador.js');
 app.post('/feed', createPost);
 app.get('/feed', readPosts)
 
