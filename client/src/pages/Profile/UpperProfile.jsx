@@ -1,12 +1,10 @@
-import { ButtonHeader } from "../../components/Header/ButtonHeader";
-import ProfilePhoto from "../../assets/Female.png";
-import { Element } from "react-scroll";
-import { Fade } from "react-reveal";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Element } from "react-scroll";
+import { Fade } from "react-reveal";
+import { ButtonHeader } from "../../components/Header/ButtonHeader";
 
-
-const ProfilePage = ({ firstName, lastName, userId }) => {
+export function UpperProfile({ firstName, lastName, userId }) {
   const [userImage, setUserImage] = useState("");
 
   useEffect(() => {
@@ -19,7 +17,7 @@ const ProfilePage = ({ firstName, lastName, userId }) => {
           }
         );
 
-        const blob = new Blob([data], { type: "image/jpeg" });
+        const blob = new Blob([data], { type: "image/jpeg/jpg/svg" });
         const imageUrl = URL.createObjectURL(blob);
         setUserImage(imageUrl);
       } catch (error) {
@@ -29,10 +27,8 @@ const ProfilePage = ({ firstName, lastName, userId }) => {
 
     fetchUserImage();
   }, [userId]);
-};
 
-
-export function UpperProfile() {
+  
   return (
     <>
       <div className="w-full h-[200px] 800:h-[350px] bg-bgProfile bg-cover"></div>
@@ -42,7 +38,7 @@ export function UpperProfile() {
 
             <div className="flex items-start  800:w-auto">
               <img
-                src={imageUrl}
+                src={userImage} 
                 alt=""
                 className="w-[220px] object-cover translate-y-[-80px] 800:translate-y-[-60px]"
               />

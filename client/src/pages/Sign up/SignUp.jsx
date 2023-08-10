@@ -13,6 +13,7 @@ import germanFlag from "../../assets/Flags/germanFlag.svg";
 import englishFlag from "../../assets/Flags/englishFlag.svg";
 import norwayFlag from "../../assets/Flags/norwayFlag.svg";
 import axios from "axios";
+import { Form } from "react-hook-form";
 
 const LanguageFlags = [
   {
@@ -65,12 +66,18 @@ export function SignUp() {
     topics: "",
   });
 
-  const sendRegister = async ({data}) => {
+  const sendRegister = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/auth/register", state);
-
+      const res = await axios.postForm(
+        "http://localhost:5000/auth/register",
+        state,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      console.log(state);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -141,18 +148,17 @@ export function SignUp() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setState({
+        ...state,
+        photoProfile: file,
+      });
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result);
-        setState({
-          ...state,
-          photoProfile: reader.result,
-        });
       };
       reader.readAsDataURL(file);
     }
   };
-
 
   // Codigo del ojito
   const [showPassword, setShowPassword] = useState(false);
@@ -161,7 +167,7 @@ export function SignUp() {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  console.log(state)
+  console.log(state);
   return (
     <>
       <div className="grid grid-cols-2 gap-3 place-items-center font-Poppins">
@@ -180,10 +186,11 @@ export function SignUp() {
                     <div className={`my-6`}></div>
                     {i !== formArray.length - 1 && (
                       <div
-                        className={`w-full h-[7px] ${formNo === i + 2 || formNo === formArray.length
-                          ? "bg-black"
-                          : "bg-slate-400"
-                          }`}
+                        className={`w-full h-[7px] ${
+                          formNo === i + 2 || formNo === formArray.length
+                            ? "bg-black"
+                            : "bg-slate-400"
+                        }`}
                       ></div>
                     )}
                   </>
@@ -623,10 +630,11 @@ export function SignUp() {
                           <div
                             key={idioma.country}
                             onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
-                              ? "border-[#FF8399]"
-                              : "border-stone-200"
-                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${
+                              idiomasSeleccionados.includes(idioma)
+                                ? "border-[#FF8399]"
+                                : "border-stone-200"
+                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
@@ -704,10 +712,11 @@ export function SignUp() {
                           <div
                             key={idioma.country}
                             onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
-                              ? "border-[#FF8399]"
-                              : "border-stone-200"
-                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${
+                              idiomasSeleccionados.includes(idioma)
+                                ? "border-[#FF8399]"
+                                : "border-stone-200"
+                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
@@ -836,7 +845,7 @@ export function SignUp() {
             </div>
           </div>
         </div>
-        <Slider/>
+        <Slider />
       </div>
     </>
   );
