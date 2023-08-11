@@ -108,7 +108,6 @@ model Mensajes {
 
 model Administradores {
   id       Int    @id @default(autoincrement())
-  nombre   String
-  apellido String
-  rol      String
+  email   String
+  contrasenia String
 }

@@ -25,7 +25,9 @@ import { Administradores } from "./pages/Dashboard/Usuarios/Administradores";
 import { Reportes } from "./pages/Dashboard/Reportes/Reportes";
 import { AsideMenu } from "./pages/Dashboard/AsideMenu";
 import { Navbar } from "@material-tailwind/react";
-import { Fade } from 'react-reveal'
+import { Fade } from "react-reveal";
+import { SessionProvider } from "./components/Header/Session";
+
 
 const router = createBrowserRouter([
   {
@@ -174,10 +176,9 @@ const router = createBrowserRouter([
     path: "login",
     element: (
       <>
-      <Header />
-    
-          <Login />
-        
+        <Header />
+
+        <Login />
       </>
     ),
   },
@@ -339,5 +340,10 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <React.StrictMode>
+    <SessionProvider>
+      <RouterProvider router={router} />
+  </SessionProvider>
+  </React.StrictMode>
 );
+

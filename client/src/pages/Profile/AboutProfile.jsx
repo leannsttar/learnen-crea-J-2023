@@ -5,9 +5,13 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { useSession } from "../../components/Header/useSession";
 
 export function AboutProfile({ meGusta, Objetivos, ComoSoy, name }) {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
+
+  const { usuario } = useSession();
+  console.log(usuario)
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,24 +37,24 @@ export function AboutProfile({ meGusta, Objetivos, ComoSoy, name }) {
         <Accordion open={open === 0}>
           <AccordionHeader onClick={() => handleOpen(1)}>
             <div className="flex justify-center">
-              <p className="font-semibold text-[23px]">About {name}</p>
+              <p className="font-semibold text-[23px]">About {usuario.nombre}</p>
             </div>
           </AccordionHeader>
           <AccordionBody>
             <div className="flex flex-col gap-5">
               <div>
                 <p className="font-[700]">Me gusta:</p>
-                <p>{meGusta}</p>
+                <p>{usuario.me_gusta}</p>
               </div>
               <div>
                 <p className="font-[700]">
                   Mis objetivos para aprender idiomas:
                 </p>
-                <p>{Objetivos}</p>
+                <p>{usuario.objetivos}</p>
               </div>
               <div>
                 <p className="font-[700]">Cómo soy:</p>
-                <p>{ComoSoy}</p>
+                <p>{usuario.como_soy}</p>
               </div>
             </div>
           </AccordionBody>
@@ -58,21 +62,21 @@ export function AboutProfile({ meGusta, Objetivos, ComoSoy, name }) {
       ) : (
         <>
           <div className="flex justify-center">
-            <p className="font-semibold text-[23px]">About {name}</p>
+            <p className="font-semibold text-[23px]">About {usuario.nombre}</p>
           </div>
 
           <div className="flex flex-col gap-5">
             <div>
               <p className="font-[700]">Me gusta:</p>
-              <p>{meGusta}</p>
+              <p>{usuario.me_gusta}</p>
             </div>
             <div>
               <p className="font-[700]">Mis objetivos para aprender idiomas:</p>
-              <p>{Objetivos}</p>
+              <p>{usuario.objetivos}</p>
             </div>
             <div>
               <p className="font-[700]">Cómo soy:</p>
-              <p>{ComoSoy}</p>
+              <p>{usuario.como_soy}</p>
             </div>
           </div>
         </>

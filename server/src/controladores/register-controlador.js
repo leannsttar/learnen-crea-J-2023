@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
         contrasenia: usuarioData.password,
         contrasenia_ok: usuarioData.password_ok,
         genero: usuarioData.sex=='Masculino',
-        imagen_perfil: "/public/images/perfil/"+req.file.originalname,
+        imagen_perfil: "/perfil/"+req.file.originalname,
         me_gusta: usuarioData.topics,
         objetivos: usuarioData.goals,
         como_soy: usuarioData.aboutYou,

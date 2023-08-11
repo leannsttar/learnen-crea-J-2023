@@ -1,12 +1,11 @@
 import { React, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion, useScroll} from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import LogoMobile from "/src/assets/logo_right_text.svg";
 import LogoDesktop from "/src/assets/logo_right_text_desktop.svg";
-
 import { ButtonHeader } from "./ButtonHeader";
 import { MobileNav } from "./MobileNav.jsx";
-
+import { useSession } from "./useSession";
 import Notification from "../../assets/notification.svg";
 import HeaderPhoto from "../../assets/NacePhoto.jpg";
 
@@ -19,7 +18,10 @@ const linksClass = {
 };
 
 export function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { usuario } = useSession();
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return usuario.id ? true : false;
+  });
 
   const [activeLink, setActiveLink] = useState("");
 
@@ -28,132 +30,145 @@ export function Header() {
   useEffect(() => {
     setActiveLink(location.pathname);
   }, [location]);
-  const { scrollYProgress} = useScroll();
-
-  // const [isSticky, setIsSticky] = useState(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsSticky(window.scrollY > 0);
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
+  const { scrollYProgress } = useScroll();
+  console.log(usuario);
   return (
     <>
       <div className="mb-[10.3vh]">
         <header
-        className={
-          activeLink === "/"
-            ? "fixed bg-white border-b border-[#9B9B9B] w-full px-[30px] lg:px-[40px] z-10 h-[10.3vh] flex items-center"
-            : "fixed bg-white border-b border-[#9B9B9B] w-full px-[30px] lg:px-[40px] z-10 h-[10.3vh] flex items-center"
-        }
-      >
-        <div className="flex items-center lg:flex-row lg:items-center w-full justify-between bg-white">
-          {/*logo*/}
-          <Link to={"/"}>
-            <img src={LogoDesktop} alt="" className="h-min w-[200px]" />
-          </Link>
-          <nav className="hidden lg:flex lg:gap-5 lg:translate-x-10">
-            <div className="space-x-8">
-              <Link
-                to={"/"}
-                className={
-                  activeLink === "/" ? linksClass.active : linksClass.nonactive
-                }
-              >
-                Home
-              </Link>
-              {isLoggedIn ? (
+          className={
+            activeLink === "/"
+              ? "fixed bg-white border-b border-[#9B9B9B] w-full px-[30px] lg:px-[40px] z-10 h-[10.3vh] flex items-center"
+              : "fixed bg-white border-b border-[#9B9B9B] w-full px-[30px] lg:px-[40px] z-10 h-[10.3vh] flex items-center"
+          }
+        >
+          <div className="flex items-center lg:flex-row lg:items-center w-full justify-between bg-white">
+            {/*logo*/}
+            <Link to={"/"}>
+              <img src={LogoDesktop} alt="" className="h-min w-[200px]" />
+            </Link>
+            <nav className="hidden lg:flex lg:gap-5 lg:translate-x-10">
+              <div className="space-x-8">
                 <Link
-                  to={"/feed"}
+                  to={"/"}
                   className={
-                    activeLink === "/feed"
+                    activeLink === "/"
                       ? linksClass.active
                       : linksClass.nonactive
                   }
                 >
-                  Posts
+                  Home
                 </Link>
-              ) : (
-                ""
-              )}
-              <Link
-                to={"/community"}
-                className={
-                  activeLink === "/community"
-                    ? linksClass.active
-                    : linksClass.nonactive
-                }
-              >
-                Comunidad
-              </Link>
-              {isLoggedIn ? (
+                {isLoggedIn ? (
+                  <Link
+                    to={"/feed"}
+                    className={
+                      activeLink === "/feed"
+                        ? linksClass.active
+                        : linksClass.nonactive
+                    }
+                  >
+                    Posts
+                  </Link>
+                ) : (
+                  ""
+                )}
                 <Link
-                  to={"/chat"}
+                  to={"/community"}
                   className={
-                    activeLink === "/chat"
+                    activeLink === "/community"
                       ? linksClass.active
                       : linksClass.nonactive
                   }
                 >
-                  Chat
+                  Comunidad
                 </Link>
-              ) : (
-                ""
-              )}
-              <Link
-                to={"/blog"}
-                className={
-                  activeLink === "/blog"
-                    ? linksClass.active
-                    : linksClass.nonactive
-                }
-              >
-                Blog
-              </Link>
-            </div>
-          </nav>
-          
-          {isLoggedIn ? (
-            <div className="lg:flex lg:gap-5 lg:items-center hidden ">
-              <Link to={"/notifications"} className="rounded-full hover:bg-[#e6e6e6] p-1">
-                <img src={Notification} alt="" className="w-8 h-8 " />
-              </Link>
-              <p className="font-medium">Nacely Orellana</p>
-              <Link to={"/profile"}>
-                <img src={HeaderPhoto} alt="" className="w-16 h-16" />
-              </Link>
-            </div>
-          ) : (
-            <div className="lg:flex lg:gap-5 hidden">
-              <ButtonHeader
-                className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-white hover:scale-105 hover: transition-scale ease-in duration-200"
-                to="/login"
-                text="Iniciar sesión"
-              />
-              <ButtonHeader
-                className="flex gap-3 px-6 py-2.5 shadow-square border border-white bg-black text-white flex-row-reverse hover:scale-105 hover: transition-scale ease-in duration-200"
-                imgClassName="invert"
-                to="/signup"
-                text="Registrarse"
-              />
-            </div>
-          )}
+                {isLoggedIn ? (
+                  <Link
+                    to={"/chat"}
+                    className={
+                      activeLink === "/chat"
+                        ? linksClass.active
+                        : linksClass.nonactive
+                    }
+                  >
+                    Chat
+                  </Link>
+                ) : (
+                  ""
+                )}
+                <Link
+                  to={"/blog"}
+                  className={
+                    activeLink === "/blog"
+                      ? linksClass.active
+                      : linksClass.nonactive
+                  }
+                >
+                  Blog
+                </Link>
+              </div>
+            </nav>
 
-          <MobileNav isLogged={isLoggedIn} />
-        </div>
-        
-      </header>
+            {isLoggedIn ? (
+              <div className="lg:flex lg:gap-5 lg:items-center hidden ">
+                <Link
+                  to={"/notifications"}
+                  className="rounded-full hover:bg-[#e6e6e6] p-1"
+                >
+                  <img src={Notification} alt="" className="w-8 h-8 " />
+                </Link>
+                <p className="font-medium">
+                  {usuario.nombre} {usuario.apellido}{" "}
+                </p>
+                <Link to={"/profile"}>
+                  <img
+                    src={`http://localhost:5000${usuario.imagen_perfil}`}
+                    alt=""
+                    className="w-16 h-16 object-cover"
+                    style={{
+                      clipPath: "circle(50% at 50% 50%)", 
+                    }}
+                  />
+                </Link>
+              </div>
+            ) : (
+              <div className="lg:flex lg:gap-5 hidden">
+                <ButtonHeader
+                  className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-white hover:scale-105 hover: transition-scale ease-in duration-200"
+                  to="/login"
+                  text="Iniciar sesión"
+                />
+                <ButtonHeader
+                  className="flex gap-3 px-6 py-2.5 shadow-square border border-white bg-black text-white flex-row-reverse hover:scale-105 hover: transition-scale ease-in duration-200"
+                  imgClassName="invert"
+                  to="/signup"
+                  text="Registrarse"
+                />
+              </div>
+            )}
+
+            <MobileNav isLogged={isLoggedIn} />
+          </div>
+        </header>
       </div>
     </>
-    );
+  );
 }
+
+// const [isSticky, setIsSticky] = useState(false);
+
+// useEffect(() => {
+//   const handleScroll = () => {
+//     setIsSticky(window.scrollY > 0);
+//   };
+
+//   window.addEventListener("scroll", handleScroll);
+
+//   return () => {
+//     window.removeEventListener("scroll", handleScroll);
+//   };
+// }, []);
 
 //   if (isSticky) {
 //     return (

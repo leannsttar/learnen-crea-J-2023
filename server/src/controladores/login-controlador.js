@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
     res.json({
       message: "Login exitoso",
       token,
-      userId: user.id,  
+      ...user
     });
   } catch (error) {
     console.error(error);
