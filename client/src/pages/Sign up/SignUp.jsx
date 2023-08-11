@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Slider } from "../../components/slider";
 import { ToastContainer, toast } from "react-toastify";
@@ -75,6 +75,7 @@ export function SignUp() {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+      toast.success("Formulario enviado exitosamente");
       console.log(state);
     } catch (error) {
       console.log(error);
