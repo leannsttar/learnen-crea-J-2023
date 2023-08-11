@@ -41,6 +41,17 @@ const blogData = {
 };
 
 const PostCard = ({ keyProp, posts }) => {
+
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
   let matchingLanguage;
 
   allLanguages.forEach((language) => {
@@ -72,7 +83,7 @@ const PostCard = ({ keyProp, posts }) => {
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
 
-  
+
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
@@ -87,7 +98,10 @@ const PostCard = ({ keyProp, posts }) => {
           <AiOutlineEllipsis className="ml-auto w-12 h-12" />
         </div>
         <div className="mt-4">
-          <p>{posts.descripcion}</p>
+
+          <p
+
+          >{posts.descripcion}</p>
         </div>
       </div>
       <img
@@ -99,8 +113,72 @@ const PostCard = ({ keyProp, posts }) => {
         <AiOutlineHeart className="mr-2 w-6 h-6" />
         <p>{feedData.likes}</p>
         <div className="flex-grow"></div>
-        <BsChatText className="mr-2 w-6 h-5" />
-        <p className="text-sm">{feedData.comments} comments</p>
+        <div onClick={openModal} className="cursor-pointer flex">
+          <BsChatText className="mr-2 w-6 h-5" />
+          <p  className="text-sm">{feedData.comments} comments</p>
+        </div>
+
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog
+            as="div"
+            className="relative z-10 h-screen"
+            onClose={closeModal}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-gray-900"
+                    >
+                      Comentarios
+                    </Dialog.Title>
+                    <div className="mt-2 flex justify-center mb-7">
+
+                    </div>
+
+                    <div className="mt-4 flex justify-center gap-8">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModal}
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      >
+                        Cambiar foto
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
       </div>
     </div>
   );

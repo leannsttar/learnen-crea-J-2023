@@ -14,7 +14,7 @@ model Cliente {
   id                 Int              @id @default(autoincrement())
   nombre             String
   apellido           String
-  correo             String           @unique
+  correo             String           
   contrasenia        String
   contrasenia_ok     String
   fecha_nacimiento   DateTime
