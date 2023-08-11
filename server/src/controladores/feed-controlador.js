@@ -83,6 +83,25 @@ const readPosts = async (req, res) => {
   }
 };
 
+
+// const likepost = async (req, res ) => {
+//   try {
+//     const like = await Prisma.publicaciones.findById(req.params.id)
+//     if(post.like.filter(like => like.user.toString() === req.user.id).legth > 0){
+//       return res.status(400).json({ msg: 'post con ecsito'})
+
+//     }
+//     post.like.unshift({user: req.user.id})
+
+//     await post.save()
+//     res.json(post.like)
+//   } catch (error) {
+//     console.error(err.message)
+//     res.status(500).send('server error secso')
+//   }
+// }
+
+
 module.exports = {
   createPost,
   readPosts,
