@@ -116,14 +116,6 @@ export function SignUp() {
     setFormNo(formNo - 1);
   };
 
-  const finalSubmit = () => {
-    if (state.aboutYou && state.goals && state.topics) {
-      toast.success("Formulario enviado exitosamente");
-    } else {
-      toast.error("Por favor, llena todos los campos");
-    }
-  };
-
   const [idioma, updateIdioma] = useState();
 
   const [idiomasSeleccionados, updateIdiomasSeleccionados] = useState([]);
@@ -187,11 +179,10 @@ export function SignUp() {
                     <div className={`my-6`}></div>
                     {i !== formArray.length - 1 && (
                       <div
-                        className={`w-full h-[7px] ${
-                          formNo === i + 2 || formNo === formArray.length
-                            ? "bg-black"
-                            : "bg-slate-400"
-                        }`}
+                        className={`w-full h-[7px] ${formNo === i + 2 || formNo === formArray.length
+                          ? "bg-black"
+                          : "bg-slate-400"
+                          }`}
                       ></div>
                     )}
                   </>
@@ -631,11 +622,10 @@ export function SignUp() {
                           <div
                             key={idioma.country}
                             onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${
-                              idiomasSeleccionados.includes(idioma)
-                                ? "border-[#FF8399]"
-                                : "border-stone-200"
-                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
+                              ? "border-[#FF8399]"
+                              : "border-stone-200"
+                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
@@ -713,11 +703,10 @@ export function SignUp() {
                           <div
                             key={idioma.country}
                             onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${
-                              idiomasSeleccionados.includes(idioma)
-                                ? "border-[#FF8399]"
-                                : "border-stone-200"
-                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
+                              ? "border-[#FF8399]"
+                              : "border-stone-200"
+                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
