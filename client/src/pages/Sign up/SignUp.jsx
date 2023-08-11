@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Slider } from "../../components/slider";
 import { ToastContainer, toast } from "react-toastify";
@@ -78,6 +78,7 @@ export function SignUp() {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+      toast.success("Formulario enviado exitosamente");
       console.log(state);
       // <Redirect to="/login" />;
     } catch (error) {
@@ -117,14 +118,6 @@ export function SignUp() {
 
   const pre = () => {
     setFormNo(formNo - 1);
-  };
-
-  const finalSubmit = () => {
-    if (state.aboutYou && state.goals && state.topics) {
-      toast.success("Formulario enviado exitosamente");
-    } else {
-      toast.error("Por favor, llena todos los campos");
-    }
   };
 
   const [idioma, updateIdioma] = useState();
