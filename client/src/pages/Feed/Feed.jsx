@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import {
   AiOutlineEllipsis,
   AiOutlineHeart,
+  AiFillHeart,
   AiOutlinePlus,
 } from "react-icons/ai";
 import { BsChatText, BsThreeDots } from "react-icons/bs";
@@ -15,6 +16,8 @@ import { allLanguages } from "../../data/languages";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { Button, Dropdown, Space } from "antd";
+import iconTrash from "../../assets/Icontrash.svg";
 
 const feedData = {
   id: 1,
@@ -43,6 +46,18 @@ const blogData = {
 
 const PostCard = ({ keyProp, posts }) => {
   let [isOpen, setIsOpen] = useState(false);
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
+  const [isOpenReport, setIsOpenReport] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
+
+  const toggleLike = () => {
+    setIsLiked((prevIsLiked) => !prevIsLiked);
+  };
+
+  const handleCommentChange = (event) => {
+    setCommentText(event.target.value);
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -51,6 +66,34 @@ const PostCard = ({ keyProp, posts }) => {
   function openModal() {
     setIsOpen(true);
   }
+
+  function closeModalDelete() {
+    setIsOpenDelete(false);
+  }
+
+  function openModalDelete() {
+    setIsOpenDelete(true);
+  }
+
+  function closeModalReport() {
+    setIsOpenReport(false);
+  }
+
+  function openModalReport() {
+    setIsOpenReport(true);
+  }
+
+  const items = [
+    {
+      key: "1",
+      label: <button onClick={openModalDelete}>Eliminar</button>,
+      danger: true,
+    },
+    {
+      key: "2",
+      label: <button onClick={openModalReport}>Reportar</button>,
+    },
+  ];
 
   let matchingLanguage;
 
@@ -85,6 +128,138 @@ const PostCard = ({ keyProp, posts }) => {
 
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
+      {/* Modal de eliminar post */}
+      <Transition appear show={isOpenDelete} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10 h-screen"
+          onClose={closeModalDelete}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    <div className="flex flex-col justify-center items-center gap-5 mb-10">
+                      <img src={iconTrash} alt="" className="w-16" />
+                      Seguro que quieres eliminar tu publicación?
+                    </div>
+                  </Dialog.Title>
+                  <div className="flex gap-5 justify-center">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModalDelete}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModalDelete}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      {/* Modal para el reporte */}
+      <Transition appear show={isOpenReport} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10 h-screen"
+          onClose={closeModalReport}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900 flex justify-center mb-8"
+                  >
+                    Reportar publicación
+                  </Dialog.Title>
+                  <div className="w-full">
+                    <textarea
+                      placeholder="¿Por qué quieres reportar esta publicación?"
+                      name=""
+                      id=""
+                      cols="30"
+                      rows="6"
+                      className="outline-none resize-none w-full"
+                    ></textarea>
+
+                    <div className="mt-4 flex justify-center gap-6">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModalReport}
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModalReport}
+                      >
+                        Enviar reporte
+                      </button>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
         <div className="flex flex-row items-center justify-between w-full">
           <img className="w-12 h-12 -mr-3 z-[1]" src={feedData.image} alt="" />
@@ -94,7 +269,18 @@ const PostCard = ({ keyProp, posts }) => {
             <h6 className="font-bold">{feedData.name}</h6>
             <h6 className="text-sm">Hace {timeAgo}</h6>
           </div>
-          <AiOutlineEllipsis className="ml-auto w-12 h-12" />
+          <Space direction="vertical" className="ml-auto">
+            <Space wrap>
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                placement="bottomLeft"
+              >
+                <BsThreeDots className="" size={25} />
+              </Dropdown>
+            </Space>
+          </Space>
         </div>
         <div className="mt-4">
           <p>{posts.descripcion}</p>
@@ -106,14 +292,30 @@ const PostCard = ({ keyProp, posts }) => {
         alt=""
       />
       <div className="border-l border-r border-b border-black bg-gray-100 flex flex-row items-center w-[431px] p-4">
-        <AiOutlineHeart className="mr-2 w-6 h-6" />
+        {isLiked ? (
+          <AiFillHeart
+            className="mr-2 w-6 h-6 cursor-pointer"
+            style={{
+              fill: "#FF0000",
+              animation: "heartBeat 0.8s ease infinite",
+              cursor: "pointer",
+              opacity: 1,
+            }}
+            onClick={toggleLike}
+          />
+        ) : (
+          <AiOutlineHeart
+            className="mr-2 w-6 h-6 cursor-pointer"
+            onClick={toggleLike}
+          />
+        )}
         <p>{feedData.likes}</p>
         <div className="flex-grow"></div>
         <div onClick={openModal} className="cursor-pointer flex">
           <BsChatText className="mr-2 w-6 h-5" />
           <p className="text-sm">{feedData.comments} comments</p>
         </div>
-
+        {/* Modal de ver el post */}
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -164,7 +366,18 @@ const PostCard = ({ keyProp, posts }) => {
                             <p className="font-semibold">nacelyorellana_</p>
                           </div>
                           <div>
-                            <BsThreeDots size={"20"} />
+                            <Space direction="vertical">
+                              <Space wrap>
+                                <Dropdown
+                                  menu={{
+                                    items,
+                                  }}
+                                  placement="bottomLeft"
+                                >
+                                  <BsThreeDots className="" size={25} />
+                                </Dropdown>
+                              </Space>
+                            </Space>
                           </div>
                         </div>
                         <div className="flex flex-grow h-[70%] items-center justify-center text-2xl">
@@ -172,10 +385,23 @@ const PostCard = ({ keyProp, posts }) => {
                         </div>
                         <div className="h-[20%]">
                           <div className="p-5 border-t-[1px] flex items-center gap-3">
-                            <AiOutlineHeart
-                              size={30}
-                              className="cursor-pointer"
-                            />
+                            {isLiked ? (
+                              <AiFillHeart
+                                className="mr-2 w-8 h-8 cursor-pointer"
+                                style={{
+                                  fill: "#FF0000",
+                                  animation: "heartBeat 0.8s ease infinite",
+                                  cursor: "pointer",
+                                  opacity: 1,
+                                }}
+                                onClick={toggleLike}
+                              />
+                            ) : (
+                              <AiOutlineHeart
+                                className="mr-2 w-8 h-8 cursor-pointer"
+                                onClick={toggleLike}
+                              />
+                            )}
                             <div>
                               <p className="font-semibold">9,944 likes</p>
                               <p className="text-[#9c9c9c] text-sm">
@@ -188,12 +414,20 @@ const PostCard = ({ keyProp, posts }) => {
                               type="text"
                               className="outline-none w-full resize-none"
                               placeholder="Añade un comentario..."
+                              value={commentText}
+                              onChange={handleCommentChange}
                             />
-                            <input
+                            <button
+                              disabled={!commentText.trim()}
                               type="submit"
-                              value="Publicar"
-                              className="text-[#ff8399] font-semibold"
-                            />
+                              className={`text-[#ff8399] font-semibold ${
+                                commentText.trim()
+                                  ? ""
+                                  : "opacity-50 cursor-auto"
+                              }`}
+                            >
+                              Publicar
+                            </button>
                           </div>
                         </div>
                       </div>
