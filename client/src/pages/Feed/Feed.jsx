@@ -6,7 +6,7 @@ import {
   AiOutlinePlus,
 } from "react-icons/ai";
 import { BsChatText, BsThreeDots } from "react-icons/bs";
-import { FaRegHeart } from 'react-icons/fa'
+import { FaRegHeart } from "react-icons/fa";
 import { AppTitle } from "../../components/AppTitle";
 import { Dialog, Transition } from "@headlessui/react";
 import galleryAdd from "../../assets/gallery-add.svg";
@@ -129,7 +129,7 @@ const PostCard = ({ keyProp, posts }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+              <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
             </Transition.Child>
 
             <div className="fixed inset-0 overflow-y-auto">
@@ -157,8 +157,8 @@ const PostCard = ({ keyProp, posts }) => {
                           className="w-auto"
                         />
                       </div>
-                      <div className="w-[25vw] h-full flex-col justify-between">
-                        <div className=" border-b-[1px] p-5 flex items-center justify-between">
+                      <div className="w-[25vw] h-full flex-col">
+                        <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
                           <div className="flex items-center gap-3">
                             <img src={feedData.image} alt="" className="w-10" />
                             <p className="font-semibold">nacelyorellana_</p>
@@ -167,20 +167,33 @@ const PostCard = ({ keyProp, posts }) => {
                             <BsThreeDots size={"20"} />
                           </div>
                         </div>
-                        <div className="">No comments yet</div>
-                        <div className="">
+                        <div className="flex flex-grow h-[70%] items-center justify-center text-2xl">
+                          Sin comentarios aún
+                        </div>
+                        <div className="h-[20%]">
                           <div className="p-5 border-t-[1px] flex items-center gap-3">
-                            <AiOutlineHeart size={30} className="cursor-pointer"/>
+                            <AiOutlineHeart
+                              size={30}
+                              className="cursor-pointer"
+                            />
                             <div>
                               <p className="font-semibold">9,944 likes</p>
                               <p className="text-[#9c9c9c] text-sm">
-                                Hace 3 días
+                                Hace {timeAgo}
                               </p>
                             </div>
                           </div>
-                          <div className="p-5 border-t-[1px] flex justify-between">
-                            <input type="text" className="outline-none" placeholder="Añade un comentario..."/>
-                            <input type="submit" value='Publicar' className="text-[#ff8399] font-semibold"/>
+                          <div className="p-5 border-t-[1px] flex justify-between gap-3 items-center">
+                            <textarea
+                              type="text"
+                              className="outline-none w-full resize-none"
+                              placeholder="Añade un comentario..."
+                            />
+                            <input
+                              type="submit"
+                              value="Publicar"
+                              className="text-[#ff8399] font-semibold"
+                            />
                           </div>
                         </div>
                       </div>
