@@ -2,15 +2,14 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 const SessionContext = createContext();
 
-const obtenerPerfil = () => {
+const obtenerPerfil = async (token) => {
   try {
-    const token = window.localStorage.getItem("token");
     const configHeaders = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
-    const data = axios.get("http://localhost:5000/perfil", configHeaders);
+    const data = await axios.get("http://localhost:5000/perfil", configHeaders);
     return data;
   } catch (error) {
     return error;

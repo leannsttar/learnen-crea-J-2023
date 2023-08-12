@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
     // Verificar si el correo ya está registrado en la base de datos
-    const existingUser = await prisma.cliente.findUnique({
+    const existingUser = await prisma.cliente.findFirst({
       where: {
         correo: usuarioData.email
       }

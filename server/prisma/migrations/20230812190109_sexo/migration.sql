@@ -5,6 +5,7 @@ CREATE TABLE `Cliente` (
     `apellido` VARCHAR(191) NOT NULL,
     `correo` VARCHAR(191) NOT NULL,
     `contrasenia` VARCHAR(191) NOT NULL,
+    `contrasenia_ok` VARCHAR(191) NOT NULL,
     `fecha_nacimiento` DATETIME(3) NOT NULL,
     `genero` BOOLEAN NOT NULL,
     `imagen_perfil` VARCHAR(191) NOT NULL,
@@ -12,7 +13,6 @@ CREATE TABLE `Cliente` (
     `objetivos` VARCHAR(191) NOT NULL,
     `como_soy` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `Cliente_correo_key`(`correo`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -42,7 +42,7 @@ CREATE TABLE `Publicaciones` (
     `idioma` VARCHAR(191) NOT NULL,
     `imagen` VARCHAR(191) NOT NULL,
     `fecha_creacion` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `id_cliente` INTEGER NOT NULL,
+    `id_cliente` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -99,8 +99,8 @@ CREATE TABLE `Mensajes` (
 -- CreateTable
 CREATE TABLE `Administradores` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `nombre` VARCHAR(191) NOT NULL,
-    `apellido` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `contrasenia` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -112,7 +112,7 @@ ALTER TABLE `ClienteIdiomas` ADD CONSTRAINT `ClienteIdiomas_id_cliente_fkey` FOR
 ALTER TABLE `ClienteIdiomas` ADD CONSTRAINT `ClienteIdiomas_id_idioma_fkey` FOREIGN KEY (`id_idioma`) REFERENCES `Idiomas`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Publicaciones` ADD CONSTRAINT `Publicaciones_id_cliente_fkey` FOREIGN KEY (`id_cliente`) REFERENCES `Cliente`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Publicaciones` ADD CONSTRAINT `Publicaciones_id_cliente_fkey` FOREIGN KEY (`id_cliente`) REFERENCES `Cliente`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Comentarios` ADD CONSTRAINT `Comentarios_id_cliente_fkey` FOREIGN KEY (`id_cliente`) REFERENCES `Cliente`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

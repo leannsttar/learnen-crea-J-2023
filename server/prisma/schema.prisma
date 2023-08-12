@@ -14,7 +14,7 @@ model Cliente {
   id                 Int              @id @default(autoincrement())
   nombre             String
   apellido           String
-  correo             String           
+  correo             String
   contrasenia        String
   contrasenia_ok     String
   fecha_nacimiento   DateTime
@@ -40,13 +40,20 @@ model Idiomas {
   ClienteIdiomas ClienteIdiomas[]
 }
 
+enum tipoIdioma {
+  mother_language
+  more_languages
+  languages
+}
+
 model ClienteIdiomas {
-  id           Int     @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   nivel_idioma String
   id_cliente   Int
   id_idioma    Int
-  cliente      Cliente @relation(fields: [id_cliente], references: [id])
-  idioma       Idiomas @relation(fields: [id_idioma], references: [id])
+  tipo_idioma   tipoIdioma
+  cliente      Cliente    @relation(fields: [id_cliente], references: [id])
+  idioma       Idiomas    @relation(fields: [id_idioma], references: [id])
 }
 
 model Publicaciones {
@@ -107,7 +114,7 @@ model Mensajes {
 }
 
 model Administradores {
-  id       Int    @id @default(autoincrement())
-  email   String
+  id          Int    @id @default(autoincrement())
+  email       String
   contrasenia String
 }

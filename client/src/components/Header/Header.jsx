@@ -20,7 +20,7 @@ const linksClass = {
 export function Header() {
   const { usuario } = useSession();
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return usuario.id ? true : false;
+    return usuario ? true : false;
   });
 
   const [activeLink, setActiveLink] = useState("");

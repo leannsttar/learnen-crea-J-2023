@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 const obtenerPerfilPorToken = async (req, res) => {
   try {
-    const autorizacion = req.headers.Authorization;
+    const autorizacion = req.headers.authorization;
     if (autorizacion && autorizacion.startsWith("Bearer ")) {
       console.log(autorizacion)
 

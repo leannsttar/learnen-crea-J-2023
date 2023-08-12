@@ -71,6 +71,9 @@ export function SignUp() {
     topics: "",
   });
 
+  console.log(state.more_languages);
+  console.log(state.mother_language);
+  console.log(state.languages);
   const sendRegister = async () => {
     try {
       const res = await axios.postForm(
