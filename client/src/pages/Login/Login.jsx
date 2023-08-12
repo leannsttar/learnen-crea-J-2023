@@ -94,7 +94,7 @@ export function Login() {
   };
 
   return (
-    <form action="post" onSubmit={handleSubmit(enviarLogin)}>
+    <form action="post" onSubmit={handleSubmit(handleFormSubmit)}>
       <div className="grid grid-cols-2 gap-2 place-items-center font-Poppins">
         <div className="flex flex-col space-y-12">
           <div className="space-y-2">

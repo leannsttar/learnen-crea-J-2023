@@ -35,9 +35,6 @@ export const deleteComment = async function (req, res) {
         id: parseInt(id),
       },
     });
-    return res.status(200).json({
-      message: "El comentario ha sido eliminada !",
-    });
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
       return res.status(404).json({

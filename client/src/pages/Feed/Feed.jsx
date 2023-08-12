@@ -5,7 +5,8 @@ import {
   AiOutlineHeart,
   AiOutlinePlus,
 } from "react-icons/ai";
-import { BsChatText } from "react-icons/bs";
+import { BsChatText, BsThreeDots } from "react-icons/bs";
+import { FaRegHeart } from 'react-icons/fa'
 import { AppTitle } from "../../components/AppTitle";
 import { Dialog, Transition } from "@headlessui/react";
 import galleryAdd from "../../assets/gallery-add.svg";
@@ -41,7 +42,6 @@ const blogData = {
 };
 
 const PostCard = ({ keyProp, posts }) => {
-
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -83,7 +83,6 @@ const PostCard = ({ keyProp, posts }) => {
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
 
-
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
@@ -98,10 +97,7 @@ const PostCard = ({ keyProp, posts }) => {
           <AiOutlineEllipsis className="ml-auto w-12 h-12" />
         </div>
         <div className="mt-4">
-
-          <p
-
-          >{posts.descripcion}</p>
+          <p>{posts.descripcion}</p>
         </div>
       </div>
       <img
@@ -115,7 +111,7 @@ const PostCard = ({ keyProp, posts }) => {
         <div className="flex-grow"></div>
         <div onClick={openModal} className="cursor-pointer flex">
           <BsChatText className="mr-2 w-6 h-5" />
-          <p  className="text-sm">{feedData.comments} comments</p>
+          <p className="text-sm">{feedData.comments} comments</p>
         </div>
 
         <Transition appear show={isOpen} as={Fragment}>
@@ -147,31 +143,47 @@ const PostCard = ({ keyProp, posts }) => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <Dialog.Title
+                  <Dialog.Panel className="h-[95vh] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
+                    {/* <Dialog.Title
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Comentarios
-                    </Dialog.Title>
-                    <div className="mt-2 flex justify-center mb-7">
-
-                    </div>
-
-                    <div className="mt-4 flex justify-center gap-8">
-                      <button
-                        type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={closeModal}
-                      >
-                        Cancelar
-                      </button>
-                      <button
-                        type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      >
-                        Cambiar foto
-                      </button>
+                    </Dialog.Title> */}
+                    <div className="h-full flex">
+                      <div className=" bg-black flex items-center justify-center">
+                        <img
+                          src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+                          alt=""
+                          className="w-auto"
+                        />
+                      </div>
+                      <div className="w-[25vw] h-full flex-col justify-between">
+                        <div className=" border-b-[1px] p-5 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <img src={feedData.image} alt="" className="w-10" />
+                            <p className="font-semibold">nacelyorellana_</p>
+                          </div>
+                          <div>
+                            <BsThreeDots size={"20"} />
+                          </div>
+                        </div>
+                        <div className="">No comments yet</div>
+                        <div className="">
+                          <div className="p-5 border-t-[1px] flex items-center gap-3">
+                            <AiOutlineHeart size={30} className="cursor-pointer"/>
+                            <div>
+                              <p className="font-semibold">9,944 likes</p>
+                              <p className="text-[#9c9c9c] text-sm">
+                                Hace 3 días
+                              </p>
+                            </div>
+                          </div>
+                          <div className="p-5 border-t-[1px] flex justify-between">
+                            <input type="text" className="outline-none" placeholder="Añade un comentario..."/>
+                            <input type="submit" value='Publicar' className="text-[#ff8399] font-semibold"/>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>

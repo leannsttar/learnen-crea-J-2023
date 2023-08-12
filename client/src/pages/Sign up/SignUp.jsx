@@ -16,7 +16,7 @@ import axios from "axios";
 import { Form } from "react-hook-form";
 import { useSession } from "../../components/Header/useSession";
 
-const { usuario } = useSession()
+
 
 const LanguageFlags = [
   {
@@ -47,6 +47,8 @@ const LanguageFlags = [
 
 //register xd
 export function SignUp() {
+  const { usuario } = useSession()
+
   const formArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const [formNo, setFormNo] = useState(formArray[0]);
