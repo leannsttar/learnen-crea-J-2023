@@ -12,8 +12,8 @@ export function LinkMiniNav({ name, onClick, layout }) {
       onClick={onClick}
       className={
         name === layout
-        ? "w-auto px-5 py-3 text-black border-b-[4px] border-black cursor-pointer transition-all ease-in duration-150"
-        : "w-auto px-5 py-3 hover:border-b-[4px] hover:border-black  cursor-pointer transition-all ease-in duration-150"
+        ? "w-auto px-5 py-3 text-white  bg-black rounded-xl cursor-pointer transition-all ease-in duration-150"
+        : "w-auto px-5 py-3 hover:bg-black hover:text-white rounded-xl cursor-pointer transition-all ease-in duration-150"
       }
     >
       <p>{name}</p>

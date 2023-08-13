@@ -8,6 +8,27 @@ import { MobileNav } from "./MobileNav.jsx";
 import { useSession } from "./useSession";
 import Notification from "../../assets/notification.svg";
 import HeaderPhoto from "../../assets/NacePhoto.jpg";
+import settingsIcon from "../../assets/settingsIcon.svg";
+import logoutIcon from "../../assets/logoutIcon.svg";
+import { Menu } from "antd";
+
+const items = [
+  {
+    label: "Navigation Three - Submenu",
+    key: "SubMenu",
+    icon: "",
+    children: [
+      {
+        label: "Option 1",
+        key: "setting:1",
+      },
+      {
+        label: "Option 2",
+        key: "setting:2",
+      },
+    ],
+  },
+];
 
 const linksClass = {
   nonactive:
@@ -19,6 +40,14 @@ const linksClass = {
 
 export function Header() {
   const { usuario } = useSession();
+
+  const [current, setCurrent] = useState("mail");
+
+  const onHover = (e) => {
+    console.log("hover ", e);
+    setCurrent(e.key);
+  };
+
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return usuario ? true : false;
   });
@@ -127,10 +156,16 @@ export function Header() {
                     alt=""
                     className="w-16 h-16 object-cover"
                     style={{
-                      clipPath: "circle(50% at 50% 50%)", 
+                      clipPath: "circle(50% at 50% 50%)",
                     }}
                   />
                 </Link>
+                <Menu
+                  onMouseOver={onHover}
+                  selectedKeys={[current]}
+                  mode="horizontal"
+                  items={items}
+                />
               </div>
             ) : (
               <div className="lg:flex lg:gap-5 hidden">

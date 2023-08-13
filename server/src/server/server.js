@@ -17,6 +17,7 @@ const {
   createPost,
   readPosts,
 } = require("../controladores/feed-controlador.js");
+const {updatePhoto, updateProfileInfo} = require("../controladores/settings-controlador")
 
 app.use(cors());
 app.use(express.json());
@@ -36,6 +37,9 @@ app.post("/auth/register", upload.single("photoProfile"), createUser);
 
 app.post("/feed", createPost);
 app.get("/feed", readPosts);
+
+app.put("/settings/imagen", upload.single("imagen_perfil"), updatePhoto);
+app.put("/settings/sobremi", updateProfileInfo);
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
