@@ -15,6 +15,16 @@ export function Article() {
       img: "/assets/blog-image.png",
     },
   ];
+
+  let Info = [
+    {
+      language: "Español",
+      title: "El políglota más famoso",
+      p: " Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
+    }
+
+  ]
+  
   return (
     <>
       <div className="font-Poppins">

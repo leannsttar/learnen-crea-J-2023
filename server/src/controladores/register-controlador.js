@@ -11,6 +11,7 @@ const createUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
+    let imagen = "perfil-default.png"
     // Verificar si el correo ya está registrado en la base de datos
     const existingUser = await prisma.cliente.findFirst({
       where: {
@@ -21,10 +22,13 @@ const createUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "El correo electrónico ya está registrado" });
     }
-
-    fs.writeFile("./public/images/perfil/" + req.file.originalname, req.file.buffer, (err) => {
+    if(req.file){
+      fs.writeFile("./public/images/perfil/" + req.file.originalname, req.file.buffer, (err) => {
       if (err) throw err;
     });
+    imagen = req.file.originalname
+    }
+    
 
     const usuarioCreado = await prisma.cliente.create({
       data: {
@@ -34,7 +38,7 @@ const createUser = async (req, res) => {
         contrasenia: hashedPassword,
         contrasenia_ok: hashedPassword,
         genero: usuarioData.sex == 'Masculino',
-        imagen_perfil: "/perfil/" + req.file.originalname,
+        imagen_perfil: "/perfil/" + imagen,
         me_gusta: usuarioData.topics,
         objetivos: usuarioData.goals,
         como_soy: usuarioData.aboutYou,
