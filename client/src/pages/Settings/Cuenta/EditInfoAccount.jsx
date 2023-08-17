@@ -110,7 +110,7 @@ export function InputChangePass({ placeholder, name }) {
 
 //Componente de cada dato de la parte de cuenta
 export function EditInfoAccount({ dataName, dataUser, pass, name }) {
-  const { usuario } = useSession();
+  const {logout, usuario} = useSession()
   //Este open es para el modal de contraseña
   let [isOpen, setIsOpen] = useState(false);
 

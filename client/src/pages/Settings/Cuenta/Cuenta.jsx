@@ -15,7 +15,7 @@ export function Cuenta() {
   //   "userPhoto": ProfilePhoto
 
   // }
-  const { usuario } = useSession();
+  const {logout, usuario} = useSession()
 
   const originalDateTime = usuario.fecha_nacimiento;
   const onlyDate = originalDateTime.slice(0, 10);
@@ -54,7 +54,9 @@ export function Cuenta() {
         />
       </div>
       <div>
-        <button className="text-white hover:bg-red-600 bg-[#FF8399] px-7 py-3 rounded-lg text-[20px]">
+        <button 
+        onClick={logout}
+        className="text-white hover:bg-red-600 bg-[#FF8399] px-7 py-3 rounded-lg text-[20px]">
           Cerrar sesión
         </button>
       </div>
