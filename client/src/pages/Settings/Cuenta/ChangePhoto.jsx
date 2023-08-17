@@ -5,6 +5,7 @@ import { useSession } from "../../../components/Header/useSession.js";
 import selectPhoto from "../../../assets/ssd.svg";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 export function ChangePhoto({ userPhoto }) {
   const { usuario } = useSession();
@@ -63,6 +64,7 @@ export function ChangePhoto({ userPhoto }) {
 
   const onSubmit = async (data) => {
     if (selectedImage === selectPhoto) {
+      toast.warning("Debes seleccionar una nueva imagen, clickea el icono azul");
       return;
     }
 
@@ -100,6 +102,7 @@ export function ChangePhoto({ userPhoto }) {
       }
     `}
       </style> */}
+      <ToastContainer />
       <div className="flex items-center gap-12 ">
         <img
           src={`http://localhost:5000${usuario.imagen_perfil}`}

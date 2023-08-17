@@ -17,12 +17,9 @@ export function SobreMi() {
 
   let [onEdit, setOnEdit] = useState(false);
 
-  const [updateCounter, setUpdateCounter] = useState(0); // Estado para forzar la actualización
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    // Esta función se ejecutará cada vez que el updateCounter cambie
-    // Puedes agregar aquí cualquier lógica que quieras ejecutar después de la actualización
-  }, [updateCounter]);
+  useEffect(() => {}, []);
 
   function yesOnEdit() {
     setOnEdit(true);
@@ -37,17 +34,24 @@ export function SobreMi() {
 
   const onSubmit = async (data) => {
     try {
+      setIsLoading(true);
       data.id = usuario.id;
-      // Actualizar 
-      const response = await axios.put("http://localhost:5000/settings/sobremi", data);
+      // Actualizar
+      const response = await axios.put(
+        "http://localhost:5000/settings/sobremi",
+        data
+      );
       console.log("Data updated successfully:", response.data);
-      setOnEdit(false);
-      setUpdateCounter(updateCounter + 1);
+
     } catch (error) {
       console.error("Error updating data:", error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+        setOnEdit(false); 
+      }, 1000); 
     }
   };
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -63,8 +67,29 @@ export function SobreMi() {
           <button onClick={() => notOnEdit()} className="font-bold  ">
             Cancelar
           </button>
-          <button type="submit" className="bg-[#FF8399] rounded-3xl text-white py-1 px-3 ">
-            Guardar
+          <button
+            type="submit"
+            className="bg-[#FF8399] rounded-3xl text-white py-1 px-3 "
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div className="flex justify-center items-center">
+                <div
+                  className="circular-spinner"
+                  style={{
+                    border: "3px solid rgba(255, 255, 255, 0.3)",
+                    borderTop: "3px solid #FFF",
+                    borderRadius: "50%",
+                    width: "24px",
+                    height: "24px",
+                    animation: "spin 1s linear infinite",
+                  }}
+                ></div>{" "}
+                {/* Circular spinner animation */}
+              </div>
+            ) : (
+              "Guardar"
+            )}
           </button>
         </div>
       ) : (

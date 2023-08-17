@@ -45,7 +45,7 @@ console.log(usuario)
               <img
                     src={`http://localhost:5000${usuario.imagen_perfil}`}
                     alt=""
-                className="w-[200px] translate-y-[-80px] 800:translate-y-[-60px] object-cover"
+                className="rounded-full w-[200px] h-[200px] translate-y-[-80px] 800:translate-y-[-60px] object-cover"
                 style={{
                   clipPath: "circle(50% at 50% 50%)", 
                 }}

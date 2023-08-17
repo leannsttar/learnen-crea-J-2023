@@ -17,5 +17,6 @@ router.put('/settings/imagen', upload.single("imagen_perfil")
 ,settingsController.updatePhoto);
 
 router.put('/settings/sobremi', settingsController.updateProfileInfo);
+router.put('/settings/cuentaInfo', settingsController.updateAccountInfo)
 
 module.exports = router;

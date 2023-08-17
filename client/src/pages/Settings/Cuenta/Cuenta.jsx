@@ -26,14 +26,32 @@ export function Cuenta() {
         userPhoto={`http://localhost:5000${usuario.imagen_perfil}`}
       />
       <div className="flex flex-col gap-3">
-        <EditInfoAccount dataName="Nombre" dataUser={usuario.nombre} />
-        <EditInfoAccount dataName="Apellido" dataUser={usuario.apellido} />
+        <EditInfoAccount
+          dataName="Nombre"
+          dataUser={usuario.nombre}
+          name="nombre"
+        />
+        <EditInfoAccount
+          dataName="Apellido"
+          dataUser={usuario.apellido}
+          name="apellido"
+        />
         <EditInfoAccount
           dataName="Fecha de nacimiento"
           dataUser={onlyDate}
+          name="fecha_nacimiento"
         />
-        <EditInfoAccount dataName="Correo" dataUser={usuario.correo} />
-        <EditInfoAccount dataName="Contraseña" dataUser={"*******"} pass />
+        <EditInfoAccount
+          dataName="Correo"
+          dataUser={usuario.correo}
+          name="correo"
+        />
+        <EditInfoAccount
+          dataName="Contraseña"
+
+          pass
+          name="contrasenia"
+        />
       </div>
       <div>
         <button className="text-white hover:bg-red-600 bg-[#FF8399] px-7 py-3 rounded-lg text-[20px]">
