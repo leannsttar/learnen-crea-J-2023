@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
+import { useSession } from "../../components/Header/useSession";
 
 const feedData = {
   id: 1,
@@ -476,6 +477,9 @@ const BlogSection = () => {
 };
 
 export function Feed() {
+
+  const { usuario } = useSession();
+
   const [posts, setPosts] = useState(null);
 
   const [sentPost, setSentPost] = useState(null);
@@ -720,8 +724,8 @@ export function Feed() {
                           )}
                           <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
                             <div className="flex gap-3 items-center">
-                              <img src={ProfilePhoto} alt="" className="w-9" />
-                              <p className="font-semibold">nacelyorellana_</p>
+                              <img src={`http://localhost:5000${usuario.imagen_perfil}`} alt="" className="w-9 h-9 rounded-full object-cover" />
+                              <p className="font-semibold">{usuario.nombre} {usuario.apellido}</p>
                             </div>
                             <textarea
                               {...register("descripcion")}
