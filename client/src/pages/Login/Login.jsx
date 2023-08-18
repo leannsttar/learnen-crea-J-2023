@@ -7,6 +7,7 @@ import axios, { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useSession } from "../../components/Header/useSession";
 import { useNavigate } from "react-router-dom";
+import Password from "antd/es/input/Password";
 
 const data = [
   {
@@ -66,7 +67,7 @@ export function Login() {
     });
   };
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, getValues  } = useForm();
   const [mensaje, setMensaje] = useState();
   const [userImage, setUserImage] = useState("");
   const [userId, setUserId] = useState("");
@@ -75,11 +76,20 @@ export function Login() {
   const enviarLogin = async (user) => {
     try {
 
+      const { email, password } = getValues();
+
+      const mappedData = {
+        email: email,
+        password: password,
+      };
+
       const { data } = await axios.post(
         "http://localhost:5000/auth/login",
-        user
+        mappedData
       );
+      console.log(data)
       login(data);
+      
       // setToken(data.token);
       // setUserId(data.userId);
 

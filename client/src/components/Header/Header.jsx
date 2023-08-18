@@ -183,7 +183,7 @@ export function ProfileMenu() {
       </MenuHandler>
       <MenuList className="z-[1000000] absolute right-[1] flex min-w-[180px] flex-col gap-2 overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
         <Link to={"/profile"} className="outline-none">
-          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec]">
+          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec] pt-2">
             <BiUserCircle size={20}/>
             <Typography
               variant="small"
@@ -194,7 +194,7 @@ export function ProfileMenu() {
           </MenuItem>
         </Link>
         <Link to={"/settings"} className="outline-none">
-          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec]">
+          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec] pt-2">
             <LuSettings size={20} />
             <Typography variant="small" className="font-normal">
               Configuración
@@ -202,7 +202,7 @@ export function ProfileMenu() {
           </MenuItem>
         </Link>
         <Link to={'/chat'} className="outline-none">
-          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec]">
+          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec] pt-2">
             <BiChat size={20} />
             <Typography variant="small" className="font-normal">
               Chat
@@ -210,7 +210,7 @@ export function ProfileMenu() {
           </MenuItem>
         </Link>
         <hr className="my-2 border-blue-gray-50" />
-        <MenuItem onClick={logout} className="flex items-center gap-2 hover:bg-[#ececec]">
+        <MenuItem onClick={logout} className="flex items-center gap-2 hover:bg-[#ececec] pt-2">
           <AiOutlineLogout size={20} color="rgb(239 68 68)"/>
           <Typography variant="small" className="font-normal text-red-500">
             Cerrar sesión

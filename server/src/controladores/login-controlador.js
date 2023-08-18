@@ -5,6 +5,8 @@ const prisma = new PrismaClient();
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
+  console.log(req.body)
+
   try {
     const user = await prisma.cliente.findFirst({
       where: { correo: email, contrasenia: password },
@@ -16,6 +18,8 @@ const loginUser = async (req, res) => {
 
     //token 
     const token = jwt.sign({ userId: user.id }, 'tu_secreto');
+
+    console.log(token)
 
     res.json({
       message: "Login exitoso",
