@@ -1,4 +1,4 @@
-const express = require("express");
+  const express = require("express");
 const app = express();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -16,7 +16,10 @@ const { createUser } = require("../controladores/register-controlador.js");
 const {
   createPost,
   readPosts,
+  setlikes,
+  likepost,
 } = require("../controladores/feed-controlador.js");
+const {updatePhoto, updateProfileInfo, updateAccountInfo} = require("../controladores/settings-controlador")
 
 app.use(cors());
 app.use(express.json());
@@ -36,6 +39,12 @@ app.post("/auth/register", upload.single("photoProfile"), createUser);
 
 app.post("/feed", createPost);
 app.get("/feed", readPosts);
+app.post("/feed/like", setlikes)
+app.get("/feed/like", likepost)
+
+app.put("/settings/imagen", upload.single("imagen_perfil"), updatePhoto);
+app.put("/settings/sobremi", updateProfileInfo);
+app.put("/settings/cuentaInfo", updateAccountInfo);
 
 app.use("/comentarios", commentsRoutes);
 

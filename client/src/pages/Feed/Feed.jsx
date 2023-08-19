@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import {
   AiOutlineEllipsis,
   AiOutlineHeart,
+  AiFillHeart,
   AiOutlinePlus,
 } from "react-icons/ai";
 import { BsChatText, BsThreeDots } from "react-icons/bs";
@@ -14,6 +15,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "../../components/Header/useSession";
 import axios from "axios";
+import { Button, Dropdown, Space } from "antd";
+import iconTrash from "../../assets/Icontrash.svg";
+import { useSession } from "../../components/Header/useSession";
 import { getComents, postComent } from "./authComments";
 
 function timeAgoSincePublication(publicationDate) {
@@ -43,7 +47,7 @@ const feedData = {
   image: "/assets/person-post.png",
   avatar: "/assets/german.png",
   imagePost: "/assets/post1.png",
-  likes: 12,
+  likes: 1,
   comments: 13,
 };
 const peopleData = [
@@ -62,41 +66,7 @@ const blogData = {
 };
 
 const PostCard = ({ keyProp, posts }) => {
-  const [commentData, setCommentData] = useState([]);
-  console.log(commentData);
-  const [newComment, setNewComment] = useState("");
-  const { usuario } = useSession();
-  const addComment = async () => {
-    try {
-      await postComent({
-        datos: {
-          comentario: newComment,
-          id_publicacion: keyProp,
-          id_cliente: usuario.id,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getComments = async () => {
-    try {
-      const {message} = await getComents(keyProp);
-      return message;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    (async () => {
-      const data = await getComments();
-      setCommentData(data);
-    })();
-  }, []);
-
-  const [isOpen, setIsOpen] = useState(false);
+  let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -106,6 +76,34 @@ const PostCard = ({ keyProp, posts }) => {
     setIsOpen(true);
   }
 
+  function closeModalDelete() {
+    setIsOpenDelete(false);
+  }
+
+  function openModalDelete() {
+    setIsOpenDelete(true);
+  }
+
+  function closeModalReport() {
+    setIsOpenReport(false);
+  }
+
+  function openModalReport() {
+    setIsOpenReport(true);
+  }
+
+  const items = [
+    {
+      key: "1",
+      label: <button onClick={openModalDelete}>Eliminar</button>,
+      danger: true,
+    },
+    {
+      key: "2",
+      label: <button onClick={openModalReport}>Reportar</button>,
+    },
+  ];
+
   let matchingLanguage;
 
   allLanguages.forEach((language) => {
@@ -114,11 +112,163 @@ const PostCard = ({ keyProp, posts }) => {
     }
   });
 
+  function timeAgoSincePublication(publicationDate) {
+    const now = new Date();
+    const publicationTime = new Date(publicationDate);
+
+    const timeDifferenceInSeconds = Math.floor((now - publicationTime) / 1000);
+
+    if (timeDifferenceInSeconds < 60) {
+      return `${timeDifferenceInSeconds} segundos`;
+    } else if (timeDifferenceInSeconds < 3600) {
+      const minutes = Math.floor(timeDifferenceInSeconds / 60);
+      return `${minutes} minutos`;
+    } else if (timeDifferenceInSeconds < 86400) {
+      const hours = Math.floor(timeDifferenceInSeconds / 3600);
+      return `${hours} horas`;
+    } else {
+      const days = Math.floor(timeDifferenceInSeconds / 86400);
+      return `${days} días`;
+    }
+  }
+
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
 
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
+      {/* Modal de eliminar post */}
+      <Transition appear show={isOpenDelete} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10 h-screen"
+          onClose={closeModalDelete}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    <div className="flex flex-col justify-center items-center gap-5 mb-10">
+                      <img src={iconTrash} alt="" className="w-16" />
+                      Seguro que quieres eliminar tu publicación?
+                    </div>
+                  </Dialog.Title>
+                  <div className="flex gap-5 justify-center">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModalDelete}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModalDelete}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      {/* Modal para el reporte */}
+      <Transition appear show={isOpenReport} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10 h-screen"
+          onClose={closeModalReport}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900 flex justify-center mb-8"
+                  >
+                    Reportar publicación
+                  </Dialog.Title>
+                  <div className="w-full">
+                    <textarea
+                      placeholder="¿Por qué quieres reportar esta publicación?"
+                      name=""
+                      id=""
+                      cols="30"
+                      rows="6"
+                      className="outline-none resize-none w-full"
+                    ></textarea>
+
+                    <div className="mt-4 flex justify-center gap-6">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModalReport}
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModalReport}
+                      >
+                        Enviar reporte
+                      </button>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
         <div className="flex flex-row items-center justify-between w-full">
           <img
@@ -140,7 +290,18 @@ const PostCard = ({ keyProp, posts }) => {
             </h6>
             <h6 className="text-sm">Hace {timeAgo}</h6>
           </div>
-          <AiOutlineEllipsis className="ml-auto w-12 h-12" />
+          <Space direction="vertical" className="ml-auto">
+            <Space wrap>
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                placement="bottomLeft"
+              >
+                <BsThreeDots className="" size={25} />
+              </Dropdown>
+            </Space>
+          </Space>
         </div>
         <div className="mt-4">
           <p>{posts.descripcion}</p>
@@ -152,16 +313,31 @@ const PostCard = ({ keyProp, posts }) => {
         alt=""
       />
       <div className="border-l border-r border-b border-black bg-gray-100 flex flex-row items-center w-[431px] p-4">
-        <AiOutlineHeart className="mr-2 w-6 h-6" />
-        <p>{feedData.likes}</p>
+        {isLiked ? (
+          <AiFillHeart
+            className="mr-2 w-6 h-6 cursor-pointer"
+            style={{
+              fill: "#FF0000",
+              animation: "heartBeat 0.8s ease infinite",
+              cursor: "pointer",
+              opacity: 1,
+            }}
+            onClick={toggleLike}
+          />
+        ) : (
+          <AiOutlineHeart
+            className="mr-2 w-6 h-6 cursor-pointer"
+            onClick={toggleLike}
+          />
+        )}
+        <p onClick={setLike}>{like}</p>
         <div className="flex-grow"></div>
         <div onClick={openModal} className="cursor-pointer flex">
           <BsChatText className="mr-2 w-6 h-5" />
           <p className="text-sm">{feedData.comments} comentarios</p>
         </div>
 
-        {/* Modal de comentarios */}
-        <Transition appear show={isOpen} as={React.Fragment}>
+        <Transition appear show={isOpen} as={Fragment}>
           <Dialog
             as="div"
             className="relative z-10 h-screen"
@@ -216,7 +392,18 @@ const PostCard = ({ keyProp, posts }) => {
                             </p>
                           </div>
                           <div>
-                            <BsThreeDots size={"20"} />
+                            <Space direction="vertical">
+                              <Space wrap>
+                                <Dropdown
+                                  menu={{
+                                    items,
+                                  }}
+                                  placement="bottomLeft"
+                                >
+                                  <BsThreeDots className="" size={25} />
+                                </Dropdown>
+                              </Space>
+                            </Space>
                           </div>
                         </div>
                         <div className="flex flex-col h-[70%] items-start justify-start text-base p-5">
@@ -234,10 +421,23 @@ const PostCard = ({ keyProp, posts }) => {
 
                         <div className="h-[20%]">
                           <div className="p-5 border-t-[1px] flex items-center gap-3">
-                            <AiOutlineHeart
-                              size={30}
-                              className="cursor-pointer"
-                            />
+                            {isLiked ? (
+                              <AiFillHeart
+                                className="mr-2 w-8 h-8 cursor-pointer"
+                                style={{
+                                  fill: "#FF0000",
+                                  animation: "heartBeat 0.8s ease infinite",
+                                  cursor: "pointer",
+                                  opacity: 1,
+                                }}
+                                onClick={toggleLike}
+                              />
+                            ) : (
+                              <AiOutlineHeart
+                                className="mr-2 w-8 h-8 cursor-pointer"
+                                onClick={toggleLike}
+                              />
+                            )}
                             <div>
                               <p className="font-semibold">9,944 likes</p>
                               <p className="text-[#9c9c9c] text-sm">
@@ -252,18 +452,14 @@ const PostCard = ({ keyProp, posts }) => {
                               type="text"
                               className="outline-none w-full resize-none"
                               placeholder="Añade un comentario..."
+                              value={commentText}
+                              onChange={handleCommentChange}
                             />
-                            <button
-                              onClick={async () => {
-                                await addComment({ comentario: newComment });
-                                const data = await getComments();
-                                setCommentData(data);
-                                setNewComment("");
-                              }}
-                              className="text-[#ff8399] font-semibold cursor-pointer"
-                            >
-                              Publicar
-                            </button>
+                            <input
+                              type="submit"
+                              value="Publicar"
+                              className="text-[#ff8399] font-semibold"
+                            />
                           </div>
                         </div>
                       </div>
@@ -312,8 +508,6 @@ const BlogSection = () => {
 };
 
 export function Feed() {
-  const { usuario } = useSession();
-
   const [posts, setPosts] = useState(null);
 
   const [sentPost, setSentPost] = useState(null);
@@ -545,20 +739,8 @@ export function Feed() {
                           )}
                           <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
                             <div className="flex gap-3 items-center">
-                              <img
-                                src={`http://localhost:5000${usuario.imagen_perfil}`}
-                                alt=""
-                                className="w-9 className="
-                                w-16
-                                h-16
-                                object-cover
-                                style={{
-                                  clipPath: "circle(50% at 50% 50%)",
-                                }}
-                              />
-                              <p className="font-semibold">
-                                {usuario.nombre} {usuario.apellido}
-                              </p>
+                              <img src={ProfilePhoto} alt="" className="w-9" />
+                              <p className="font-semibold">nacelyorellana_</p>
                             </div>
                             <textarea
                               {...register("descripcion")}

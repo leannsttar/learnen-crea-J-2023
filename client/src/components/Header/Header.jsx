@@ -8,6 +8,236 @@ import { MobileNav } from "./MobileNav.jsx";
 import { useSession } from "./useSession";
 import Notification from "../../assets/notification.svg";
 import HeaderPhoto from "../../assets/NacePhoto.jpg";
+import settingsIcon from "../../assets/settingsIcon.svg";
+import logoutIcon from "../../assets/logoutIcon.svg";
+import {BiUserCircle, BiChat} from 'react-icons/bi'
+import { LuSettings } from 'react-icons/lu'
+import { AiOutlineLogout } from 'react-icons/ai'
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Avatar,
+  Typography,
+  IconButton,
+} from "@material-tailwind/react";
+
+function ClockIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="h-3 w-3"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+  );
+}
+
+export function NotificationsMenu() {
+  return (
+    <Menu>
+      <MenuHandler>
+        <img src={Notification} alt="" className="w-8 h-8" />
+      </MenuHandler>
+      <MenuList className="flex flex-col gap-2 z-[1000]">
+        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2 hover:bg-[#ececec]">
+          <Avatar
+            variant="circular"
+            alt="tania andrew"
+            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-normal">
+              <span className="font-medium text-blue-gray-900">Tania</span> send
+              you a message
+            </Typography>
+            <Typography
+              variant="small"
+              className="flex items-center gap-1 text-xs text-gray-600"
+            >
+              <ClockIcon />
+              13 minutes ago
+            </Typography>
+          </div>
+        </MenuItem>
+        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
+          <Avatar
+            variant="circular"
+            alt="natali craig"
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1061&q=80"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-normal">
+              <span className="font-medium text-blue-gray-900">Natali</span>{" "}
+              reply to your email
+            </Typography>
+            <Typography
+              variant="small"
+              className="flex items-center gap-1 text-xs text-gray-600"
+            >
+              <ClockIcon />a hour ago
+            </Typography>
+          </div>
+        </MenuItem>
+        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
+          <Avatar
+            variant="circular"
+            alt="paypal"
+            src="https://dwglogo.com/wp-content/uploads/2016/08/PayPal_Logo_Icon.png"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-normal">
+              <span className="font-medium text-blue-gray-900">PayPal</span>{" "}
+              you&apos;ve received a payment.
+            </Typography>
+            <Typography
+              variant="small"
+              className="flex items-center gap-1 text-xs text-gray-600"
+            >
+              <ClockIcon />5 hours ago
+            </Typography>
+          </div>
+        </MenuItem>
+        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
+          <Avatar
+            variant="circular"
+            alt="paypal"
+            src="https://dwglogo.com/wp-content/uploads/2016/08/PayPal_Logo_Icon.png"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-normal">
+              <span className="font-medium text-blue-gray-900">PayPal</span>{" "}
+              you&apos;ve received a payment.
+            </Typography>
+            <Typography
+              variant="small"
+              className="flex items-center gap-1 text-xs text-gray-600"
+            >
+              <ClockIcon />5 hours ago
+            </Typography>
+          </div>
+        </MenuItem>
+        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
+          <Avatar
+            variant="circular"
+            alt="paypal"
+            src="https://dwglogo.com/wp-content/uploads/2016/08/PayPal_Logo_Icon.png"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-normal">
+              <span className="font-medium text-blue-gray-900">PayPal</span>{" "}
+              you&apos;ve received a payment.
+            </Typography>
+            <Typography
+              variant="small"
+              className="flex items-center gap-1 text-xs text-gray-600"
+            >
+              <ClockIcon />5 hours ago
+            </Typography>
+          </div>
+        </MenuItem>
+        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
+          <Avatar
+            variant="circular"
+            alt="paypal"
+            src="https://dwglogo.com/wp-content/uploads/2016/08/PayPal_Logo_Icon.png"
+          />
+          <div className="flex flex-col gap-1">
+            <Typography variant="small" color="gray" className="font-normal">
+              <span className="font-medium text-blue-gray-900">PayPal</span>{" "}
+              you&apos;ve received a payment.
+            </Typography>
+            <Typography
+              variant="small"
+              className="flex items-center gap-1 text-xs text-gray-600"
+            >
+              <ClockIcon />5 hours ago
+            </Typography>
+          </div>
+        </MenuItem>
+      </MenuList>
+    </Menu>
+  );
+}
+
+export function ProfileMenu() {
+  const { usuario, logout } = useSession();
+
+  return (
+    <Menu placement="bottom-start" className="" allowHover>
+      <MenuHandler>
+        <Avatar
+          alt={usuario.nombre}
+          className="cursor-pointer rounded-full w-[4rem] h-[4rem]"
+          src={`http://localhost:5000${usuario.imagen_perfil}`}
+        />
+      </MenuHandler>
+      <MenuList className="z-[1000000] absolute right-[1] flex min-w-[180px] flex-col gap-2 overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
+        <Link to={"/profile"} className="outline-none">
+          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec] pt-2">
+            <BiUserCircle size={20}/>
+            <Typography
+              variant="small"
+              className="font-normal block font-sans text-sm leading-normal text-inherit antialiased"
+            >
+              Ver mi perfil
+            </Typography>
+          </MenuItem>
+        </Link>
+        <Link to={"/settings"} className="outline-none">
+          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec] pt-2">
+            <LuSettings size={20} />
+            <Typography variant="small" className="font-normal">
+              Configuración
+            </Typography>
+          </MenuItem>
+        </Link>
+        <Link to={'/chat'} className="outline-none">
+          <MenuItem className="flex items-center gap-3 hover:bg-[#ececec] pt-2">
+            <BiChat size={20} />
+            <Typography variant="small" className="font-normal">
+              Chat
+            </Typography>
+          </MenuItem>
+        </Link>
+        <hr className="my-2 border-blue-gray-50" />
+        <MenuItem onClick={logout} className="flex items-center gap-2 hover:bg-[#ececec] pt-2">
+          <AiOutlineLogout size={20} color="rgb(239 68 68)"/>
+          <Typography variant="small" className="font-normal text-red-500">
+            Cerrar sesión
+          </Typography>
+        </MenuItem>
+      </MenuList>
+    </Menu>
+  );
+}
+
+const items = [
+  {
+    label: "Navigation Three - Submenu",
+    key: "SubMenu",
+    icon: "",
+    children: [
+      {
+        label: "Option 1",
+        key: "setting:1",
+      },
+      {
+        label: "Option 2",
+        key: "setting:2",
+      },
+    ],
+  },
+];
 
 const linksClass = {
   nonactive:
@@ -19,6 +249,14 @@ const linksClass = {
 
 export function Header() {
   const { usuario } = useSession();
+
+  const [current, setCurrent] = useState("mail");
+
+  const onHover = (e) => {
+    console.log("hover ", e);
+    setCurrent(e.key);
+  };
+
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return usuario ? true : false;
   });
@@ -111,25 +349,26 @@ export function Header() {
 
             {isLoggedIn ? (
               <div className="lg:flex lg:gap-5 lg:items-center hidden ">
-                <Link
+                <NotificationsMenu />
+                {/* <Link
                   to={"/notifications"}
                   className="rounded-full hover:bg-[#e6e6e6] p-1"
                 >
                   <img src={Notification} alt="" className="w-8 h-8 " />
-                </Link>
+                </Link> */}
                 <p className="font-medium">
                   {usuario.nombre} {usuario.apellido}{" "}
                 </p>
-                <Link to={"/profile"}>
-                  <img
+
+                {/* <img
                     src={`http://localhost:5000${usuario.imagen_perfil}`}
                     alt=""
                     className="w-16 h-16 object-cover"
                     style={{
-                      clipPath: "circle(50% at 50% 50%)", 
+                      clipPath: "circle(50% at 50% 50%)",
                     }}
-                  />
-                </Link>
+                  /> */}
+                <ProfileMenu />
               </div>
             ) : (
               <div className="lg:flex lg:gap-5 hidden">

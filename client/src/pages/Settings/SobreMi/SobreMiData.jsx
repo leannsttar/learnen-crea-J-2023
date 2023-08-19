@@ -1,28 +1,28 @@
 import { React, useState, useRef, useEffect } from "react";
 
-export function SobreMiData({ label, data, onEdit  }) {
+export function SobreMiData({ label, data, onEdit, name, register }) {
+  const [inputValue, setInputValue] = useState(data);
 
-    const [inputValue, setInputValue] = useState(data);
+  // const inputRef = useRef(null);
 
-    // const inputRef = useRef(null);
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
-    const handleInputChange = (event) => {
-        setInputValue(event.target.value) 
-    };
+  const resetData = () => {
+    setInputValue(data);
+  };
 
-    const resetData = () => {
-      setInputValue(data)
-    }
-
-    useEffect(() => {
-      resetData()
-    }, [!onEdit])
+  useEffect(() => {
+    resetData();
+  }, [!onEdit]);
 
   return (
     <div className="">
       <p className="font-[700]">{label}</p>
       {onEdit ? (
         <input
+          {...register(name)}
           value={inputValue}
           onChange={handleInputChange}
           //Esto se pone para tipo referenciar el Ref XD, nose

@@ -7,6 +7,7 @@ import axios, { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useSession } from "../../components/Header/useSession";
 import { useNavigate } from "react-router-dom";
+import Password from "antd/es/input/Password";
 
 const data = [
   {
@@ -60,13 +61,10 @@ export function Login() {
 
     enviarLogin();
 
-    toast.success("Formulario enviado exitosamente!", {
-      position: "top-right",
-      autoClose: 3000,
-    });
+
   };
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, getValues  } = useForm();
   const [mensaje, setMensaje] = useState();
   const [userImage, setUserImage] = useState("");
   const [userId, setUserId] = useState("");
@@ -75,18 +73,40 @@ export function Login() {
   const enviarLogin = async (user) => {
     try {
 
+      const { email, password } = getValues();
+
+      const mappedData = {
+        email: email,
+        password: password,
+      };
+
+      console.log(mappedData)
+
       const { data } = await axios.post(
         "http://localhost:5000/auth/login",
-        user
+        mappedData
       );
+      console.log(data)
+
+
+
       login(data);
+      
       // setToken(data.token);
       // setUserId(data.userId);
 
       setMensaje("Logueado");
       navigate('/')
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data)
+
+      if (error.response.data.message === "Usuario no encontrado") {
+        toast.error(
+          "No existe un usuario con este correo."
+        );
+      } else if (error.response.data.message === "Contraseña incorrecta") {
+        toast.error("Contraseña incorrecta.");
+      }
       if (error instanceof AxiosError) {
         setMensaje(error.response.data.message);
       }
