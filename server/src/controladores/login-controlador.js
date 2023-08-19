@@ -1,30 +1,50 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const bcrypt = require("bcrypt");
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(req.body)
+  console.log(req.body);
+
+ 
 
   try {
     const user = await prisma.cliente.findFirst({
-      where: { correo: email, contrasenia: password },
+      where: { 
+        correo: email 
+      },
     });
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    //token 
-    const token = jwt.sign({ userId: user.id }, 'tu_secreto');
+    console.log(user.contrasenia)
 
-    console.log(token)
+    const passwordValid = await bcrypt.compare(password, user.contrasenia)  
+
+    if (!passwordValid) {
+      return res.status(500).json({message: "Contraseña incorrecta"})
+    }
+    
+    console.log(passwordValid)
+
+
+    console.log(user);
+
+
+
+    //token
+    const token = jwt.sign({ userId: user.id }, "tu_secreto");
+
+    console.log(token);
 
     res.json({
       message: "Login exitoso",
       token,
-      ...user
+      ...user,
     });
   } catch (error) {
     console.error(error);

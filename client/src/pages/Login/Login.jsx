@@ -61,10 +61,7 @@ export function Login() {
 
     enviarLogin();
 
-    toast.success("Formulario enviado exitosamente!", {
-      position: "top-right",
-      autoClose: 3000,
-    });
+
   };
 
   const { register, handleSubmit, getValues  } = useForm();
@@ -83,11 +80,16 @@ export function Login() {
         password: password,
       };
 
+      console.log(mappedData)
+
       const { data } = await axios.post(
         "http://localhost:5000/auth/login",
         mappedData
       );
       console.log(data)
+
+
+
       login(data);
       
       // setToken(data.token);
@@ -96,7 +98,15 @@ export function Login() {
       setMensaje("Logueado");
       navigate('/')
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data)
+
+      if (error.response.data.message === "Usuario no encontrado") {
+        toast.error(
+          "No existe un usuario con este correo."
+        );
+      } else if (error.response.data.message === "Contraseña incorrecta") {
+        toast.error("Contraseña incorrecta.");
+      }
       if (error instanceof AxiosError) {
         setMensaje(error.response.data.message);
       }
