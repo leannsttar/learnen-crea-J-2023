@@ -12,7 +12,20 @@
     />
     <title>Learnen App</title>
   </head>
+
   <body>
+    <style>
+      .skiptranslate iframe {
+        opacity: 0 !important;
+      }
+      img[src="https://www.google.com/images/cleardot.gif"]
+      {
+        display: none;
+      }
+      body {
+        top: 0 !important;
+      }
+    </style>
     <div id="root" class="overflow-x-hidden"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -9,7 +9,7 @@ const sharp = require("sharp");
 const fs = require("fs");
 const { loginUser } = require("../controladores/login-controlador.js");
 const { obtenerPerfilPorToken } = require("../controladores/Obtenerperfil-controlador.js");
-
+const {commentsRoutes} = require('../routes/commentsRoutes')
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const { createUser } = require("../controladores/register-controlador.js");
@@ -36,6 +36,9 @@ app.post("/auth/register", upload.single("photoProfile"), createUser);
 
 app.post("/feed", createPost);
 app.get("/feed", readPosts);
+
+app.use("/comentarios", commentsRoutes);
+
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);

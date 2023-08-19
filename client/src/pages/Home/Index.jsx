@@ -61,11 +61,11 @@ export function IndexStart() {
             }
           />
           <div className="">
-            <p className="font-normal text-[30px] text-[#6c6d75] ml-2">
-              Learn and
+            <p className="font-normal text-[30px] text-[#6c6d75] ml-2" >
+              Aprende e
             </p>
             <p className="font-[700] text-[#242635] text-[80px] 800:text-[120px] leading-[4rem] 800:leading-[9rem]">
-              Interact
+             Interactúa
             </p>
           </div>
           <img
