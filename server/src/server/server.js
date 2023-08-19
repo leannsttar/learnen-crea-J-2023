@@ -16,6 +16,8 @@ const { createUser } = require("../controladores/register-controlador.js");
 const {
   createPost,
   readPosts,
+  setlikes,
+  likepost,
 } = require("../controladores/feed-controlador.js");
 const {updatePhoto, updateProfileInfo, updateAccountInfo} = require("../controladores/settings-controlador")
 
@@ -37,6 +39,8 @@ app.post("/auth/register", upload.single("photoProfile"), createUser);
 
 app.post("/feed", createPost);
 app.get("/feed", readPosts);
+app.post("/feed/like", setlikes)
+app.get("/feed/like", likepost)
 
 app.put("/settings/imagen", upload.single("imagen_perfil"), updatePhoto);
 app.put("/settings/sobremi", updateProfileInfo);

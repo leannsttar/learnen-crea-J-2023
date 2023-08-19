@@ -83,26 +83,37 @@ const readPosts = async (req, res) => {
   }
 };
 
-
-const likepost = async (req, res ) => {
+const likepost = async (req, res) => {
   try {
-    const like = await prisma.publicaciones.findById(req.params.id)
-    if(likepost.like.filter(like => like.user.toString() === req.user.id).legth > 0){
-      return res.status(400).json({ msg: 'post con ecsito'})
+    const { id } = req.body;
+    const post = await prisma.publicaciones.findFirst({
+      where: {
+        id: +id,
+      }, 
+      include: { 
+        Likes: true
+      }
+      
+    });
 
-    }
-    likepost.like.unshift({user: req.user.id})
-
-    await post.save()
-    res.json(likepost.like)
+    res.json(post.Likes);
   } catch (error) {
-    console.error(err.message)
-    res.status(500).send('server error secso')
+    console.log(error)
   }
-}
+};
 
+const setlikes = async (req, res) => {
+  try {
+    const {id_cliente, id_publicacion} = req.body
+    const like = await prisma.likes.create({
+      data: { id_publicacion, id_cliente },
+    });
+  } catch (error) {}
+};
 
 module.exports = {
   createPost,
   readPosts,
+  setlikes,
+  likepost
 };

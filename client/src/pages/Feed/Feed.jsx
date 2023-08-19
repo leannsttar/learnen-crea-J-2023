@@ -27,7 +27,7 @@ const feedData = {
   image: "/assets/person-post.png",
   avatar: "/assets/german.png",
   imagePost: "/assets/post1.png",
-  likes: 12,
+  likes: 1,
   comments: 13,
 };
 const peopleData = [
@@ -52,9 +52,27 @@ const PostCard = ({ keyProp, posts }) => {
   const [commentText, setCommentText] = useState("");
   const [isLiked, setIsLiked] = useState(false);
 
+
+  const [like, setlike] = useState(0)
+
+  const Handlike = () => {
+      setLike(like + 1)
+  }
+
   const toggleLike = () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
   };
+
+  const setLike = async(data) => {
+    try {
+      const response = await axios.post(
+
+      )
+
+    } catch (error) {
+      
+    }
+  }
 
   const handleCommentChange = (event) => {
     setCommentText(event.target.value);
@@ -123,6 +141,11 @@ const PostCard = ({ keyProp, posts }) => {
       return `${days} días`;
     }
   }
+
+  
+
+  
+
 
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
@@ -310,7 +333,7 @@ const PostCard = ({ keyProp, posts }) => {
             onClick={toggleLike}
           />
         )}
-        <p>{feedData.likes}</p>
+        <p onClick={setLike}>{like}</p>
         <div className="flex-grow"></div>
         <div onClick={openModal} className="cursor-pointer flex">
           <BsChatText className="mr-2 w-6 h-5" />
