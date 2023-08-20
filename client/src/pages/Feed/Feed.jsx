@@ -17,7 +17,8 @@ import { useSession } from "../../components/Header/useSession";
 import axios from "axios";
 import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
-import { getComents, postComent } from "./authComments";
+import { getComents, postComent, getCommentCount} from "./authComments";
+
 
 function timeAgoSincePublication(publicationDate) {
   const now = new Date();
@@ -73,6 +74,8 @@ const PostCard = ({ keyProp, posts }) => {
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenReport, setIsOpenReport] = useState(false);
   const [commentText, setCommentText] = useState("");
+
+  const [commentCount, setCommentCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
   const [like, setLike] = useState(0);
@@ -113,6 +116,19 @@ const PostCard = ({ keyProp, posts }) => {
   const Handlike = () => {
     setLike(like + 1);
   };
+
+  const countComments = async () => {
+    try {
+      const response = await getCommentCount(keyProp);
+      setCommentCount(response.commentCount);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    countComments();
+  }, []);
 
   const toggleLike = () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
@@ -435,7 +451,7 @@ const PostCard = ({ keyProp, posts }) => {
         <div className="flex-grow"></div>
         <div onClick={openModal} className="cursor-pointer flex">
           <BsChatText className="mr-2 w-6 h-5" />
-          <p className="text-sm">{feedData.comments} comentarios</p>
+          <p className="text-sm">{commentCount} comentarios</p>
         </div>
 
         <Transition appear show={isOpen} as={Fragment}>

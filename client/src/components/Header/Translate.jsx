@@ -3,9 +3,10 @@ const Translate = () => {
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
       {
-        autoDisplay: false
+        autoDisplay: false,
+        includedLanguages: 'en,es,de,ja',
       },
-    //   includedLanguages: 'en,es,de,ja',
+    //   
     // layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       "google_translate_element"
     );
@@ -13,7 +14,7 @@ const Translate = () => {
   useEffect(() => {
     const translateDiv = document.createElement('div');
     translateDiv.textContent = 'Contenido translate';
-    translateDiv.classList.add('z-50', 'bg-white', 'bottom-0', 'left-0', 'fixed',); 
+    translateDiv.classList.add('z-50', 'bg-white', 'bottom-0', 'left-0', 'fixed', 'rounded-md',); 
     translateDiv.id = 'google_translate_element'
     document.getElementById('root').appendChild(translateDiv);
     var addScript = document.createElement("script");

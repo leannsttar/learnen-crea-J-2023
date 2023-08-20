@@ -224,6 +224,7 @@ export function SignUp() {
                       name="email"
                       placeholder="Por favor introduzca su correo electrónico"
                       id="email"
+                      required
                     />
                   </div>
                   <div className="flex flex-col">
@@ -240,6 +241,7 @@ export function SignUp() {
                         name="password"
                         placeholder="Ingrese su contraseña"
                         id="password"
+                        required
                       />
                       <div
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
@@ -267,6 +269,7 @@ export function SignUp() {
                         type={showPassword ? "text" : "password"}
                         name="password_ok"
                         placeholder="Introducir la contraseña"
+                        required
                       />
                       <div
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
@@ -322,6 +325,7 @@ export function SignUp() {
                       name="Name"
                       placeholder="Por favor, escriba su nombre"
                       id="Name"
+                      required
                     />
                   </div>
                   <div className="flex flex-col mb-4">
@@ -337,6 +341,7 @@ export function SignUp() {
                       name="Lastname"
                       placeholder="Ingresa tu apellido"
                       id="Lastname"
+                      required
                     />
                   </div>
                   <div className="flex flex-col mb-4">
@@ -378,25 +383,27 @@ export function SignUp() {
                     </label>
                     <div className="flex justify-center">
                       <input
-                        className="w-5"
+                        className="w-5 accent-pink-400"
                         value="Masculino"
                         checked={state.sex === "Masculino"}
                         onChange={inputHandle}
                         type="radio"
                         name="sex"
                         id="masculino"
+                        required
                       />{" "}
-                      <p className="p-6 text-lg ">Masculino</p>
+                      <label htmlFor="masculino" className="p-6 text-lg ">Masculino</label>
                       <input
-                        className="w-5"
+                        className="w-5 accent-pink-400"
                         value="Femenino"
                         checked={state.sex === "Femenino"}
                         onChange={inputHandle}
                         type="radio"
                         name="sex"
                         id="femenino"
+                        required
                       />{" "}
-                      <p className="p-6 text-lg">Femenino</p>
+                      <label htmlFor="femenino" className="p-6 text-lg">Femenino</label>
                     </div>
                   </div>
                   <div className="mt-4 gap-3 flex justify-center items-center">
@@ -524,6 +531,7 @@ export function SignUp() {
                               accept="image/*"
                               name="photoProfile"
                               id="photoProfile"
+                              required
                             />
                           </label>
                         </div>
@@ -801,6 +809,7 @@ export function SignUp() {
                       className="p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg"
                       name="aboutYou"
                       id="email"
+                      required
                     />
                   </div>
                   <div className="flex flex-col h-24 max-w-20">
@@ -814,6 +823,7 @@ export function SignUp() {
                       onChange={inputHandle}
                       className="p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg"
                       id="email"
+                      required
                     />
                   </div>
                   <div className="flex flex-col h-24 max-w-20">
@@ -827,6 +837,7 @@ export function SignUp() {
                       onChange={inputHandle}
                       className="p-2  bg-zinc-100 rounded-md overflow-y-scroll resize-none focus:outline-none focus:shadow-lg"
                       id="email"
+                      required
                     />
                   </div>
                   <div className="mt-4 gap-3 flex justify-center items-center">

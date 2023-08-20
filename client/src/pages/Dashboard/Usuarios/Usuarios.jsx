@@ -1,44 +1,24 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
+import axios from "axios";
 
 export function Usuarios() {
-  const data = [
-    {
-      id: 1,
-      user: {
-        name: "Leandro Nance",
-        photo: "/src/assets/chica-usuario.png",
-      },
-      email: "leandro@gmail.com",
-      gender: "Nacely",
-      native: "English",
-      fluent: "Spanish",
-      learning: "German",
-    },
-    {
-      id: 1,
-      user: {
-        name: "Leandro Nance",
-        photo: "/src/assets/chica-usuario.png",
-      },
-      email: "leandro@gmail.com",
-      gender: "Nacely",
-      native: "English",
-      fluent: "Spanish",
-      learning: "German",
-    },
-    {
-      id: 1,
-      user: {
-        name: "Leandro Nance",
-        photo: "/src/assets/chica-usuario.png",
-      },
-      email: "leandro@gmail.com",
-      gender: "Nacely",
-      native: "English",
-      fluent: "Spanish",
-      learning: "German",
-    },
-  ];
+
+  const [usuarios, setUsuarios] = useState([]);
+
+  const obtenerUsuarios = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/usuarios");
+      setUsuarios(res.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+    obtenerUsuarios();
+  }, []);
+ 
 
   return (
     <div className="bg-gray-100">
@@ -47,35 +27,35 @@ export function Usuarios() {
         <table className="w-full table-auto border-collapse">
           <thead>
             <tr className="bg-white">
-              <th className="px-4 py-2 border text-center">User</th>
-              <th className="px-4 py-2 border text-center">Email</th>
-              <th className="px-4 py-2 border text-center">Gender</th>
-              <th className="px-4 py-2 border text-center">Native</th>
-              <th className="px-4 py-2 border text-center">Fluent</th>
-              <th className="px-4 py-2 border text-center">Learning</th>
-              <th className="px-4 py-2 border text-center">Fluent</th>
+              <th className="px-4 py-2 border text-center">Usuario</th>
+              <th className="px-4 py-2 border text-center">Correo</th>
+              <th className="px-4 py-2 border text-center">Genero</th>
+              <th className="px-4 py-2 border text-center">Me gusta</th>
+              <th className="px-4 py-2 border text-center">Objetivos</th>
+              <th className="px-4 py-2 border text-center">Como soy</th>
+              <th className="px-4 py-2 border text-center">Aprendiendo</th>
               <th className="px-4 py-2 border text-center">Action</th>
             </tr>
           </thead>
           <tbody className="bg-white">
-            {data.map((item) => (
-              <tr key={item.id}>
+            {usuarios.map((usuario) => (
+              <tr key={usuario.id}>
                 <td className="px-4 py-2 border-b flex items-center border-l">
                   <img
-                    src={item.user.photo}
+                    src={`http://localhost:5000${usuario.imagen_perfil}`}
                     alt="User Photo"
                     className="w-8 h-8 rounded-full mr-2"
                   />
-                  {item.user.name}
+                  {usuario.nombre}
                 </td>
-                <td className="px-4 py-2 border text-center">{item.email}</td>
-                <td className="px-4 py-2 border text-center">{item.gender}</td>
-                <td className="px-4 py-2 border text-center">{item.native}</td>
-                <td className="px-4 py-2 border text-center">{item.fluent}</td>
+                <td className="px-4 py-2 border text-center">{usuario.correo}</td>
+                <td className="px-4 py-2 border text-center">{usuario.genero ? "Masculino" : "Femenino"}</td>
+                <td className="px-4 py-2 border text-center">{usuario.me_gusta}</td>
+                <td className="px-4 py-2 border text-center">{usuario.objetivos}</td>
                 <td className="px-4 py-2 border text-center">
-                  {item.learning}
+                {usuario.como_soy}
                 </td>
-                <td className="px-4 py-2 border text-center">{item.fluent}</td>
+                <td className="px-4 py-2 border text-center"></td>
                 <td className="px-4 py-2 border-b border-r flex items-center justify-center">
                   <img
                     src="/src/assets/MoreVert.png"
