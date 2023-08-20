@@ -8,12 +8,12 @@ const loginUser = async (req, res) => {
 
   console.log(req.body);
 
- 
+
 
   try {
     const user = await prisma.cliente.findFirst({
-      where: { 
-        correo: email 
+      where: {
+        correo: email
       },
     });
 
@@ -23,12 +23,12 @@ const loginUser = async (req, res) => {
 
     console.log(user.contrasenia)
 
-    const passwordValid = await bcrypt.compare(password, user.contrasenia)  
+    const passwordValid = await bcrypt.compare(password, user.contrasenia)
 
     if (!passwordValid) {
-      return res.status(500).json({message: "Contraseña incorrecta"})
+      return res.status(500).json({ message: "Contraseña incorrecta" })
     }
-    
+
     console.log(passwordValid)
 
 

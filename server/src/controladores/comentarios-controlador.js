@@ -12,6 +12,26 @@ const commentsModel = z.object({
   id_cliente: z.number(),
 });
 
+const getCommentCount = async function (req, res) {
+  try {
+    const { id } = req.params;
+    const commentCount = await prisma.comentarios.count({
+      
+      where: {
+        id_publicacion: parseInt(id),
+      },
+    });
+    return res.status(200).json({
+      commentCount: commentCount,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: "Hubo un error",
+    });
+  }
+};
+
 const createComment = async function (req, res) {
   console.log(req.body);
   try {
@@ -67,4 +87,5 @@ const getCommentById = async function (req, res) {
 module.exports = {
   createComment,
   getCommentById,
+  getCommentCount,
 };

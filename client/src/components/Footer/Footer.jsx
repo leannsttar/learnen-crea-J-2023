@@ -1,6 +1,6 @@
 import { React, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useSession } from '../Header/useSession';
 
 
 export function Footer() {
@@ -18,10 +18,10 @@ export function Footer() {
             <ul className="text-white flex flex-col lg:flex-row lg:gap-12 pt-10">
               {/* Home */}
               <Link to={"/"}>
-                <li className="text-base">Home</li>
+                <li className="text-base">Inicio</li>
               </Link>
               <Link to={"/feed"}>
-                <li className="text-base">Posts</li>
+                <li className="text-base">Publicaciones</li>
               </Link>
               <Link to={"/community"}>
                 <li className="text-base">Comunidad</li>
@@ -31,9 +31,6 @@ export function Footer() {
               </Link>
               <Link to={"/blog"}>
                 <li className="text-base">Blog</li>
-              </Link>
-              <Link to={"/notifications"}>
-                <li className="text-base">Notificaciones</li>
               </Link>
             </ul>
           </div>

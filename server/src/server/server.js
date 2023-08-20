@@ -21,7 +21,8 @@ const {
   deleteLike,
   alreadyLiked,
 } = require("../controladores/feed-controlador.js");
-const {updatePhoto, updateProfileInfo, updateAccountInfo} = require("../controladores/settings-controlador")
+const {updatePhoto, updateProfileInfo, updateAccountInfo} = require("../controladores/settings-controlador");
+const Usuariosrouter = require("../routes/obtenerUsuarios-routes.js");
 
 app.use(cors());
 app.use(express.json());
@@ -50,7 +51,9 @@ app.put("/settings/cuentaInfo", updateAccountInfo);
 app.delete("/feed/like/:id_cliente/:id_publicacion", deleteLike)
 app.get("/feed/like/:id_cliente/:id_publicacion", alreadyLiked)
 
+
 app.use("/comentarios", commentsRoutes);
+app.use('/usuarios', Usuariosrouter)
 
 app.listen(port, () => { 
   console.log(`Servidor escuchando en el puerto ${port}`);
