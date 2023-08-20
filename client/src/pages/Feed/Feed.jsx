@@ -79,7 +79,7 @@ const PostCard = ({ keyProp, posts }) => {
   console.log(posts.numLikes);
 
   const [commentData, setCommentData] = useState([]);
-  // console.log(commentData);
+  console.log(commentData);
   const [newComment, setNewComment] = useState("");
   const addComment = async () => {
     try {
@@ -268,8 +268,8 @@ const PostCard = ({ keyProp, posts }) => {
       }
     }
 
-    const postDate = posts.fecha_creacion;
-    const timeAgo = timeAgoSincePublication(postDate);
+  const postDate = posts.fecha_creacion;
+  const timeAgo = timeAgoSincePublication(postDate);
 
     return (
       <div key={keyProp} className="flex flex-col items-center mt-16">
@@ -354,71 +354,71 @@ const PostCard = ({ keyProp, posts }) => {
               <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
             </Transition.Child>
 
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
-                >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900 flex justify-center mb-8"
-                    >
-                      Reportar publicación
-                    </Dialog.Title>
-                    <div className="w-full">
-                      <textarea
-                        placeholder="¿Por qué quieres reportar esta publicación?"
-                        name=""
-                        id=""
-                        cols="30"
-                        rows="6"
-                        className="outline-none resize-none w-full"
-                      ></textarea>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900 flex justify-center mb-8"
+                  >
+                    Reportar publicación
+                  </Dialog.Title>
+                  <div className="w-full">
+                    <textarea
+                      placeholder="¿Por qué quieres reportar esta publicación?"
+                      name=""
+                      id=""
+                      cols="30"
+                      rows="6"
+                      className="outline-none resize-none w-full"
+                    ></textarea>
 
-                      <div className="mt-4 flex justify-center gap-6">
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={closeModalReport}
-                        >
-                          Cancelar
-                        </button>
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={closeModalReport}
-                        >
-                          Enviar reporte
-                        </button>
-                      </div>
+                    <div className="mt-4 flex justify-center gap-6">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModalReport}
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={closeModalReport}
+                      >
+                        Enviar reporte
+                      </button>
                     </div>
-                  </Dialog.Panel>
-                </Transition.Child>
-              </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-          </Dialog>
-        </Transition>
-        <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
-          <div className="flex flex-row items-center justify-between w-full">
-            <img
-              className="w-12 h-12 -mr-3 z-[1] className="
-              w-16
-              h-16
-              object-cover
-              style={{
-                clipPath: "circle(50% at 50% 50%)",
-              }}
-              src={`http://localhost:5000${usuario.imagen_perfil}`}
-              alt=""
-            />
-            <img className="w-12 h-12 " src={matchingLanguage[1]} alt="" />
+          </div>
+        </Dialog>
+      </Transition>
+      <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
+        <div className="flex flex-row items-center justify-between w-full">
+          <img
+            className="w-12 h-12 -mr-3 z-[1] className="
+            w-16
+            h-16
+            object-cover
+            style={{
+              clipPath: "circle(50% at 50% 50%)",
+            }}
+            src={`http://localhost:5000${usuario.imagen_perfil}`}
+            alt=""
+          />
+          <img className="w-12 h-12 " src={matchingLanguage[1]} alt="" />
 
             <div className="flex flex-col ml-6">
               <h6 className="font-bold">
