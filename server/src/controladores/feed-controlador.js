@@ -178,5 +178,6 @@ module.exports = {
   readPosts,
   setlikes,
   likepost,
-  deleteLike
+  deleteLike, 
+  alreadyLiked
 };

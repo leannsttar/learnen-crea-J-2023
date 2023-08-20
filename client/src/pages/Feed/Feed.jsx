@@ -17,7 +17,6 @@ import { useSession } from "../../components/Header/useSession";
 import axios from "axios";
 import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
-import { useSession } from "../../components/Header/useSession";
 import { getComents, postComent } from "./authComments";
 
 function timeAgoSincePublication(publicationDate) {
@@ -76,6 +75,39 @@ const PostCard = ({ keyProp, posts }) => {
 
   const [like, setLike] = useState(0);
 
+  const [commentData, setCommentData] = useState([]);
+  console.log(commentData);
+  const [newComment, setNewComment] = useState("");
+  const addComment = async () => {
+    try {
+      await postComent({
+        datos: {
+          comentario: newComment,
+          id_publicacion: keyProp,
+          id_cliente: usuario.id,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getComments = async () => {
+    try {
+      const { message } = await getComents(keyProp);
+      return message;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      const data = await getComments();
+      setCommentData(data);
+    })();
+  }, []);
+
   const Handlike = () => {
     setLike(like + 1);
   };
@@ -87,13 +119,15 @@ const PostCard = ({ keyProp, posts }) => {
   const setLikes = async (data) => {
     try {
       if (isLiked) {
-        const response = await axios.delete(`http://localhost:5000/feed/like/${usuario.id}/${posts.id}`);
+        const response = await axios.delete(
+          `http://localhost:5000/feed/like/${usuario.id}/${posts.id}`
+        );
 
         setIsLiked(false);
         setLike(like - 1);
-        console.log(response)
+        console.log(response);
 
-        return
+        return;
       }
 
       const response = await axios.post("http://localhost:5000/feed/like", {
@@ -106,7 +140,7 @@ const PostCard = ({ keyProp, posts }) => {
 
       console.log(response);
 
-      return
+      return;
     } catch (error) {
       console.log(error);
     }
@@ -475,8 +509,11 @@ const PostCard = ({ keyProp, posts }) => {
                           {commentData.length !== 0 ? (
                             commentData.map((comentario) => (
                               <div key={comentario.id} className="mb-2">
-
-                                <p>{comentario.cliente.nombre} {comentario.cliente.apellido}: {comentario.descripcion}</p>
+                                <p>
+                                  {comentario.cliente.nombre}{" "}
+                                  {comentario.cliente.apellido}:{" "}
+                                  {comentario.descripcion}
+                                </p>
                               </div>
                             ))
                           ) : (
@@ -517,14 +554,18 @@ const PostCard = ({ keyProp, posts }) => {
                               type="text"
                               className="outline-none w-full resize-none"
                               placeholder="Añade un comentario..."
-                              value={commentText}
-                              onChange={handleCommentChange}
                             />
-                            <input
-                              type="submit"
-                              value="Publicar"
-                              className="text-[#ff8399] font-semibold"
-                            />
+                            <button
+                              onClick={async () => {
+                                await addComment({ comentario: newComment });
+                                const data = await getComments();
+                                setCommentData(data);
+                                setNewComment("");
+                              }}
+                              className="text-[#ff8399] font-semibold cursor-pointer"
+                            >
+                              Publicar
+                            </button>
                           </div>
                         </div>
                       </div>

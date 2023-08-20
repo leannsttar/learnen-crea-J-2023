@@ -15,27 +15,22 @@ const person1LanguagesKnown = [german, greek];
 const person1LanguagesLearning = [french];
 
 export function CommunityCard() {
-  const { usuario } = useSession();
+  
   return (
     <>
       <div className="flex gap-x-5 bg-[#F7F2EF] p-4 rounded-xl hover:scale-[101%] hover:transition-scale ease-in duration-150 cursor-pointer">
         <div>
-          <img
-            src={`http://localhost:5000${usuario.imagen_perfil}`}
-            alt=""
-            className="object-cover w-32"
-            style={{
-              clipPath: "circle(50% at 50% 50%)",
-            }}
-          />
+        <img src={FemalePhoto} alt="" className="" />
         </div>
         <div className="justify-between flex flex-col gap-y-2">
           <div>
             <div className="flex gap-x-3 items-center">
-              <p className="font-bold text-xl">{usuario.nombre} {usuario.apellido}</p>
+            <img src={GreenCircle} />
+              <p className="font-bold text-xl">Adri</p>
             </div>
             <p className="text-md font-normal line-clamp-2">
-              {usuario.me_gusta}
+            I wanna learn a new language by the end of the year. Who can help
+              me?
             </p>
           </div>
           <div className="flex gap-x-6">
