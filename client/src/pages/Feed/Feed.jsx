@@ -136,6 +136,7 @@ const PostCard = ({ keyProp, posts }) => {
 
   const handleCommentChange = (event) => {
     setCommentText(event.target.value);
+  };
 
     const countComments = async () => {
       try {
@@ -191,8 +192,6 @@ const PostCard = ({ keyProp, posts }) => {
     //       `http://localhost:5000/feed/like/${posts.id}`
     //     );
     //     setLike(data);
-
-    //     // console.log(data)
     //   } catch (error) {
     //     console.log(error);
     //   }
@@ -617,7 +616,6 @@ const PostCard = ({ keyProp, posts }) => {
         </div>
       </div>
     );
-  };
 };
 
 const PeopleSection = () => {
@@ -956,6 +954,7 @@ export function Feed() {
             </Dialog>
           </Transition>
           {posts &&
+          
             posts.map((post) => (
               <PostCard keyProp={post.id} posts={post} key={post.id} />
             ))}
