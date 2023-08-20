@@ -17,7 +17,6 @@ import { useSession } from "../../components/Header/useSession";
 import axios from "axios";
 import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
-import { useSession } from "../../components/Header/useSession";
 import { getComents, postComent } from "./authComments";
 
 function timeAgoSincePublication(publicationDate) {
@@ -452,8 +451,6 @@ const PostCard = ({ keyProp, posts }) => {
                               type="text"
                               className="outline-none w-full resize-none"
                               placeholder="Añade un comentario..."
-                              value={commentText}
-                              onChange={handleCommentChange}
                             />
                             <input
                               type="submit"
@@ -512,6 +509,7 @@ export function Feed() {
 
   const [sentPost, setSentPost] = useState(null);
 
+  const {usuario} = useSession()
   const obtenerPosts = async () => {
     try {
       const { data } = await axios.get("http://localhost:5000/feed");
@@ -739,8 +737,8 @@ export function Feed() {
                           )}
                           <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
                             <div className="flex gap-3 items-center">
-                              <img src={ProfilePhoto} alt="" className="w-9" />
-                              <p className="font-semibold">nacelyorellana_</p>
+                              <img src={usuario.imagen_perfil} alt="" className="w-9" />
+                              <p className="font-semibold">{usuario.nombre} {usuario.apellido}</p>
                             </div>
                             <textarea
                               {...register("descripcion")}

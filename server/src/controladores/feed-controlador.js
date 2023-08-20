@@ -86,6 +86,6 @@ const readPosts = async (req, res) => {
 module.exports = {
   createPost,
   readPosts,
-  setlikes,
-  likepost
+  // setlikes,
+  // likepost
 };
