@@ -39,9 +39,11 @@ function timeAgoSincePublication(publicationDate) {
   }
 }
 
+
+
 const feedData = {
   id: 1,
-  name: "Esteban",
+  name: "esteban",
   time: "3 minutes ago",
   image: "/assets/person-post.png",
   avatar: "/assets/german.png",

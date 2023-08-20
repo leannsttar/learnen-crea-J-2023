@@ -74,6 +74,7 @@ export function SignUp() {
   console.log(state.more_languages);
   console.log(state.mother_language);
   console.log(state.languages);
+
   const sendRegister = async () => {
     try {
       const res = await axios.postForm(
@@ -91,7 +92,14 @@ export function SignUp() {
     }
   };
 
+  const [passwordMatch, setPasswordMatch] = useState(true);
+
   const inputHandle = (e) => {
+    if (e.target.name === "password_ok") {
+      const passwordsMatch = e.target.value === state.password;
+      setPasswordMatch(passwordsMatch);
+    }
+
     setState({
       ...state,
       [e.target.name]: e.target.value,
@@ -99,6 +107,10 @@ export function SignUp() {
   };
 
   const next = () => {
+    if (!passwordMatch) {
+      toast.warn("Las contraseñas no coinciden");
+      return;
+    }
     if (
       (formNo === 1 && state.email && state.password && state.password_ok) ||
       (formNo === 2 && state.Name && state.Lastname && state.BirthDate) ||
@@ -218,7 +230,7 @@ export function SignUp() {
                     <label htmlFor="password">
                       Contraseña<span className="text-red-600">*</span>
                     </label>
-                    <div className="relative">
+                    <div className={`relative ${passwordMatch ? "" : "border-red-600"}`}>
                       <input
                         value={state.password}
                         onChange={inputHandle}
