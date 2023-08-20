@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSession } from "../../../components/Header/useSession.js";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export function CambioContraseniaForm({ usuario, closeModal }) {
   const { register, handleSubmit, getValues } = useForm();

@@ -18,6 +18,8 @@ const {
   readPosts,
   setlikes,
   likepost,
+  deleteLike,
+  alreadyLiked,
 } = require("../controladores/feed-controlador.js");
 const {updatePhoto, updateProfileInfo, updateAccountInfo} = require("../controladores/settings-controlador")
 
@@ -40,15 +42,16 @@ app.post("/auth/register", upload.single("photoProfile"), createUser);
 app.post("/feed", createPost);
 app.get("/feed", readPosts);
 app.post("/feed/like", setlikes)
-app.get("/feed/like", likepost)
+app.get("/feed/like/:id", likepost)
 
 app.put("/settings/imagen", upload.single("imagen_perfil"), updatePhoto);
 app.put("/settings/sobremi", updateProfileInfo);
 app.put("/settings/cuentaInfo", updateAccountInfo);
+app.delete("/feed/like/:id_cliente/:id_publicacion", deleteLike)
+app.get("/feed/like/:id_cliente/:id_publicacion", alreadyLiked)
 
 app.use("/comentarios", commentsRoutes);
 
-
-app.listen(port, () => {
+app.listen(port, () => { 
   console.log(`Servidor escuchando en el puerto ${port}`);
 });

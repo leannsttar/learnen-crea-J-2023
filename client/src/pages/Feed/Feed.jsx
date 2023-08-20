@@ -65,7 +65,72 @@ const blogData = {
 };
 
 const PostCard = ({ keyProp, posts }) => {
+  const { usuario } = useSession();
+
   let [isOpen, setIsOpen] = useState(false);
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
+  const [isOpenReport, setIsOpenReport] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
+
+  const [like, setLike] = useState(0);
+
+  const Handlike = () => {
+    setLike(like + 1);
+  };
+
+  const toggleLike = () => {
+    setIsLiked((prevIsLiked) => !prevIsLiked);
+  };
+
+  const setLikes = async (data) => {
+    try {
+      if (isLiked) {
+        const response = await axios.delete(`http://localhost:5000/feed/like/${usuario.id}/${posts.id}`);
+
+        setIsLiked(false);
+        setLike(like - 1);
+        console.log(response)
+
+        return
+      }
+
+      const response = await axios.post("http://localhost:5000/feed/like", {
+        id_cliente: usuario.id,
+        id_publicacion: posts.id,
+      });
+
+      setIsLiked(true);
+      setLike(like + 1);
+
+      console.log(response);
+
+      return
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const countLikes = async (data) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5000/feed/like/${posts.id}`
+      );
+      setLike(data);
+
+      // console.log(data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    countLikes();
+  }, []);
+
+  const handleCommentChange = (event) => {
+    setCommentText(event.target.value);
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -326,10 +391,10 @@ const PostCard = ({ keyProp, posts }) => {
         ) : (
           <AiOutlineHeart
             className="mr-2 w-6 h-6 cursor-pointer"
-            onClick={toggleLike}
+            onClick={setLikes}
           />
         )}
-        <p onClick={setLike}>{like}</p>
+        <p>{like}</p>
         <div className="flex-grow"></div>
         <div onClick={openModal} className="cursor-pointer flex">
           <BsChatText className="mr-2 w-6 h-5" />
@@ -505,11 +570,12 @@ const BlogSection = () => {
 };
 
 export function Feed() {
+  const { usuario } = useSession();
+
   const [posts, setPosts] = useState(null);
 
   const [sentPost, setSentPost] = useState(null);
 
-  const {usuario} = useSession()
   const obtenerPosts = async () => {
     try {
       const { data } = await axios.get("http://localhost:5000/feed");
@@ -737,8 +803,14 @@ export function Feed() {
                           )}
                           <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
                             <div className="flex gap-3 items-center">
-                              <img src={usuario.imagen_perfil} alt="" className="w-9" />
-                              <p className="font-semibold">{usuario.nombre} {usuario.apellido}</p>
+                              <img
+                                src={`http://localhost:5000${usuario.imagen_perfil}`}
+                                alt=""
+                                className="w-9 h-9 rounded-full object-cover"
+                              />
+                              <p className="font-semibold">
+                                {usuario.nombre} {usuario.apellido}
+                              </p>
                             </div>
                             <textarea
                               {...register("descripcion")}
