@@ -1,11 +1,14 @@
 import React from "react";
-import { Flip } from 'react-reveal';
+import { Flip } from "react-reveal";
 import { Element } from "react-scroll";
 import { AppTitle } from "../../components/AppTitle";
 import { SearchBar } from "../Community/SearchBar";
 import { CommunityCard } from "./CommunityCard";
 
 export function Community() {
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value.toLowerCase());
+  };
   return (
     <>
       <div className="font-Poppins">
