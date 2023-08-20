@@ -13,15 +13,13 @@ const obtenerPerfilPorToken = async (req, res) => {
       console.log(credenciales);
       let usuarioEncontrado = await prisma.cliente.findFirst({
         where: {
-          correo: credenciales.correo,
-          id: credenciales.id,
+          id: credenciales.userId,
         },
       });
       if (!usuarioEncontrado) {
         usuarioEncontrado = await prisma.administradores.findFirst({
           where: {
-            correo: credenciales.correo,
-            id: credenciales.id,
+            id: credenciales.userId,
           },
         });
       }
@@ -31,6 +29,7 @@ const obtenerPerfilPorToken = async (req, res) => {
         });
       }
 
+      console.log(token)
       return res.status(200).json(usuarioEncontrado);
     } else {
       return res.status(403).json({

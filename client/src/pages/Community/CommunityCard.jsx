@@ -35,7 +35,7 @@ export function CommunityCard() {
   return (
     <>
       {usuarios.map((usuario) => (
-        <div className="">
+        <div className="mb-6">
           <div
           key={usuario.id}
           className="flex gap-x-6 bg-[#F7F2EF] p-4 rounded-xl hover:scale-[101%] hover:transition-scale ease-in duration-150 cursor-pointer"
