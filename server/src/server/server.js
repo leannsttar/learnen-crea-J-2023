@@ -13,6 +13,7 @@ const {commentsRoutes} = require('../routes/commentsRoutes')
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const { createUser } = require("../controladores/register-controlador.js");
+const {routerReport} = require("../routes/reportes-router");
 const {
   createPost,
   readPosts,
@@ -54,6 +55,7 @@ app.get("/feed/like/:id_cliente/:id_publicacion", alreadyLiked)
 
 app.use("/comentarios", commentsRoutes);
 app.use('/usuarios', Usuariosrouter)
+app.use('/reports', routerReport )
 
 app.listen(port, () => { 
   console.log(`Servidor escuchando en el puerto ${port}`);

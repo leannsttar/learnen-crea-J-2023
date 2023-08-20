@@ -48,17 +48,17 @@ export function MobileNav({ isLogged }) {
         </div>
         <ul className="h-full flex flex-col justify-center items-center gap-y-8 font-semi bold text-3xl">
           <li onClick={() => setOpenMenu(false)}>
-            <Link to="/">Home</Link>
+            <Link to="/">Inicio</Link>
           </li>
           {isLoggedIn ? (
             <li onClick={() => setOpenMenu(false)}>
-              <Link to="/feed">Posts</Link>
+              <Link to="/feed">Publicaciones</Link>
             </li>
           ) : (
             ""
           )}
           <li onClick={() => setOpenMenu(false)}>
-            <Link to="/community">Community</Link>
+            <Link to="/community">Comunidad</Link>
           </li>
           {isLoggedIn ? (
             <li onClick={() => setOpenMenu(false)}>

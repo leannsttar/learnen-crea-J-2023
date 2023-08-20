@@ -19,6 +19,8 @@ import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
 import { getComents, postComent } from "./authComments";
 
+
+
 function timeAgoSincePublication(publicationDate) {
   const now = new Date();
   const publicationTime = new Date(publicationDate);
@@ -76,7 +78,6 @@ const PostCard = ({ keyProp, posts }) => {
   const [like, setLike] = useState(0);
 
   const [commentData, setCommentData] = useState([]);
-  console.log(commentData);
   const [newComment, setNewComment] = useState("");
   const addComment = async () => {
     try {
@@ -234,6 +235,24 @@ const PostCard = ({ keyProp, posts }) => {
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
 
+  //eh el envío del reporte xd
+  const [reportDescription, setReportDescription] = useState("");
+  const sendReport = async () => {
+    try {
+      await axios.post("/reports", {
+        descripcion: reportDescription,
+        id_cliente: usuario.id,
+        id_publicacion: id_publicacion, 
+      });
+  
+      closeModalReport(); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+
+
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
       {/* Modal de eliminar post */}
@@ -335,17 +354,19 @@ const PostCard = ({ keyProp, posts }) => {
                   >
                     Reportar publicación
                   </Dialog.Title>
-                  <div className="w-full">
-                    <textarea
+                  <div className="w-full p-6">
+                    <input
                       placeholder="¿Por qué quieres reportar esta publicación?"
+                      onChange={(e) => setReportDescription(e.target.value)}
                       name=""
+                      value={reportDescription}
                       id=""
-                      cols="30"
-                      rows="6"
+                      cols="40"
+                      rows="10"
                       className="outline-none resize-none w-full"
-                    ></textarea>
+                    ></input>
 
-                    <div className="mt-4 flex justify-center gap-6">
+                    <div className="mt-10 flex justify-center gap-6">
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -356,8 +377,8 @@ const PostCard = ({ keyProp, posts }) => {
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={closeModalReport}
-                      >
+                        onClick={sendReport}
+                        >
                         Enviar reporte
                       </button>
                     </div>
