@@ -50,6 +50,8 @@ app.put("/settings/cuentaInfo", updateAccountInfo);
 app.delete("/feed/like/:id_cliente/:id_publicacion", deleteLike)
 app.get("/feed/like/:id_cliente/:id_publicacion", alreadyLiked)
 
+app.use("/comentarios", commentsRoutes);
+
 app.listen(port, () => { 
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
