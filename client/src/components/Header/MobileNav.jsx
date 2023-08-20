@@ -80,13 +80,13 @@ export function MobileNav({ isLogged }) {
               <ButtonHeader
                 className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-white items-center"
                 imgClassName="h-[30px]"
-                to="/"
+                to="/login"
                 text="Iniciar sesión"
               />
               <ButtonHeader
                 className="flex gap-3 px-6 py-2.5 shadow-square border border-white bg-black text-white flex-row-reverse items-center"
                 imgClassName="invert h-[30px]"
-                to="/"
+                to="/signup"
                 text="Registrarse"
               />
             </div>

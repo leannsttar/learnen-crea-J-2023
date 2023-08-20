@@ -14,6 +14,7 @@ import portugalFlag from "../../assets/Flags/portugalFlag.svg";
 import englishFlag from "../../assets/Flags/englishFlag.svg";
 import frenchFlag from "../../assets/Flags/frenchFlag.svg";
 import { Link } from "react-router-dom";
+import { useSession } from "../../components/Header/useSession";
 
 export function FloatFlag({ img, className }) {
   return <img src={img} alt="" className={className} />;
