@@ -42,7 +42,7 @@ app.post("/auth/register", upload.single("photoProfile"), createUser);
 app.post("/feed", createPost);
 app.get("/feed", readPosts);
 app.post("/feed/like", setlikes)
-app.get("/feed/like/:id", likepost)
+// app.get("/feed/like/:id", likepost)
 
 app.put("/settings/imagen", upload.single("imagen_perfil"), updatePhoto);
 app.put("/settings/sobremi", updateProfileInfo);

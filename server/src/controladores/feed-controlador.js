@@ -74,8 +74,19 @@ const createPost = async (req, res) => {
 
 const readPosts = async (req, res) => {
   try {
-    const allPosts = await prisma.publicaciones.findMany();
-    res.json(allPosts);
+    const allPosts = await prisma.publicaciones.findMany({
+      include: {
+        Likes: true
+      }
+
+    });
+    const postsWithLikesCount = allPosts.map(post => ({
+      ...post,
+      numLikes: post.Likes.length
+    }));
+
+    res.json(postsWithLikesCount);
+
   } catch (error) {
     return res
       .status(500)
@@ -166,10 +177,13 @@ const alreadyLiked = async (req, res) => {
       return res.status(404).json()
     }
 
-    return res.json(like)
+    return res.json({message: 'Like'})
 
   } catch (error) {
-    
+    return res
+    .status(500)
+    .json({ error: "Error al encontrar el like" });
+
   }
 }
 

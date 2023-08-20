@@ -73,10 +73,11 @@ const PostCard = ({ keyProp, posts }) => {
   const [commentText, setCommentText] = useState("");
   const [isLiked, setIsLiked] = useState(false);
 
-  const [like, setLike] = useState(0);
+  const [like, setLike] = useState(posts.numLikes);
+  console.log(posts.numLikes)
 
   const [commentData, setCommentData] = useState([]);
-  console.log(commentData);
+  // console.log(commentData);
   const [newComment, setNewComment] = useState("");
   const addComment = async () => {
     try {
@@ -108,12 +109,33 @@ const PostCard = ({ keyProp, posts }) => {
     })();
   }, []);
 
-  const Handlike = () => {
-    setLike(like + 1);
-  };
+  // const Handlike = () => {
+  //   setLike(like + 1);
+  // };
 
-  const toggleLike = () => {
-    setIsLiked((prevIsLiked) => !prevIsLiked);
+  // const toggleLike = () => {
+  //   setIsLiked((prevIsLiked) => !prevIsLiked);
+  // };
+
+  const alreadyLike = async (data) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/feed/like/${usuario.id}/${posts.id}`
+      )
+      console.log(response)
+
+      if (response.data.message === "Like") {
+        setIsLiked(true);
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  const handleCommentChange = (event) => {
+    setCommentText(event.target.value);
   };
 
   const setLikes = async (data) => {
@@ -137,6 +159,7 @@ const PostCard = ({ keyProp, posts }) => {
 
       setIsLiked(true);
       setLike(like + 1);
+      console.log(like)
 
       console.log(response);
 
@@ -146,26 +169,27 @@ const PostCard = ({ keyProp, posts }) => {
     }
   };
 
-  const countLikes = async (data) => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:5000/feed/like/${posts.id}`
-      );
-      setLike(data);
+  // const countLikes = async (data) => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `http://localhost:5000/feed/like/${posts.id}`
+  //     );
+  //     setLike(data);
 
-      // console.log(data)
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     // console.log(data)
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
+  
   useEffect(() => {
-    countLikes();
+    alreadyLike()
+    // countLikes();
+
   }, []);
 
-  const handleCommentChange = (event) => {
-    setCommentText(event.target.value);
-  };
+
 
   function closeModal() {
     setIsOpen(false);
@@ -421,7 +445,7 @@ const PostCard = ({ keyProp, posts }) => {
               cursor: "pointer",
               opacity: 1,
             }}
-            onClick={toggleLike}
+            onClick={setLikes}
           />
         ) : (
           <AiOutlineHeart
@@ -532,16 +556,16 @@ const PostCard = ({ keyProp, posts }) => {
                                   cursor: "pointer",
                                   opacity: 1,
                                 }}
-                                onClick={toggleLike}
+                                onClick={setLikes}
                               />
                             ) : (
                               <AiOutlineHeart
                                 className="mr-2 w-8 h-8 cursor-pointer"
-                                onClick={toggleLike}
+                                onClick={setLikes}
                               />
                             )}
                             <div>
-                              <p className="font-semibold">9,944 likes</p>
+                              <p className="font-semibold">{like} likes</p>
                               <p className="text-[#9c9c9c] text-sm">
                                 Hace {timeAgo}
                               </p>
