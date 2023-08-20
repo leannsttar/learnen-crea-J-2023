@@ -269,7 +269,6 @@ export function Header() {
     setActiveLink(location.pathname);
   }, [location]);
   const { scrollYProgress } = useScroll();
-  console.log(usuario);
   return (
     <>
       <div className="mb-[10.3vh]">

@@ -9,7 +9,7 @@ const sharp = require("sharp");
 const fs = require("fs");
 const { loginUser } = require("../controladores/login-controlador.js");
 const { obtenerPerfilPorToken } = require("../controladores/Obtenerperfil-controlador.js");
-
+const {commentsRoutes} = require('../routes/commentsRoutes')
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const { createUser } = require("../controladores/register-controlador.js");

@@ -1,4 +1,4 @@
-import { React, Fragment, useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useForm } from "react-hook-form";
 import {
   AiOutlineEllipsis,
@@ -7,18 +7,38 @@ import {
   AiOutlinePlus,
 } from "react-icons/ai";
 import { BsChatText, BsThreeDots } from "react-icons/bs";
-import { FaRegHeart } from "react-icons/fa";
 import { AppTitle } from "../../components/AppTitle";
 import { Dialog, Transition } from "@headlessui/react";
 import galleryAdd from "../../assets/gallery-add.svg";
-import ProfilePhoto from "../../assets/Female.png";
 import { allLanguages } from "../../data/languages";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSession } from "../../components/Header/useSession";
 import axios from "axios";
 import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
 import { useSession } from "../../components/Header/useSession";
+import { getComents, postComent } from "./authComments";
+
+function timeAgoSincePublication(publicationDate) {
+  const now = new Date();
+  const publicationTime = new Date(publicationDate);
+
+  const timeDifferenceInSeconds = Math.floor((now - publicationTime) / 1000);
+
+  if (timeDifferenceInSeconds < 60) {
+    return `${timeDifferenceInSeconds} segundos`;
+  } else if (timeDifferenceInSeconds < 3600) {
+    const minutes = Math.floor(timeDifferenceInSeconds / 60);
+    return `${minutes} minutos`;
+  } else if (timeDifferenceInSeconds < 86400) {
+    const hours = Math.floor(timeDifferenceInSeconds / 3600);
+    return `${hours} horas`;
+  } else {
+    const days = Math.floor(timeDifferenceInSeconds / 86400);
+    return `${days} días`;
+  }
+}
 
 const feedData = {
   id: 1,
@@ -316,11 +336,23 @@ const PostCard = ({ keyProp, posts }) => {
       </Transition>
       <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
         <div className="flex flex-row items-center justify-between w-full">
-          <img className="w-12 h-12 -mr-3 z-[1]" src={feedData.image} alt="" />
+          <img
+            className="w-12 h-12 -mr-3 z-[1] className="
+            w-16
+            h-16
+            object-cover
+            style={{
+              clipPath: "circle(50% at 50% 50%)",
+            }}
+            src={`http://localhost:5000${usuario.imagen_perfil}`}
+            alt=""
+          />
           <img className="w-12 h-12 " src={matchingLanguage[1]} alt="" />
 
           <div className="flex flex-col ml-6">
-            <h6 className="font-bold">{feedData.name}</h6>
+            <h6 className="font-bold">
+              {usuario.nombre} {usuario.apellido}
+            </h6>
             <h6 className="text-sm">Hace {timeAgo}</h6>
           </div>
           <Space direction="vertical" className="ml-auto">
@@ -367,9 +399,9 @@ const PostCard = ({ keyProp, posts }) => {
         <div className="flex-grow"></div>
         <div onClick={openModal} className="cursor-pointer flex">
           <BsChatText className="mr-2 w-6 h-5" />
-          <p className="text-sm">{feedData.comments} comments</p>
+          <p className="text-sm">{feedData.comments} comentarios</p>
         </div>
-        {/* Modal de ver el post */}
+
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -377,7 +409,7 @@ const PostCard = ({ keyProp, posts }) => {
             onClose={closeModal}
           >
             <Transition.Child
-              as={Fragment}
+              as={React.Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0"
               enterTo="opacity-100"
@@ -391,7 +423,7 @@ const PostCard = ({ keyProp, posts }) => {
             <div className="fixed inset-0 overflow-y-auto">
               <div className="flex min-h-full items-center justify-center p-4 text-center">
                 <Transition.Child
-                  as={Fragment}
+                  as={React.Fragment}
                   enter="ease-out duration-300"
                   enterFrom="opacity-0 scale-95"
                   enterTo="opacity-100 scale-100"
@@ -400,11 +432,6 @@ const PostCard = ({ keyProp, posts }) => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="h-[95vh] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
-                    {/* <Dialog.Title
-                      as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
-                    >
-                    </Dialog.Title> */}
                     <div className="h-full flex">
                       <div className=" bg-black flex items-center justify-center">
                         <img
@@ -416,8 +443,18 @@ const PostCard = ({ keyProp, posts }) => {
                       <div className="w-[25vw] h-full flex-col">
                         <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
                           <div className="flex items-center gap-3">
-                            <img src={feedData.image} alt="" className="w-10" />
-                            <p className="font-semibold">nacelyorellana_</p>
+                            <img
+                              src={`http://localhost:5000${usuario.imagen_perfil}`}
+                              alt=""
+                              className="w-10 "
+                              object-cover
+                              style={{
+                                clipPath: "circle(50% at 50% 50%)",
+                              }}
+                            />
+                            <p className="font-semibold">
+                              {usuario.nombre} {usuario.apellido}
+                            </p>
                           </div>
                           <div>
                             <Space direction="vertical">
@@ -434,9 +471,19 @@ const PostCard = ({ keyProp, posts }) => {
                             </Space>
                           </div>
                         </div>
-                        <div className="flex flex-grow h-[70%] items-center justify-center text-2xl">
-                          Sin comentarios aún
+                        <div className="flex flex-col h-[70%] items-start justify-start text-base p-5">
+                          {commentData.length !== 0 ? (
+                            commentData.map((comentario) => (
+                              <div key={comentario.id} className="mb-2">
+
+                                <p>{comentario.cliente.nombre} {comentario.cliente.apellido}: {comentario.descripcion}</p>
+                              </div>
+                            ))
+                          ) : (
+                            <p>Sin comentarios aún</p>
+                          )}
                         </div>
+
                         <div className="h-[20%]">
                           <div className="p-5 border-t-[1px] flex items-center gap-3">
                             {isLiked ? (
@@ -465,23 +512,19 @@ const PostCard = ({ keyProp, posts }) => {
                           </div>
                           <div className="p-5 border-t-[1px] flex justify-between gap-3 items-center">
                             <textarea
+                              value={newComment}
+                              onChange={(e) => setNewComment(e.target.value)}
                               type="text"
                               className="outline-none w-full resize-none"
                               placeholder="Añade un comentario..."
                               value={commentText}
                               onChange={handleCommentChange}
                             />
-                            <button
-                              disabled={!commentText.trim()}
+                            <input
                               type="submit"
-                              className={`text-[#ff8399] font-semibold ${
-                                commentText.trim()
-                                  ? ""
-                                  : "opacity-50 cursor-auto"
-                              }`}
-                            >
-                              Publicar
-                            </button>
+                              value="Publicar"
+                              className="text-[#ff8399] font-semibold"
+                            />
                           </div>
                         </div>
                       </div>
@@ -636,9 +679,7 @@ export function Feed() {
 
   function closeModal() {
     setIsOpen(false);
-    // setValue("idioma", null);
     setValue("descripcion", "");
-    // setValue("imagen", selectedImage);
   }
 
   function closeModal2() {
@@ -657,7 +698,6 @@ export function Feed() {
 
   return (
     <>
-      {/* Pasos de cómo funciona */}
       <div className="grid grid-cols-[1fr_650px]">
         <div className="mt-[40px] mx-[80px] h-full mb-10">
           <AppTitle title="Tu feed" />
@@ -718,23 +758,13 @@ export function Feed() {
                           </h3>
                           <input
                             type="submit"
-                            // onClick={() => {
-                            //   if (selectedImage === null) {
-                            //     toast.error("Debes subir una imagen");
-                            //   } else if (selectedLanguage === null) {
-                            //     toast.error("Debes seleccionar el idioma");
-                            //   } else {
-                            //     closeModal();
-                            //   }
-                            // }}
                             onClick={() => {
                               if (selectedImage === null) {
                                 toast.error("Debes subir una imagen");
                               } else if (selectedLanguage === null) {
                                 toast.error("Debes seleccionar el idioma");
                               } else {
-                                // Set the compartirClicked flag to true when the "Compartir" button is clicked
-                                closeModal;
+                                closeModal();
                               }
                             }}
                             className="text-[#FF8399] font-semibold cursor-pointer"

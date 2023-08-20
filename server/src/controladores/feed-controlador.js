@@ -83,6 +83,7 @@ const readPosts = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 //get
 const likepost = async (req, res) => {
   try {
@@ -173,6 +174,8 @@ const alreadyLiked = async (req, res) => {
   }
 }
 
+=======
+>>>>>>> 0c71a043d43d6d44e430d7eca6a818c69eda7be2
 module.exports = {
   createPost,
   readPosts,

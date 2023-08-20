@@ -6,6 +6,7 @@ import { DataProfile } from "./DataProfile";
 import { LanguagesProfile } from "./LanguagesProfile";
 import { AboutProfile } from "./AboutProfile";
 import { flags } from "../../data/languages";
+import { useSession } from "../../components/Header/useSession";
 
 export function LowerProfile() {
   const postsImages = [
@@ -57,6 +58,8 @@ export function LowerProfile() {
       ["Francés", flags.Frances],
     ],
   };
+
+  
 
   return (
     <Element className=" flex justify-center mx-auto">

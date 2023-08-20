@@ -27,6 +27,7 @@ import { AsideMenu } from "./pages/Dashboard/AsideMenu";
 import { Navbar } from "@material-tailwind/react";
 import { Fade } from "react-reveal";
 import { SessionProvider } from "./components/Header/Session";
+import Translate from "./components/Header/Translate";
 
 
 const router = createBrowserRouter([
@@ -340,10 +341,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <SessionProvider>
+      <Translate/>
       <RouterProvider router={router} />
   </SessionProvider>
-  </React.StrictMode>
 );
 
