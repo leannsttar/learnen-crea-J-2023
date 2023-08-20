@@ -83,9 +83,10 @@ const readPosts = async (req, res) => {
   }
 };
 
+//get
 const likepost = async (req, res) => {
   try {
-    const { id } = req.body;
+    const id = req.params.id;
     const post = await prisma.publicaciones.findFirst({
       where: {
         id: +id,
@@ -96,8 +97,11 @@ const likepost = async (req, res) => {
       
     });
 
-    res.json(post.Likes);
+    res.json(post.Likes.length);
   } catch (error) {
+    return res
+    .status(500)
+    .json({ error: "Error al obtener el número de likes" });
     console.log(error)
   }
 };
@@ -106,14 +110,73 @@ const setlikes = async (req, res) => {
   try {
     const {id_cliente, id_publicacion} = req.body
     const like = await prisma.likes.create({
-      data: { id_publicacion, id_cliente },
+      data: { id_publicacion: +id_publicacion, id_cliente: +id_cliente },
     });
-  } catch (error) {}
+
+    res.json(like)
+  } catch (error) {
+    console.log(error)
+    return res
+    .status(500)
+    .json({ error: "Error al registrar el like" });
+  }
 };
+
+const deleteLike = async (req, res) => {
+  try {
+    const {id_cliente, id_publicacion} = req.params
+
+    console.log(id_cliente, id_publicacion)
+
+    const like = await prisma.likes.findFirst({
+      where: {
+        id_publicacion: +id_publicacion,
+        id_cliente: +id_cliente
+      }
+    })
+
+    const deletedLike = await prisma.likes.delete({
+      where: {
+        id: like.id
+      },
+    })
+
+    return res.json(deletedLike)
+
+  } catch (error) {
+    console.log(error)
+    return res
+    .status(500)
+    .json({ error: "Error al eliminar el like" });
+  }
+}
+
+const alreadyLiked = async (req, res) => {
+  try {
+    const {id_cliente, id_publicacion} = req.params
+
+    const like = await prisma.likes.findFirst({
+      where: {
+        id_publicacion: +id_publicacion,
+        id_cliente: +id_cliente
+      }
+    })
+
+    if (!like) {
+      return res.status(404).json({message: "Like no encontrado"})
+    }
+
+    return res.json(like)
+
+  } catch (error) {
+    
+  }
+}
 
 module.exports = {
   createPost,
   readPosts,
   setlikes,
-  likepost
+  likepost,
+  deleteLike
 };
