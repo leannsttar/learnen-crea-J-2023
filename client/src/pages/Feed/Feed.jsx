@@ -311,7 +311,7 @@ const PostCard = ({ keyProp, posts }) => {
                     >
                       <div className="flex flex-col justify-center items-center gap-5 mb-10">
                         <img src={iconTrash} alt="" className="w-16" />
-                        Seguro que quieres eliminar tu publicación?
+                        ¿Seguro que quieres eliminar tu publicación?
                       </div>
                     </Dialog.Title>
                     <div className="flex gap-5 justify-center">
