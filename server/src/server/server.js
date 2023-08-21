@@ -1,12 +1,8 @@
-  const express = require("express");
+const express = require("express");
 const app = express();
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
 const cors = require("cors");
-const path = require("path");
 const multer = require("multer");
-const sharp = require("sharp");
-const fs = require("fs");
+
 const { loginUser } = require("../controladores/login-controlador.js");
 const { obtenerPerfilPorToken } = require("../controladores/Obtenerperfil-controlador.js");
 const {commentsRoutes} = require('../routes/commentsRoutes')
@@ -24,11 +20,19 @@ const {
 } = require("../controladores/feed-controlador.js");
 const {updatePhoto, updateProfileInfo, updateAccountInfo} = require("../controladores/settings-controlador");
 const Usuariosrouter = require("../routes/obtenerUsuarios-routes.js");
+const { auth } = require("../middleware/auth.js");
+const { enviarMensaje } = require("../controladores/enviar-mensaje-contralador.js");
+const { misChats } = require("../controladores/mis-chats-controlador.js");
+const { obtenerMensajes } = require("../controladores/obtener-mensajes-controlador.js");
+
+const {Server} = require('socket.io')
+const {createServer} = require('http')
 
 app.use(cors());
 app.use(express.json());
 app.use("/imagenes", express.static("./public/images/postImages/"));
 app.use("/perfil", express.static("./public/images/perfil/"));
+
 
 const port = 5000;
 
@@ -53,10 +57,42 @@ app.delete("/feed/like/:id_cliente/:id_publicacion", deleteLike)
 app.get("/feed/like/:id_cliente/:id_publicacion", alreadyLiked)
 
 
+app.post("/enviar-mensaje/:id", auth, enviarMensaje)
+app.get("/mensajes/:id", auth, obtenerMensajes)
+app.get("/mis-chats", auth, misChats)
+
 app.use("/comentarios", commentsRoutes);
 app.use('/usuarios', Usuariosrouter)
 app.use('/reports', routerReport )
 
-app.listen(port, () => { 
+
+const server = createServer(app);
+const io = new Server(server,{
+  cors: {
+    origin: "*"
+  }
+});
+
+server.listen(port, () => { 
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
+
+
+io.on('connection', socket =>{
+  socket.on('unirse-chat', chatid =>{
+
+    socket.rooms.forEach(room => {
+      if(room.startsWith("chat")){
+        socket.leave(room)
+      }
+    })
+    socket.join(chatid);
+  })
+
+
+  socket.on("enviar-mensaje", ({mensaje, chats_ids}) =>{
+    console.log(chats_ids);
+    socket.to(chats_ids).emit("nuevo-mensaje", mensaje)
+  })
+
+})
