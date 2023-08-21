@@ -69,11 +69,12 @@ app.use('/reports', routerReport )
 
 
 const server = createServer(app);
-const io = new Server(server,{
+const io = new Server(server, {
   cors: {
     origin: "*"
   }
 });
+
 
 server.listen(port, () => { 
   console.log(`Servidor escuchando en el puerto ${port}`);

@@ -652,7 +652,7 @@ const PeopleSection = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-pink-400 mt-14 ml-10">People</h1>
+      <h1 className="text-4xl font-bold text-pink-400 mt-14 ml-10">Gente</h1>
       {usuarios.map((usuario) => (
         <div className="flex flex-row mt-16 ml-8 items-center" key={usuario.id}>
           <img className="object-cover w-[6rem] h-[6rem]"
