@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export function Article() {
   const dataCards = [
@@ -34,8 +35,8 @@ export function Article() {
             src="../src/assets/fondo_articulo.png"
             alt=""
           />
-          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-3xl text-white">
-            Las mejores películas en Inglés
+          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-3xl text-white z-1">
+           si
           </p>
         </div>
 

@@ -1,9 +1,10 @@
 const express = require("express");
-const { createReport } = require("../controladores/reportes-controlador");
+const { createReport, obtenerReportes } = require("../controladores/reportes-controlador.js");
 
 const routerReport = express.Router();
 
-routerReport.post("/reports", createReport);
+routerReport.post("/", createReport);
+routerReport.get("/", obtenerReportes);
 
 module.exports = {
   routerReport

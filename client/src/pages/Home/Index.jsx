@@ -116,27 +116,27 @@ export function IndexCard() {
   const cardsData = [
     {
       imgSrc: "/assets/Male.png",
-      description: "Rob: Habla inglés pero quiere practicar su alemán",
+      description: "Rob: Salut! Je parle anglais, mais j'aimerais pratiquer mon allemand. Peux-tu me donner quelques conseils pour améliorer ma prononciation en allemand ?",
     },
     {
       imgSrc: "/assets/Male(1).png",
-      description: "Rob: Habla inglés pero quiere practicar su alemán",
+      description: "Mark: Ciao! Vorrei esercitarmi con il mio tedesco. Possiamo parlare di cucina tedesca? Ho sentito dire che i piatti tradizionali sono deliziosi!",
     },
     {
       imgSrc: "/assets/Male(2).png",
-      description: "Rob: Habla inglés pero quiere practicar su alemán",
+      description: "Joel: ¡Hola! Quiero practicar mi alemán. ¿Podemos hablar sobre deportes en Alemania? Me interesa saber qué deportes son populares allí.",
     },
     {
       imgSrc: "/assets/Female.png",
-      description: "Rob: Habla inglés pero quiere practicar su alemán",
+      description: "Nat: Olá! Falo inglês, mas quero praticar meu alemão. Poderíamos conversar sobre pontos turísticos na Alemanha? Tenho planos de visitar o país em breve.",
     },
     {
       imgSrc: "/assets/Female(1).png",
-      description: "Rob: Habla inglés pero quiere practicar su alemán",
+      description: "Ana: Hallo! Ik spreek Engels, maar ik wil graag mijn Duits oefenen. Kunnen we praten over Duitse muziek? Ik ben benieuwd naar welke artiesten populair zijn.",
     },
     {
       imgSrc: "/assets/Female(2).png",
-      description: "Rob: Habla inglés pero quiere practicar su alemán",
+      description: "kiyoko: こんにちは！英語は話せますが、ドイツ語の練習をしたいです。ドイツの伝統文化について話しませんか？お祭りや行事など興味があります。",
     },
   ];
 
@@ -251,22 +251,26 @@ export function IndexSteps() {
 export function IndexBlog() {
   const dataCards = [
     {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
-      img: "/assets/blog-image.png",
+      url: "/blog/article/info/card-1",
+      language: "Sobre Idiomas",
+      title: "El políglota más famoso:",
+      p: "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
+      img: "/assets/p-card1.jpg",
+      
     },
     {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
-      img: "/assets/blog-image.png",
+      url: "/blog/article/info/card-2",
+      language: "Sobre Idiomas",
+      title: "Palabras intraducibles:",
+      p: "Algunos idiomas contienen términos que no pueden traducirse directamente a otros idiomas debido a su singularidad cultural. Por ejemplo, saudade en portugués describe una sensación de profunda nostalgia y añoranza.",
+      img: "/assets/p-card2.jpg",
     },
     {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
-      img: "/assets/blog-image.png",
+      url: "/blog/article/info/card-3",
+      language: "Sobre Idiomas",
+      title: "El idioma más hablado:",
+      p: "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
+      img: "/assets/p-card3.jpg",
     },
   ];
 
@@ -278,11 +282,12 @@ export function IndexBlog() {
         </p>
         <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
-            <Element key={index} className="mb-8 w-96 mx-4"
+            <Link to={card.url} key={index}>
+            <Element  className="mb-8 w-96 mx-4"
               name={`card-${index}`}>
               <Fade bottom delay={index * 300}>
                 <div className="relative">
-                  <img src={card.img} className="w-full" alt="" />
+                  <img src={card.img} className="w-full h-56 object-cover" alt="" />
                 </div>
                 <div className="bg-white p-10 relative">
                   <h6 className="text-blue-400 text-sm">{card.language}</h6>
@@ -293,6 +298,7 @@ export function IndexBlog() {
                 </div>
               </Fade>
             </Element>
+            </Link>
           ))}
         </div>
       </div>
@@ -313,7 +319,7 @@ export function Slider() {
     },
     {
       id: 2,
-      image: "/assets/slider1.png",
+      image: "/assets/leandro.png",
       quote:
         "Desearía no haberme cortado el pelo, todo valió desde ese día",
       author: "Leandro Valencia",

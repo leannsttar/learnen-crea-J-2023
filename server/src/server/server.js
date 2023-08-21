@@ -78,6 +78,7 @@ app.get("/mis-chats", auth, misChats)
 
 app.use("/comentarios", commentsRoutes);
 app.use('/usuarios', Usuariosrouter)
+
 app.use('/reports', routerReport )
 
 app.get("/dashboard/countUsers", countUsers);
@@ -94,12 +95,14 @@ app.post("/dashboard/administradores", createAdmin);
 app.put("/dashboard/administradores", updateAdmin);
 app.delete("/dashboard/administradores", deleteAdmin);
 
+
 const server = createServer(app);
-const io = new Server(server,{
+const io = new Server(server, {
   cors: {
     origin: "*"
   }
 });
+
 
 server.listen(port, () => { 
   console.log(`Servidor escuchando en el puerto ${port}`);

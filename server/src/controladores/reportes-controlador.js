@@ -21,6 +21,18 @@ const createReport = async (req, res) => {
   }
 };
 
+const obtenerReportes = async (req, res) => {
+    try {
+      const reportes = await prisma.reportes.findMany();
+  
+      return res.status(200).json({ reportes });
+    } catch (error) {
+      console.error("Error al obtener los reportes:", error);
+      return res.status(500).json({ message: "Error interno del servidor" });
+    }
+  };
+
 module.exports = {
   createReport,
+  obtenerReportes
 };
