@@ -1,10 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library.js";
-import { number } from "zod";
+const { PrismaClient } = require("@prisma/client");
+const {
+  PrismaClientKnownRequestError,
+} = require("@prisma/client/runtime/library.js");
+const fs = require("fs");
 
 const prisma = new PrismaClient();
 
-export const countUsers = async (req, res) => {
+const countUsers = async (req, res) => {
     try {
         const users = await prisma.cliente.count()
         return res.status(200).json(users);
@@ -15,7 +17,7 @@ export const countUsers = async (req, res) => {
     }
 } 
 
-export const countPosts = async (req, res) => {
+const countPosts = async (req, res) => {
     try {
         const posts = await prisma.publicaciones.count()
         return res.status(200).json(posts);
@@ -26,7 +28,7 @@ export const countPosts = async (req, res) => {
     }
 }
 
-export const countLanguages = async (req, res) => {
+const countLanguages = async (req, res) => {
     try {
         const languages = await prisma.idiomas.count()
         return res.status(200).json(languages);
@@ -37,7 +39,7 @@ export const countLanguages = async (req, res) => {
     }
 }
 
-export const lastestUsers = async (req, res) => {
+const latestUsers = async (req, res) => {
     try {
         const usuarios = await prisma.cliente.findMany({
             orderBy: {
@@ -54,7 +56,7 @@ export const lastestUsers = async (req, res) => {
 }
 
 //CRUD IDIOMAS
-export const allLanguages = async (req, res) => {
+const allLanguages = async (req, res) => {
     try {
         const idiomas = await prisma.idiomas.findMany()
         return res.status(200).json(idiomas);
@@ -65,24 +67,41 @@ export const allLanguages = async (req, res) => {
     }
 }
 
-export const createLanguage = async (req, res) => {
+const createLanguage = async (req, res) => {
     try {
-        const { idioma } = req.body
-        const createdLanguage = await prisma.idiomas.create({
+
+        
+
+        if (!req.file || !req.file.originalname) {
+            console.log("no se mando nada");
+            console.log(req.file.originalname);
+          }
+
+          fs.writeFile(
+            "./public/images/idiomas_banderas/" + req.file.originalname,
+            req.file.buffer,
+            (err) => {
+              if (err) throw err;
+            }
+          );
+
+        const { idioma, imagen_bandera } = req.body
+        const createdLanguage = await prisma.Idiomas.create({
             data: {
                 idioma: idioma,
-                // flag: '' //Hafta update the db
+                imagen_bandera:  "/idioma_banderas/" + req.file.originalname,
             }
         })
-        return res.status(200).json(createdLanguage);
+        return res.status(200).json({message: "Idioma añadido", data: createdLanguage});
     } catch (error) {
+        console.log(error)
         return res
         .status(500)
         .json({ error: "Error al crear el idioma" });
     }
 }
 
-export const updateLanguage = async (req, res) => {
+const updateLanguage = async (req, res) => {
     try {
         const { idioma } = req.body
         const { id } = req.params;
@@ -111,7 +130,7 @@ export const updateLanguage = async (req, res) => {
     }
 }
 
-export const deleteLanguage = async (req, res) => {
+const deleteLanguage = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedLanguage = await prisma.idiomas.delete({
@@ -134,7 +153,7 @@ export const deleteLanguage = async (req, res) => {
 
 
 //Admin
-export const allAdmins = async (req, res) => {
+const allAdmins = async (req, res) => {
     try {
         const admins = await prisma.administradores.findMany()
         return res.status(200).json(admins);
@@ -145,7 +164,7 @@ export const allAdmins = async (req, res) => {
     }
 }
 
-export const createAdmin = async (req, res) => {
+const createAdmin = async (req, res) => {
     try {
         const { nombre } = req.body
         const { rol } = req.body
@@ -163,7 +182,7 @@ export const createAdmin = async (req, res) => {
     }
 }
 
-export const deleteAdmin = async (req, res) => {
+const deleteAdmin = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedAdmin = await prisma.administradores.delete({
@@ -184,7 +203,7 @@ export const deleteAdmin = async (req, res) => {
     }
 }
 
-export const updateAdmin = async (req, res) => {
+ const updateAdmin = async (req, res) => {
     try {
         const { nombre } = req.body
         const { apellido } = req.body
@@ -214,4 +233,20 @@ export const updateAdmin = async (req, res) => {
             message: "Hubo un error",
           });
     }
+}
+
+module.exports = {
+    countUsers,
+    countLanguages,
+    countPosts,
+    latestUsers,
+    allLanguages,
+    createLanguage,
+    updateLanguage,
+    deleteLanguage,
+    allAdmins,
+    createAdmin,
+    deleteAdmin,
+    updateAdmin
+
 }

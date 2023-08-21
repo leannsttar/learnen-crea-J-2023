@@ -1,37 +1,28 @@
-import { Router } from "express";
-import {
-  countUsers,
-  countPosts,
-  countLanguages,
-  lastestUsers,
-  allLanguages,
-  createLanguage,
-  updateLanguage,
-  deleteLanguage,
-  allAdmins,
-  createAdmin,
-  deleteAdmin,
-  updateAdmin,
-} from "../controladores/dashboard-controlador.js";
+const express = require("express");
+const router = express.Router();
+const dashboardController = require("../controladores/dashboard-controlador.js");
 
-export const dashboardRoutes = Router();
+const multer = require("multer");
+const path = require("path");
+const sharp = require("sharp");
+const fs = require("fs");
 
-dashboardRoutes.route("/dashboard");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-dashboardRoutes
-  .route("/dashboard")
-  .get(countUsers, countPosts, countLanguages, lastestUsers);
 
-dashboardRoutes
-  .route("/dashboard/lenguajes")
-  .post(createLanguage)
-  .delete(deleteLanguage)
-  .get(allLanguages)
-  .put(updateLanguage);
+router.get("/dashboard/countUsers", dashboardController.countUsers);
+router.get("/dashboard/countPosts", dashboardController.countPosts);
+router.get("/dashboard/countLanguages", dashboardController.countLanguages);
 
-  dashboardRoutes
-  .route("/dashboard/administradores")
-  .post(createAdmin)
-  .delete(deleteAdmin)
-  .get(allAdmins)
-  .put(updateAdmin);
+router.get("/dashboard/lenguajes", dashboardController.allLanguages);
+router.post("/dashboard/lenguajes", upload.single("imagen_bandera"), dashboardController.createLanguage);
+router.put("/dashboard/lenguajes", dashboardController.updateLanguage);
+router.delete("/dashboard/lenguajes", dashboardController.deleteLanguage);
+
+router.get("/dashboard/administradores", dashboardController.allAdmins);
+router.post("/dashboard/administradores", dashboardController.createAdmin);
+router.put("/dashboard/administradores", dashboardController.updateAdmin);
+router.delete("/dashboard/administradores", dashboardController.deleteAdmin);
+
+module.exports = router;

@@ -18,6 +18,20 @@ const {
   deleteLike,
   alreadyLiked,
 } = require("../controladores/feed-controlador.js");
+const {
+  countUsers,
+    countLanguages,
+    countPosts,
+    latestUsers,
+    allLanguages,
+    createLanguage,
+    updateLanguage,
+    deleteLanguage,
+    allAdmins,
+    createAdmin,
+    deleteAdmin,
+    updateAdmin
+} = require("../controladores/dashboard-controlador")
 const {updatePhoto, updateProfileInfo, updateAccountInfo} = require("../controladores/settings-controlador");
 const Usuariosrouter = require("../routes/obtenerUsuarios-routes.js");
 const { auth } = require("../middleware/auth.js");
@@ -26,7 +40,8 @@ const { misChats } = require("../controladores/mis-chats-controlador.js");
 const { obtenerMensajes } = require("../controladores/obtener-mensajes-controlador.js");
 
 const {Server} = require('socket.io')
-const {createServer} = require('http')
+const {createServer} = require('http');
+const { dashboardRoutes } = require("../routes/dashboard-router.js");
 
 app.use(cors());
 app.use(express.json());
@@ -65,6 +80,19 @@ app.use("/comentarios", commentsRoutes);
 app.use('/usuarios', Usuariosrouter)
 app.use('/reports', routerReport )
 
+app.get("/dashboard/countUsers", countUsers);
+app.get("/dashboard/countPosts", countPosts);
+app.get("/dashboard/countLanguages", countLanguages);
+
+app.get("/dashboard/lenguajes", allLanguages);
+app.post("/dashboard/lenguajes", upload.single("imagen_bandera"), createLanguage);
+app.put("/dashboard/lenguajes", updateLanguage);
+app.delete("/dashboard/lenguajes", deleteLanguage);
+
+app.get("/dashboard/administradores", allAdmins);
+app.post("/dashboard/administradores", createAdmin);
+app.put("/dashboard/administradores", updateAdmin);
+app.delete("/dashboard/administradores", deleteAdmin);
 
 const server = createServer(app);
 const io = new Server(server,{

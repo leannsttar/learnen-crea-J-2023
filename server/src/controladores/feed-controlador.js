@@ -95,27 +95,27 @@ const readPosts = async (req, res) => {
 };
 
 //get
-const likepost = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const post = await prisma.publicaciones.findFirst({
-      where: {
-        id: +id,
-      }, 
-      include: { 
-        Likes: true
-      }
+// const likepost = async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     const post = await prisma.publicaciones.findFirst({
+//       where: {
+//         id: +id,
+//       }, 
+//       include: { 
+//         Likes: true
+//       }
       
-    });
+//     });
 
-    res.json(post.Likes.length);
-  } catch (error) {
-    return res
-    .status(500)
-    .json({ error: "Error al obtener el número de likes" });
-    console.log(error)
-  }
-};
+//     res.json(post.Likes.length);
+//   } catch (error) {
+//     return res
+//     .status(500)
+//     .json({ error: "Error al obtener el número de likes" });
+//     console.log(error)
+//   }
+// };
 
 const setlikes = async (req, res) => {
   try {
@@ -191,7 +191,7 @@ module.exports = {
   createPost,
   readPosts,
   setlikes,
-  likepost,
+  // likepost,
   deleteLike, 
   alreadyLiked
 };

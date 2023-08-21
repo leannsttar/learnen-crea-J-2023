@@ -8,7 +8,7 @@ router.get('/feed', feedController.readPosts);
 
 router.post('/feed/like', feedController.setlikes)
 
-router.get('/feed/like/:id', feedController.likepost)
+// router.get('/feed/like/:id', feedController.likepost)
 
 router.delete('/feed/like/:id_cliente/:id_publicacion', feedController.deleteLike)
 

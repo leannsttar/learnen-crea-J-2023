@@ -138,221 +138,219 @@ const PostCard = ({ keyProp, posts }) => {
     setCommentText(event.target.value);
   };
 
-    const countComments = async () => {
-      try {
-        const response = await getCommentCount(keyProp);
-        setCommentCount(response.commentCount);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const countComments = async () => {
+    try {
+      const response = await getCommentCount(keyProp);
+      setCommentCount(response.commentCount);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    useEffect(() => {
-      countComments();
-    }, []);
+  useEffect(() => {
+    countComments();
+  }, []);
 
-    const toggleLike = () => {
-      setIsLiked((prevIsLiked) => !prevIsLiked);
-    };
+  const toggleLike = () => {
+    setIsLiked((prevIsLiked) => !prevIsLiked);
+  };
 
-    const setLikes = async (data) => {
-      try {
-        if (isLiked) {
-          const response = await axios.delete(
-            `http://localhost:5000/feed/like/${usuario.id}/${posts.id}`
-          );
+  const setLikes = async (data) => {
+    try {
+      if (isLiked) {
+        const response = await axios.delete(
+          `http://localhost:5000/feed/like/${usuario.id}/${posts.id}`
+        );
 
-          setIsLiked(false);
-          setLike(like - 1);
-          console.log(response);
-
-          return;
-        }
-
-        const response = await axios.post("http://localhost:5000/feed/like", {
-          id_cliente: usuario.id,
-          id_publicacion: posts.id,
-        });
-
-        setIsLiked(true);
-        setLike(like + 1);
-        console.log(like);
-
+        setIsLiked(false);
+        setLike(like - 1);
         console.log(response);
 
         return;
-      } catch (error) {
-        console.log(error);
       }
-    };
 
-    // const countLikes = async (data) => {
-    //   try {
-    //     const { data } = await axios.get(
-    //       `http://localhost:5000/feed/like/${posts.id}`
-    //     );
-    //     setLike(data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
+      const response = await axios.post("http://localhost:5000/feed/like", {
+        id_cliente: usuario.id,
+        id_publicacion: posts.id,
+      });
 
-    useEffect(() => {
-      alreadyLike();
-      // countLikes();
-    }, []);
+      setIsLiked(true);
+      setLike(like + 1);
+      console.log(like);
 
-    function closeModal() {
-      setIsOpen(false);
+      console.log(response);
+
+      return;
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    function openModal() {
-      setIsOpen(true);
+  // const countLikes = async (data) => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `http://localhost:5000/feed/like/${posts.id}`
+  //     );
+  //     setLike(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  useEffect(() => {
+    alreadyLike();
+    // countLikes();
+  }, []);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModalDelete() {
+    setIsOpenDelete(false);
+  }
+
+  function openModalDelete() {
+    setIsOpenDelete(true);
+  }
+
+  function closeModalReport() {
+    setIsOpenReport(false);
+  }
+
+  function openModalReport() {
+    setIsOpenReport(true);
+  }
+
+  const items = [
+    {
+      key: "1",
+      label: <button onClick={openModalDelete}>Eliminar</button>,
+      danger: true,
+    },
+    {
+      key: "2",
+      label: <button onClick={openModalReport}>Reportar</button>,
+    },
+  ];
+
+  let matchingLanguage;
+
+  allLanguages.forEach((language) => {
+    if (posts.idioma === language[0]) {
+      matchingLanguage = language;
     }
+  });
 
-    function closeModalDelete() {
-      setIsOpenDelete(false);
+  function timeAgoSincePublication(publicationDate) {
+    const now = new Date();
+    const publicationTime = new Date(publicationDate);
+
+    const timeDifferenceInSeconds = Math.floor((now - publicationTime) / 1000);
+
+    if (timeDifferenceInSeconds < 60) {
+      return `${timeDifferenceInSeconds} segundos`;
+    } else if (timeDifferenceInSeconds < 3600) {
+      const minutes = Math.floor(timeDifferenceInSeconds / 60);
+      return `${minutes} minutos`;
+    } else if (timeDifferenceInSeconds < 86400) {
+      const hours = Math.floor(timeDifferenceInSeconds / 3600);
+      return `${hours} horas`;
+    } else {
+      const days = Math.floor(timeDifferenceInSeconds / 86400);
+      return `${days} días`;
     }
-
-    function openModalDelete() {
-      setIsOpenDelete(true);
-    }
-
-    function closeModalReport() {
-      setIsOpenReport(false);
-    }
-
-    function openModalReport() {
-      setIsOpenReport(true);
-    }
-
-    const items = [
-      {
-        key: "1",
-        label: <button onClick={openModalDelete}>Eliminar</button>,
-        danger: true,
-      },
-      {
-        key: "2",
-        label: <button onClick={openModalReport}>Reportar</button>,
-      },
-    ];
-
-    let matchingLanguage;
-
-    allLanguages.forEach((language) => {
-      if (posts.idioma === language[0]) {
-        matchingLanguage = language;
-      }
-    });
-
-    function timeAgoSincePublication(publicationDate) {
-      const now = new Date();
-      const publicationTime = new Date(publicationDate);
-
-      const timeDifferenceInSeconds = Math.floor(
-        (now - publicationTime) / 1000
-      );
-
-      if (timeDifferenceInSeconds < 60) {
-        return `${timeDifferenceInSeconds} segundos`;
-      } else if (timeDifferenceInSeconds < 3600) {
-        const minutes = Math.floor(timeDifferenceInSeconds / 60);
-        return `${minutes} minutos`;
-      } else if (timeDifferenceInSeconds < 86400) {
-        const hours = Math.floor(timeDifferenceInSeconds / 3600);
-        return `${hours} horas`;
-      } else {
-        const days = Math.floor(timeDifferenceInSeconds / 86400);
-        return `${days} días`;
-      }
-    }
+  }
 
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
 
-    return (
-      <div key={keyProp} className="flex flex-col items-center mt-16">
-        {/* Modal de eliminar post */}
-        <Transition appear show={isOpenDelete} as={Fragment}>
-          <Dialog
-            as="div"
-            className="relative z-10 h-screen"
-            onClose={closeModalDelete}
+  return (
+    <div key={keyProp} className="flex flex-col items-center mt-16">
+      {/* Modal de eliminar post */}
+      <Transition appear show={isOpenDelete} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10 h-screen"
+          onClose={closeModalDelete}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
-            </Transition.Child>
+            <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+          </Transition.Child>
 
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
-                >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
-                    >
-                      <div className="flex flex-col justify-center items-center gap-5 mb-10">
-                        <img src={iconTrash} alt="" className="w-16" />
-                        ¿Seguro que quieres eliminar tu publicación?
-                      </div>
-                    </Dialog.Title>
-                    <div className="flex gap-5 justify-center">
-                      <button
-                        type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={closeModalDelete}
-                      >
-                        Cancelar
-                      </button>
-                      <button
-                        type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={closeModalDelete}
-                      >
-                        Eliminar
-                      </button>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    <div className="flex flex-col justify-center items-center gap-5 mb-10">
+                      <img src={iconTrash} alt="" className="w-16" />
+                      ¿Seguro que quieres eliminar tu publicación?
                     </div>
-                  </Dialog.Panel>
-                </Transition.Child>
-              </div>
+                  </Dialog.Title>
+                  <div className="flex gap-5 justify-center">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-4 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModalDelete}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModalDelete}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-          </Dialog>
-        </Transition>
-        {/* Modal para el reporte */}
-        <Transition appear show={isOpenReport} as={Fragment}>
-          <Dialog
-            as="div"
-            className="relative z-10 h-screen"
-            onClose={closeModalReport}
+          </div>
+        </Dialog>
+      </Transition>
+      {/* Modal para el reporte */}
+      <Transition appear show={isOpenReport} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10 h-screen"
+          onClose={closeModalReport}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
-            </Transition.Child>
+            <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+          </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
@@ -420,202 +418,203 @@ const PostCard = ({ keyProp, posts }) => {
           />
           <img className="w-12 h-12 " src={matchingLanguage[1]} alt="" />
 
-            <div className="flex flex-col ml-6">
-              <h6 className="font-bold">
-                {usuario.nombre} {usuario.apellido}
-              </h6>
-              <h6 className="text-sm">Hace {timeAgo}</h6>
-            </div>
-            <Space direction="vertical" className="ml-auto">
-              <Space wrap>
-                <Dropdown
-                  menu={{
-                    items,
-                  }}
-                  placement="bottomLeft"
-                >
-                  <BsThreeDots className="" size={25} />
-                </Dropdown>
-              </Space>
-            </Space>
+          <div className="flex flex-col ml-6">
+            <h6 className="font-bold">
+              {usuario.nombre} {usuario.apellido}
+            </h6>
+            <h6 className="text-sm">Hace {timeAgo}</h6>
           </div>
-          <div className="mt-4">
-            <p>{posts.descripcion}</p>
-          </div>
-        </div>
-        <img
-          className="w-[431px] border-black border-[1px]"
-          src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
-          alt=""
-        />
-        <div className="border-l border-r border-b border-black bg-gray-100 flex flex-row items-center w-[431px] p-4">
-          {isLiked ? (
-            <AiFillHeart
-              className="mr-2 w-6 h-6 cursor-pointer"
-              style={{
-                fill: "#FF0000",
-                animation: "heartBeat 0.8s ease infinite",
-                cursor: "pointer",
-                opacity: 1,
-              }}
-              onClick={setLikes}
-            />
-          ) : (
-            <AiOutlineHeart
-              className="mr-2 w-6 h-6 cursor-pointer"
-              onClick={setLikes}
-            />
-          )}
-          <p>{like}</p>
-          <div className="flex-grow"></div>
-          <div onClick={openModal} className="cursor-pointer flex">
-            <BsChatText className="mr-2 w-6 h-5" />
-            <p className="text-sm">{commentCount} comentarios</p>
-          </div>
-
-          <Transition appear show={isOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-10 h-screen"
-              onClose={closeModal}
-            >
-              <Transition.Child
-                as={React.Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+          <Space direction="vertical" className="ml-auto">
+            <Space wrap>
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                placement="bottomLeft"
               >
-                <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
-              </Transition.Child>
+                <BsThreeDots className="" size={25} />
+              </Dropdown>
+            </Space>
+          </Space>
+        </div>
+        <div className="mt-4">
+          <p>{posts.descripcion}</p>
+        </div>
+      </div>
+      <img
+        className="w-[431px] border-black border-[1px]"
+        src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+        alt=""
+      />
+      <div className="border-l border-r border-b border-black bg-gray-100 flex flex-row items-center w-[431px] p-4">
+        {isLiked ? (
+          <AiFillHeart
+            className="mr-2 w-6 h-6 cursor-pointer"
+            style={{
+              fill: "#FF0000",
+              animation: "heartBeat 0.8s ease infinite",
+              cursor: "pointer",
+              opacity: 1,
+            }}
+            onClick={setLikes}
+          />
+        ) : (
+          <AiOutlineHeart
+            className="mr-2 w-6 h-6 cursor-pointer"
+            onClick={setLikes}
+          />
+        )}
+        <p>{like}</p>
+        <div className="flex-grow"></div>
+        <div onClick={openModal} className="cursor-pointer flex">
+          <BsChatText className="mr-2 w-6 h-5" />
+          <p className="text-sm">{commentCount} comentarios</p>
+        </div>
 
-              <div className="fixed inset-0 overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4 text-center">
-                  <Transition.Child
-                    as={React.Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                  >
-                    <Dialog.Panel className="h-[95vh] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
-                      <div className="h-full flex">
-                        <div className=" bg-black flex items-center justify-center">
-                          <img
-                            src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
-                            alt=""
-                            className="w-auto"
-                          />
-                        </div>
-                        <div className="w-[25vw] h-full flex-col">
-                          <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
-                            <div className="flex items-center gap-3">
-                              <img
-                                src={`http://localhost:5000${usuario.imagen_perfil}`}
-                                alt=""
-                                className="w-10 "
-                                object-cover
-                                style={{
-                                  clipPath: "circle(50% at 50% 50%)",
-                                }}
-                              />
-                              <p className="font-semibold">
-                                {usuario.nombre} {usuario.apellido}
-                              </p>
-                            </div>
-                            <div>
-                              <Space direction="vertical">
-                                <Space wrap>
-                                  <Dropdown
-                                    menu={{
-                                      items,
-                                    }}
-                                    placement="bottomLeft"
-                                  >
-                                    <BsThreeDots className="" size={25} />
-                                  </Dropdown>
-                                </Space>
-                              </Space>
-                            </div>
-                          </div>
-                          <div className="flex flex-col h-[70%] items-start justify-start text-base p-5">
-                            {commentData.length !== 0 ? (
-                              commentData.map((comentario) => (
-                                <div key={comentario.id} className="mb-2">
-                                  <p>
-                                    {comentario.cliente.nombre}{" "}
-                                    {comentario.cliente.apellido}:{" "}
-                                    {comentario.descripcion}
-                                  </p>
-                                </div>
-                              ))
-                            ) : (
-                              <p>Sin comentarios aún</p>
-                            )}
-                          </div>
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog
+            as="div"
+            className="relative z-10 h-screen"
+            onClose={closeModal}
+          >
+            <Transition.Child
+              as={React.Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
+            </Transition.Child>
 
-                          <div className="h-[20%]">
-                            <div className="p-5 border-t-[1px] flex items-center gap-3">
-                              {isLiked ? (
-                                <AiFillHeart
-                                  className="mr-2 w-8 h-8 cursor-pointer"
-                                  style={{
-                                    fill: "#FF0000",
-                                    animation: "heartBeat 0.8s ease infinite",
-                                    cursor: "pointer",
-                                    opacity: 1,
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={React.Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="h-[95vh] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
+                    <div className="h-full flex">
+                      <div className=" bg-black flex items-center justify-center">
+                        <img
+                          src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+                          alt=""
+                          className="w-auto"
+                        />
+                      </div>
+                      <div className="w-[25vw] h-full flex-col">
+                        <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={`http://localhost:5000${usuario.imagen_perfil}`}
+                              alt=""
+                              className="w-10 "
+                              object-cover
+                              style={{
+                                clipPath: "circle(50% at 50% 50%)",
+                              }}
+                            />
+                            <p className="font-semibold">
+                              {usuario.nombre} {usuario.apellido}
+                            </p>
+                          </div>
+                          <div>
+                            <Space direction="vertical">
+                              <Space wrap>
+                                <Dropdown
+                                  menu={{
+                                    items,
                                   }}
-                                  onClick={setLikes}
-                                />
-                              ) : (
-                                <AiOutlineHeart
-                                  className="mr-2 w-8 h-8 cursor-pointer"
-                                  onClick={setLikes}
-                                />
-                              )}
-                              <div>
-                                <p className="font-semibold">{like} likes</p>
-                                <p className="text-[#9c9c9c] text-sm">
-                                  Hace {timeAgo}
+                                  placement="bottomLeft"
+                                >
+                                  <BsThreeDots className="" size={25} />
+                                </Dropdown>
+                              </Space>
+                            </Space>
+                          </div>
+                        </div>
+                        <div className="flex flex-col h-[70%] items-start justify-start text-base p-5">
+                          {commentData.length !== 0 ? (
+                            commentData.map((comentario) => (
+                              <div key={comentario.id} className="mb-2">
+                                <p>
+                                  {comentario.cliente.nombre}{" "}
+                                  {comentario.cliente.apellido}:{" "}
+                                  {comentario.descripcion}
                                 </p>
                               </div>
-                            </div>
-                            <div className="p-5 border-t-[1px] flex justify-between gap-3 items-center">
-                              <textarea
-                                value={newComment}
-                                onChange={(e) => setNewComment(e.target.value)}
-                                type="text"
-                                className="outline-none w-full resize-none"
-                                placeholder="Añade un comentario..."
-                              />
-                              <button
-                                onClick={async () => {
-                                  await addComment({ comentario: newComment });
-                                  const data = await getComments();
-                                  setCommentData(data);
-                                  setNewComment("");
+                            ))
+                          ) : (
+                            <p>Sin comentarios aún</p>
+                          )}
+                        </div>
+
+                        <div className="h-[20%]">
+                          <div className="p-5 border-t-[1px] flex items-center gap-3">
+                            {isLiked ? (
+                              <AiFillHeart
+                                className="mr-2 w-8 h-8 cursor-pointer"
+                                style={{
+                                  fill: "#FF0000",
+                                  animation: "heartBeat 0.8s ease infinite",
+                                  cursor: "pointer",
+                                  opacity: 1,
                                 }}
-                                className="text-[#ff8399] font-semibold cursor-pointer"
-                              >
-                                Publicar
-                              </button>
+                                onClick={setLikes}
+                              />
+                            ) : (
+                              <AiOutlineHeart
+                                className="mr-2 w-8 h-8 cursor-pointer"
+                                onClick={setLikes}
+                                w
+                              />
+                            )}
+                            <div>
+                              <p className="font-semibold">{like} likes</p>
+                              <p className="text-[#9c9c9c] text-sm">
+                                Hace {timeAgo}
+                              </p>
                             </div>
+                          </div>
+                          <div className="p-5 border-t-[1px] flex justify-between gap-3 items-center">
+                            <textarea
+                              value={newComment}
+                              onChange={(e) => setNewComment(e.target.value)}
+                              type="text"
+                              className="outline-none w-full resize-none"
+                              placeholder="Añade un comentario..."
+                            />
+                            <button
+                              onClick={async () => {
+                                await addComment({ comentario: newComment });
+                                const data = await getComments();
+                                setCommentData(data);
+                                setNewComment("");
+                              }}
+                              className="text-[#ff8399] font-semibold cursor-pointer"
+                            >
+                              Publicar
+                            </button>
                           </div>
                         </div>
                       </div>
-                    </Dialog.Panel>
-                  </Transition.Child>
-                </div>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
               </div>
-            </Dialog>
-          </Transition>
-        </div>
+            </div>
+          </Dialog>
+        </Transition>
       </div>
-    );
+    </div>
+  );
 };
 
 const PeopleSection = () => {
@@ -954,7 +953,6 @@ export function Feed() {
             </Dialog>
           </Transition>
           {posts &&
-          
             posts.map((post) => (
               <PostCard keyProp={post.id} posts={post} key={post.id} />
             ))}

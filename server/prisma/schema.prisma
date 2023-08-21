@@ -37,6 +37,7 @@ model Cliente {
 model Idiomas {
   id             Int              @id @default(autoincrement())
   idioma         String           @unique
+  imagen_bandera String
   ClienteIdiomas ClienteIdiomas[]
 }
 
@@ -51,7 +52,7 @@ model ClienteIdiomas {
   nivel_idioma String
   id_cliente   Int
   id_idioma    Int
-  tipo_idioma   tipoIdioma
+  tipo_idioma  tipoIdioma
   cliente      Cliente    @relation(fields: [id_cliente], references: [id])
   idioma       Idiomas    @relation(fields: [id_idioma], references: [id])
 }
