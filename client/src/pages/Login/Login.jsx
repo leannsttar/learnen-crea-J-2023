@@ -28,7 +28,6 @@ export function Login() {
   const { login } = useSession();
   const navigate = useNavigate();
 
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {

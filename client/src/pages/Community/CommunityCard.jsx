@@ -7,6 +7,7 @@ import greekFlag from "../../assets/Flags/greekFlag.svg";
 import frenchFlag from "../../assets/Flags/frenchFlag.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const german = germanFlag;
 const greek = greekFlag;
@@ -20,7 +21,11 @@ export function CommunityCard() {
 
   const obtenerUsuarios = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/usuarios");
+      const res = await axios.get("http://localhost:5000/usuarios",{
+        headers: {
+          Authorization: "Bearer "+localStorage.getItem("token")
+        }
+      });
       setUsuarios(res.data.message);
     } catch (error) {
       console.log(error);
@@ -33,10 +38,11 @@ export function CommunityCard() {
 
 
   return (
-    <>
+    <div className="md:grid grid-cols-4 gap-8 flex flex-wrap">
       {usuarios.map((usuario) => (
-        <div className="">
-          <div
+
+          <Link
+          to={"/profile/"+usuario.id}
           key={usuario.id}
           className="flex gap-x-6 bg-[#F7F2EF] p-4 rounded-xl hover:scale-[101%] hover:transition-scale ease-in duration-150 cursor-pointer"
         >
@@ -72,9 +78,8 @@ export function CommunityCard() {
               />
             </div>
           </div>
-        </div>
-        </div>
+        </Link>
       ))}
-    </>
+    </div>
   );
 }

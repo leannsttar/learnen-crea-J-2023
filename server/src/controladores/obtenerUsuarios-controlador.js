@@ -8,8 +8,15 @@ const prisma = new PrismaClient
 
 const getAllUsuarios = async function (req, res) {
   try {
-    const usuarios = await prisma.cliente.findMany();
-    console.log(usuarios);
+
+    console.log("----------", req.usuario)
+    const usuarios = await prisma.cliente.findMany({
+      where: {
+        NOT: {
+          id: req.usuario.id
+        }
+      }
+    });
 
     return res.status(200).json({
       message: usuarios,

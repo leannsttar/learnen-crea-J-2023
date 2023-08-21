@@ -104,21 +104,34 @@ const router = createBrowserRouter([
   },
   {
     path: "chat",
-    element: (
-      <>
-        <AnimatePresence wait>
+    children: [
+      {
+        index: true,
+        element: (
+          <>
+            <AnimatePresence wait>
+              <Header />
+              <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 100 }}
+                transition={{ duration: 2 }}
+              >
+                <Chat />
+              </motion.div>
+            </AnimatePresence>
+          </>
+        ),
+      },
+      {
+        path: ":id",
+        element: <>
           <Header />
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 2 }}
-          >
-            <Chat />
-          </motion.div>
-        </AnimatePresence>
-      </>
-    ),
+          <Chat />
+
+        </>
+      }
+    ]
   },
   {
     path: "blog",
@@ -202,7 +215,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "profile",
+    path: "profile/:id",
     element: (
       <>
         <AnimatePresence wait>
@@ -341,9 +354,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <SessionProvider>
-      <Translate/>
-      <RouterProvider router={router} />
+  <SessionProvider>
+    <Translate />
+    <RouterProvider router={router} />
   </SessionProvider>
 );
 
