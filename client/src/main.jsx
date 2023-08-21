@@ -28,6 +28,11 @@ import { Fade } from "react-reveal";
 import { SessionProvider } from "./components/Header/Session";
 import Translate from "./components/Header/Translate";
 import PrivateRoute from "./components/Header/privateRoutes";
+import { ArticleCopi_1 } from "./pages/Blog/Article/info/card-1";
+import { ArticleCopi_2 } from "./pages/Blog/Article/info/card-2";
+import { ArticleCopi_3 } from "./pages/Blog/Article/info/card-3";
+import { ArticleCopi_4 } from "./pages/Blog/Article/info/card-4";
+import { ArticleCopi_5 } from "./pages/Blog/Article/info/card-5";
 
 const routes = [
   {
@@ -104,22 +109,34 @@ const routes = [
   },
   {
     path: "chat",
-    element: (
-      <>
-        <AnimatePresence wait>
+    children: [
+      {
+        index: true,
+        element: (
+          <>
+            <AnimatePresence wait>
+              <Header />
+              <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 100 }}
+                transition={{ duration: 2 }}
+              >
+                <Chat />
+              </motion.div>
+            </AnimatePresence>
+          </>
+        ),
+      },
+      {
+        path: ":id",
+        element: <>
           <Header />
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 2 }}
-          >
-            <Chat />
-          </motion.div>
-        </AnimatePresence>
-      </>
-    ),
-    requireAuth: true,
+          <Chat />
+
+        </>
+      }
+    ]
   },
   {
     path: "blog",
@@ -202,7 +219,7 @@ const routes = [
     ),
   },
   {
-    path: "profile",
+    path: "profile/:id",
     element: (
       <>
         <AnimatePresence wait>
@@ -345,6 +362,100 @@ const routes = [
     ),
     requireAuth: true,
   },
+  {
+    path: "blog/article/info/card-1",
+    element: (
+      <>
+        <Header />
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ duration: 2 }}
+        >
+          <ArticleCopi_1 />
+          <ScrollButton />
+          <Footer />
+        </motion.div>
+      </>
+    ),
+  }
+  ,
+  {
+    path: "blog/article/info/card-2",
+    element: (
+      <>
+        <Header />
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ duration: 2 }}
+        >
+          <ArticleCopi_2 />
+          <ScrollButton />
+          <Footer />
+        </motion.div>
+      </>
+    ),
+  }
+  ,
+  {
+    path: "blog/article/info/card-3",
+    element: (
+      <>
+        <Header />
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ duration: 2 }}
+        >
+          <ArticleCopi_3 />
+          <ScrollButton />
+          <Footer />
+        </motion.div>
+      </>
+    ),
+  }
+  ,
+  {
+    path: "blog/article/info/card-4",
+    element: (
+      <>
+        <Header />
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ duration: 2 }}
+        >
+          <ArticleCopi_4 />
+          <ScrollButton />
+          <Footer />
+        </motion.div>
+      </>
+    ),
+  }
+  ,
+  {
+    path: "blog/article/info/card-5",
+    element: (
+      <>
+        <Header />
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ duration: 2 }}
+        >
+          <ArticleCopi_5 />
+          <ScrollButton />
+          <Footer />
+        </motion.div>
+      </>
+    ),
+  }
 ]
 
 const router = createBrowserRouter(routes);

@@ -33,8 +33,8 @@ const SessionProvider = ({ children }) => {
   };
 
   const login = (usuario) => {
-    setUsuario(usuario);
     localStorage.setItem("token", usuario.token);
+    perfil();
   };
   const logout = () => {
     setUsuario({});
@@ -45,6 +45,8 @@ const SessionProvider = ({ children }) => {
   useEffect(() => {
     perfil();
   }, []);
+
+
 
   if (loading) return <p>Cargando...</p>;
 

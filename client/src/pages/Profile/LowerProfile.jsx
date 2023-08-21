@@ -8,7 +8,7 @@ import { AboutProfile } from "./AboutProfile";
 import { flags } from "../../data/languages";
 import { useSession } from "../../components/Header/useSession";
 
-export function LowerProfile() {
+export function LowerProfile({usuarioPerfil}) {
   const postsImages = [
     {
       imgSrc: "/src/assets/Posts/post1.jpg",
@@ -75,13 +75,8 @@ export function LowerProfile() {
               fluentLanguages={userLanguages.fluentLanguages}
               learningLanguages={userLanguages.learningLanguages}
             />
-            {console.log(userLanguages.fluentLanguages[0])}
-            <AboutProfile
-              name="Nacely"
-              meGusta="Los deportes, la comida, los idiomas y los libros"
-              Objetivos="Vivir en otro país"
-              ComoSoy="Reservada, tímida pero muy empática"
-            />
+
+            <AboutProfile usuarioPerfil={usuarioPerfil}/>
           </div>
           <div className="grid grid-cols-3 auto-rows-min gap-1 relative w-full 800:w-[75%] h-auto">
             {postsImages.map((post, index) => (

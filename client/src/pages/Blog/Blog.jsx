@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Element } from "react-scroll";
 import { Fade, Slide } from "react-reveal";
 import { motion } from "framer-motion";
+import {Link} from "react-router-dom";
 
 const data = [
   {
@@ -122,39 +123,46 @@ export function CardPrincipal() {
 export function CardsBlog() {
   const dataCards = [
     {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
+      url: "/blog/article/info/card-1",
+      language: "Sobre Idiomas",
+      title: "El políglota más famoso:",
+      p: "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
+      img: "/assets/blog-image.png",
+      
+    },
+    {
+      url: "/blog/article/info/card-2",
+      language: "Sobre Idiomas",
+      title: "Palabras intraducibles:",
+      p: "Algunos idiomas contienen términos que no pueden traducirse directamente a otros idiomas debido a su singularidad cultural. Por ejemplo, saudade en portugués describe una sensación de profunda nostalgia y añoranza.",
       img: "/assets/blog-image.png",
     },
     {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
+      url: "/blog/article/info/card-3",
+      language: "Sobre Idiomas",
+      title: "El idioma más hablado:",
+      p: "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
       img: "/assets/blog-image.png",
     },
     {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
+      url: "/blog/article/info/card-4",
+      language: "Sobre Idiomas",
+      title: "Orígenes del alfabeto:",
+      p: "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto.",
       img: "/assets/blog-image.png",
     },
     {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
+      url: "/blog/article/info/card-5",
+      language: "Sobre Idiomas",
+      title: "Aprender mientras duermes:",
+      p: "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado",
       img: "/assets/blog-image.png",
     },
     {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
-      img: "/assets/blog-image.png",
-    },
-    {
-      language: "ESPAÑOL",
-      title: "Simple juice recipes to boost your immune system",
-      p: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto tempora id cumque! Ut, doloremque consectetur quidem perferendis tenetur ipsum facilis aspernatur odit nulla iusto in ex quas, quae ",
+      url: "/blog/article/info/card-6",
+      language: "Sobre Idiomas",
+      title: "Idioma de signos universal",
+      p: "El International Sign es una forma de comunicación gestual utilizada en eventos internacionales para superar las barreras lingüísticas entre personas sordas de diferentes países. Aunque no es un idioma en sí mismo, permite una comunicación básica.",
       img: "/assets/blog-image.png",
     },
   ];
@@ -164,7 +172,8 @@ export function CardsBlog() {
       <div className="pb-24 font-Poppins">
         <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
-            <Element key={index} className="mb-8 w-[350px] mx-4"
+           <Link to={card.url} key={index}>
+           <Element  className="mb-8 w-[350px] mx-4"
               name={`card-${index}`}>
               <Fade bottom delay={index * 300}>
                 <div className="relative">
@@ -179,6 +188,7 @@ export function CardsBlog() {
                 </div>
               </Fade>
             </Element>
+            </Link>
           ))}
         </div>
       </div>
