@@ -9,14 +9,14 @@ export function ArticleCopi_6() {
       language: "Sobre Idiomas",
       title: "Aprender mientras duermes:",
       p: "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado.",
-      img: "/assets/blog-image.png",
+      img: "/assets/p-card5.jpg",
     },
     {
       url: "/blog/article/info/card-1",
       language: "Sobre Idiomas",
       title: "El políglota más famoso:",
       p: "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
-      img: "/assets/blog-image.png",
+      img: "/assets/p-card1.jpg",
     },
   ];
 
@@ -25,8 +25,8 @@ export function ArticleCopi_6() {
       <div className="font-Poppins">
         <div className="flex flex-row justify-center relative">
           <img
-            className="w-[100%] h-[450px]"
-            src="/../../src/assets/fondo_articulo.png"
+            className="w-[100%] h-[500px] object-cover"
+            src="/assets/fondo_articles1.jpg"
             alt=""
           />
           <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white">

@@ -9,14 +9,14 @@ export function ArticleCopi_3() {
       language: "Sobre Idiomas",
       title: "Palabras intraducibles:",
       p: "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
-      img: "/assets/blog-image.png",
+      img: "/assets/p-card2.jpg",
     },
     {
       url: "/blog/article/info/card-4",
       language: "Sobre Idiomas",
       title: "Orígenes del alfabeto: ",
       p: "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto",
-      img: "/assets/blog-image.png",
+      img: "/assets/p-card4.jpg",
     },
   ];
 
@@ -25,8 +25,8 @@ export function ArticleCopi_3() {
       <div className="font-Poppins">
         <div className="flex flex-row justify-center relative">
           <img
-            className="w-[100%] h-[450px]"
-            src="/../../src/assets/fondo_articulo.png"
+            className="w-[100%] h-[500px] object-cover"
+            src="/assets/fondo_articles1.jpg"
             alt=""
           />
           <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white">

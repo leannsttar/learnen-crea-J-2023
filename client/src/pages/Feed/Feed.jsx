@@ -18,6 +18,7 @@ import axios from "axios";
 import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
 import { getComents, postComent, getCommentCount } from "./authComments";
+import { Link } from "react-router-dom";
 
 
 
@@ -53,12 +54,7 @@ const feedData = {
 };
 
 
-const blogData = {
-  title: "La naranja es buena para que la vida te mejore",
-  content:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ipsam iusto molestiae, eos quis voluptas!",
-  image: "/assets/feed-blog.png",
-};
+
 
 const PostCard = ({ keyProp, posts }) => {
   const { usuario } = useSession();
@@ -673,17 +669,61 @@ const PeopleSection = () => {
 
 
 const BlogSection = () => {
+  const blogData = [{
+    url: "/blog/article/info/card-1",
+    title: "El políglota más famoso:",
+    content:
+      "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
+    image: "/assets/p-card1.jpg",
+  },
+  {
+    url: "/blog/article/info/card-2",
+    title: "Palabras intraducibles:",
+    content:
+      "Algunos idiomas contienen términos que no pueden traducirse directamente a otros idiomas debido a su singularidad cultural. Por ejemplo, saudade en portugués describe una sensación de profunda nostalgia y añoranza.",
+    image: "/assets/p-card2.jpg",
+  }
+  ,
+  {
+    url: "/blog/article/info/card-3",
+    title: "El idioma más hablado:",
+    content:
+      "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
+    image: "/assets/p-card3.jpg",
+  }
+  ,
+  {
+    url: "/blog/article/info/card-4",
+    title: "Orígenes del alfabeto:",
+    content:
+      "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto.",
+    image: "/assets/p-card4.jpg",
+  }
+  ,
+  {
+    url: "/blog/article/info/card-5",
+    title: "Aprender mientras duermes:",
+    content:
+      "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado",
+    image: "/assets/p-card5.jpg",
+  }
+];
   return (
     <div>
-      <h1 className="text-4xl font-bold text-pink-400 mt-32 ml-10">Our blog</h1>
-      <div className="flex flex-row mt-12 p-8">
-        <img className="w-[170px] h-[120px]" src={blogData.image} alt="" />
-        <div className="flex flex-col">
-          <p className="font-bold text-xl ml-6">{blogData.title}</p>
-          <p className="ml-6 mt-4">{blogData.content}</p>
-        </div>
+  <h1 className="text-4xl font-bold text-pink-400 mt-32 ml-10">Our blog</h1>
+  {blogData.map((card, index) => (
+    <Link to={card.url} key={index}>
+    <div className="flex flex-row mt-12 p-8" >
+      <img className="w-[170px] h-[120px]" src={card.image} alt="" />
+      <div className="flex flex-col">
+        <p className="font-bold text-xl ml-6">{card.title}</p>
+        <p className="ml-6 mt-4">{card.content}</p>
       </div>
     </div>
+    </Link>
+  ))}
+</div>
+
   );
 };
 

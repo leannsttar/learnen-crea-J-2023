@@ -9,14 +9,14 @@ export function ArticleCopi_5() {
         language: "Sobre Idiomas",
         title: "Orígenes del alfabeto: ",
         p: "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto",
-        img: "/assets/blog-image.png",
+        img: "/assets/p-card4.jpg",
     },
     {
       url: "/blog/article/info/card-6",
       language: "Sobre Idiomas",
       title: "Idioma de signos universal",
       p: "El International Sign es una forma de comunicación gestual utilizada en eventos internacionales para superar las barreras lingüísticas entre personas sordas de diferentes países. Aunque no es un idioma en sí mismo, permite una comunicación básica.",
-      img: "/assets/blog-image.png",
+      img: "/assets/p-card6.jpg",
     },
   ];
 
@@ -25,8 +25,8 @@ export function ArticleCopi_5() {
       <div className="font-Poppins">
         <div className="flex flex-row justify-center relative">
           <img
-            className="w-[100%] h-[450px]"
-            src="/../../src/assets/fondo_articulo.png"
+            className="w-[100%] h-[500px] object-cover"
+            src="/assets/fondo_articles1.jpg"
             alt=""
           />
           <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white">

@@ -33,6 +33,7 @@ import { ArticleCopi_2 } from "./pages/Blog/Article/info/card-2";
 import { ArticleCopi_3 } from "./pages/Blog/Article/info/card-3";
 import { ArticleCopi_4 } from "./pages/Blog/Article/info/card-4";
 import { ArticleCopi_5 } from "./pages/Blog/Article/info/card-5";
+import { ArticleCopi_6 } from "./pages/Blog/Article/info/card-6";
 
 const routes = [
   {
@@ -450,6 +451,25 @@ const routes = [
           transition={{ duration: 2 }}
         >
           <ArticleCopi_5 />
+          <ScrollButton />
+          <Footer />
+        </motion.div>
+      </>
+    ),
+  }
+  ,
+  {
+    path: "blog/article/info/card-6",
+    element: (
+      <>
+        <Header />
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ duration: 2 }}
+        >
+          <ArticleCopi_6 />
           <ScrollButton />
           <Footer />
         </motion.div>
