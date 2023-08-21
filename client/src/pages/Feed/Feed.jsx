@@ -19,6 +19,8 @@ import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
 import { getComents, postComent, getCommentCount } from "./authComments";
 
+
+
 function timeAgoSincePublication(publicationDate) {
   const now = new Date();
   const publicationTime = new Date(publicationDate);
@@ -49,13 +51,7 @@ const feedData = {
   likes: 1,
   comments: 13,
 };
-const peopleData = [
-  {
-    id: 1,
-    name: "Esteban Villeda",
-    image: "/assets/person-post.png",
-  },
-];
+
 
 const blogData = {
   title: "La naranja es buena para que la vida te mejore",
@@ -271,6 +267,23 @@ const PostCard = ({ keyProp, posts }) => {
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
 
+    //cosa del reporte xd
+    const [reportDescription, setReportDescription] = useState("");
+    const sendReport = async () => {
+      try {
+        await axios.post("http://localhost:5000/reports", {
+          descripcion: reportDescription,
+          id_cliente: usuario.id,
+          id_publicacion: keyProp, 
+        });
+    
+        closeModalReport(); 
+      } catch (error) {
+        console.error("Error al enviar el reporte:", error);
+      }
+    };
+    
+
     return (
       <div key={keyProp} className="flex flex-col items-center mt-16">
         {/* Modal de eliminar post */}
@@ -374,6 +387,9 @@ const PostCard = ({ keyProp, posts }) => {
                   </Dialog.Title>
                   <div className="w-full">
                     <textarea
+                        onChange={(e) => setReportDescription(e.target.value)}
+                        value={reportDescription}
+
                       placeholder="¿Por qué quieres reportar esta publicación?"
                       name=""
                       id=""
@@ -393,8 +409,8 @@ const PostCard = ({ keyProp, posts }) => {
                       <button
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={closeModalReport}
-                      >
+                        onClick={sendReport}
+                        >
                         Enviar reporte
                       </button>
                     </div>
@@ -619,21 +635,42 @@ const PostCard = ({ keyProp, posts }) => {
 };
 
 const PeopleSection = () => {
+  const [usuarios, setUsuarios] = useState([]);
+
+  const obtenerUsuarios = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/usuarios");
+      setUsuarios(res.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerUsuarios();
+  }, []);
+
   return (
     <div>
       <h1 className="text-4xl font-bold text-pink-400 mt-14 ml-10">People</h1>
-      <div className="flex flex-row mt-16 ml-8 items-center">
-        <img className="p-2" src={peopleData[0].image} alt="" />
-        <h3 className="p-6 font-bold text-lg">{peopleData[0].name}</h3>
-        <div className="ml-auto flex items-center">
-          <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] m-6 hover:scale-105 hover: transition-scale ease-in duration-200">
-            Seguir
-          </button>
+      {usuarios.map((usuario) => (
+        <div className="flex flex-row mt-16 ml-8 items-center" key={usuario.id}>
+          <img className="object-cover w-[6rem] h-[6rem]"
+              style={{
+                clipPath: "circle(50% at 50% 50%)",
+              }} src={`http://localhost:5000${usuario.imagen_perfil}`} alt="" />
+          <h3 className="p-6 font-bold text-lg">{`${usuario.nombre} ${usuario.apellido}`}</h3>
+          <div className="ml-auto flex items-center">
+            <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] mr-8 hover:scale-105 hover: transition-scale ease-in duration-200">
+              Seguir
+            </button>
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };
+
 
 const BlogSection = () => {
   return (

@@ -1,4 +1,10 @@
-export function SearchBar() {
+import React from "react";
+
+export function SearchBar({ setSearchText }) {
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
   return (
     <>
       <div className="w-full 450:w-96">
@@ -20,6 +26,7 @@ export function SearchBar() {
             type="text"
             id="search"
             placeholder="Encuentra personas o temas.."
+            onChange={handleSearchChange}
           />
         </div>
       </div>

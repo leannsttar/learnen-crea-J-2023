@@ -55,7 +55,9 @@ app.get("/feed/like/:id_cliente/:id_publicacion", alreadyLiked)
 
 app.use("/comentarios", commentsRoutes);
 app.use('/usuarios', Usuariosrouter)
+
 app.use('/reports', routerReport )
+
 
 app.listen(port, () => { 
   console.log(`Servidor escuchando en el puerto ${port}`);
