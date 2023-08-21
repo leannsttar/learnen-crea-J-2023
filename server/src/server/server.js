@@ -9,6 +9,7 @@ const {commentsRoutes} = require('../routes/commentsRoutes')
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const { createUser } = require("../controladores/register-controlador.js");
+const {routerReport} = require("../routes/reportes-router");
 const {
   createPost,
   readPosts,
@@ -47,7 +48,7 @@ app.post("/auth/register", upload.single("photoProfile"), createUser);
 app.post("/feed", createPost);
 app.get("/feed", readPosts);
 app.post("/feed/like", setlikes)
-app.get("/feed/like/:id", likepost)
+// app.get("/feed/like/:id", likepost)
 
 app.put("/settings/imagen", upload.single("imagen_perfil"), updatePhoto);
 app.put("/settings/sobremi", updateProfileInfo);
@@ -62,6 +63,7 @@ app.get("/mis-chats", auth, misChats)
 
 app.use("/comentarios", commentsRoutes);
 app.use('/usuarios', Usuariosrouter)
+app.use('/reports', routerReport )
 
 
 const server = createServer(app);

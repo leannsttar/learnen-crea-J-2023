@@ -64,7 +64,7 @@ export function CommunityCard() {
                 </p>
               </div>
               <p className="text-md font-normal line-clamp-2">
-                {usuario.descripcion}
+                {usuario.me_gusta}
               </p>
             </div>
             <div className="flex gap-x-6">

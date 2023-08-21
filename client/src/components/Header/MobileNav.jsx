@@ -48,17 +48,17 @@ export function MobileNav({ isLogged }) {
         </div>
         <ul className="h-full flex flex-col justify-center items-center gap-y-8 font-semi bold text-3xl">
           <li onClick={() => setOpenMenu(false)}>
-            <Link to="/">Home</Link>
+            <Link to="/">Inicio</Link>
           </li>
           {isLoggedIn ? (
             <li onClick={() => setOpenMenu(false)}>
-              <Link to="/feed">Posts</Link>
+              <Link to="/feed">Publicaciones</Link>
             </li>
           ) : (
             ""
           )}
           <li onClick={() => setOpenMenu(false)}>
-            <Link to="/community">Community</Link>
+            <Link to="/community">Comunidad</Link>
           </li>
           {isLoggedIn ? (
             <li onClick={() => setOpenMenu(false)}>
@@ -80,13 +80,13 @@ export function MobileNav({ isLogged }) {
               <ButtonHeader
                 className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-white items-center"
                 imgClassName="h-[30px]"
-                to="/"
+                to="/login"
                 text="Iniciar sesión"
               />
               <ButtonHeader
                 className="flex gap-3 px-6 py-2.5 shadow-square border border-white bg-black text-white flex-row-reverse items-center"
                 imgClassName="invert h-[30px]"
-                to="/"
+                to="/signup"
                 text="Registrarse"
               />
             </div>

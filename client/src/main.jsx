@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -24,13 +24,12 @@ import { Usuarios } from "./pages/Dashboard/Usuarios/Usuarios";
 import { Administradores } from "./pages/Dashboard/Usuarios/Administradores";
 import { Reportes } from "./pages/Dashboard/Reportes/Reportes";
 import { AsideMenu } from "./pages/Dashboard/AsideMenu";
-import { Navbar } from "@material-tailwind/react";
 import { Fade } from "react-reveal";
 import { SessionProvider } from "./components/Header/Session";
 import Translate from "./components/Header/Translate";
+import PrivateRoute from "./components/Header/privateRoutes";
 
-
-const router = createBrowserRouter([
+const routes = [
   {
     path: "*",
     element: (
@@ -101,6 +100,7 @@ const router = createBrowserRouter([
         </AnimatePresence>
       </>
     ),
+    requireAuth: true,
   },
   {
     path: "chat",
@@ -191,7 +191,6 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-
         <Login />
       </>
     ),
@@ -233,6 +232,7 @@ const router = createBrowserRouter([
         </AnimatePresence>
       </>
     ),
+    requireAuth: true,
   },
   {
     path: "settings",
@@ -252,6 +252,7 @@ const router = createBrowserRouter([
         </AnimatePresence>
       </>
     ),
+    requireAuth: true,
   },
   {
     path: "dashboard",
@@ -269,6 +270,7 @@ const router = createBrowserRouter([
         </AnimatePresence>
       </>
     ),
+    requireAuth: true,
   },
   {
     path: "dashboard/lenguajes",
@@ -289,6 +291,7 @@ const router = createBrowserRouter([
         </AnimatePresence>
       </>
     ),
+    requireAuth: true,
   },
 
   {
@@ -310,6 +313,7 @@ const router = createBrowserRouter([
         </AnimatePresence>
       </>
     ),
+    requireAuth: true,
   },
   {
     path: "dashboard/administradores",
@@ -330,6 +334,7 @@ const router = createBrowserRouter([
         </AnimatePresence>
       </>
     ),
+    requireAuth: true,
   },
   {
     path: "dashboard/reportes",
@@ -350,13 +355,27 @@ const router = createBrowserRouter([
         </AnimatePresence>
       </>
     ),
+    requireAuth: true,
   },
-]);
+]
+
+const router = createBrowserRouter(routes);
+
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <SessionProvider>
     <Translate />
-    <RouterProvider router={router} />
+    <RouterProvider router={router}>
+      {routes.map((route) =>(
+        <PrivateRoute
+          key={route.path}
+          path={route.path}
+          element={route.element}
+          requireAuth={route.requireAuth}
+        />
+      ))}
+    </RouterProvider>
   </SessionProvider>
 );
 

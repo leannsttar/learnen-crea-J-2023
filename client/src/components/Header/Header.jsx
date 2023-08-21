@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion, useScroll } from "framer-motion";
 import LogoMobile from "/src/assets/logo_right_text.svg";
 import LogoDesktop from "/src/assets/logo_right_text_desktop.svg";
 import { ButtonHeader } from "./ButtonHeader";
@@ -268,7 +267,7 @@ export function Header() {
   useEffect(() => {
     setActiveLink(location.pathname);
   }, [location]);
-  const { scrollYProgress } = useScroll();
+
   return (
     <>
       <div className="mb-[10.3vh]">

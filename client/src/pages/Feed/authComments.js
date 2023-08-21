@@ -13,6 +13,11 @@ export const getComents = async (id_publicacion) => {
   return data;
 };
 
+export const getCommentCount = async (id_publicacion) => {
+  const { data } = await axiosClient.get(`/${id_publicacion}/count`);
+  return data;
+};
+
 // export const deleteComment = async ({ id }) => {
 //   const { data } = await axiosClient.delete(`/${id}`);
 //   return { data };

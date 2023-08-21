@@ -29,6 +29,7 @@ const obtenerPerfilPorToken = async (req, res) => {
         });
       }
 
+      console.log(token)
       return res.status(200).json(usuarioEncontrado);
     } else {
       return res.status(403).json({
