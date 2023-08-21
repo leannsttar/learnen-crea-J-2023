@@ -73,7 +73,7 @@ export function Chat() {
                 console.log(error);
             }
         })()
-    }, [])
+    }, [id])
 
     //Obtener Chats
     useEffect(() => {
@@ -146,7 +146,7 @@ export function Chat() {
                 {
                     id && (
                         <div className="w-1/2 flex items-center">
-                            <img src="/assets/leandro.png" className='object-cover h-16 w-16 rounded-full' alt="" srcset="" />
+                            <img src={"http://localhost:5000"+usuarioPerfil.imagen_perfil} className='object-cover h-16 w-16 rounded-full' alt="" srcset="" />
                             <div className="w-1/2 flex items-center">
                                 <div className="p-3">
                                     <span className='text-black font-bold text-xl'>{usuarioPerfil.nombre} {usuarioPerfil.apellido}</span>
