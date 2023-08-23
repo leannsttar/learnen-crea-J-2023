@@ -41,18 +41,11 @@ model Idiomas {
   ClienteIdiomas ClienteIdiomas[]
 }
 
-enum tipoIdioma {
-  mother_language
-  more_languages
-  languages
-}
-
 model ClienteIdiomas {
   id           Int        @id @default(autoincrement())
   nivel_idioma String
   id_cliente   Int
   id_idioma    Int
-  tipo_idioma  tipoIdioma
   cliente      Cliente    @relation(fields: [id_cliente], references: [id])
   idioma       Idiomas    @relation(fields: [id_idioma], references: [id])
 }

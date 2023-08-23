@@ -61,6 +61,7 @@ const allLanguages = async (req, res) => {
         const idiomas = await prisma.idiomas.findMany()
         return res.status(200).json(idiomas);
     } catch (error) {
+        console.log(error)
         return res
         .status(500)
         .json({ error: "Error al obtener los idiomas" });
@@ -70,7 +71,7 @@ const allLanguages = async (req, res) => {
 const createLanguage = async (req, res) => {
     try {
 
-        
+        console.log(req.file.originalname)
 
         if (!req.file || !req.file.originalname) {
             console.log("no se mando nada");
@@ -85,8 +86,9 @@ const createLanguage = async (req, res) => {
             }
           );
 
-        const { idioma, imagen_bandera } = req.body
-        const createdLanguage = await prisma.Idiomas.create({
+        const { idioma } = req.body
+        
+        const createdLanguage = await prisma.idiomas.create({
             data: {
                 idioma: idioma,
                 imagen_bandera:  "/idioma_banderas/" + req.file.originalname,

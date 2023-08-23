@@ -47,6 +47,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/imagenes", express.static("./public/images/postImages/"));
 app.use("/perfil", express.static("./public/images/perfil/"));
+app.use("/idioma_banderas", express.static("./public/images/idiomas_banderas/"));
 
 
 const port = 5000;
