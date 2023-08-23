@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AsideMenu } from "./AsideMenu.jsx";
 import { Navbar } from "./NavBar.jsx";
+import axios from 'axios';
 
 export const InfoCard = ({ title, value, icon }) => {
   return (
@@ -41,19 +42,39 @@ export const AdminCard = ({ admin }) => {
 };
 
 export const LastUsers = ({ users }) => {
+
+  const [usuarios, setUsuarios] = useState([]);
+
+  const obtenerUsuarios = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/usuarios", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      });
+      setUsuarios(res.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerUsuarios();
+  }, []);
+
   return (
     <div className="bg-white pl-8 pr-8 pt-6 pb-8 rounded-2xl">
       <h1 className="text-2xl">Últimos usuarios</h1>
-      {users.map((user) => (
-        <div key={user.id} className="flex items-center mt-8">
+      {usuarios.map((usuario) => (
+        <div key={usuario.id} className="flex items-center mt-8">
           <img
             className="w-12 h-12 rounded-full mr-4"
-            src={user.avatar}
+            src={`http://localhost:5000${usuario.imagen_perfil}`}
             alt="Foto de último usuario"
           />
           <div className="">
-            <div className="text-sm font-medium mb-2">{user.name}</div>
-            <div className="text-sm text-gray-500">{user.email}</div>
+            <div className="text-sm font-medium mb-2">{usuario.nombre}</div>
+            <div className="text-sm text-gray-500">{usuario.correo}</div>
           </div>
         </div>
       ))}
