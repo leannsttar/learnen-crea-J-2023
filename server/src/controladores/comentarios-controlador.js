@@ -16,7 +16,7 @@ const getCommentCount = async function (req, res) {
   try {
     const { id } = req.params;
     const commentCount = await prisma.comentarios.count({
-      
+
       where: {
         id_publicacion: parseInt(id),
       },
@@ -65,7 +65,7 @@ const getCommentById = async function (req, res) {
         id_publicacion: parseInt(id),
       }, include: {
         cliente: true,
-        
+
       }
     });
     return res.status(200).json({

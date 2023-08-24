@@ -261,22 +261,21 @@ const PostCard = ({ keyProp, posts }) => {
   const postDate = posts.fecha_creacion;
   const timeAgo = timeAgoSincePublication(postDate);
 
-    //cosa del reporte xd
-    const [reportDescription, setReportDescription] = useState("");
-    const sendReport = async () => {
-      try {
-        await axios.post("http://localhost:5000/reports", {
-          descripcion: reportDescription,
-          id_cliente: usuario.id,
-          id_publicacion: keyProp, 
-        });
-    
-        closeModalReport(); 
-      } catch (error) {
-        console.error("Error al enviar el reporte:", error);
-      }
-    };
-    
+  //cosa del reporte xd
+  const [reportDescription, setReportDescription] = useState("");
+  const sendReport = async () => {
+    try {
+      await axios.post("http://localhost:5000/reports", {
+        descripcion: reportDescription,
+        id_cliente: usuario.id,
+        id_publicacion: keyProp,
+      });
+
+      closeModalReport();
+    } catch (error) {
+      console.error("Error al enviar el reporte:", error);
+    }
+  };
 
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
@@ -381,8 +380,8 @@ const PostCard = ({ keyProp, posts }) => {
                   </Dialog.Title>
                   <div className="w-full">
                     <textarea
-                        onChange={(e) => setReportDescription(e.target.value)}
-                        value={reportDescription}
+                      onChange={(e) => setReportDescription(e.target.value)}
+                      value={reportDescription}
 
                       placeholder="¿Por qué quieres reportar esta publicación?"
                       name=""
@@ -404,7 +403,7 @@ const PostCard = ({ keyProp, posts }) => {
                         type="button"
                         className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={sendReport}
-                        >
+                      >
                         Enviar reporte
                       </button>
                     </div>
@@ -634,7 +633,11 @@ const PeopleSection = () => {
 
   const obtenerUsuarios = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/usuarios");
+      const res = await axios.get("http://localhost:5000/usuarios", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      });
       setUsuarios(res.data.message);
     } catch (error) {
       console.log(error);
@@ -651,9 +654,9 @@ const PeopleSection = () => {
       {usuarios.map((usuario) => (
         <div className="flex flex-row mt-16 ml-8 items-center" key={usuario.id}>
           <img className="object-cover w-[6rem] h-[6rem]"
-              style={{
-                clipPath: "circle(50% at 50% 50%)",
-              }} src={`http://localhost:5000${usuario.imagen_perfil}`} alt="" />
+            style={{
+              clipPath: "circle(50% at 50% 50%)",
+            }} src={`http://localhost:5000${usuario.imagen_perfil}`} alt="" />
           <h3 className="p-6 font-bold text-lg">{`${usuario.nombre} ${usuario.apellido}`}</h3>
           <div className="ml-auto flex items-center">
             <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] mr-8 hover:scale-105 hover: transition-scale ease-in duration-200">
@@ -682,7 +685,7 @@ const BlogSection = () => {
       "Algunos idiomas contienen términos que no pueden traducirse directamente a otros idiomas debido a su singularidad cultural. Por ejemplo, saudade en portugués describe una sensación de profunda nostalgia y añoranza.",
     image: "/assets/p-card2.jpg",
   }
-  ,
+    ,
   {
     url: "/blog/article/info/card-3",
     title: "El idioma más hablado:",
@@ -690,7 +693,7 @@ const BlogSection = () => {
       "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
     image: "/assets/p-card3.jpg",
   }
-  ,
+    ,
   {
     url: "/blog/article/info/card-4",
     title: "Orígenes del alfabeto:",
@@ -698,7 +701,7 @@ const BlogSection = () => {
       "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto.",
     image: "/assets/p-card4.jpg",
   }
-  ,
+    ,
   {
     url: "/blog/article/info/card-5",
     title: "Aprender mientras duermes:",
@@ -706,22 +709,22 @@ const BlogSection = () => {
       "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado",
     image: "/assets/p-card5.jpg",
   }
-];
+  ];
   return (
     <div>
-  <h1 className="text-4xl font-bold text-pink-400 mt-32 ml-10">Our blog</h1>
-  {blogData.map((card, index) => (
-    <Link to={card.url} key={index}>
-    <div className="flex flex-row mt-12 p-8" >
-      <img className="w-[170px] h-[120px]" src={card.image} alt="" />
-      <div className="flex flex-col">
-        <p className="font-bold text-xl ml-6">{card.title}</p>
-        <p className="ml-6 mt-4">{card.content}</p>
-      </div>
+      <h1 className="text-4xl font-bold text-pink-400 mt-32 ml-10">Our blog</h1>
+      {blogData.map((card, index) => (
+        <Link to={card.url} key={index}>
+          <div className="flex flex-row mt-12 p-8" >
+            <img className="w-[170px] h-[120px]" src={card.image} alt="" />
+            <div className="flex flex-col">
+              <p className="font-bold text-xl ml-6">{card.title}</p>
+              <p className="ml-6 mt-4">{card.content}</p>
+            </div>
+          </div>
+        </Link>
+      ))}
     </div>
-    </Link>
-  ))}
-</div>
 
   );
 };
