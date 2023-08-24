@@ -6,13 +6,13 @@ import { Fade } from "react-reveal";
 import { ButtonHeader } from "../../components/Header/ButtonHeader";
 import { useSession } from "../../components/Header/useSession";
 import { useNavigate } from "react-router-dom";
-import {headers} from '../../helpers/headers'
+import { headers } from '../../helpers/headers'
 
-export function UpperProfile({ usuarioPerfil, followersCount, setFollowersCount}) {
+export function UpperProfile({ alreadyFollow, usuarioPerfil, followersCount, setFollowersCount }) {
   const [userImage, setUserImage] = useState("");
 
   const { logout, usuario } = useSession(); //datos del usuario funcion para el login y funcion para cerrar sesion
-  const [following, setFollowing] = useState(false);
+  const [following, setFollowing] = useState(alreadyFollow);
 
   //el del seguir xd
   const handleFollowClick = async () => {
@@ -68,11 +68,10 @@ export function UpperProfile({ usuarioPerfil, followersCount, setFollowersCount}
                   <>
                     <div onClick={handleFollowClick}>
                       <ButtonHeader
-                        className={`flex gap-3 px-5 py-2.5 shadow-square border ${
-                          following
+                        className={`flex gap-3 px-5 py-2.5 shadow-square border ${following
                             ? "bg-[#FFD0D0] hover:bg-[#FFE9E9]"
                             : "bg-[#FFE9E9] hover:bg-[#FFD0D0]"
-                        } hover:transition-bg ease-in duration-200 flex-row-reverse`}
+                          } hover:transition-bg ease-in duration-200 flex-row-reverse`}
                         text={following ? "Siguiendo" : "Seguir"}
                       />
                     </div>
