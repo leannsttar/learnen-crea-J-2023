@@ -8,7 +8,7 @@ import { AboutProfile } from "./AboutProfile";
 import { flags } from "../../data/languages";
 import { useSession } from "../../components/Header/useSession";
 
-export function LowerProfile({usuarioPerfil}) {
+export function LowerProfile({usuarioPerfil, setFollowersCount, followersCount, followingsCount}) {
   const postsImages = [
     {
       imgSrc: "/src/assets/Posts/post1.jpg",
@@ -67,7 +67,7 @@ export function LowerProfile({usuarioPerfil}) {
         <div className=" mb-20 flex flex-col 800:flex-row-reverse gap-8 800:gap-4 1280:gap-20 1280:w-[80%] w-[95%]">
 
           <div className="800:w-[25%] 800:h-full flex flex-col w-full gap-5">
-            <DataProfile posts={4} followers={154} following={449} />
+            <DataProfile posts={4} followers={followersCount} following={followingsCount} />
 
             {/* {Acá solo pues mando la info de ese userLanguages} */}
             <LanguagesProfile

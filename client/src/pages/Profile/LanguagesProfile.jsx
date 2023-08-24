@@ -34,7 +34,7 @@ export function LanguagesProfile(props) {
         <Accordion open={open === 0}>
           <AccordionHeader onClick={() => handleOpen(1)}>
             <div className="flex justify-center">
-              <p className="font-semibold text-[23px]">Languages</p>
+              <p className="font-semibold text-[23px]">Lenguajes</p>
             </div>
           </AccordionHeader>
           <AccordionBody>
@@ -78,7 +78,7 @@ export function LanguagesProfile(props) {
       ) : (
         <>
           <div className="flex justify-center">
-            <p className="font-semibold text-[23px]">Languages</p>
+            <p className="font-semibold text-[23px]">Lenguajes</p>
           </div>
 
           <div className="flex flex-col gap-9">

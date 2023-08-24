@@ -59,7 +59,7 @@ export function AboutProfile({ usuarioPerfil }) {
       ) : (
         <>
           <div className="flex justify-center">
-            <p className="font-semibold text-[23px]">About {usuarioPerfil.nombre}</p>
+            <p className="font-semibold text-[23px]">Sobre {usuarioPerfil.nombre}</p>
           </div>
 
           <div className="flex flex-col gap-5">

@@ -38,6 +38,9 @@ const { auth } = require("../middleware/auth.js");
 const { enviarMensaje } = require("../controladores/enviar-mensaje-contralador.js");
 const { misChats } = require("../controladores/mis-chats-controlador.js");
 const { obtenerMensajes } = require("../controladores/obtener-mensajes-controlador.js");
+const followRoutes = require("../routes/seguidores-routes"); // Asegúrate de ajustar la ruta correcta
+
+
 
 const {Server} = require('socket.io')
 const {createServer} = require('http');
@@ -80,6 +83,9 @@ app.use("/comentarios", commentsRoutes);
 app.use('/usuarios', Usuariosrouter)
 
 app.use('/reports', routerReport )
+
+app.use("/follow", followRoutes); 
+
 
 app.get("/dashboard/countUsers", countUsers);
 app.get("/dashboard/countPosts", countPosts);
