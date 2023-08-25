@@ -94,7 +94,7 @@ app.get("/dashboard/countLanguages", countLanguages);
 
 app.get("/dashboard/lenguajes", allLanguages);
 app.post("/dashboard/lenguajes", upload.single("imagen_bandera"), createLanguage);
-app.put("/dashboard/lenguajes", updateLanguage);
+app.put("/dashboard/lenguajes", upload.single("imagen_bandera"), updateLanguage);
 app.delete("/dashboard/lenguajes", deleteLanguage);
 
 app.get("/dashboard/administradores", allAdmins);

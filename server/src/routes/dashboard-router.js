@@ -17,7 +17,7 @@ router.get("/dashboard/countLanguages", dashboardController.countLanguages);
 
 router.get("/dashboard/lenguajes", dashboardController.allLanguages);
 router.post("/dashboard/lenguajes", upload.single("imagen_bandera"), dashboardController.createLanguage);
-router.put("/dashboard/lenguajes", dashboardController.updateLanguage);
+router.put("/dashboard/lenguajes", upload.single("imagen_bandera"), dashboardController.updateLanguage);
 router.delete("/dashboard/lenguajes", dashboardController.deleteLanguage);
 
 router.get("/dashboard/administradores", dashboardController.allAdmins);
