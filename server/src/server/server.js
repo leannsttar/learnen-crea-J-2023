@@ -32,7 +32,7 @@ const {
     deleteAdmin,
     updateAdmin
 } = require("../controladores/dashboard-controlador")
-const {updatePhoto, updateProfileInfo, updateAccountInfo} = require("../controladores/settings-controlador");
+const {updatePhoto, updateProfileInfo, updateAccountInfo, getLikedPosts} = require("../controladores/settings-controlador");
 const Usuariosrouter = require("../routes/obtenerUsuarios-routes.js");
 const { auth } = require("../middleware/auth.js");
 const { enviarMensaje } = require("../controladores/enviar-mensaje-contralador.js");
@@ -72,6 +72,8 @@ app.post("/feed/like", setlikes)
 app.put("/settings/imagen", upload.single("imagen_perfil"), updatePhoto);
 app.put("/settings/sobremi", updateProfileInfo);
 app.put("/settings/cuentaInfo", updateAccountInfo);
+app.get("/settings/likes/:id", getLikedPosts)
+
 app.delete("/feed/like/:id_cliente/:id_publicacion", deleteLike)
 app.get("/feed/like/:id_cliente/:id_publicacion", alreadyLiked)
 

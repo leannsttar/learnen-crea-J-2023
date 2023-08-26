@@ -5,6 +5,7 @@ import editProfile from "../../../assets/editProfile.svg";
 import { useSession } from "../../../components/Header/useSession.js";
 import { set, useForm } from "react-hook-form";
 import axios from "axios";
+import { MessageModal } from "../../../components/modalMessages/MessageModal.jsx";
 
 export function SobreMi() {
   const { usuario } = useSession();
@@ -18,6 +19,12 @@ export function SobreMi() {
   let [onEdit, setOnEdit] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
+
+  function openMessageModal() {
+    setIsMessageOpen(true);
+  }
 
   useEffect(() => {}, []);
 
@@ -42,19 +49,25 @@ export function SobreMi() {
         data
       );
       console.log("Data updated successfully:", response.data);
-
-    } catch (error) {
-      console.error("Error updating data:", error);
-    } finally {
+      
       setTimeout(() => {
         setIsLoading(false);
         setOnEdit(false); 
+        openMessageModal();
       }, 1000); 
+    } catch (error) {
+      console.error("Error updating data:", error);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <MessageModal
+        to={"/settings"}
+        message="Infomación actualizada"
+        success
+        open={isMessageOpen}
+      />
       {/* <EditButton
           onEdit={onEdit ? true : false}
           setEdit={() => setOnEdit(true)}

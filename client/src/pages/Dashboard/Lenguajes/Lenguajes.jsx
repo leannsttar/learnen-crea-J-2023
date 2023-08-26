@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { MessageModal } from "../../../components/modalMessages/MessageModal.jsx";
 
 import selectPhoto from "../../../assets/ssd.svg";
 
@@ -27,6 +28,12 @@ export const FlagCard = ({
   const [idiomaBandera, setIdiomaBandera] = useState(idioma.imagen_bandera)
 
   const [imageFile, setImageFile] = useState(idioma.imagen_bandera);
+
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
+
+  function openMessageModal() {
+    setIsMessageOpen(true);
+  }
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -111,6 +118,7 @@ export const FlagCard = ({
       );
       console.log("Image uploaded successfully:", response.data);
       closeEditModal();
+      openMessageModal();
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -119,6 +127,12 @@ export const FlagCard = ({
   return (
     <>
       <div key={keyProp} className="flex justify-between items-start ">
+      <MessageModal
+        to={"/settings"}
+        message="Idioma actualizado"
+        success
+        open={isMessageOpen}
+      />
         <div className="flex flex-row items-center gap-6 justify-between w-[25rem]">
           <div className="flex items-center gap-6">
             <img
@@ -286,6 +300,7 @@ export const FlagCard = ({
 
 export const Lenguajes = () => {
   const [lenguajes, setLenguajes] = useState(null);
+  const [isNewLanguageCreated, setIsNewLanguageCreated] = useState(null);
 
   const obtenerLenguajes = async () => {
     try {
@@ -381,14 +396,20 @@ export const Lenguajes = () => {
       );
       console.log("Image uploaded successfully:", response.data);
       closeCreateModal();
+      setIsNewLanguageCreated(data)
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   };
 
+  useEffect(() => {
+    obtenerLenguajes();
+  }, [isNewLanguageCreated]);
+
   return (
     <>
       <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        
         <div className="bg-white rounded shadow-md p-10 flex flex-col items-start h-4/5 w-4/5 gap-8 mt-4 overflow-y-auto">
           <button
             onClick={openCreateModal}

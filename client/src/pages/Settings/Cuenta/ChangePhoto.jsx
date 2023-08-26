@@ -6,6 +6,7 @@ import selectPhoto from "../../../assets/ssd.svg";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { MessageModal } from "../../../components/modalMessages/MessageModal.jsx";
 
 export function ChangePhoto({ userPhoto }) {
   const { usuario } = useSession();
@@ -18,10 +19,13 @@ export function ChangePhoto({ userPhoto }) {
     formState: { errors },
   } = useForm();
 
-
-
   // const [modal2Open, setModal2Open] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
+
+  function openMessageModal() {
+    setIsMessageOpen(true);
+  }
 
   function closeModal() {
     setIsOpen(false);
@@ -64,7 +68,9 @@ export function ChangePhoto({ userPhoto }) {
 
   const onSubmit = async (data) => {
     if (selectedImage === selectPhoto) {
-      toast.warning("Debes seleccionar una nueva imagen, clickea el icono azul");
+      toast.warning(
+        "Debes seleccionar una nueva imagen, clickea el icono azul"
+      );
       return;
     }
 
@@ -81,6 +87,7 @@ export function ChangePhoto({ userPhoto }) {
       );
       console.log("Image uploaded successfully:", response.data);
       closeModal();
+      openMessageModal();
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -88,6 +95,12 @@ export function ChangePhoto({ userPhoto }) {
 
   return (
     <div>
+      <MessageModal
+        to={"/settings"}
+        message="Foto de perfil actualizada"
+        success
+        open={isMessageOpen}
+      />
       {/* <style>
         {`
 

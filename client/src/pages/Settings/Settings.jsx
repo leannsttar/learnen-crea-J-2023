@@ -29,7 +29,7 @@ export function Settings() {
   };
 
   return (
-    <div className="flex flex-col items-center font-Poppins">
+    <div className="min-h-screen flex flex-col items-center font-Poppins">
       <div className="mt-12 w-[90%] mb-16">
         <div className="mb-14">
           <AppTitle title="Configuración" />
@@ -54,11 +54,11 @@ export function Settings() {
               name="Likes"
               onClick={() => changeLayout("Likes")}
             />
-            <LinkMiniNav
+            {/* <LinkMiniNav
               layout={layout}
               name="Bloqueados"
               onClick={() => changeLayout("Bloqueados")}
-            />
+            /> */}
           </div>
         </div>
         <div>

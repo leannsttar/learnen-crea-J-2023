@@ -6,6 +6,7 @@ import { useSession } from "../../../components/Header/useSession.js";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { MessageModal } from "../../../components/modalMessages/MessageModal";
 
 export function CambioContraseniaForm({ usuario, closeModal }) {
   const { register, handleSubmit, getValues } = useForm();
@@ -163,11 +164,17 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
     setOnEdit(false);
   };
 
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
+
+  function openMessageModal() {
+    setIsMessageOpen(true);
+  }
+
   const { register, handleSubmit, reset, getValues } = useForm();
 
   const onSubmit = async (data) => {
+    
     try {
-
       const mappedData = {
         [name]: inputValue,
         id: usuario.id,
@@ -178,17 +185,25 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
         "http://localhost:5000/settings/cuentaInfo",
         mappedData
       );
+
+      console.log('ajflksd')
+
       console.log("Data updated successfully:", response.data);
+      openMessageModal();
     } catch (error) {
       console.error("Error updating data:", error);
-    } finally {
-      setOnEdit(false)
     }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <MessageModal
+          to={"/settings"}
+          message="Datos actualizados"
+          success
+          open={isMessageOpen}
+        />
         <div className="flex border-b-2 border-[#e2e2e2] py-4 text-[20px] justify-between">
           <div className="flex gap-8">
             <p className="font-[600]">{dataName}</p>

@@ -122,6 +122,12 @@ const updateAccountInfo = async (req, res) => {
         });
       }
     }
+
+    return res.json({
+      message: "Datos sobre mi actualizados",
+      data: updatedAccount,
+    });
+
   } catch (error) {
     console.error(error);
     return res
@@ -130,8 +136,39 @@ const updateAccountInfo = async (req, res) => {
   }
 };
 
+const getLikedPosts = async (req, res) => {
+  try {
+    const id = req.params.id
+
+    console.log(id)
+
+    const allLikedPosts = await prisma.publicaciones.findMany({
+      include: {
+        Likes: {
+          where: {
+            id_cliente: +id
+          }
+        }
+      }
+    })
+
+    return res.json({
+      message: "Posts likeados obtenidos",
+      data: allLikedPosts,
+    });
+
+
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Error al obtener likeados" });
+  }
+}
+
 module.exports = {
   updatePhoto,
   updateProfileInfo,
   updateAccountInfo,
+  getLikedPosts
 };

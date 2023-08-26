@@ -24,8 +24,7 @@ const createPost = async (req, res) => {
         return res.status(400).send({ message: err.message });
       }
 
-      const idioma = req.body.idioma;
-      const descripcion = req.body.descripcion;
+      const {id_cliente, idioma, descripcion} = req.body;
 
       // const imageBuffer = await sharp(req.file.buffer)
       // .resize(800)
@@ -53,6 +52,7 @@ const createPost = async (req, res) => {
 
       const newPost = await prisma.publicaciones.create({
         data: {
+          id_cliente: +id_cliente,
           descripcion: descripcion,
           idioma: idioma,
           imagen: req.file.filename,
@@ -76,7 +76,8 @@ const readPosts = async (req, res) => {
   try {
     const allPosts = await prisma.publicaciones.findMany({
       include: {
-        Likes: true
+        Likes: true,
+        cliente: true
       }
 
     });

@@ -68,10 +68,10 @@ const PostCard = ({ keyProp, posts }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [like, setLike] = useState(posts.numLikes);
-  console.log(posts.numLikes);
+ 
 
   const [commentData, setCommentData] = useState([]);
-  console.log(commentData);
+  // console.log(commentData);
   const [newComment, setNewComment] = useState("");
   const addComment = async () => {
     try {
@@ -116,7 +116,7 @@ const PostCard = ({ keyProp, posts }) => {
       const response = await axios.get(
         `http://localhost:5000/feed/like/${usuario.id}/${posts.id}`
       );
-      console.log(response);
+      
 
       if (response.data.message === "Like") {
         setIsLiked(true);
@@ -427,6 +427,7 @@ const PostCard = ({ keyProp, posts }) => {
             src={`http://localhost:5000${usuario.imagen_perfil}`}
             alt=""
           />
+          {/* {console.log(posts.cliente.imagen_perfil)} */}
           <img className="w-12 h-12 " src={matchingLanguage[1]} alt="" />
 
           <div className="flex flex-col ml-6">
@@ -739,6 +740,7 @@ export function Feed() {
   const obtenerPosts = async () => {
     try {
       const { data } = await axios.get("http://localhost:5000/feed");
+      console.log(data)
       setPosts(data);
     } catch (error) {
       console.log(error);
@@ -766,6 +768,7 @@ export function Feed() {
         const response = await axios.post(
           "http://localhost:5000/feed",
           {
+            id_cliente: usuario.id,
             imagen: selectedImage3,
             idioma: selectedLanguage[0],
             descripcion: caption,
