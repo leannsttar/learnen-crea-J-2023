@@ -45,7 +45,7 @@ export function Slider() {
     return (
         <>
             {/* slider */}
-            <div className="flex w-full h-screen overflow-hidden relative">
+            <div className="flex w-full h-screen overflow-hidden relative lgv:hidden">
                 <img
                     src={data[currentIndex].src}
                     alt={`Slider Image ${currentIndex + 1}`}
