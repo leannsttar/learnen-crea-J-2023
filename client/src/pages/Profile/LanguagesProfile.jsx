@@ -6,8 +6,11 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 
-
-export function LanguagesProfile(props) {
+export function LanguagesProfile({
+  motherLanguages,
+  fluentLanguages,
+  learningLanguages,
+}) {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
 
   useEffect(() => {
@@ -44,31 +47,42 @@ export function LanguagesProfile(props) {
                 <div className="flex items-center gap-2">
                   {/* Acá pues mm, traigo las props, que cada prop es un array, [0] es el nombre del idioma y [1] es la bandera */}
                   <img
-                    src={props.motherLanguages[1]}
+                    src={`http://localhost:5000${motherLanguages.imagen_bandera}`}
                     alt=""
-                    className="w-[35px]"
+                    className="w-[2.3rem] h-[2.3rem] rounded-full object-cover"
                   />
-                  <p>{props.motherLanguages[0]}</p>
+                  <p>{motherLanguages.idioma}</p>
                 </div>
               </div>
-              <div className="space-y-5">
-                <p className="tracking-widest">TAMBIÉN HABLA:</p>
-                {/* Acá lo mismo solo que con un map por si habla mas de un idioma fluidamente. */}
-                {props.fluentLanguages.map((language, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    {/* language[1] es la imagen, language[0] es el nombre del idioma */}
-                    <img src={language[1]} alt="" className="w-[35px]" />
-                    <p>{language[0]}</p>
-                  </div>
-                ))}
-              </div>
+              {fluentLanguages ?? (
+                <div className="space-y-5">
+                  <p className="tracking-widest">TAMBIÉN HABLA:</p>
+                  {/* Acá lo mismo solo que con un map por si habla mas de un idioma fluidamente. */}
+                  {fluentLanguages.map((language, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      {/* language[1] es la imagen, language[0] es el nombre del idioma */}
+                      <img
+                        src={`http://localhost:5000${language.imagen_bandera}`}
+                        alt=""
+                        className="w-[2.3rem] h-[2.3rem] rounded-full object-cover"
+                      />
+                      <p>{language.idioma}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <div className="space-y-5">
                 <p className="tracking-widest">ESTÁ APRENDIENDO:</p>
                 {/* Acá lo mismo que anteriormente */}
-                {props.learningLanguages.map((language, index) => (
+                {learningLanguages.map((language, index) => (
                   <div key={index} className="flex items-center gap-2">
-                    <img src={language[1]} alt="" className="w-[35px]" />
-                    <p>{language[0]}</p>
+                    <img
+                      src={`http://localhost:5000${language.imagen_bandera}`}
+                      alt=""
+                      className="w-[2.3rem] h-[2.3rem] rounded-full object-cover"
+                    />
+                    <p>{language.idioma}</p>
                   </div>
                 ))}
               </div>
@@ -87,31 +101,41 @@ export function LanguagesProfile(props) {
               <div className="flex items-center gap-2">
                 {/* Acá pues mm, traigo las props, que cada prop es un array, [0] es el nombre del idioma y [1] es la bandera */}
                 <img
-                  src={props.motherLanguages[1]}
+                  src={`http://localhost:5000${motherLanguages.imagen_bandera}`}
                   alt=""
-                  className="w-[35px]"
+                  className="w-[2.3rem] h-[2.3rem] rounded-full object-cover"
                 />
-                <p>{props.motherLanguages[0]}</p>
+                <p>{motherLanguages.idioma}</p>
               </div>
             </div>
-            <div className="space-y-5">
-              <p className="tracking-widest">TAMBIÉN HABLA:</p>
-              {/* Acá lo mismo solo que con un map por si habla mas de un idioma fluidamente. */}
-              {props.fluentLanguages.map((language, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  {/* language[1] es la imagen, language[0] es el nombre del idioma */}
-                  <img src={language[1]} alt="" className="w-[35px]" />
-                  <p>{language[0]}</p>
-                </div>
-              ))}
-            </div>
+            {fluentLanguages ?? (
+              <div className="space-y-5">
+                <p className="tracking-widest">TAMBIÉN HABLA:</p>
+                {/* Acá lo mismo solo que con un map por si habla mas de un idioma fluidamente. */}
+                {fluentLanguages.map((language, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    {/* language[1] es la imagen, language[0] es el nombre del idioma */}
+                    <img
+                      src={`http://localhost:5000${language.imagen_bandera}`}
+                      alt=""
+                      className="w-[2.3rem] h-[2.3rem] rounded-full object-cover"
+                    />
+                    <p>{language.idioma}</p>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="space-y-5">
               <p className="tracking-widest">ESTÁ APRENDIENDO:</p>
               {/* Acá lo mismo que anteriormente */}
-              {props.learningLanguages.map((language, index) => (
+              {learningLanguages.map((language, index) => (
                 <div key={index} className="flex items-center gap-2">
-                  <img src={language[1]} alt="" className="w-[35px]" />
-                  <p>{language[0]}</p>
+                  <img
+                    src={`http://localhost:5000${language.imagen_bandera}`}
+                    alt=""
+                    className="w-[2.3rem] h-[2.3rem] rounded-full object-cover"
+                  />
+                  <p>{language.idioma}</p>
                 </div>
               ))}
             </div>

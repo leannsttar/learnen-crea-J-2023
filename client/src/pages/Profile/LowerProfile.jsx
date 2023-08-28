@@ -19,27 +19,45 @@ export function LowerProfile({
   const [loadingImages, setLoadingImages] = useState(true); 
   const [errorImages, setErrorImages] = useState(null); 
 
-  useEffect(() => {
-    async function fetchUserImages() {
-      try {
-        const response = await clienteAxios.get(`/user/images/${usuarioPerfil.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-
-        setUserImages(response.data.images);
-        setNumPublicaciones(response.data.numPublicaciones);
-        setLoadingImages(false); 
-      } catch (error) {
-        console.log("Error", error);
-        setErrorImages(error.message);
-        setLoadingImages(false); 
-      }
-    }
-
-    fetchUserImages();
-  }, [usuarioPerfil]);
+export function LowerProfile({usuarioPerfil, setFollowersCount, followersCount, followingsCount}) {
+  const postsImages = [
+    {
+      imgSrc: "/src/assets/Posts/post1.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post2.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post3.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post4.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post5.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post6.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post7.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post8.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post9.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post10.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post11.jpg",
+    },
+    {
+      imgSrc: "/src/assets/Posts/post12.jpg",
+    },
+  ];
 
   const userLanguages = {
     motherLanguages: ["Alemán", flags.Aleman],
@@ -49,6 +67,8 @@ export function LowerProfile({
       ["Francés", flags.Frances],
     ],
   };
+
+  
 
   return (
     <Element className=" flex justify-center mx-auto">
@@ -64,9 +84,10 @@ export function LowerProfile({
 
             {/* {Acá solo mando la info de userLanguages} */}
             <LanguagesProfile
-              motherLanguages={userLanguages.motherLanguages}
-              fluentLanguages={userLanguages.fluentLanguages}
-              learningLanguages={userLanguages.learningLanguages}
+            
+              motherLanguages={usuarioPerfil.idioma_materno}
+              fluentLanguages={usuarioPerfil.idiomas_fluidos}
+              learningLanguages={usuarioPerfil.idiomas_aprendiendo}
             />
 
             <AboutProfile usuarioPerfil={usuarioPerfil} />

@@ -34,8 +34,8 @@ export function ArticleCopi_1() {
           </p>
         </div>
 
-        <div className="grid grid-cols-[1fr_500px] h-max  overflow-hidden pt-24 p-12 ">
-          <div className="border-r border-gray-300 p-8 ">
+        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 h-max  overflow-hidden pt-24 p-12 ">
+          <div className="border-r lgv:border-none lgv:border-b border-gray-300 p-8 ">
             <p className="mt-6 mb-6">
               Ziad Fazah es un nombre ampliamente reconocido en el mundo de los
               políglotas y el aprendizaje de idiomas. Nacido en Liberia en 1954

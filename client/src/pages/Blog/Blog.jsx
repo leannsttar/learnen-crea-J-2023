@@ -65,11 +65,6 @@ export function SliderBlog() {
 }
 
 export function CardPrincipal() {
-  const dataTop = [
-    {
-      /*aquí debería ir la imagen de top poster para que se impriman con map y así xd, después se hace */
-    },
-  ];
 
   return (
     <>
@@ -80,7 +75,7 @@ export function CardPrincipal() {
               Nuestro blog
             </p>
 
-            <div className="flex flex-row justify-center mx-auto pl-24 pr-24 mb-32">
+            <div className="flex flex-row flex-wrap justify-center mx-auto pl-24 pr-24 mb-32">
               <div className="flex flex-col bg-custom-bg w-[60%] bg-cover h-[500px] rounded">
                 <div className="flex flex-col w-[50%] overflow-hidden">
                   <h1 className="text-4xl mt-10 ml-10">

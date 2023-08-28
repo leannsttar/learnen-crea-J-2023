@@ -10,6 +10,9 @@ export function Profile() {
 
 
   const [usuarioPerfil, setUsuarioPerfil] = useState({});
+
+  console.log(usuarioPerfil)
+
   const [cargando, setCargando] = useState(true);
   const [followersCount, setFollowersCount] = useState(0);
   const [followingsCount, setfollowingsCount] = useState(0)

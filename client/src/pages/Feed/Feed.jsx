@@ -427,7 +427,7 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
             style={{
               clipPath: "circle(50% at 50% 50%)",
             }}
-            src={`http://localhost:5000${usuario.imagen_perfil}`}
+            src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
             alt=""
           />
           {/* {console.log(posts.cliente.imagen_perfil)} */}
@@ -435,7 +435,7 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
 
           <div className="flex flex-col ml-6">
             <h6 className="font-bold">
-              {usuario.nombre} {usuario.apellido}
+              {posts.cliente.nombre} {posts.cliente.apellido}
             </h6>
             <h6 className="text-sm">Hace {timeAgo}</h6>
           </div>
@@ -528,7 +528,7 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
                         <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
                           <div className="flex items-center gap-3">
                             <img
-                              src={`http://localhost:5000${usuario.imagen_perfil}`}
+                              src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
                               alt=""
                               className="w-10 "
                               object-cover
@@ -537,7 +537,7 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
                               }}
                             />
                             <p className="font-semibold">
-                              {usuario.nombre} {usuario.apellido}
+                              {posts.cliente.nombre} {posts.cliente.apellido}
                             </p>
                           </div>
                           <div>
@@ -865,7 +865,7 @@ export function Feed() {
 
   return (
     <>
-      <div className="grid grid-cols-[1fr_650px]">
+      <div className="grid grid-cols-[1fr_650px] lgv:grid-cols-1">
         <div className="mt-[40px] mx-[80px] h-full mb-10">
           <AppTitle title="Publicaciones" />
           <button
@@ -1047,7 +1047,7 @@ export function Feed() {
               <PostCard keyProp={post.id} posts={post} key={post.id} setPosts={setPosts} />
             ))}
         </div>
-        <div className="border-l border-solid border-black md:flex sm:hidden">
+        <div className="border-l border-solid border-black md:flex lgv:hidden sm:hidden">
           <PeopleSection />
           <BlogSection />
         </div>
