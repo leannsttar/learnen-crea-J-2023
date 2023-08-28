@@ -19,56 +19,7 @@ export function LowerProfile({
   const [loadingImages, setLoadingImages] = useState(true); 
   const [errorImages, setErrorImages] = useState(null); 
 
-export function LowerProfile({usuarioPerfil, setFollowersCount, followersCount, followingsCount}) {
-  const postsImages = [
-    {
-      imgSrc: "/src/assets/Posts/post1.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post2.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post3.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post4.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post5.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post6.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post7.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post8.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post9.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post10.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post11.jpg",
-    },
-    {
-      imgSrc: "/src/assets/Posts/post12.jpg",
-    },
-  ];
 
-  const userLanguages = {
-    motherLanguages: ["Alemán", flags.Aleman],
-    fluentLanguages: [["Francés", flags.Frances]],
-    learningLanguages: [
-      ["Griego", flags.Griego],
-      ["Francés", flags.Frances],
-    ],
-  };
-
-  
 
   return (
     <Element className=" flex justify-center mx-auto">

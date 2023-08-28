@@ -31,6 +31,11 @@ export function LanguagesProfile({
     setOpen(open === value ? 0 : value);
   };
 
+  console.log(learningLanguages)
+  console.log(motherLanguages)
+  console.log(fluentLanguages)
+
+
   return (
     <div className="bg-[#F4F4F4] py-2 800:py-7 px-5 1280:px-10 flex flex-col gap-5 rounded-2xl text-[16px]">
       {isSmallScreen ? (
@@ -54,7 +59,7 @@ export function LanguagesProfile({
                   <p>{motherLanguages.idioma}</p>
                 </div>
               </div>
-              {fluentLanguages ?? (
+              {fluentLanguages && (
                 <div className="space-y-5">
                   <p className="tracking-widest">TAMBIÉN HABLA:</p>
                   {/* Acá lo mismo solo que con un map por si habla mas de un idioma fluidamente. */}
@@ -108,7 +113,7 @@ export function LanguagesProfile({
                 <p>{motherLanguages.idioma}</p>
               </div>
             </div>
-            {fluentLanguages ?? (
+            {fluentLanguages && (
               <div className="space-y-5">
                 <p className="tracking-widest">TAMBIÉN HABLA:</p>
                 {/* Acá lo mismo solo que con un map por si habla mas de un idioma fluidamente. */}
