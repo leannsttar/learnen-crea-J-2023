@@ -29,14 +29,14 @@ export function ArticleCopi_5() {
             src="/assets/fondo_articles1.jpg"
             alt=""
           />
-          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white">
-            Aprender mientras duermes:
+          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white text-center">
+            Aprender mientras duermes
           </p>
         </div>
 
         <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 h-max  overflow-hidden pt-24 p-12 ">
           <div className="border-r lgv:border-none border-gray-300 p-8 ">
-            <p className="mt-6 mb-6">
+            <p className="mb-6">
               Aunque la idea de aprender mientras duermes ha sido objeto de
               debate, algunos estudios sugieren que la exposición a un idioma
               durante el sueño puede ayudar a familiarizarse con los sonidos,
