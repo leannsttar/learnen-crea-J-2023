@@ -16,15 +16,15 @@ const french = frenchFlag;
 const person1LanguagesKnown = [german, greek];
 const person1LanguagesLearning = [french];
 
-export function CommunityCard() {
+export function CommunityCard({ searchText }) {
   const [usuarios, setUsuarios] = useState([]);
 
   const obtenerUsuarios = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/usuarios",{
+      const res = await axios.get("http://localhost:5000/usuarios", {
         headers: {
-          Authorization: "Bearer "+localStorage.getItem("token")
-        }
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
       });
       setUsuarios(res.data.message);
     } catch (error) {
@@ -36,50 +36,58 @@ export function CommunityCard() {
     obtenerUsuarios();
   }, []);
 
+  const filteredUsuarios = usuarios.filter(
+    (usuario) => {
+      const name = usuario.nombre + " " + usuario.apellido
+      return name.toLowerCase().includes(searchText.toLowerCase()) 
+    });
 
   return (
     <div className="md:grid grid-cols-4 gap-8 flex flex-wrap">
-      {usuarios.map((usuario) => (
-
+      {filteredUsuarios.length === 0 ? (
+        <p className="text-lg font-bold">No se encontraron usuarios</p>
+      ) : (
+        filteredUsuarios.map((usuario) => (
           <Link
-          to={"/profile/"+usuario.id}
-          key={usuario.id}
-          className="flex gap-x-6 bg-[#F7F2EF] p-4 rounded-xl hover:scale-[101%] hover:transition-scale ease-in duration-150 cursor-pointer"
-        >
-          <div>
-            <img
-              src={`http://localhost:5000${usuario.imagen_perfil}`}
-              alt=""
-              className="object-cover w-[8rem] h-[8rem]"
-              style={{
-                clipPath: "circle(50% at 50% 50%)",
-              }}
-            />
-          </div>
-          <div className="justify-between flex flex-col gap-y-4">
+            to={"/profile/" + usuario.id}
+            key={usuario.id}
+            className="flex gap-x-6 bg-[#F7F2EF] p-4 rounded-xl hover:scale-[101%] hover:transition-scale ease-in duration-150 cursor-pointer"
+          >
             <div>
-              <div className="flex gap-x-3 items-center">
-                <p className="font-bold text-xl">
-                  {usuario.nombre} {usuario.apellido}
+              <img
+                src={`http://localhost:5000${usuario.imagen_perfil}`}
+                alt=""
+                className="object-cover w-[8rem] h-[8rem]"
+                style={{
+                  clipPath: "circle(50% at 50% 50%)",
+                }}
+              />
+            </div>
+            <div className="justify-between flex flex-col gap-y-4">
+              <div>
+                <div className="flex gap-x-3 items-center">
+                  <p className="font-bold text-xl">
+                    {usuario.nombre} {usuario.apellido}
+                  </p>
+                </div>
+                <p className="text-md font-normal line-clamp-2">
+                  {usuario.descripcion}
                 </p>
               </div>
-              <p className="text-md font-normal line-clamp-2">
-                {usuario.descripcion}
-              </p>
+              <div className="flex gap-x-6">
+                <LanguagesCommunityCard
+                  languages={person1LanguagesKnown}
+                  status="HABLA"
+                />
+                <LanguagesCommunityCard
+                  languages={person1LanguagesLearning}
+                  status="APRENDE"
+                />
+              </div>
             </div>
-            <div className="flex gap-x-6">
-              <LanguagesCommunityCard
-                languages={person1LanguagesKnown}
-                status="HABLA"
-              />
-              <LanguagesCommunityCard
-                languages={person1LanguagesLearning}
-                status="APRENDE"
-              />
-            </div>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))
+      )}
     </div>
   );
 }

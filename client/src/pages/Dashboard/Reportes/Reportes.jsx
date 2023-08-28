@@ -25,7 +25,7 @@ export function Reportes() {
           <div key={reporte.id} className="flex items-center justify-between w-full border-gray-300 border-b">
             <div className="">
               <h3 className="text-lg font-medium">{reporte.descripcion}</h3>
-              <p className="text-sm text-gray-500">{reporte.id_cliente}</p>
+              <p className="text-sm text-gray-500"></p>
             </div>
             <p className="text-base font-bold">Enviado con éxito</p>
           </div>

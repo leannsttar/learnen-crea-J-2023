@@ -6,14 +6,14 @@ export function ArticleCopi_3() {
   const dataCards = [
     {
       url: "/blog/article/info/card-2",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Palabras intraducibles:",
       p: "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
       img: "/assets/p-card2.jpg",
     },
     {
       url: "/blog/article/info/card-4",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Orígenes del alfabeto: ",
       p: "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto",
       img: "/assets/p-card4.jpg",
@@ -50,7 +50,7 @@ export function ArticleCopi_3() {
               la economía y la política de China y más allá.
             </p>
             <h3 className="mt-24 font-bold">
-              Características Principales del Chino Mandarín:
+              Características principales del Chino Mandarín:
             </h3>
             <p className="mt-2 mb-6">
               Sistema de Tonalidad: Una característica distintiva del chino
@@ -62,7 +62,7 @@ export function ArticleCopi_3() {
               diferentes. Este aspecto del chino puede presentar un desafío para
               los estudiantes extranjeros
             </p>
-            <h3 className="mt-24 font-bold">Sistema de Escritura: </h3>
+            <h3 className="mt-24 font-bold">Sistema de escritura: </h3>
             <p className="mt-2 mb-6">
               El chino mandarín se escribe en caracteres chinos, cada uno
               representando una sílaba o una palabra. A diferencia de los
@@ -73,7 +73,7 @@ export function ArticleCopi_3() {
             </p>
             <h3 className="mt-24 font-bold">En resumen:</h3>
             <p className="mt-2 mb-6">
-              el chino mandarín es mucho más que un idioma; es un puente hacia
+              El chino mandarín es mucho más que un idioma; es un puente hacia
               una de las culturas más antiguas y ricas del mundo. A medida que
               China desempeña un papel cada vez más importante en la arena
               global, el conocimiento del chino mandarín se vuelve una habilidad
@@ -85,7 +85,7 @@ export function ArticleCopi_3() {
             <div className=" flex justify-center ">
               <h1 className="text-2xl -mb-16 my-12 font-semibold text-center">
                 Articulos <br />
-                Recomendados
+                recomendados
               </h1>
             </div>
             <div className=" pb-14">
@@ -106,8 +106,7 @@ export function ArticleCopi_3() {
                         <h4 className="mt-4 text-base">{card.p}</h4>
                         <hr className="mt-12" />
                         <p className="text-sm absolute bottom-2 right-10">
-                          2 días
-                        </p>
+                        <span className="text-indigo-600"> Learnen</span>                        </p>
                       </div>
                     </div>
                   </Link>

@@ -10,6 +10,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const { createUser } = require("../controladores/register-controlador.js");
 const {routerReport} = require("../routes/reportes-router");
+
 const {
   createPost,
   readPosts,
@@ -17,6 +18,8 @@ const {
   likepost,
   deleteLike,
   alreadyLiked,
+  deletePost,
+  getUserImages
 } = require("../controladores/feed-controlador.js");
 const {
   countUsers,
@@ -88,6 +91,10 @@ app.use('/usuarios', Usuariosrouter)
 app.use('/reports', routerReport )
 
 app.use("/follow", followRoutes); 
+
+app.delete('/delete-post/:id', auth, deletePost)
+
+app.get("/user/images/:id", auth, getUserImages);
 
 
 app.get("/dashboard/countUsers", countUsers);

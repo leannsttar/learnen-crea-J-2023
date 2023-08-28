@@ -140,7 +140,7 @@ export function Chat() {
     return (
         <div className="container mx-auto font-Poppins">
             <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2 ">
-                <div className="font-semibold text-black text-4xl">Messages <span className='text-[#6F84CD] '>(2)</span></div>
+                <div className="font-semibold text-black text-4xl">Mensajes</div>
                 {
                     id && (
                         <div className="w-1/2 flex items-center">
@@ -251,7 +251,7 @@ export function Chat() {
 
                         </div>)
                         : <div className=' border-red-600 w-full flex justify-center items-center'>
-                            <p className='font-black text-4xl text-center'>Dale click a un nuevo chat</p>
+                            <p className='font-black text-4xl text-center'>Da click a un nuevo chat</p>
                         </div>
                 }
             </div>

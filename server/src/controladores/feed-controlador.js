@@ -24,18 +24,7 @@ const createPost = async (req, res) => {
         return res.status(400).send({ message: err.message });
       }
 
-      const {id_cliente, idioma, descripcion} = req.body;
-
-      // const imageBuffer = await sharp(req.file.buffer)
-      // .resize(800)
-      // .toFormat("jpeg")
-      // .toBuffer();
-
-      // const folderPath = path.join(__dirname, '../../public/images/postImages');
-      // const fileName = `imagenPost-${Date.now()}.jpeg`;
-      // const imagePath = path.join(folderPath, fileName);
-
-      // await sharp(imageBuffer).toFile(imagePath);
+      const { id_cliente, idioma, descripcion } = req.body;
 
       console.log("waza");
 
@@ -77,17 +66,15 @@ const readPosts = async (req, res) => {
     const allPosts = await prisma.publicaciones.findMany({
       include: {
         Likes: true,
-        cliente: true
-      }
-
+        cliente: true,
+      },
     });
-    const postsWithLikesCount = allPosts.map(post => ({
+    const postsWithLikesCount = allPosts.map((post) => ({
       ...post,
-      numLikes: post.Likes.length
+      numLikes: post.Likes.length,
     }));
 
     res.json(postsWithLikesCount);
-
   } catch (error) {
     return res
       .status(500)
@@ -95,104 +82,129 @@ const readPosts = async (req, res) => {
   }
 };
 
-//get
-// const likepost = async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const post = await prisma.publicaciones.findFirst({
-//       where: {
-//         id: +id,
-//       }, 
-//       include: { 
-//         Likes: true
-//       }
-      
-//     });
-
-//     res.json(post.Likes.length);
-//   } catch (error) {
-//     return res
-//     .status(500)
-//     .json({ error: "Error al obtener el número de likes" });
-//     console.log(error)
-//   }
-// };
-
 const setlikes = async (req, res) => {
   try {
-    const {id_cliente, id_publicacion} = req.body
+    const { id_cliente, id_publicacion } = req.body;
     const like = await prisma.likes.create({
       data: { id_publicacion: +id_publicacion, id_cliente: +id_cliente },
     });
 
-    res.json(like)
+    res.json(like);
   } catch (error) {
-    console.log(error)
-    return res
-    .status(500)
-    .json({ error: "Error al registrar el like" });
+    console.log(error);
+    return res.status(500).json({ error: "Error al registrar el like" });
   }
 };
 
 const deleteLike = async (req, res) => {
   try {
-    const {id_cliente, id_publicacion} = req.params
+    const { id_cliente, id_publicacion } = req.params;
 
-    console.log(id_cliente, id_publicacion)
+    console.log(id_cliente, id_publicacion);
 
     const like = await prisma.likes.findFirst({
       where: {
         id_publicacion: +id_publicacion,
-        id_cliente: +id_cliente
-      }
-    })
+        id_cliente: +id_cliente,
+      },
+    });
 
     const deletedLike = await prisma.likes.delete({
       where: {
-        id: like.id
+        id: like.id,
       },
-    })
+    });
 
-    return res.json(deletedLike)
-
+    return res.json(deletedLike);
   } catch (error) {
-    console.log(error)
-    return res
-    .status(500)
-    .json({ error: "Error al eliminar el like" });
+    console.log(error);
+    return res.status(500).json({ error: "Error al eliminar el like" });
   }
-}
+};
 
 const alreadyLiked = async (req, res) => {
   try {
-    const {id_cliente, id_publicacion} = req.params
+    const { id_cliente, id_publicacion } = req.params;
 
     const like = await prisma.likes.findFirst({
       where: {
         id_publicacion: +id_publicacion,
-        id_cliente: +id_cliente
-      }
-    })
+        id_cliente: +id_cliente,
+      },
+    });
 
     if (!like) {
-      return res.status(404).json()
+      return res.status(404).json();
     }
 
-    return res.json({message: 'Like'})
-
+    return res.json({ message: "Like" });
   } catch (error) {
-    return res
-    .status(500)
-    .json({ error: "Error al encontrar el like" });
-
+    return res.status(500).json({ error: "Error al encontrar el like" });
   }
-}
+};
+
+const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const post = await prisma.publicaciones.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!post) {
+      return res.status(404).json({ error: "Publicación no encontrada" });
+    }
+
+    if (post.id_cliente !== req.usuario.id) {
+      return res
+        .status(403)
+        .json({ error: "No tienes permisos para eliminar esta publicación" });
+    }
+
+    await prisma.publicaciones.delete({ where: { id: parseInt(id) } });
+
+    return res
+      .status(200)
+      .json({ message: "Publicación eliminada exitosamente" });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "Hubo un error al eliminar la publicación" });
+  }
+};
+
+const getUserImages = async (req, res) => {
+  try {
+    const userId = req.usuario.id;
+
+    const userPosts = await prisma.publicaciones.findMany({
+      where: { id_cliente: +req.params.id },
+      select: { imagen: true },
+    });
+
+    const numPublicaciones = userPosts.length;
+
+    return res.status(200).json({
+      images: userPosts.map((post) => post.imagen),
+      numPublicaciones,
+    });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "Hubo un error al obtener las imágenes" });
+  }
+};
+
+
 
 module.exports = {
   createPost,
   readPosts,
   setlikes,
-  // likepost,
-  deleteLike, 
-  alreadyLiked
+  deleteLike,
+  alreadyLiked,
+  deletePost,
+  getUserImages
 };

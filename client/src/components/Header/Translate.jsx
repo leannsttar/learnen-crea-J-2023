@@ -13,8 +13,7 @@ const Translate = () => {
   };
   useEffect(() => {
     const translateDiv = document.createElement('div');
-    translateDiv.textContent = 'Contenido translate';
-    translateDiv.classList.add('z-50', 'bg-white', 'bottom-0', 'left-0', 'fixed', 'rounded-md',); 
+    translateDiv.classList.add('z-50', 'bg-white', 'bottom-0', 'left-0', 'fixed', 'rounded-md', 'shadow-box'); 
     translateDiv.id = 'google_translate_element'
     document.getElementById('root').appendChild(translateDiv);
     var addScript = document.createElement("script");

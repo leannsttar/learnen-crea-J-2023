@@ -19,6 +19,9 @@ import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
 import { getComents, postComent, getCommentCount } from "./authComments";
 import { Link } from "react-router-dom";
+import { clienteAxios } from "../../config/clienteAxios";
+import { headers } from "../../helpers/headers";
+headers
 
 
 
@@ -53,10 +56,7 @@ const feedData = {
   comments: 13,
 };
 
-
-
-
-const PostCard = ({ keyProp, posts }) => {
+const PostCard = ({ keyProp, posts, setPosts }) => {
   const { usuario } = useSession();
 
   let [isOpen, setIsOpen] = useState(false);
@@ -68,11 +68,11 @@ const PostCard = ({ keyProp, posts }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const [like, setLike] = useState(posts.numLikes);
- 
 
   const [commentData, setCommentData] = useState([]);
-  // console.log(commentData);
+
   const [newComment, setNewComment] = useState("");
+  
   const addComment = async () => {
     try {
       await postComent({
@@ -86,6 +86,17 @@ const PostCard = ({ keyProp, posts }) => {
       console.error(error);
     }
   };
+
+  const obtenerPosts = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:5000/feed");
+      console.log(data);
+      setPosts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const getComments = async () => {
     try {
@@ -103,20 +114,11 @@ const PostCard = ({ keyProp, posts }) => {
     })();
   }, []);
 
-  // const Handlike = () => {
-  //   setLike(like + 1);
-  // };
-
-  // const toggleLike = () => {
-  //   setIsLiked((prevIsLiked) => !prevIsLiked);
-  // };
-
   const alreadyLike = async (data) => {
     try {
       const response = await axios.get(
         `http://localhost:5000/feed/like/${usuario.id}/${posts.id}`
       );
-      
 
       if (response.data.message === "Like") {
         setIsLiked(true);
@@ -177,17 +179,6 @@ const PostCard = ({ keyProp, posts }) => {
       console.log(error);
     }
   };
-
-  // const countLikes = async (data) => {
-  //   try {
-  //     const { data } = await axios.get(
-  //       `http://localhost:5000/feed/like/${posts.id}`
-  //     );
-  //     setLike(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   useEffect(() => {
     alreadyLike();
@@ -276,18 +267,30 @@ const PostCard = ({ keyProp, posts }) => {
       console.error("Error al enviar el reporte:", error);
     }
   };
+  const DeletePostModal = async () => {
+    try {
+      await clienteAxios.delete(`/delete-post/${keyProp}`, headers());
+      // alert("Publicación eliminada exitosamente");
+      obtenerPosts()
+      closeModalDelete();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
       {/* Modal de eliminar post */}
-      <Transition appear show={isOpenDelete} as={Fragment}>
+
+      <Transition appear show={isOpenDelete} as={React.Fragment}>
         <Dialog
           as="div"
           className="relative z-10 h-screen"
           onClose={closeModalDelete}
         >
           <Transition.Child
-            as={Fragment}
+            as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -301,7 +304,7 @@ const PostCard = ({ keyProp, posts }) => {
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}
+                as={React.Fragment}
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -330,7 +333,7 @@ const PostCard = ({ keyProp, posts }) => {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModalDelete}
+                      onClick={DeletePostModal}
                     >
                       Eliminar
                     </button>
@@ -341,6 +344,7 @@ const PostCard = ({ keyProp, posts }) => {
           </div>
         </Dialog>
       </Transition>
+
       {/* Modal para el reporte */}
       <Transition appear show={isOpenReport} as={Fragment}>
         <Dialog
@@ -382,7 +386,6 @@ const PostCard = ({ keyProp, posts }) => {
                     <textarea
                       onChange={(e) => setReportDescription(e.target.value)}
                       value={reportDescription}
-
                       placeholder="¿Por qué quieres reportar esta publicación?"
                       name=""
                       id=""
@@ -636,8 +639,8 @@ const PeopleSection = () => {
     try {
       const res = await axios.get("http://localhost:5000/usuarios", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
-        }
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
       });
       setUsuarios(res.data.message);
     } catch (error) {
@@ -651,18 +654,24 @@ const PeopleSection = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-pink-400 mt-14 ml-10">Gente</h1>
+      <h1 className="text-4xl font-bold text-pink-400 mt-14 ml-10">Personas</h1>
       {usuarios.map((usuario) => (
         <div className="flex flex-row mt-16 ml-8 items-center" key={usuario.id}>
-          <img className="object-cover w-[6rem] h-[6rem]"
+          <img
+            className="object-cover w-[6rem] h-[6rem]"
             style={{
               clipPath: "circle(50% at 50% 50%)",
-            }} src={`http://localhost:5000${usuario.imagen_perfil}`} alt="" />
+            }}
+            src={`http://localhost:5000${usuario.imagen_perfil}`}
+            alt=""
+          />
           <h3 className="p-6 font-bold text-lg">{`${usuario.nombre} ${usuario.apellido}`}</h3>
           <div className="ml-auto flex items-center">
-            <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] mr-8 hover:scale-105 hover: transition-scale ease-in duration-200">
-              Seguir
-            </button>
+            <Link to={"/profile/" + usuario.id} key={usuario.id}>
+              <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] mr-8 hover:scale-105 hover: transition-scale ease-in duration-200">
+                Ver perfil
+              </button>
+            </Link>
           </div>
         </div>
       ))}
@@ -670,53 +679,52 @@ const PeopleSection = () => {
   );
 };
 
-
 const BlogSection = () => {
-  const blogData = [{
-    url: "/blog/article/info/card-1",
-    title: "El políglota más famoso:",
-    content:
-      "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
-    image: "/assets/p-card1.jpg",
-  },
-  {
-    url: "/blog/article/info/card-2",
-    title: "Palabras intraducibles:",
-    content:
-      "Algunos idiomas contienen términos que no pueden traducirse directamente a otros idiomas debido a su singularidad cultural. Por ejemplo, saudade en portugués describe una sensación de profunda nostalgia y añoranza.",
-    image: "/assets/p-card2.jpg",
-  }
-    ,
-  {
-    url: "/blog/article/info/card-3",
-    title: "El idioma más hablado:",
-    content:
-      "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
-    image: "/assets/p-card3.jpg",
-  }
-    ,
-  {
-    url: "/blog/article/info/card-4",
-    title: "Orígenes del alfabeto:",
-    content:
-      "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto.",
-    image: "/assets/p-card4.jpg",
-  }
-    ,
-  {
-    url: "/blog/article/info/card-5",
-    title: "Aprender mientras duermes:",
-    content:
-      "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado",
-    image: "/assets/p-card5.jpg",
-  }
+  const blogData = [
+    {
+      url: "/blog/article/info/card-1",
+      title: "El políglota más famoso:",
+      content:
+        "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
+      image: "/assets/p-card1.jpg",
+    },
+    {
+      url: "/blog/article/info/card-2",
+      title: "Palabras intraducibles:",
+      content:
+        "Algunos idiomas contienen términos que no pueden traducirse directamente a otros idiomas debido a su singularidad cultural. Por ejemplo, saudade en portugués describe una sensación de profunda nostalgia y añoranza.",
+      image: "/assets/p-card2.jpg",
+    },
+    {
+      url: "/blog/article/info/card-3",
+      title: "El idioma más hablado:",
+      content:
+        "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
+      image: "/assets/p-card3.jpg",
+    },
+    {
+      url: "/blog/article/info/card-4",
+      title: "Orígenes del alfabeto:",
+      content:
+        "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto.",
+      image: "/assets/p-card4.jpg",
+    },
+    {
+      url: "/blog/article/info/card-5",
+      title: "Aprender mientras duermes:",
+      content:
+        "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado",
+      image: "/assets/p-card5.jpg",
+    },
   ];
   return (
     <div>
-      <h1 className="text-4xl font-bold text-pink-400 mt-32 ml-10">Our blog</h1>
+      <h1 className="text-4xl font-bold text-pink-400 mt-32 ml-10">
+        Del <span className="text-indigo-600"> Blog</span>
+      </h1>
       {blogData.map((card, index) => (
         <Link to={card.url} key={index}>
-          <div className="flex flex-row mt-12 p-8" >
+          <div className="flex flex-row mt-12 p-8">
             <img className="w-[170px] h-[120px]" src={card.image} alt="" />
             <div className="flex flex-col">
               <p className="font-bold text-xl ml-6">{card.title}</p>
@@ -726,7 +734,6 @@ const BlogSection = () => {
         </Link>
       ))}
     </div>
-
   );
 };
 
@@ -740,7 +747,7 @@ export function Feed() {
   const obtenerPosts = async () => {
     try {
       const { data } = await axios.get("http://localhost:5000/feed");
-      console.log(data)
+      console.log(data);
       setPosts(data);
     } catch (error) {
       console.log(error);
@@ -787,7 +794,7 @@ export function Feed() {
         setCaption("");
         closeModal();
       } catch (error) {
-        console.error("Error creating post:", error);
+        console.error("Error", error);
       }
     }
   };
@@ -860,7 +867,7 @@ export function Feed() {
     <>
       <div className="grid grid-cols-[1fr_650px]">
         <div className="mt-[40px] mx-[80px] h-full mb-10">
-          <AppTitle title="Tu feed" />
+          <AppTitle title="Publicaciones" />
           <button
             onClick={openModal}
             className="flex items-center gap-3 px-5 mt-6 py-2.5 shadow-square border border-black bg-[#FFE9E9] hover:bg-[#FFD0D0] hover:transition-bg ease-in duration-200"
@@ -1037,7 +1044,7 @@ export function Feed() {
           </Transition>
           {posts &&
             posts.map((post) => (
-              <PostCard keyProp={post.id} posts={post} key={post.id} />
+              <PostCard keyProp={post.id} posts={post} key={post.id} setPosts={setPosts} />
             ))}
         </div>
         <div className="border-l border-solid border-black md:flex sm:hidden">

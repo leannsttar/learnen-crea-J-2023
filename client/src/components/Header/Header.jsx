@@ -293,7 +293,7 @@ export function Header() {
                       : linksClass.nonactive
                   }
                 >
-                  Home
+                  Inicio
                 </Link>
                 {isLoggedIn ? (
                   <Link
@@ -304,7 +304,7 @@ export function Header() {
                         : linksClass.nonactive
                     }
                   >
-                    Posts
+                    Publicaciones
                   </Link>
                 ) : (
                   ""

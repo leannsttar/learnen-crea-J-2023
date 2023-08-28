@@ -34,7 +34,7 @@ export function Error404() {
             to="/"
             className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
           >
-            Regresar al Home
+            Regresar a la página principal
           </Link>
         </div>
       </div>
