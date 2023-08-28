@@ -34,8 +34,8 @@ export function ArticleCopi_3() {
           </p>
         </div>
 
-        <div className="grid grid-cols-[1fr_500px] h-max  overflow-hidden pt-24 p-12 ">
-          <div className="border-r border-gray-300 p-8 ">
+        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 h-max  overflow-hidden pt-24 p-12 ">
+          <div className="border-r lgv:border-none border-gray-300 p-8 ">
             <p className="mt-6 mb-6">
               El chino mandarín es el idioma con más hablantes nativos en el
               mundo, superando los mil millones. Su compleja estructura y los

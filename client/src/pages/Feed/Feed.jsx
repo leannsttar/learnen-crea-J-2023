@@ -858,7 +858,7 @@ export function Feed() {
 
   return (
     <>
-      <div className="grid grid-cols-[1fr_650px]">
+      <div className="grid grid-cols-[1fr_650px] lgv:grid-cols-1">
         <div className="mt-[40px] mx-[80px] h-full mb-10">
           <AppTitle title="Tu feed" />
           <button
@@ -1040,7 +1040,7 @@ export function Feed() {
               <PostCard keyProp={post.id} posts={post} key={post.id} />
             ))}
         </div>
-        <div className="border-l border-solid border-black md:flex sm:hidden">
+        <div className="border-l border-solid border-black md:flex lgv:hidden sm:hidden">
           <PeopleSection />
           <BlogSection />
         </div>

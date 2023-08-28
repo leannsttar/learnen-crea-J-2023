@@ -34,8 +34,8 @@ export function ArticleCopi_4() {
           </p>
         </div>
 
-        <div className="grid grid-cols-[1fr_500px] h-max  overflow-hidden pt-24 p-12 ">
-          <div className="border-r border-gray-300 p-8 ">
+        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 h-max  overflow-hidden pt-24 p-12 ">
+          <div className="border-r lgv:border-none border-gray-300 p-8 ">
             <p className="mt-6 mb-6">
               El alfabeto que usamos en gran parte del mundo, incluyendo inglés
               y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí,
