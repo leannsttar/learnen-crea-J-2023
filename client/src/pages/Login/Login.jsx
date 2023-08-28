@@ -94,7 +94,12 @@ export function Login() {
       // setUserId(data.userId);
 
       setMensaje("Logueado");
-      navigate('/')
+      if (data.message === "Login exitoso del admin") { 
+        navigate('/dashboard')
+      } else if (data.message === "Login exitoso") { 
+        navigate('/')
+      }
+    
     } catch (error) {
       console.log(error.response.data)
 

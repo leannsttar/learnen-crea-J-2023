@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSession } from "../../components/Header/useSession";
 
 export const AsideMenu = ({ onLogout }) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const { logout, usuario } = useSession(); 
 
   const handleDropdownToggle = () => {
     setDropdownVisible(!isDropdownVisible);
@@ -111,8 +114,8 @@ export const AsideMenu = ({ onLogout }) => {
             className="focus:outline-none "
           >
             <button
-              className="w-full py-2 px-4 rounded flex items-center mb-8 pr-6"
-              onClick={onLogout}
+              className="w-full py-2 px-4 rounded flex items-center mb-32 pr-6"
+              onClick={logout}
             >
               <img
                 className="w-6 h-6 mr-2"

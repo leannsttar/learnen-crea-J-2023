@@ -43,7 +43,7 @@ const { auth } = require("../middleware/auth.js");
 const { enviarMensaje } = require("../controladores/enviar-mensaje-contralador.js");
 const { misChats } = require("../controladores/mis-chats-controlador.js");
 const { obtenerMensajes } = require("../controladores/obtener-mensajes-controlador.js");
-const followRoutes = require("../routes/seguidores-routes"); // Asegúrate de ajustar la ruta correcta
+const followRoutes = require("../routes/seguidores-routes");
 
 
 

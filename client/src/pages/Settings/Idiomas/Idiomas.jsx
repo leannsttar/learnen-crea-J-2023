@@ -17,16 +17,14 @@ const userLanguages = {
 export function Idiomas() {
   const { usuario } = useSession();
 
-  const [lenguajes, setLenguajes] = useState('aña')
+  const [lenguajes, setLenguajes] = useState([])
 
   const obtenerLenguajes = async () => {
     try {
       const { data } = await axios.get(
         "http://localhost:5000/dashboard/lenguajes"
       );
-      console.log('jflaksdjfsafjsal')
-      console.log(data);
-      setLenguajes(data);
+      setLenguajes(data.map(idioma => [idioma.idioma, idioma.imagen_bandera]));
     } catch (error) {
       console.log(error);
     }
@@ -36,33 +34,45 @@ export function Idiomas() {
     obtenerLenguajes();
   }, []);
 
-  console.log(lenguajes)
+
 
   return (
     <div className="flex flex-col gap-12">
       <DiffLanguages
         label="Soy nativo en"
         languages={usuario.idioma_materno}
-        allUserLanguages={userLanguages}
+        allUserLanguages={{
+          motherLanguages: [usuario.idioma_materno.idioma, usuario.idioma_materno.imagen_bandera],
+          fluentLanguages: usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]),
+          learningLanguages: usuario.idiomas_aprendiendo.map(idioma => [idioma.idioma, idioma.imagen_bandera])
+        }}
         native
-        allLanguages={allLanguages}
+        allLanguages={lenguajes}
       />
       {usuario.idiomas_fluidos && (
         <DiffLanguages
           label="También hablo"
           languages={usuario.idiomas_fluidos}
-          allUserLanguages={userLanguages}
+          allUserLanguages={{
+            motherLanguages: [usuario.idioma_materno.idioma, usuario.idioma_materno.imagen_bandera],
+            fluentLanguages: usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]),
+            learningLanguages: usuario.idiomas_aprendiendo.map(idioma => [idioma.idioma, idioma.imagen_bandera])
+          }}
           fluent
-          allLanguages={allLanguages}
+          allLanguages={lenguajes}
         />
       )}
 
       <DiffLanguages
         label="Estoy aprendiendo"
         languages={usuario.idiomas_aprendiendo}
-        allUserLanguages={userLanguages}
+        allUserLanguages={{
+          motherLanguages: [usuario.idioma_materno.idioma, usuario.idioma_materno.imagen_bandera],
+          fluentLanguages: usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]),
+          learningLanguages: usuario.idiomas_aprendiendo.map(idioma => [idioma.idioma, idioma.imagen_bandera])
+        }}
         learning
-        allLanguages={allLanguages}
+        allLanguages={lenguajes}
       />
     </div>
   );

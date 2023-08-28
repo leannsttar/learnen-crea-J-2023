@@ -17,35 +17,62 @@ const loginUser = async (req, res) => {
       },
     });
 
+    if (user) {
+      console.log(user.contrasenia)
+
+      const passwordValid = await bcrypt.compare(password, user.contrasenia)
+
+      if (!passwordValid) {
+        return res.status(500).json({ message: "Contraseña incorrecta" })
+      }
+
+      console.log(passwordValid)
+
+
+      console.log(user);
+
+
+
+      //token
+      const token = jwt.sign({ userId: user.id }, "tu_secreto");
+
+      console.log(token);
+
+      res.json({
+        message: "Login exitoso",
+        token,
+        ...user,
+      });
+    }
+
     if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
+
+      const admin = await prisma.administradores.findFirst({
+        where: {
+          email: email
+        }
+      })
+
+      if (!admin) {
+        return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      if (admin.contrasenia != password) {
+        return res.status(500).json({ message: "Contraseña incorrecta" })
+      }
+
+      const token = jwt.sign({ userId: admin.id }, "tu_secreto");
+
+      console.log(token);
+
+      res.json({
+        message: "Login exitoso del admin",
+        token,
+        ...admin,
+      });
     }
+    
 
-    console.log(user.contrasenia)
-
-    const passwordValid = await bcrypt.compare(password, user.contrasenia)
-
-    if (!passwordValid) {
-      return res.status(500).json({ message: "Contraseña incorrecta" })
-    }
-
-    console.log(passwordValid)
-
-
-    console.log(user);
-
-
-
-    //token
-    const token = jwt.sign({ userId: user.id }, "tu_secreto");
-
-    console.log(token);
-
-    res.json({
-      message: "Login exitoso",
-      token,
-      ...user,
-    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error al procesar la solicitud" });

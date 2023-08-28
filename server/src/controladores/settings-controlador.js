@@ -166,6 +166,14 @@ const getLikedPosts = async (req, res) => {
   }
 }
 
+const updateUserLanguages = async (req, res) => {
+  try {
+    const {id, } = req.body
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   updatePhoto,
   updateProfileInfo,

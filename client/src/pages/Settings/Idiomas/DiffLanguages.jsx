@@ -17,10 +17,8 @@ export function DiffLanguages({
 }) {
   const [selectedLanguages, setSelectedLanguages] = useState(languages);
 
-  console.log(languages);
-
-  console.log(selectedLanguages);
-
+  console.log(selectedLanguages)
+ 
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -34,10 +32,19 @@ export function DiffLanguages({
     );
   }
 
+  function removeSelectedLanguage(languageToRemove) {
+    setSelectedLanguages((prevLanguages) =>
+      prevLanguages.filter((language) => language.idioma !== languageToRemove.idioma)
+    );
+  }
+  
+
+
   function openModal() {
     setIsOpen(true);
   }
-  // console.log(languages)
+
+  console.log(allUserLanguages)
   return (
     <div className="flex flex-col gap-5 text-[20px]">
       <ToastContainer />
@@ -95,11 +102,11 @@ export function DiffLanguages({
                           <div className="flex justify-between ">
                             <div className="flex gap-4 items-center text-[#4d4d4d]">
                               <img
-                                src={`http://localhost:5000${languages.imagen_bandera}`}
+                                src={`http://localhost:5000${selectedLanguages.imagen_bandera}`}
                                 alt=""
                                 className="w-8 h-8 rounded-full object-fill"
                               />
-                              <p>{languages.idioma}</p>
+                              <p>{selectedLanguages.idioma}</p>
                             </div>
                             <button
                               type="button"
@@ -160,7 +167,10 @@ export function DiffLanguages({
                               ) {
                                 setSelectedLanguages([
                                   ...selectedLanguages,
-                                  language,
+                                  {
+                                    idioma: language[0],
+                                    imagen_bandera: language[1]
+                                  },
                                 ]);
                                 console.log(selectedLanguages);
                               }
@@ -183,7 +193,7 @@ export function DiffLanguages({
                                   : null
                               } `}
                             >
-                              <img src={language[1]} alt="" className="w-8" />
+                              <img src={"http://localhost:5000"+language[1]} alt="" className="w-8" />
                               <p>{language[0]}</p>
                             </div>
                             {allUserLanguages.motherLanguages[0][0].includes(
