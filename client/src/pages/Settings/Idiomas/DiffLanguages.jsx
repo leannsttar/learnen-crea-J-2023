@@ -17,6 +17,10 @@ export function DiffLanguages({
 }) {
   const [selectedLanguages, setSelectedLanguages] = useState(languages);
 
+  console.log(languages);
+
+  console.log(selectedLanguages);
+
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -87,11 +91,15 @@ export function DiffLanguages({
                         Idioma seleccionado
                       </p>
                       <div className="flex flex-col gap-3 pr-4 max-h-[120px] overflow-y-scroll">
-                        {selectedLanguages.map((language, index) => (
-                          <div key={index} className="flex justify-between ">
+                        {native ? (
+                          <div className="flex justify-between ">
                             <div className="flex gap-4 items-center text-[#4d4d4d]">
-                              <img src={language[1]} alt="" className="w-8" />
-                              <p>{language[0]}</p>
+                              <img
+                                src={`http://localhost:5000${languages.imagen_bandera}`}
+                                alt=""
+                                className="w-8 h-8 rounded-full object-fill"
+                              />
+                              <p>{languages.idioma}</p>
                             </div>
                             <button
                               type="button"
@@ -101,7 +109,27 @@ export function DiffLanguages({
                               Remove
                             </button>
                           </div>
-                        ))}
+                        ) : (
+                          selectedLanguages.map((language, index) => (
+                            <div key={index} className="flex justify-between ">
+                              <div className="flex gap-4 items-center text-[#4d4d4d]">
+                                <img
+                                  src={`http://localhost:5000${language.imagen_bandera}`}
+                                  alt=""
+                                  className="w-8 h-8 rounded-full object-fill"
+                                />
+                                <p>{language.idioma}</p>
+                              </div>
+                              <button
+                                type="button"
+                                className="text-[#FF8399]"
+                                onClick={() => removeLanguage(language)}
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          ))
+                        )}
                       </div>
                     </div>
                     <div className="flex flex-col gap-3">
@@ -163,21 +191,21 @@ export function DiffLanguages({
                             ) ? (
                               <div className="flex items-center gap-1 opacity-50">
                                 <p>Nativo</p>
-                                <img src={Check} alt="" className="w-8"/>
+                                <img src={Check} alt="" className="w-8" />
                               </div>
                             ) : allUserLanguages.fluentLanguages.some(
                                 (lang) => lang[0] === language[0]
                               ) ? (
                               <div className="flex items-center gap-1 opacity-50">
                                 <p>Habla</p>
-                                <img src={Check} alt="" className="w-8"/>
+                                <img src={Check} alt="" className="w-8" />
                               </div>
                             ) : allUserLanguages.learningLanguages.some(
                                 (lang) => lang[0] === language[0]
                               ) ? (
                               <div className="flex items-center gap-1 opacity-50">
                                 <p>Aprende</p>
-                                <img src={Check} alt="" className="w-8"/>
+                                <img src={Check} alt="" className="w-8" />
                               </div>
                             ) : (
                               ""
@@ -216,12 +244,27 @@ export function DiffLanguages({
           </Dialog>
         </Transition>
       </div>
-      {languages.map((language, index) => (
-        <div key={index} className="flex gap-4">
-          <img src={language[1]} alt="" className="w-9" />
-          <p>{language[0]}</p>
+      {native ? (
+        <div className="flex gap-4">
+          <img
+            src={`http://localhost:5000${languages.imagen_bandera}`}
+            alt=""
+            className="w-9"
+          />
+          <p>{languages.idioma}</p>
         </div>
-      ))}
+      ) : (
+        languages.map((language, index) => (
+          <div key={index} className="flex gap-4">
+            <img
+              src={`http://localhost:5000${language.imagen_bandera}`}
+              alt=""
+              className="w-9"
+            />
+            <p>{language.idioma}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 }
