@@ -147,7 +147,6 @@ export function Chat() {
         <div className="container mx-auto font-Poppins">
             <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2 ">
                 <div className="font-semibold text-black text-4xl">Mensajes</div>
-                <div className="font-semibold text-black text-4xl">Messages <span className='text-[#6F84CD] '>(2)</span></div>
                 <audio ref={sonidoNotificacion}>
                     <source src='/mario.wav' type='audio/wav'/>
                 </audio>

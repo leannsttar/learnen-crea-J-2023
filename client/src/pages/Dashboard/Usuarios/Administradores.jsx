@@ -7,14 +7,14 @@ export const Administradores = () => {
       id: 1,
       foto: "/src/assets/administrador.png",
       nombre: "Rodrigo Pineda",
-      puesto: "Diseñador",
-    },
-    {
-      id: 2,
-      foto: "/src/assets/administrador.png",
-      nombre: "Leandro Valencia",
-      puesto: "Nancero",
-    },
+      puesto: "Administrador",
+    }
+    // {
+    //   id: 2,
+    //   foto: "/src/assets/administrador.png",
+    //   nombre: "Leandro Valencia",
+    //   puesto: "Nancero",
+    // },
   ];
 
   return (

@@ -88,7 +88,6 @@ export function Login() {
       console.log(data)
 
 
-
       login(data);
       
       // setToken(data.token);
@@ -112,12 +111,23 @@ export function Login() {
     }
   };
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+//admin
+  const handleLogin = () => {
+    if (email === "admin@gmail.com" && password === "123456") {
+      navigate("/dashboard");
+    } else {
+      console.error("Credenciales incorrectas");
+    }
+  };
+
   return (
     <form action="post" onSubmit={handleSubmit(handleFormSubmit)}>
       <div className="grid grid-cols-2 lgv:grid-cols-1 lgv:mt-44 gap-2 place-items-center font-Poppins">
         <div className="flex flex-col space-y-12">
           <div className="space-y-2">
-            <h1 className="text-2xl font-bold">Inicia Sesión</h1>
+            <h1 className="text-2xl font-bold">Inicia sesión</h1>
             <p className="text-xl">¡Nos alegra verte de vuelta!</p>
           </div>
 
@@ -137,6 +147,8 @@ export function Login() {
                     name="email"
                     placeholder="Por favor introduzca su correo electrónico"
                     id="email"
+                    onChange={(e) => setEmail(e.target.value)}
+
                   />
                 </div>
                 <div className="flex flex-col mb-4">
@@ -151,6 +163,7 @@ export function Login() {
                       name="password"
                       placeholder="Ingrese su contraseña"
                       id="password"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <div
                       className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"

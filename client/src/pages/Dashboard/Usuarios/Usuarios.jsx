@@ -35,8 +35,6 @@ export function Usuarios() {
                 <th className="px-4 py-2 border text-center">Me gusta</th>
                 <th className="px-4 py-2 border text-center">Objetivos</th>
                 <th className="px-4 py-2 border text-center">Como soy</th>
-                <th className="px-4 py-2 border text-center">Aprendiendo</th>
-                <th className="px-4 py-2 border text-center">Action</th>
               </tr>
             </thead>
             <tbody className="bg-white">
@@ -57,14 +55,7 @@ export function Usuarios() {
                   <td className="px-4 py-2 border text-center">
                     {usuario.como_soy}
                   </td>
-                  <td className="px-4 py-2 border text-center"></td>
-                  <td className="px-4 py-2 border-b border-r flex items-center justify-center">
-                    <img
-                      src="/src/assets/MoreVert.png"
-                      alt=""
-                      className="w-7 h-7"
-                    />
-                  </td>
+
                 </tr>
               ))}
             </tbody>
