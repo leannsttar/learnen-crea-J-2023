@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Slider } from "../../components/slider";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,8 +15,6 @@ import norwayFlag from "../../assets/Flags/norwayFlag.svg";
 import axios from "axios";
 import { Form } from "react-hook-form";
 import { useSession } from "../../components/Header/useSession";
-
-
 
 const LanguageFlags = [
   {
@@ -47,7 +45,25 @@ const LanguageFlags = [
 
 //register xd
 export function SignUp() {
-  const { usuario } = useSession()
+  const { usuario } = useSession();
+
+  const [lenguajes, setLenguajes] = useState(null);
+
+  const obtenerLenguajes = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:5000/dashboard/lenguajes"
+      );
+      console.log(data);
+      setLenguajes(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerLenguajes();
+  }, []);
 
   const formArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -71,6 +87,7 @@ export function SignUp() {
     topics: "",
   });
 
+  console.log(state);
   console.log(state.more_languages);
   console.log(state.mother_language);
   console.log(state.languages);
@@ -123,23 +140,41 @@ export function SignUp() {
       setFormNo(formNo + 1);
     } else {
       if (formNo === 4 && !state.photoProfile) {
-        toast.error("Por favor sube una foto de perfil");
+        setFormNo(formNo + 1);
+      } else if (formNo === 5 && !state.mother_language) {
+        toast.error("Por favor selecciona al menos un idioma materno");
+      } else if (formNo === 6 && (!state.more_languages || state.more_languages.length === 0)) {
+        setFormNo(formNo + 1);
+      } else if (formNo === 7 && (!state.languages || state.languages.length === 0)) {
+        toast.error("Por favor selecciona al menos un idioma que quieres practicar");
       } else {
         toast.error("Por favor llena todos los campos");
       }
-      if (idioma) {
-        setFormNo(formNo + 1);
-      }
     }
+  
   };
 
   const pre = () => {
     setFormNo(formNo - 1);
   };
 
+  const [idiomasSeleccionadosLearning, updateIdiomasSeleccionadosLearning] =
+    useState([]);
+  const [idiomasSeleccionados, updateIdiomasSeleccionados] = useState([]);
+
   const [idioma, updateIdioma] = useState();
 
-  const [idiomasSeleccionados, updateIdiomasSeleccionados] = useState([]);
+  console.log(idioma);
+
+  const settingMotherLanguage = (idioma) => {
+    console.log(idioma);
+    setState({
+      ...state,
+      mother_language: idioma,
+    });
+    updateIdioma(idioma);
+  };
+
   const selectIdioma = (idioma) => {
     if (idiomasSeleccionados.includes(idioma)) {
       updateIdiomasSeleccionados(
@@ -148,14 +183,58 @@ export function SignUp() {
     } else {
       updateIdiomasSeleccionados([...idiomasSeleccionados, idioma]);
     }
+    setState({
+      ...state,
+      more_languages: [...idiomasSeleccionados, idioma]
+    });
+  };
+
+  const selectIdiomaLearning = (idioma) => {
+    if (idiomasSeleccionadosLearning.includes(idioma)) {
+      updateIdiomasSeleccionadosLearning(
+        idiomasSeleccionadosLearning.filter((item) => item !== idioma)
+      );
+      
+    } else {
+      updateIdiomasSeleccionadosLearning([
+        ...idiomasSeleccionadosLearning,
+        idioma,
+      ]);
+      
+    }
+    setState({
+      ...state,
+      languages: [...idiomasSeleccionadosLearning, idioma]
+    });
   };
 
   const eliminarIdiomaSeleccionado = (idioma) => {
-    updateIdiomasSeleccionados(
-      idiomasSeleccionados.filter((item) => item !== idioma)
+    const updatedIdiomasSeleccionados = idiomasSeleccionados.filter(
+      (item) => item !== idioma
     );
+  
+    setState((prevState) => ({
+      ...prevState,
+      more_languages: updatedIdiomasSeleccionados,
+    }));
+  
+    updateIdiomasSeleccionados(updatedIdiomasSeleccionados);
   };
-
+  
+  const eliminarIdiomaSeleccionadoLearning = (idioma) => {
+    const updatedIdiomasSeleccionadosLearning = idiomasSeleccionadosLearning.filter(
+      (item) => item !== idioma
+    );
+  
+    setState((prevState) => ({
+      ...prevState,
+      languages: updatedIdiomasSeleccionadosLearning,
+    }));
+  
+    updateIdiomasSeleccionadosLearning(updatedIdiomasSeleccionadosLearning);
+  };
+  
+  
   // Vista previa de la imagen
   const [previewImage, setPreviewImage] = useState(null);
 
@@ -200,10 +279,11 @@ export function SignUp() {
                     <div className={`my-6`}></div>
                     {i !== formArray.length - 1 && (
                       <div
-                        className={`w-full h-[7px] ${formNo === i + 2 || formNo === formArray.length
-                          ? "bg-black"
-                          : "bg-slate-400"
-                          }`}
+                        className={`w-full h-[7px] ${
+                          formNo === i + 2 || formNo === formArray.length
+                            ? "bg-black"
+                            : "bg-slate-400"
+                        }`}
                       ></div>
                     )}
                   </>
@@ -231,7 +311,11 @@ export function SignUp() {
                     <label htmlFor="password">
                       Contraseña<span className="text-red-600">*</span>
                     </label>
-                    <div className={`relative ${passwordMatch ? "" : "border-red-600"}`}>
+                    <div
+                      className={`relative ${
+                        passwordMatch ? "" : "border-red-600"
+                      }`}
+                    >
                       <input
                         value={state.password}
                         onChange={inputHandle}
@@ -392,7 +476,9 @@ export function SignUp() {
                         id="masculino"
                         required
                       />{" "}
-                      <label htmlFor="masculino" className="p-6 text-lg ">Masculino</label>
+                      <label htmlFor="masculino" className="p-6 text-lg ">
+                        Masculino
+                      </label>
                       <input
                         className="w-5 accent-pink-400"
                         value="Femenino"
@@ -403,7 +489,9 @@ export function SignUp() {
                         id="femenino"
                         required
                       />{" "}
-                      <label htmlFor="femenino" className="p-6 text-lg">Femenino</label>
+                      <label htmlFor="femenino" className="p-6 text-lg">
+                        Femenino
+                      </label>
                     </div>
                   </div>
                   <div className="mt-4 gap-3 flex justify-center items-center">
@@ -562,23 +650,23 @@ export function SignUp() {
                         Selecciona tu lengua materna
                       </label>
                     </div>
-                    <div className="w-full h-48 overflow-y-scroll justify-start items-start">
+                    <div className="w-full h-[20rem] overflow-y-scroll justify-start items-start">
                       <div className="flex-col w-full justify-start items-start inline-flex">
-                        {LanguageFlags.map((idioma) => (
+                        {lenguajes.map((idioma) => (
                           <div
-                            key={idioma.country}
-                            onClick={() => updateIdioma(idioma)}
+                            key={idioma.id}
+                            onClick={() => settingMotherLanguage(idioma)}
                             name={state.mother_language}
                             className="p-[14px] w-full border-b-2 border-stone-200 hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex"
                           >
                             <img
                               className="w-8"
-                              src={idioma.src}
+                              src={`http://localhost:5000${idioma.imagen_bandera}`}
                               alt=""
                               srcset=""
                             />
                             <div className="text-neutral-500 font-normal">
-                              {idioma.country}
+                              {idioma.idioma}
                             </div>
                           </div>
                         ))}
@@ -588,11 +676,11 @@ export function SignUp() {
                       <div className="flex space-x-3 w-full py-1 rounded-2xl bg-neutral-100 text-neutral-500 items-center justify-center">
                         <img
                           className="w-8"
-                          src={idioma.src}
+                          src={`http://localhost:5000${idioma.imagen_bandera}`}
                           alt=""
                           srcset=""
                         />
-                        <h1>{idioma.country}</h1>
+                        <h1>{idioma.idioma}</h1>
                       </div>
                     )}
                   </div>
@@ -645,25 +733,26 @@ export function SignUp() {
                         ¿Qué otros idiomas hablas con fluidez?
                       </label>
                     </div>
-                    <div className="w-full h-48 overflow-y-scroll justify-start items-start">
+                    <div className="w-full h-[20rem] overflow-y-scroll justify-start items-start">
                       <div className="flex-col w-full justify-start items-start inline-flex">
-                        {LanguageFlags.map((idioma) => (
+                        {lenguajes.map((idioma) => (
                           <div
-                            key={idioma.country}
+                            key={idioma.id}
                             onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
-                              ? "border-[#FF8399]"
-                              : "border-stone-200"
-                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${
+                              idiomasSeleccionados.includes(idioma)
+                                ? "border-[#FF8399]"
+                                : "border-stone-200"
+                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
-                              src={idioma.src}
+                              src={`http://localhost:5000${idioma.imagen_bandera}`}
                               alt=""
                               srcSet=""
                             />
                             <div className="text-neutral-500 font-normal">
-                              {idioma.country}
+                              {idioma.idioma}
                             </div>
                           </div>
                         ))}
@@ -673,16 +762,16 @@ export function SignUp() {
                       <div className="flex flex-wrap gap-y-5 rounded-2xl text-neutral-500 items-center justify-start">
                         {idiomasSeleccionados.map((idioma) => (
                           <div
-                            key={idioma.country}
+                            key={idioma.id}
                             className="flex items-center px-2 py-1 bg-neutral-100 rounded-full space-x-2"
                           >
                             <img
                               className="w-8"
-                              src={idioma.src}
+                              src={`http://localhost:5000${idioma.imagen_bandera}`}
                               alt=""
                               srcSet=""
                             />
-                            <h1>{idioma.country}</h1>
+                            <h1>{idioma.idioma}</h1>
                             <button
                               onClick={() => eliminarIdiomaSeleccionado(idioma)}
                             >
@@ -691,7 +780,7 @@ export function SignUp() {
                                 fill="#686868"
                                 width="20px"
                                 viewBox="-3.5 0 19 19"
-                                class="cf-icon-svg"
+                                className="cf-icon-svg"
                               >
                                 <path d="M11.383 13.644A1.03 1.03 0 0 1 9.928 15.1L6 11.172 2.072 15.1a1.03 1.03 0 1 1-1.455-1.456l3.928-3.928L.617 5.79a1.03 1.03 0 1 1 1.455-1.456L6 8.261l3.928-3.928a1.03 1.03 0 0 1 1.455 1.456L7.455 9.716z" />
                               </svg>
@@ -726,53 +815,56 @@ export function SignUp() {
                         ¿Qué idiomas quieres practicar?
                       </label>
                     </div>
-                    <div className="w-full h-48 overflow-y-scroll scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100 scrollbar-thumb:!rounded scrollbar-thumb:!bg-slate-300 scrollbar-track:!rounded dark:scrollbar-track:!bg-slate-500/[0.16] justify-start items-start">
+                    <div className="w-full h-[20rem] overflow-y-scroll scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100 scrollbar-thumb:!rounded scrollbar-thumb:!bg-slate-300 scrollbar-track:!rounded dark:scrollbar-track:!bg-slate-500/[0.16] justify-start items-start">
                       <div className="flex-col w-full justify-start items-start inline-flex">
-                        {LanguageFlags.map((idioma) => (
+                        {lenguajes.map((idioma) => (
                           <div
-                            key={idioma.country}
-                            onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
-                              ? "border-[#FF8399]"
-                              : "border-stone-200"
-                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            key={idioma.id}
+                            onClick={() => selectIdiomaLearning(idioma)}
+                            className={`p-[14px] w-full border-b-2 ${
+                              idiomasSeleccionadosLearning.includes(idioma)
+                                ? "border-[#FF8399]"
+                                : "border-stone-200"
+                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
-                              src={idioma.src}
+                              src={`http://localhost:5000${idioma.imagen_bandera}`}
                               alt=""
                               srcSet=""
                             />
                             <div className="text-neutral-500 font-normal">
-                              {idioma.country}
+                              {idioma.idioma}
                             </div>
                           </div>
                         ))}
                       </div>
                     </div>
-                    {idiomasSeleccionados.length > 0 && (
+                    {idiomasSeleccionadosLearning.length > 0 && (
                       <div className="flex flex-wrap gap-y-5 rounded-2xl text-neutral-500 items-center justify-start">
-                        {idiomasSeleccionados.map((idioma) => (
+                        {idiomasSeleccionadosLearning.map((idioma) => (
                           <div
-                            key={idioma.country}
+                            key={idioma.idioma}
                             className="flex items-center px-2 py-1 bg-neutral-100 rounded-full space-x-2"
                           >
                             <img
                               className="w-8"
-                              src={idioma.src}
+                              src={`http://localhost:5000${idioma.imagen_bandera}`}
                               alt=""
                               srcSet=""
                             />
-                            <h1>{idioma.country}</h1>
+                            <h1>{idioma.idioma}</h1>
                             <button
-                              onClick={() => eliminarIdiomaSeleccionado(idioma)}
+                              onClick={() =>
+                                eliminarIdiomaSeleccionadoLearning(idioma)
+                              }
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="#686868"
                                 width="20px"
                                 viewBox="-3.5 0 19 19"
-                                class="cf-icon-svg"
+                                className="cf-icon-svg"
                               >
                                 <path d="M11.383 13.644A1.03 1.03 0 0 1 9.928 15.1L6 11.172 2.072 15.1a1.03 1.03 0 1 1-1.455-1.456l3.928-3.928L.617 5.79a1.03 1.03 0 1 1 1.455-1.456L6 8.261l3.928-3.928a1.03 1.03 0 0 1 1.455 1.456L7.455 9.716z" />
                               </svg>
@@ -847,7 +939,7 @@ export function SignUp() {
                     >
                       Regresar
                     </button>
-                    <Link to={'/login'}>
+                    <Link to={"/login"}>
                       <button
                         onClick={sendRegister}
                         className="px-2 py-2 text-xl rounded-md w-full text-[#FF8399]"
@@ -860,7 +952,6 @@ export function SignUp() {
               )}
 
               <div className="mt-2 flex justify-center">
-
                 <Link to={"/login"}>
                   <div className=" text-neutral-500 underline decoration-solid">
                     <a href="">¿Ya tienes una cuenta?</a>

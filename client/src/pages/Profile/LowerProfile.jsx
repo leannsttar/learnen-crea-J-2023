@@ -48,6 +48,8 @@ export function LowerProfile({usuarioPerfil, setFollowersCount, followersCount, 
     },
   ];
 
+  const {usuario} = useSession()
+
   //Comento esto porque se me va a olvidar
   //Simulo un array de info del user. Meto el idioma y la bandera, las banderas estan en un js aparte
   const userLanguages = {
@@ -59,7 +61,16 @@ export function LowerProfile({usuarioPerfil, setFollowersCount, followersCount, 
     ],
   };
 
-  
+  const getUserLanguages = async () => {
+    try {
+      const {languages} = await axios.get(
+
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+ 
 
   return (
     <Element className=" flex justify-center mx-auto">
@@ -71,9 +82,10 @@ export function LowerProfile({usuarioPerfil, setFollowersCount, followersCount, 
 
             {/* {Acá solo pues mando la info de ese userLanguages} */}
             <LanguagesProfile
-              motherLanguages={userLanguages.motherLanguages}
-              fluentLanguages={userLanguages.fluentLanguages}
-              learningLanguages={userLanguages.learningLanguages}
+            
+              motherLanguages={usuarioPerfil.idioma_materno}
+              fluentLanguages={usuarioPerfil.idiomas_fluidos}
+              learningLanguages={usuarioPerfil.idiomas_aprendiendo}
             />
 
             <AboutProfile usuarioPerfil={usuarioPerfil}/>

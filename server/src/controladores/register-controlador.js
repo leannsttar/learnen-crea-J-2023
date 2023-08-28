@@ -42,9 +42,13 @@ const createUser = async (req, res) => {
         me_gusta: usuarioData.topics,
         objetivos: usuarioData.goals,
         como_soy: usuarioData.aboutYou,
-        fecha_nacimiento: usuarioData.BirthDate
+        fecha_nacimiento: usuarioData.BirthDate,
+        idioma_materno: usuarioData.mother_language,
+        idiomas_fluidos: usuarioData.more_languages,
+        idiomas_aprendiendo: usuarioData.languages
       }
     });
+
 
     return res.json({ message: "Usuario registrado", data: usuarioCreado });
   } catch (error) {

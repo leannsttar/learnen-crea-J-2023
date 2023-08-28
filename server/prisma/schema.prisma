@@ -20,9 +20,12 @@ model Cliente {
   fecha_nacimiento   DateTime
   genero             Boolean //Si es True Fenemino, false masculino
   imagen_perfil      String
-  me_gusta           String
-  objetivos          String
-  como_soy           String
+  me_gusta           String @db.VarChar(800)
+  objetivos          String @db.VarChar(800)
+  como_soy           String @db.VarChar(800)
+  idioma_materno     Json
+  idiomas_fluidos    Json
+  idiomas_aprendiendo Json
   idiomas            ClienteIdiomas[]
   publicaciones      Publicaciones[]
   comentarios        Comentarios[]
@@ -56,8 +59,8 @@ model Publicaciones {
   idioma         String
   imagen         String
   fecha_creacion DateTime      @default(now())
-  id_cliente     Int
-  cliente        Cliente      @relation(fields: [id_cliente], references: [id])
+  id_cliente     Int?
+  cliente        Cliente?      @relation(fields: [id_cliente], references: [id])
   Comentarios    Comentarios[]
   Likes          Likes[]
   Reportes       Reportes[]

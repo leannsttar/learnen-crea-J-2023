@@ -424,7 +424,7 @@ const PostCard = ({ keyProp, posts }) => {
             style={{
               clipPath: "circle(50% at 50% 50%)",
             }}
-            src={`http://localhost:5000${usuario.imagen_perfil}`}
+            src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
             alt=""
           />
           {/* {console.log(posts.cliente.imagen_perfil)} */}
@@ -432,7 +432,7 @@ const PostCard = ({ keyProp, posts }) => {
 
           <div className="flex flex-col ml-6">
             <h6 className="font-bold">
-              {usuario.nombre} {usuario.apellido}
+              {posts.cliente.nombre} {posts.cliente.apellido}
             </h6>
             <h6 className="text-sm">Hace {timeAgo}</h6>
           </div>
@@ -525,7 +525,7 @@ const PostCard = ({ keyProp, posts }) => {
                         <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
                           <div className="flex items-center gap-3">
                             <img
-                              src={`http://localhost:5000${usuario.imagen_perfil}`}
+                              src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
                               alt=""
                               className="w-10 "
                               object-cover
@@ -534,7 +534,7 @@ const PostCard = ({ keyProp, posts }) => {
                               }}
                             />
                             <p className="font-semibold">
-                              {usuario.nombre} {usuario.apellido}
+                              {posts.cliente.nombre} {posts.cliente.apellido}
                             </p>
                           </div>
                           <div>
