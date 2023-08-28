@@ -264,7 +264,7 @@ export function SignUp() {
   return (
     <>
       <div className="grid grid-cols-2 lgv:grid-cols-1 lgv:mt-36 gap-3 place-items-center font-Poppins">
-        <div className="flex flex-col space-y-12">
+        <div className="flex flex-col space-y-12 lgv:w-screen lgv:p-4">
           <div className="space-y-2">
             <h1 className="text-2xl font-bold">Crea una cuenta gratis</h1>
             <p>Únete a nuestra comunidad</p>
