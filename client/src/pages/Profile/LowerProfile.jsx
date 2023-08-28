@@ -18,7 +18,27 @@ export function LowerProfile({
   const [numPublicaciones, setNumPublicaciones] = useState(0);
   const [loadingImages, setLoadingImages] = useState(true); 
   const [errorImages, setErrorImages] = useState(null); 
+  useEffect(() => {
+    async function fetchUserImages() {
+      try {
+        const response = await clienteAxios.get(`/user/images/${usuarioPerfil.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
+        setUserImages(response.data.images);
+        setNumPublicaciones(response.data.numPublicaciones);
+        setLoadingImages(false); 
+      } catch (error) {
+        console.log("Error", error);
+        setErrorImages(error.message);
+        setLoadingImages(false); 
+      }
+    }
+
+    fetchUserImages();
+  }, [usuarioPerfil]);
 
 
   return (
