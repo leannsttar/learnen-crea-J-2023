@@ -33,12 +33,11 @@ export function Chat() {
 
     const { id } = useParams();
     const chat = useRef();
-
+    const sonidoNotificacion = useRef();
     const [usuariosChats, setUsuariosChats] = useState([]);
     const [usuarioPerfil, setUsuarioPerfil] = useState({})
 
     const { usuario } = useSession();
-    console.log("----------chat", usuario);
     const [messages, setMessages] = useState([]);
 
 
@@ -48,6 +47,9 @@ export function Chat() {
             try {
                 const { data: usuarioChat } = await clienteAxios("/usuarios/" + id);
                 setUsuarioPerfil(usuarioChat);
+                
+                const { data: misChats } = await clienteAxios("/mis-chats", headers())
+                setUsuariosChats(misChats)
 
                 socket.emit("unirse-chat", "chat-" + usuarioChat.id + "-" + usuario.id);
             } catch (error) {
@@ -92,8 +94,12 @@ export function Chat() {
 
     //Socket IO
     useEffect(() => {
-        socket.on('nuevo-mensaje', (mensaje) => {
+        socket.once('nuevo-mensaje', (mensaje) => {
             setMessages([...messages, mensaje])
+            sonidoNotificacion.current.pause();
+            sonidoNotificacion.current.currentTime = 0;
+            sonidoNotificacion.current.play();
+            console.log("mario.wav")
         })
         setTimeout(() => {
             chat.current.scrollTo(0, 99999999999999)
@@ -141,6 +147,9 @@ export function Chat() {
         <div className="container mx-auto font-Poppins">
             <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2 ">
                 <div className="font-semibold text-black text-4xl">Messages <span className='text-[#6F84CD] '>(2)</span></div>
+                <audio ref={sonidoNotificacion}>
+                    <source src='/mario.wav' type='audio/wav'/>
+                </audio>
                 {
                     id && (
                         <div className="w-1/2 flex items-center">
@@ -175,7 +184,7 @@ export function Chat() {
                     </div>
 
                     <div className="flex flex-col overflow-y-auto">
-                        {messages.length && usuariosChats.map((user) => (
+                        {usuariosChats.map((user) => (
                             <Link
                                 to={"/chat/" + user.id}
                                 key={user.id}
@@ -192,9 +201,9 @@ export function Chat() {
                                 <div className="w-full ml-4">
                                     <div className="flex justify-between items-center">
                                         <div className="text-lg font-semibold">{user.nombre} {user.apellido}</div>
-                                        <div className="text-gray-600 text-sm">{user.id==id ? timeAgoSincePublication(messages[messages.length-1].fecha) : timeAgoSincePublication(user.mensajes[0].fecha)}</div>
+                                        <div className="text-gray-600 text-sm">{user.id==id && messages.length ? timeAgoSincePublication(messages[messages.length-1].fecha) : timeAgoSincePublication(user.mensajes[0].fecha)}</div>
                                     </div>
-                                    <span className="text-gray-500">{user.id==id ? messages[messages.length-1].mensaje :user.mensajes[0].mensaje}</span>
+                                    <p className="text-gray-500 max-w-[20ch] truncate">{user.id==id && messages.length ? messages[messages.length-1].mensaje :user.mensajes[0].mensaje}</p>
                                 </div>
                             </Link>
                         ))}
