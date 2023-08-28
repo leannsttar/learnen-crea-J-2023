@@ -6,14 +6,14 @@ export function ArticleCopi_2() {
   const dataCards = [
     {
         url:"/blog/article/info/card-1",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "El políglota más famoso:",
       p: "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
       img: "/assets/p-card1.jpg",
     },
     {
         url:"/blog/article/info/card-3",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "El idioma más hablado:",
       p: "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
       img: "/assets/p-card3.jpg",
@@ -58,7 +58,7 @@ export function ArticleCopi_2() {
             </p>
             <h3 className="mt-24 font-bold">Otro ejemplo</h3>
             <p className="mt-2 mb-6">
-              es "hygge" en danés. Esta palabra se refiere a una sensación de
+              "Hygge" en danés. Esta palabra se refiere a una sensación de
               calidez, comodidad y bienestar que se obtiene al disfrutar de
               momentos simples de la vida, como estar en casa con seres
               queridos, encender velas y disfrutar de una taza de té caliente.
@@ -93,7 +93,7 @@ export function ArticleCopi_2() {
             <div className=" flex justify-center ">
               <h1 className="text-2xl -mb-16 my-12 font-semibold text-center">
                 Articulos <br />
-                Recomendados
+                recomendados
               </h1>
             </div>
             <div className=" pb-14">
@@ -112,8 +112,7 @@ export function ArticleCopi_2() {
                       <h4 className="mt-4 text-base">{card.p}</h4>
                       <hr className="mt-12" />
                       <p className="text-sm absolute bottom-2 right-10">
-                        2 días
-                      </p>
+                      <span className="text-indigo-600"> Learnen</span>                      </p>
                     </div>
                   </div>
                   </Link>

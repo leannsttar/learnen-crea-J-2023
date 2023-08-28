@@ -72,7 +72,7 @@ model Comentarios {
   id_cliente     Int
   id_publicacion Int
   cliente        Cliente       @relation(fields: [id_cliente], references: [id])
-  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id])
+  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Likes {
@@ -80,7 +80,7 @@ model Likes {
   id_publicacion Int
   id_cliente     Int
   cliente        Cliente       @relation(fields: [id_cliente], references: [id])
-  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id])
+  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Reportes {
@@ -89,7 +89,7 @@ model Reportes {
   id_cliente     Int
   id_publicacion Int
   cliente        Cliente       @relation(fields: [id_cliente], references: [id])
-  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id])
+  publicacion    Publicaciones @relation(fields: [id_publicacion], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Follows {

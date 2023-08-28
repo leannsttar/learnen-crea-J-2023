@@ -6,14 +6,14 @@ export function ArticleCopi_4() {
   const dataCards = [
     {
       url: "/blog/article/info/card-3",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "El idioma más hablado:",
       p: "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
       img: "/assets/p-card3.jpg",
     },
     {
       url: "/blog/article/info/card-5",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Aprender mientras duermes:",
       p: "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado.",
       img: "/assets/p-card5.jpg",
@@ -49,7 +49,7 @@ export function ArticleCopi_4() {
               comunicación humana y cómo hemos pasado de sistemas de escritura
               más complejos a formas más eficientes y accesibles.
             </p>
-            <h3 className="mt-24 font-bold">Primeros Sistemas de Escritura:</h3>
+            <h3 className="mt-24 font-bold">Primeros sistemas de escritura:</h3>
             <p className="mt-2 mb-6">
               Los sistemas de escritura más antiguos solían ser pictográficos,
               en los que los símbolos representaban objetos físicos y conceptos.
@@ -59,7 +59,7 @@ export function ArticleCopi_4() {
               complicados y requerían aprender una gran cantidad de símbolos
               para representar todas las palabras y conceptos.
             </p>
-            <h3 className="mt-24 font-bold">La Invención del Alfabeto:</h3>
+            <h3 className="mt-24 font-bold">La invención del alfabeto:</h3>
             <p className="mt-2 mb-6">
               La idea detrás del alfabeto es asignar un símbolo a un sonido
               específico, en lugar de a un objeto o concepto. Esta innovación
@@ -89,7 +89,7 @@ export function ArticleCopi_4() {
             <div className=" flex justify-center ">
               <h1 className="text-2xl -mb-16 my-12 font-semibold text-center">
                 Articulos <br />
-                Recomendados
+                recomendados
               </h1>
             </div>
             <div className=" pb-14">
@@ -110,8 +110,7 @@ export function ArticleCopi_4() {
                         <h4 className="mt-4 text-base">{card.p}</h4>
                         <hr className="mt-12" />
                         <p className="text-sm absolute bottom-2 right-10">
-                          2 días
-                        </p>
+                        <span className="text-indigo-600"> Learnen</span>                        </p>
                       </div>
                     </div>
                   </Link>

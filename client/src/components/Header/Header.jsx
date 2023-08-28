@@ -293,7 +293,7 @@ export function Header() {
                       : linksClass.nonactive
                   }
                 >
-                  Home
+                  Inicio
                 </Link>
                 {isLoggedIn ? (
                   <Link
@@ -304,7 +304,7 @@ export function Header() {
                         : linksClass.nonactive
                     }
                   >
-                    Posts
+                    Publicaciones
                   </Link>
                 ) : (
                   ""
@@ -348,7 +348,7 @@ export function Header() {
 
             {isLoggedIn ? (
               <div className="lg:flex lg:gap-5 lg:items-center hidden ">
-                <NotificationsMenu />
+                {/* <NotificationsMenu /> */}
                 {/* <Link
                   to={"/notifications"}
                   className="rounded-full hover:bg-[#e6e6e6] p-1"

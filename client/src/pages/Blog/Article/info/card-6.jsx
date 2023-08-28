@@ -6,14 +6,14 @@ export function ArticleCopi_6() {
   const dataCards = [
     {
       url: "/blog/article/info/card-5",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Aprender mientras duermes:",
       p: "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado.",
       img: "/assets/p-card5.jpg",
     },
     {
       url: "/blog/article/info/card-1",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "El políglota más famoso:",
       p: "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
       img: "/assets/p-card1.jpg",
@@ -55,7 +55,7 @@ export function ArticleCopi_6() {
               debido a las variaciones en la gramática y el léxico de esas
               lenguas.
             </p>
-            <h3 className="mt-24 font-bold">Lenguas de Signos Nacionales:</h3>
+            <h3 className="mt-24 font-bold">Lenguas de signos nacionales:</h3>
             <p className="mt-2 mb-6">
               Cada país o comunidad tiene su propia lengua de signos nacional,
               que es una forma completa y rica de comunicación visual y gestual.
@@ -74,7 +74,7 @@ export function ArticleCopi_6() {
               es esencial para interactuar de manera significativa y respetuosa.
             </p>
             <h3 className="mt-24 font-bold">
-              El Futuro de la Comunicación Gestual:
+              El futuro de la comunicación gestual:
             </h3>
             <p className="mt-2 mb-6">
               A medida que la conciencia sobre la importancia de las lenguas de
@@ -92,7 +92,7 @@ export function ArticleCopi_6() {
             <div className=" flex justify-center ">
               <h1 className="text-2xl -mb-16 my-12 font-semibold text-center">
                 Articulos <br />
-                Recomendados
+                recomendados
               </h1>
             </div>
             <div className=" pb-14">
@@ -113,8 +113,7 @@ export function ArticleCopi_6() {
                         <h4 className="mt-4 text-base">{card.p}</h4>
                         <hr className="mt-12" />
                         <p className="text-sm absolute bottom-2 right-10">
-                          2 días
-                        </p>
+                        <span className="text-indigo-600"> Learnen</span>                        </p>
                       </div>
                     </div>
                   </Link>

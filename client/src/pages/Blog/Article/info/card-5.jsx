@@ -6,14 +6,14 @@ export function ArticleCopi_5() {
   const dataCards = [
     {
         url: "/blog/article/info/card-4",
-        language: "Sobre Idiomas",
+        language: "Sobre idiomas",
         title: "Orígenes del alfabeto: ",
         p: "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto",
         img: "/assets/p-card4.jpg",
     },
     {
       url: "/blog/article/info/card-6",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Idioma de signos universal",
       p: "El International Sign es una forma de comunicación gestual utilizada en eventos internacionales para superar las barreras lingüísticas entre personas sordas de diferentes países. Aunque no es un idioma en sí mismo, permite una comunicación básica.",
       img: "/assets/p-card6.jpg",
@@ -53,7 +53,7 @@ export function ArticleCopi_5() {
               en la investigación son mixtos.
             </p>
             <h3 className="mt-24 font-bold">
-              El Mito del Aprendizaje Activo Durante el Sueño:
+              El mito del aprendizaje activo durante el sueño:
             </h3>
             <p className="mt-2 mb-6">
               Aunque la idea de aprender mientras duermes puede parecer
@@ -64,7 +64,7 @@ export function ArticleCopi_5() {
               conocimientos o habilidades complejas mientras se duerme.
             </p>
             <h3 className="mt-24 font-bold">
-              La Importancia del Aprendizaje Activo:
+              La importancia del aprendizaje activo:
             </h3>
             <p className="mt-2 mb-6">
               A pesar de la idea de aprender mientras duermes, el consenso
@@ -76,7 +76,7 @@ export function ArticleCopi_5() {
             </p>
             <h3 className="mt-24 font-bold">En resumen:</h3>
             <p className="mt-2 mb-6">
-              aunque el concepto de aprender mientras duermes ha capturado la
+              Aunque el concepto de aprender mientras duermes ha capturado la
               imaginación de muchas personas, la evidencia científica no
               respalda de manera concluyente la efectividad de este enfoque. El
               sueño es valioso para la consolidación de la memoria, pero el
@@ -92,7 +92,7 @@ export function ArticleCopi_5() {
             <div className=" flex justify-center ">
               <h1 className="text-2xl -mb-16 my-12 font-semibold text-center">
                 Articulos <br />
-                Recomendados
+                recomendados
               </h1>
             </div>
             <div className=" pb-14">
@@ -113,8 +113,7 @@ export function ArticleCopi_5() {
                         <h4 className="mt-4 text-base">{card.p}</h4>
                         <hr className="mt-12" />
                         <p className="text-sm absolute bottom-2 right-10">
-                          2 días
-                        </p>
+                        <span className="text-indigo-600"> Learnen</span> </p>
                       </div>
                     </div>
                   </Link>

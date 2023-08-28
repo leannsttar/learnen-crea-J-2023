@@ -51,7 +51,6 @@ export function Profile() {
 
     })()
   }, [id])
-  
 
   if (cargando) return <p>Cargando...</p>
 

@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Fade, Flip } from 'react-reveal';
+import { Fade, Flip } from "react-reveal";
 import { motion } from "framer-motion";
 import { Element } from "react-scroll";
 import people from "../../assets/peopleIndex.jpg";
@@ -62,11 +62,11 @@ export function IndexStart() {
             }
           />
           <div className="">
-            <p className="font-normal text-[30px] text-[#6c6d75] ml-2" >
+            <p className="font-normal text-[30px] text-[#6c6d75] ml-2">
               Aprende e
             </p>
             <p className="font-[700] text-[#242635] text-[80px] 800:text-[120px] leading-[4rem] 800:leading-[9rem]">
-             Interactúa
+              Interactúa
             </p>
           </div>
           <img
@@ -116,27 +116,33 @@ export function IndexCard() {
   const cardsData = [
     {
       imgSrc: "/assets/Male.png",
-      description: "Rob: Salut! Je parle anglais, mais j'aimerais pratiquer mon allemand. Peux-tu me donner quelques conseils pour améliorer ma prononciation en allemand ?",
+      description:
+        "Rob: Salut! Je parle anglais, mais j'aimerais pratiquer mon allemand. Peux-tu me donner quelques conseils pour améliorer ma prononciation en allemand ?",
     },
     {
       imgSrc: "/assets/Male(1).png",
-      description: "Mark: Ciao! Vorrei esercitarmi con il mio tedesco. Possiamo parlare di cucina tedesca? Ho sentito dire che i piatti tradizionali sono deliziosi!",
+      description:
+        "Mark: Ciao! Vorrei esercitarmi con il mio tedesco. Possiamo parlare di cucina tedesca? Ho sentito dire che i piatti tradizionali sono deliziosi!",
     },
     {
       imgSrc: "/assets/Male(2).png",
-      description: "Joel: ¡Hola! Quiero practicar mi alemán. ¿Podemos hablar sobre deportes en Alemania? Me interesa saber qué deportes son populares allí.",
+      description:
+        "Joel: ¡Hola! Quiero practicar mi alemán. ¿Podemos hablar sobre deportes en Alemania? Me interesa saber qué deportes son populares allí.",
     },
     {
       imgSrc: "/assets/Female.png",
-      description: "Nat: Olá! Falo inglês, mas quero praticar meu alemão. Poderíamos conversar sobre pontos turísticos na Alemanha? Tenho planos de visitar o país em breve.",
+      description:
+        "Nat: Olá! Falo inglês, mas quero praticar meu alemão. Poderíamos conversar sobre pontos turísticos na Alemanha? Tenho planos de visitar o país em breve.",
     },
     {
       imgSrc: "/assets/Female(1).png",
-      description: "Ana: Hallo! Ik spreek Engels, maar ik wil graag mijn Duits oefenen. Kunnen we praten over Duitse muziek? Ik ben benieuwd naar welke artiesten populair zijn.",
+      description:
+        "Ana: Hallo! Ik spreek Engels, maar ik wil graag mijn Duits oefenen. Kunnen we praten over Duitse muziek? Ik ben benieuwd naar welke artiesten populair zijn.",
     },
     {
       imgSrc: "/assets/Female(2).png",
-      description: "kiyoko: こんにちは！英語は話せますが、ドイツ語の練習をしたいです。ドイツの伝統文化について話しませんか？お祭りや行事など興味があります。",
+      description:
+        "kiyoko: こんにちは！英語は話せますが、ドイツ語の練習をしたいです。ドイツの伝統文化について話しませんか？お祭りや行事など興味があります。",
     },
   ];
 
@@ -155,7 +161,11 @@ export function IndexCard() {
         <div className="overflow-x-auto w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 max-w-7xl mx-4">
             {cardsData.map((card, index) => (
-              <Element key={index} className="flex justify-center overflow-hidden" name={`card-${index}`}>
+              <Element
+                key={index}
+                className="flex justify-center overflow-hidden"
+                name={`card-${index}`}
+              >
                 <Flip left delay={index * 200}>
                   <div className="relative w-full">
                     <img src={card.imgSrc} alt="" className="w-full" />
@@ -172,11 +182,12 @@ export function IndexCard() {
 
       <Element className="flex items-center justify-center mt-8">
         <Fade bottom delay={500}>
-          <Link to="/community"><button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl hover:scale-105 hover: transition-scale ease-in duration-200">
-            Únete a la comunidad
-          </button></Link>
+          <Link to="/community">
+            <button className="flex items-center justify-center shadow-circle border-2 border-black bg-gray-300 gap-6 h-8 py-7 px-12 text-xl hover:scale-105 hover: transition-scale ease-in duration-200">
+              Únete a la comunidad
+            </button>
+          </Link>
         </Fade>
-
       </Element>
     </div>
   );
@@ -232,7 +243,11 @@ export function IndexSteps() {
       <div className="flex flex-col mt-20 mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-32 gap-y-8">
           {dataCards.map((card, index) => (
-            <Element key={index} className="flex flex-col items-center mb-8" name={`card-${index}`}>
+            <Element
+              key={index}
+              className="flex flex-col items-center mb-8"
+              name={`card-${index}`}
+            >
               <Fade bottom delay={index * 300}>
                 <img className="w-3/5 mb-4 md:w-3/5" src={card.img} alt="" />
                 <div className="flex flex-col items-center">
@@ -252,24 +267,23 @@ export function IndexBlog() {
   const dataCards = [
     {
       url: "/blog/article/info/card-1",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "El políglota más famoso:",
       p: "Ziad Fazah es un libanés que ostenta el récord Guinness por hablar 59 idiomas. Su capacidad lingüística excepcional lo ha llevado a ser un maestro del lenguaje y a brindar conferencias sobre la importancia de la comunicación intercultural.",
       img: "/assets/p-card1.jpg",
-      
     },
     {
       url: "/blog/article/info/card-2",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Palabras intraducibles:",
       p: "Algunos idiomas contienen términos que no pueden traducirse directamente a otros idiomas debido a su singularidad cultural. Por ejemplo, saudade en portugués describe una sensación de profunda nostalgia y añoranza.",
       img: "/assets/p-card2.jpg",
     },
     {
       url: "/blog/article/info/card-3",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "El idioma más hablado:",
-      p: "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
+      p: "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes; sin duda un gran reto.",
       img: "/assets/p-card3.jpg",
     },
   ];
@@ -283,21 +297,31 @@ export function IndexBlog() {
         <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
             <Link to={card.url} key={index}>
-            <Element  className="mb-8 w-96 mx-4"
-              name={`card-${index}`}>
-              <Fade bottom delay={index * 300}>
-                <div className="relative">
-                  <img src={card.img} className="w-full h-56 object-cover" alt="" />
-                </div>
-                <div className="bg-white p-10 relative">
-                  <h6 className="text-blue-400 text-sm">{card.language}</h6>
-                  <h2 className="mt-4 font-bold text-[1.3rem]">{card.title}</h2>
-                  <h4 className="mt-4 text-base">{card.p}</h4>
-                  <hr className="mt-12" />
-                  <p className="text-sm absolute bottom-2 right-10">2 días</p>
-                </div>
-              </Fade>
-            </Element>
+              <Element className="mb-8 w-96 mx-4" name={`card-${index}`}>
+                <Fade bottom delay={index * 300}>
+                  <div className="relative">
+                    <img
+                      src={card.img}
+                      className="w-full h-56 object-cover"
+                      alt=""
+                    />
+                  </div>
+                  <div className="bg-white p-10 relative">
+                    <h6 className="text-blue-400 text-sm">{card.language}</h6>
+                    <h2 className="mt-4 font-bold text-[1.3rem]">
+                      {card.title}
+                    </h2>
+                    <h4 className="mt-4 text-base">{card.p}</h4>
+                    <hr className="mt-12" />
+                    <p className="text-sm absolute bottom-2 right-10">
+                      <span className="text-indigo-600" translate="no">
+                        {" "}
+                        Learnen
+                      </span>
+                    </p>
+                  </div>
+                </Fade>
+              </Element>
             </Link>
           ))}
         </div>
@@ -314,15 +338,21 @@ export function Slider() {
       id: 1,
       image: "/assets/slider1.png",
       quote:
-        "Desde que alguien se cortó el pelo todo se arruinó, todo era lindo",
-      author: "Nacely Orellana",
+        "Learnen me ha permitido abrir mi brecha laboral, gracias a su formato de aprendizaje.",
+      author: "Beatriz Rivera",
     },
     {
       id: 2,
       image: "/assets/leandro.png",
       quote:
-        "Desearía no haberme cortado el pelo, todo valió desde ese día",
-      author: "Leandro Valencia",
+        "El contexto educativo de Learnen me parece fascinante, aprendo y me divierto.",
+      author: "Rodrigo Pineda",
+    },
+    {
+      id: 3,
+      image: "/assets/Group3.png",
+      quote: "Me volví más sociable y conseguí amigos gracias a Learnen",
+      author: "Daniela Milla",
     },
   ];
 
@@ -363,8 +393,9 @@ export function Slider() {
                 {slides.map((slide, index) => (
                   <span
                     key={slide.id}
-                    className={`w-3 h-3 rounded-full bg-gray-500 ${activeIndex === index && "bg-blue-500"
-                      }`}
+                    className={`w-3 h-3 rounded-full bg-gray-500 ${
+                      activeIndex === index && "bg-blue-500"
+                    }`}
                     onClick={() => handleSlideChange(index)}
                   ></span>
                 ))}

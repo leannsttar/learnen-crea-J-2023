@@ -7,23 +7,23 @@ import { Link } from "react-router-dom";
 const data = [
   {
     src: "/assets/slider-blog1.jpg",
-    text: "Nacely Orellana",
+    text: "¡Celebremos la hermosa diversidad de idiomas!",
   },
   {
     src: "/assets/slider-blog2.jpg",
-    text: "Leandro Valencia",
+    text: "Únete a nuestro viaje de aprendizaje de idiomas mientras nos conectamos con hablantes de todo el mundo.",
   },
   {
     src: "/assets/slider-blog3.jpg",
-    text: "Estos son los nombres de esta historia",
+    text: "Celebremos el intercambio cultural.",
   },
   {
     src: "/assets/slider-blog4.jpg",
-    text: "Historia de un amor inolvidable",
+    text: "Ampliemos horizontes y creemos conexiones globales a través del poder de las palabras.",
   },
   {
     src: "/assets/slider-blog5.jpg",
-    text: "Que vivirá siempre en el corazón de todos",
+    text: "Learnen",
   },
 ];
 
@@ -79,14 +79,11 @@ export function CardPrincipal() {
               <div className="flex flex-col bg-custom-bg w-[60%] lgv:w-[80%] lgv:bg-none bg-cover h-fit rounded">
                 <div className="flex flex-col w-[50%] overflow-hidden">
                   <h1 className="text-4xl mt-10 ml-10">
-                    Something about <br /> lenguages
+                  Récord de  <br /> alfabetos
                   </h1>
-                  <p className="mt-8 ml-10">Rodri Pineda</p>
+                  <p className="mt-8 ml-10">Datos que te harán volar</p>
                   <p className="mt-8 ml-10">
-                    Los idiomas, tejidos de comunicación, reflejan la identidad
-                    de sociedades. Aprendizaje amplía horizontes, revelando
-                    culturas y creencias. Traducción conecta, compartiendo
-                    visiones, enriqueciendo un mundo diverso y entrelazado.
+                  El etíope tiene la mayor cantidad de formas únicas de escritura de las letras en cualquier alfabeto del mundo: ¡un total de 345 caracteres!
                   </p>
                 </div>
               </div>
@@ -95,10 +92,10 @@ export function CardPrincipal() {
                   <h3 className="mt-4 ml-8 font-bold text-xl">Top posters</h3>
 
                   <div className="flex flex-row ml-6 mt-6 mb-6">
-                    <img className="w-[60px]" src="/assets/Group3.png" alt="" />
+                    <img className="w-[60px]" src="/assets/leandro.png" alt="" />
                     <div className="flex flex-col">
-                      <p className="ml-4">Andrea Wise</p>
-                      <p className="ml-4 mt-2 text-xs">135 Articles</p>
+                      <p className="ml-4">Fernando Alexander</p>
+                      <p className="ml-4 mt-2 text-xs">Creador del contenido</p>
                     </div>
                   </div>
                 </div>
@@ -122,35 +119,35 @@ export function CardsBlog() {
     },
     {
       url: "/blog/article/info/card-2",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Palabras intraducibles:",
       p: "Algunos idiomas contienen términos que no pueden traducirse directamente a otros idiomas debido a su singularidad cultural. Por ejemplo, saudade en portugués describe una sensación de profunda nostalgia y añoranza.",
       img: "/assets/p-card2.jpg",
     },
     {
       url: "/blog/article/info/card-3",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "El idioma más hablado:",
-      p: "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes.",
+      p: "El chino mandarín es el idioma con más hablantes nativos en el mundo, superando los mil millones. Su compleja estructura y los tonos tonales hacen que sea un desafío intrigante para los estudiantes; sin duda un gran reto.",
       img: "/assets/p-card3.jpg",
     },
     {
       url: "/blog/article/info/card-4",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Orígenes del alfabeto:",
-      p: "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo para dar lugar a lo que hoy conocemos como el alfabeto.",
+      p: "El alfabeto que usamos en gran parte del mundo, incluyendo inglés y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí, donde las antiguas inscripciones hebreas evolucionaron con el tiempo produciendo lo actual.",
       img: "/assets/p-card4.jpg",
     },
     {
       url: "/blog/article/info/card-5",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Aprender mientras duermes:",
-      p: "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado",
+      p: "Aunque la idea de aprender mientras duermes ha sido objeto de debate, algunos estudios sugieren que la exposición a un idioma durante el sueño puede ayudar a familiarizarse con los sonidos, aunque no con el significado, tú decides si creerlo, suena interesante, ¿no?",
       img: "/assets/p-card5.jpg",
     },
     {
       url: "/blog/article/info/card-6",
-      language: "Sobre Idiomas",
+      language: "Sobre idiomas",
       title: "Idioma de signos universal:",
       p: "El International Sign es una forma de comunicación gestual utilizada en eventos internacionales para superar las barreras lingüísticas entre personas sordas de diferentes países. Aunque no es un idioma en sí mismo, permite una comunicación básica.",
       img: "/assets/p-card6.jpg",
@@ -179,7 +176,7 @@ export function CardsBlog() {
                     </h2>
                     <h4 className="mt-4 text-base">{card.p}</h4>
                     <hr className="mt-12" />
-                    <p className="text-sm absolute bottom-2 right-10">2 días</p>
+                    <p className="text-sm absolute bottom-2 right-10"><span className="text-indigo-600"> Learnen</span></p>
                   </div>
                 </Fade>
               </Element>

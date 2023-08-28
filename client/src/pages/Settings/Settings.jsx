@@ -41,7 +41,7 @@ export function Settings() {
             />
             <LinkMiniNav
               layout={layout}
-              name="Sobre Mi"
+              name="Sobre mí"
               onClick={() => changeLayout("Sobre Mi")}
             />
             <LinkMiniNav
@@ -51,7 +51,7 @@ export function Settings() {
             />
             <LinkMiniNav
               layout={layout}
-              name="Likes"
+              name="Me gusta"
               onClick={() => changeLayout("Likes")}
             />
             {/* <LinkMiniNav

@@ -34,7 +34,7 @@ export function AboutProfile({ usuarioPerfil }) {
         <Accordion open={open === 0}>
           <AccordionHeader onClick={() => handleOpen(1)}>
             <div className="flex justify-center">
-              <p className="font-semibold text-[23px]">About {usuarioPerfil.nombre}</p>
+              <p className="font-semibold text-[23px]">Sobre {usuarioPerfil.nombre}</p>
             </div>
           </AccordionHeader>
           <AccordionBody>
