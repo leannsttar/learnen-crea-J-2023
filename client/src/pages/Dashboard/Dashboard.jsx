@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AsideMenu } from "./AsideMenu.jsx";
 import { Navbar } from "./NavBar.jsx";
 import axios from 'axios';
-
+import { clienteAxios } from "../../config/clienteAxios.js";
 export const InfoCard = ({ title, value, icon }) => {
   return (
     <div className="flex-1 mb-4 m-2 flex items-center p-4 gap-3 rounded-2xl border border-purple-100 bg-white">
@@ -27,9 +27,9 @@ export const AdminCard = ({ admin }) => {
       key={admin.id}
       className="relative p-4 rounded-2xl flex flex-col items-center w-52 gap-4 bg-white ml-16"
     >
-      <button className="absolute top-0 right-0 text-gray rounded-full p-2">
+      {/* <button className="absolute top-0 right-0 text-gray rounded-full p-2">
         X
-      </button>
+      </button> */}
       <img
         className="w-20 h-20 rounded-full mb-2"
         src={admin.foto}
@@ -87,15 +87,15 @@ export function Dashboard() {
     {
       id: 1,
       foto: "/src/assets/administrador.png",
-      nombre: "Rodrigo Pineda",
-      puesto: "Diseñador",
+      nombre: "Rodri Pineda",
+      puesto: " Administrador",
     },
-    {
-      id: 1,
-      foto: "/src/assets/administrador.png",
-      nombre: "Leandro Valencia",
-      puesto: "Nancero",
-    }
+    // {
+    //   id: 1,
+    //   foto: "/src/assets/administrador.png",
+    //   nombre: "Leandro Valencia",
+    //   puesto: "Nancero",
+    // }
   ];
 
   const lastUsersData = [
@@ -112,6 +112,53 @@ export function Dashboard() {
       avatar: "/src/assets/chica-usuario.png",
     } 
   ];
+
+  const [totalUsers, setTotalUsers] = useState(0);
+
+  useEffect(() => {
+    async function fetchTotalUsers() {
+      try {
+        const response = await clienteAxios.get('/dashboard/countUsers'); 
+        setTotalUsers(response.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    fetchTotalUsers();
+  }, []);
+
+
+  const [totalPosts, setTotalPosts] = useState(0);
+
+  useEffect(() => {
+    async function fetchTotalPosts() {
+      try {
+        const response = await clienteAxios.get('/dashboard/countPosts'); 
+        setTotalPosts(response.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    fetchTotalPosts();
+  }, []);
+
+  const [totalReports, setTotalReports] = useState([]);
+
+  useEffect(() => {
+    async function fetchReports() {
+      try {
+        const response = await clienteAxios.get('/dashboard/allReports');
+        setTotalReports(response.data);
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    }
+
+    fetchReports();
+  }, []);
+
 
   return (
     <div className="flex h-screen">
@@ -131,27 +178,27 @@ export function Dashboard() {
           <div className="grid grid-cols-2 max-w-xl ml-16">
             <InfoCard
               title="Usuarios"
-              value="100"
+              value={totalUsers}
               icon="/src/assets/users-div.png"
             />
             <InfoCard
               title="Publicaciones"
-              value="678"
+              value={totalPosts}
               icon="/src/assets/file-div.png"
             />
             <InfoCard
               title="Reportes"
-              value="45"
+              value={totalReports.length}
               icon="/src/assets/reports-div.png"
             />
             <InfoCard
               title="Artículos"
-              value="345"
+              value={6}
               icon="/src/assets/articles-div.png"
             />
           </div>
           
-          <div className="text-2xl font-bold mb-6 mt-20 ml-16">Administradores</div>
+          <div className="text-2xl font-bold mb-6 mt-20 ml-16">Administrador</div>
           <div className="flex flex-row gap-12">
             {administradoresData.map((administrador) => (
               <AdminCard key={administrador.id} admin={administrador} />

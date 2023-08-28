@@ -146,7 +146,6 @@ export function Chat() {
     return (
         <div className="container mx-auto font-Poppins">
             <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2 ">
-                <div className="font-semibold text-black text-4xl">Mensajes</div>
                 <div className="font-semibold text-black text-4xl">Messages <span className='text-[#6F84CD] '>(2)</span></div>
                 <audio ref={sonidoNotificacion}>
                     <source src='/mario.wav' type='audio/wav'/>
@@ -175,7 +174,7 @@ export function Chat() {
             </div>
 
             <div className="flex flex-row justify-between bg-white">
-                <div className={`flex flex-col ${id ? 'h-[calc(100vh-205px)]' : 'h-[calc(100vh-186px)]'} w-2/5 border-r-2 overflow-y-auto`}>
+                <div className={`flex flex-col ${id ? 'h-[calc(100vh-205px)]' : 'h-[calc(100vh-186px)]'} w-2/5 lgv:w-full border-r-2 overflow-y-auto`}>
                     <div className="border-b-2 py-4 px-2">
                         <input
                             type="text"
@@ -260,7 +259,7 @@ export function Chat() {
 
 
                         </div>)
-                        : <div className=' border-red-600 w-full flex justify-center items-center'>
+                        : <div className=' border-red-600 w-full flex justify-center items-center lgv:hidden'>
                             <p className='font-black text-4xl text-center'>Da click a un nuevo chat</p>
                         </div>
                 }

@@ -76,7 +76,7 @@ export function CardPrincipal() {
             </p>
 
             <div className="flex flex-row flex-wrap justify-center mx-auto pl-24 pr-24 mb-32">
-              <div className="flex flex-col bg-custom-bg w-[60%] bg-cover h-[500px] rounded">
+              <div className="flex flex-col bg-custom-bg w-[60%] lgv:w-[80%] lgv:bg-none bg-cover h-fit rounded">
                 <div className="flex flex-col w-[50%] overflow-hidden">
                   <h1 className="text-4xl mt-10 ml-10">
                   Récord de  <br /> alfabetos
@@ -88,8 +88,8 @@ export function CardPrincipal() {
                 </div>
               </div>
               <div>
-                <div className="flex flex-col bg-gray-100 ml-20 w-full rounded flex-grow">
-                  <h3 className="mt-4 ml-8 font-bold text-xl">Blogs</h3>
+                <div className="flex flex-col bg-gray-100 lgv:mt-10 lgv:w-96 lgv:ml-0 ml-20 w-full rounded flex-grow">
+                  <h3 className="mt-4 ml-8 font-bold text-xl">Top posters</h3>
 
                   <div className="flex flex-row ml-6 mt-6 mb-6">
                     <img className="w-[60px]" src="/assets/leandro.png" alt="" />

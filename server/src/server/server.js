@@ -33,7 +33,9 @@ const {
     allAdmins,
     createAdmin,
     deleteAdmin,
-    updateAdmin
+    updateAdmin,
+    getAllReports,
+    authenticateAdmin
 } = require("../controladores/dashboard-controlador")
 const {updatePhoto, updateProfileInfo, updateAccountInfo, getLikedPosts} = require("../controladores/settings-controlador");
 const Usuariosrouter = require("../routes/obtenerUsuarios-routes.js");
@@ -96,10 +98,15 @@ app.delete('/delete-post/:id', auth, deletePost)
 
 app.get("/user/images/:id", auth, getUserImages);
 
-
+//weas del admin xd
 app.get("/dashboard/countUsers", countUsers);
 app.get("/dashboard/countPosts", countPosts);
 app.get("/dashboard/countLanguages", countLanguages);
+app.get('/dashboard/allReports', getAllReports);
+app.use('/admin', authenticateAdmin);
+
+
+
 
 app.get("/dashboard/lenguajes", allLanguages);
 app.post("/dashboard/lenguajes", upload.single("imagen_bandera"), createLanguage);

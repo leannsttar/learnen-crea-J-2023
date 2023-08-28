@@ -29,12 +29,12 @@ export function ArticleCopi_6() {
             src="/assets/fondo_articles1.jpg"
             alt=""
           />
-          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white">
-            Idioma de signos universal:
+          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white text-center">
+            Idioma de signos universal
           </p>
         </div>
 
-        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 lgv:border-b-2 h-max  overflow-hidden pt-24 p-12 ">
+        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 lgv:border-b-2 h-max overflow-hidden pt-24 p-12 ">
           <div className="border-r lgv:border-none border-gray-300 p-8 ">
             <p className="mt-6 mb-6">
               La Lengua de Signos Internacional (IS) es un sistema de

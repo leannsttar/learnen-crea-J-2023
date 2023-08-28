@@ -29,14 +29,14 @@ export function ArticleCopi_1() {
             src="/assets/fondo_articles1.jpg"
             alt=""
           />
-          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white">
+          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white text-center">
             El políglota más famoso
           </p>
         </div>
 
-        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 h-max  overflow-hidden pt-24 p-12 ">
+        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 h-max overflow-hidden pt-24 p-12 ">
           <div className="border-r lgv:border-none lgv:border-b border-gray-300 p-8 ">
-            <p className="mt-6 mb-6">
+            <p className="mb-6">
               Ziad Fazah es un nombre ampliamente reconocido en el mundo de los
               políglotas y el aprendizaje de idiomas. Nacido en Liberia en 1954
               y criado en Líbano, Ziad es conocido por su habilidad excepcional

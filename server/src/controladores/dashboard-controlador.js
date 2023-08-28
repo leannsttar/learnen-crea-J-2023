@@ -28,6 +28,17 @@ const countPosts = async (req, res) => {
   }
 };
 
+const getAllReports = async (req, res) => {
+  try {
+    const reports = await prisma.reportes.findMany();
+    return res.status(200).json(reports);
+  } catch (error) {
+    console.log(reports);
+
+    return res.status(500).json({ error: "Error al obtener los reportes" });
+  }
+};
+
 const countLanguages = async (req, res) => {
   try {
     const languages = await prisma.idiomas.count();
@@ -258,6 +269,24 @@ const updateAdmin = async (req, res) => {
   }
 };
 
+//Login del admin xd
+
+const authenticateAdmin = async (email, contrasenia) => {
+  try {
+    const admin = await prisma.administradores.findFirst({
+      where: {
+        email,
+        contrasenia,
+      },
+    });
+
+    return admin !== null;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 module.exports = {
   countUsers,
   countLanguages,
@@ -271,4 +300,6 @@ module.exports = {
   createAdmin,
   deleteAdmin,
   updateAdmin,
+  getAllReports,
+  authenticateAdmin
 };

@@ -29,14 +29,14 @@ export function ArticleCopi_4() {
             src="/assets/fondo_articles1.jpg"
             alt=""
           />
-          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white">
-            Orígenes del alfabeto:
+          <p className="absolute top-0 left-0 w-full h-[79%] flex items-center justify-center text-5xl text-white text-center">
+            Orígenes del alfabeto
           </p>
         </div>
 
-        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 h-max  overflow-hidden pt-24 p-12 ">
+        <div className="grid grid-cols-[1fr_500px] lgv:grid-cols-1 h-max overflow-hidden pt-24 p-12 ">
           <div className="border-r lgv:border-none border-gray-300 p-8 ">
-            <p className="mt-6 mb-6">
+            <p className="mb-6">
               El alfabeto que usamos en gran parte del mundo, incluyendo inglés
               y muchos otros idiomas, tiene sus raíces en el antiguo Sinaí,
               donde las antiguas inscripciones hebreas evolucionaron con el
