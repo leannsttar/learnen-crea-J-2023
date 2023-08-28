@@ -13,7 +13,7 @@ export function LowerProfile({
   setFollowersCount,
   followersCount,
   followingsCount,
-}) 
+}) {
   const [userImages, setUserImages] = useState([]);
   const [numPublicaciones, setNumPublicaciones] = useState(0);
   const [loadingImages, setLoadingImages] = useState(true); 
