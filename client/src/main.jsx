@@ -289,7 +289,7 @@ const routes = [
             exit={{ opacity: 0, y: 100 }}
             transition={{ duration: 2 }}
           >
-            <div className="grid grid-cols-[max-content_1fr]">
+            <div className="md:grid grid-cols-[max-content_1fr]">
               <AsideMenu />
               <Lenguajes />
             </div>
@@ -311,7 +311,7 @@ const routes = [
             exit={{ opacity: 0, y: 100 }}
             transition={{ duration: 2 }}
           >
-            <div className="grid grid-cols-[max-content_1fr]">
+            <div className="md:grid grid-cols-[max-content_1fr]">
               <AsideMenu />
               <Usuarios />
             </div>
@@ -353,7 +353,7 @@ const routes = [
             exit={{ opacity: 0, y: 100 }}
             transition={{ duration: 2 }}
           >
-            <div className="grid grid-cols-[max-content_1fr]">
+            <div className="md:grid grid-cols-[max-content_1fr]">
               <AsideMenu />
               <Reportes />
             </div>

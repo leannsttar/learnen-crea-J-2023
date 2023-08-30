@@ -17,9 +17,8 @@ export default {
       '450': '450px',
       '400': '400px',
       'lg': '1024px',
+      'md': "720px",
       'lgv': {'raw': '(orientation: portrait) and (min-height: 500px)'},
-
-
     },
     extend: {
       boxShadow: {
