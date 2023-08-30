@@ -92,21 +92,36 @@ export function SignUp() {
   console.log(state.mother_language);
   console.log(state.languages);
 
+  const isValidPassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@.]).{8,}$/;
+  
+    return passwordRegex.test(password);
+  };
+
+
   const sendRegister = async () => {
     try {
-      const res = await axios.postForm(
-        "http://localhost:5000/auth/register",
-        state,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      toast.success("Formulario enviado exitosamente");
-      console.log(state);
-      // <Redirect to="/login" />;
-    } catch (error) {
-      console.log(error);
+    if (!isValidPassword(state.password)) {
+      toast.error("La contraseña no cumple con los requisitos.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
     }
+
+    const res = await axios.postForm(
+      "http://localhost:5000/auth/register",
+      state,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    toast.success("Formulario enviado exitosamente");
+    console.log(state);
+    // <Redirect to="/login" />;
+  } catch (error) {
+    console.log(error);
+  }
   };
 
   const [passwordMatch, setPasswordMatch] = useState(true);
@@ -373,7 +388,7 @@ export function SignUp() {
                       className="px-2 py-2 text-xl rounded-md text-[#FF8399] hover:text-red-500"
                     >
                       <div className="flex flex-row items-center space-x-2">
-                        <div>Following</div>
+                        <div onClick={sendRegister}>Continuar</div>
                         <div>
                           <svg
                             className="w-8"

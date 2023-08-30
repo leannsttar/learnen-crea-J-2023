@@ -56,8 +56,10 @@ const feedData = {
   comments: 13,
 };
 
+
 const PostCard = ({ keyProp, posts, setPosts }) => {
   const { usuario } = useSession();
+
 
   let [isOpen, setIsOpen] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
@@ -209,17 +211,6 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
     setIsOpenReport(true);
   }
 
-  const items = [
-    {
-      key: "1",
-      label: <button onClick={openModalDelete}>Eliminar</button>,
-      danger: true,
-    },
-    {
-      key: "2",
-      label: <button onClick={openModalReport}>Reportar</button>,
-    },
-  ];
 
   let matchingLanguage;
 
@@ -277,7 +268,6 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
       console.error(error);
     }
   };
-
 
   return (
     <div key={keyProp} className="flex flex-col items-center mt-16">
@@ -443,7 +433,17 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
             <Space wrap>
               <Dropdown
                 menu={{
-                  items,
+                  items:[
+                    usuario.id == posts.cliente.id && {
+                      key: "1",
+                      label: <button onClick={openModalDelete}>Eliminar</button>,
+                      danger: true,
+                    },
+                    {
+                      key: "2",
+                      label: <button onClick={openModalReport}>Reportar</button>,
+                    },
+                  ]
                 }}
                 placement="bottomLeft"
               >
@@ -545,7 +545,16 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
                               <Space wrap>
                                 <Dropdown
                                   menu={{
-                                    items,
+                                    items: [
+                                      {
+                                        label: <button onClick={openModalDelete}>Eliminar</button>,
+                                        danger: true,
+                                      },
+                                      {
+                                        key: "2",
+                                        label: <button onClick={openModalReport}>Reportar</button>,
+                                      },
+                                    ]
                                   }}
                                   placement="bottomLeft"
                                 >
