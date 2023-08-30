@@ -241,7 +241,7 @@ export function IndexSteps() {
       </div>
 
       <div className="flex flex-col mt-20 mb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-32 gap-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-32 gap-y-8">
           {dataCards.map((card, index) => (
             <Element
               key={index}

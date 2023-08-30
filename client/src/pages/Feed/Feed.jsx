@@ -733,11 +733,11 @@ const BlogSection = () => {
       </h1>
       {blogData.map((card, index) => (
         <Link to={card.url} key={index}>
-          <div className="flex flex-row mt-12 p-8">
-            <img className="w-[170px] h-[120px]" src={card.image} alt="" />
-            <div className="flex flex-col">
-              <p className="font-bold text-xl ml-6">{card.title}</p>
-              <p className="ml-6 mt-4">{card.content}</p>
+          <div className="flex flex-row flex-wrap mt-12 p-8 pr-6">
+            <img className="w-[170px] h-[120px]  lgv:w-[275px] lgv:h-[175px] mr" src={card.image} alt="" />
+            <div className="flex flex-col pr-4">
+              <p className="font-bold text-xl ml-4">{card.title}</p>
+              <p className="ml-4 mt-4">{card.content}</p>
             </div>
           </div>
         </Link>
@@ -1056,7 +1056,7 @@ export function Feed() {
               <PostCard keyProp={post.id} posts={post} key={post.id} setPosts={setPosts} />
             ))}
         </div>
-        <div className="border-l border-solid border-black md:flex lgv:hidden sm:hidden">
+        <div className="border-l border-solid border-black">
           <PeopleSection />
           <BlogSection />
         </div>
