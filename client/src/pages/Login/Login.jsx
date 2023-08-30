@@ -46,12 +46,26 @@ export function Login() {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  
+    return emailRegex.test(email);
+  };
+
   const handleFormSubmit = () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
     if (!email || !password) {
       toast.error("Porfavor llena todos los campos.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      toast.warning("El email debe de tener un @, después uno o mas carácteres alfanuméricos y al menos dos caracteres después del punto", {
         position: "top-right",
         autoClose: 3000,
       });
@@ -116,16 +130,7 @@ export function Login() {
     }
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-//admin
-  const handleLogin = () => {
-    if (email === "admin@gmail.com" && password === "123456") {
-      navigate("/dashboard");
-    } else {
-      console.error("Credenciales incorrectas");
-    }
-  };
+ 
 
   return (
     <form action="post" onSubmit={handleSubmit(handleFormSubmit)}>
@@ -147,7 +152,7 @@ export function Login() {
                   </label>
                   <input
                     className="p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg"
-                    type="email"
+                    type="text"
                     {...register("email")}
                     name="email"
                     placeholder="Por favor introduzca su correo electrónico"
