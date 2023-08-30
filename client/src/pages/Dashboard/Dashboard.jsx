@@ -161,54 +161,54 @@ export function Dashboard() {
 
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       {/* AsideMenu reutilizable para las demás páginas XD */}
       <AsideMenu onLogout={() => console.log("Cerrar sesión")} />
 
       {/* Main content de lo demás */}
-      <div className="w-full bg-gray-100">
+      <div className="w-full bg-gray-100 pb-12">
         {/* Navbar */}
         <Navbar
           userName="Hola Rodri"
           userRole="Cargo"
           userAvatar="/src/assets/chica-admin.png"
         />
-        <div className="grid grid-cols-[1fr_max-content] p-4 gap-6 max-w-6xl ml-12">
-        <div className="">
-          <div className="grid grid-cols-2 max-w-xl ml-16">
-            <InfoCard
-              title="Usuarios"
-              value={totalUsers}
-              icon="/src/assets/users-div.png"
-            />
-            <InfoCard
-              title="Publicaciones"
-              value={totalPosts}
-              icon="/src/assets/file-div.png"
-            />
-            <InfoCard
-              title="Reportes"
-              value={totalReports.length}
-              icon="/src/assets/reports-div.png"
-            />
-            <InfoCard
-              title="Artículos"
-              value={6}
-              icon="/src/assets/articles-div.png"
-            />
+        <div className="flex flex-col md:grid grid-cols-[1fr_max-content] md:p-4 gap-6 max-w-6xl md:ml-12">
+          <div className="">
+            <div className="flex flex-col md:grid grid-cols-2 max-w-xl md:ml-16">
+              <InfoCard
+                title="Usuarios"
+                value={totalUsers}
+                icon="/src/assets/users-div.png"
+              />
+              <InfoCard
+                title="Publicaciones"
+                value={totalPosts}
+                icon="/src/assets/file-div.png"
+              />
+              <InfoCard
+                title="Reportes"
+                value={totalReports.length}
+                icon="/src/assets/reports-div.png"
+              />
+              <InfoCard
+                title="Artículos"
+                value={6}
+                icon="/src/assets/articles-div.png"
+              />
+            </div>
+
+          {/* LastUsers */}
+          <LastUsers users={lastUsersData} />
           </div>
-          
-          <div className="text-2xl font-bold mb-6 mt-20 ml-16">Administrador</div>
+        </div>
+
+        <div className="text-2xl font-bold mb-6 mt-20 ml-16">Administrador</div>
           <div className="flex flex-row gap-12">
             {administradoresData.map((administrador) => (
               <AdminCard key={administrador.id} admin={administrador} />
             ))}
           </div>
-        </div>
-
-        {/* LastUsers */}
-        <LastUsers users={lastUsersData} />
-        </div>
         
       </div>
     </div>

@@ -20,7 +20,7 @@ export const AsideMenu = ({ onLogout }) => {
       }
     `}
       </style>
-      <aside className="pl-4 pr-8 mr-4 flex flex-col justify-between h-screen relative w-[317px]">
+      <aside className="md:flex pl-4 pr-8 mr-4 hidden flex-col justify-between h-screen relative w-[317px]">
         <div>
           <div className="flex flex-row items-center mb-4 p-4">
             <img className="w-18 h-16" src="/assets/learnen.png" alt="Ícono" />

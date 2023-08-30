@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { MessageModal } from "../../../components/modalMessages/MessageModal.jsx";
 
 import selectPhoto from "../../../assets/ssd.svg";
+import { Navbar } from "../NavBar.jsx";
 
 export const FlagCard = ({
   flagImg,
@@ -81,7 +82,7 @@ export const FlagCard = ({
 
   const onSubmitLanguage = async (data) => {
 
-    
+
     const { imagen_bandera, idioma } = getValues();
 
     if (selectedImage === `http://localhost:5000${idiomaBandera}` && idioma.trim() === idiomaIdioma) {
@@ -97,7 +98,7 @@ export const FlagCard = ({
 
     setValue("imagen_bandera", imageFile);
 
-    
+
 
     // if (!/^[A-Za-z\s]+$/.test(idioma)) {
     //   toast.warning(
@@ -127,12 +128,12 @@ export const FlagCard = ({
   return (
     <>
       <div key={keyProp} className="flex justify-between items-start ">
-      <MessageModal
-        to={"/settings"}
-        message="Idioma actualizado"
-        success
-        open={isMessageOpen}
-      />
+        <MessageModal
+          to={"/settings"}
+          message="Idioma actualizado"
+          success
+          open={isMessageOpen}
+        />
         <div className="flex flex-row items-center gap-6 justify-between w-[25rem]">
           <div className="flex items-center gap-6">
             <img
@@ -261,7 +262,7 @@ export const FlagCard = ({
       {isDeleteModalOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
-          // onClick={closeDeleteModal}
+        // onClick={closeDeleteModal}
         >
           <div className="bg-white rounded-lg p-8 w-544">
             <div className="flex flex-col items-center">
@@ -408,167 +409,132 @@ export const Lenguajes = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-        
-        <div className="bg-white rounded shadow-md p-10 flex flex-col items-start h-4/5 w-4/5 gap-8 mt-4 overflow-y-auto">
-          <button
-            onClick={openCreateModal}
-            className="flex items-center gap-3 px-5 py-2.5 shadow-square border border-black bg-[#FFE9E9] hover:bg-[#FFD0D0] hover:transition-bg ease-in duration-200"
-          >
-            <AiOutlinePlus className="w-6 h-6" />
-            <p>Crear un nuevo idioma</p>
-          </button>
-          <div className="flex flex-wrap gap-x-5 gap-y-10 p-8 w-full justify-between">
-            {lenguajes &&
-              lenguajes.map((lenguaje) => (
-                <FlagCard
-                  flagImg={lenguaje.imagen_bandera}
-                  idioma={lenguaje}
-                  keyProp={lenguaje.id}
-                  buttonImg1="/src/assets/Pencil.png"
-                  buttonImg2="/src/assets/delete.png"
-                />
-              ))}
-          </div>
-          <ToastContainer />
-          <Transition appear show={isCreateModalOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-10 h-screen"
-              onClose={closeCreateModal}
-            >
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
-              </Transition.Child>
-
-              <div className="fixed inset-0 overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4 text-center">
-                  <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                  >
-                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                      <Dialog.Title
-                        as="h3"
-                        className="text-lg font-medium leading-6 text-gray-900"
-                      ></Dialog.Title>
-                      <form onSubmit={handleSubmit(onSubmitLanguage)}>
-                        <h2 className="text-2xl font-bold mb-6">
-                          Crear Idioma
-                        </h2>
-                        <div className="mb-6">
-                          <p className="font-semibold text-gray-800">
-                            Adjuntar Bandera
-                          </p>
-                          <label
-                            className="cursor-pointer rounded-lg border-gray-400 bg-light-light flex flex-col justify-center items-center"
-                            htmlFor="modalImg"
-                          >
-                            <img
-                              src={selectedImage}
-                              alt=""
-                              className="w-48 h-48 rounded-full object-cover cursor-pointer"
-                            />
-                            <input
-                              type="file"
-                              accept="image/*"
-                              onChange={handleImageUpload}
-                              className="hidden"
-                              id="modalImg"
-                            />
-                            <p className="mt-5 text-sm">Agregar una imagen</p>
-                          </label>
-                        </div>
-                        <div className="mb-6">
-                          <p className="font-semibold text-gray-800">Nombre</p>
-                          <input
-                            {...register("idioma")}
-                            type="text"
-                            className="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-pinkish"
-                          />
-                          <button
-                            type="submit"
-                            className="bg-pinkish text-white px-4 py-2 rounded font-semibold mt-2 w-full"
-                          >
-                            Crear idioma
-                          </button>
-                        </div>
-                        <div className="flex justify-end">
-                          <button
-                            className="px-4 py-2 bg-red-600 text-white rounded font-semibold"
-                            onClick={closeCreateModal}
-                          >
-                            Cerrar
-                          </button>
-                        </div>
-                        <input
-                          type="text"
-                          className="hidden"
-                          {...register("imagen_bandera")}
-                        />
-                      </form>
-                    </Dialog.Panel>
-                  </Transition.Child>
-                </div>
-              </div>
-            </Dialog>
-          </Transition>
-
-          {/* {isCreateModalOpen && (
-        <div
-          className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
-          // onClick={closeCreateModal}
-        >
-          <div className="bg-white rounded-lg p-8 w-544 h-451">
-            <h2 className="text-2xl font-bold mb-6">Crear Idioma</h2>
-            <div className="mb-6">
-              <p className="font-semibold text-gray-800">Subir Bandera</p>
-              <label
-                className="my-2 p-4 border h-48 rounded-lg border-dashed border-gray-400 bg-light-light flex flex-col justify-center items-center"
-                htmlFor="modalImg"
-              >
-                <img
-                  src="/src/assets/dragfile.png"
-                  className="absolute w-[100px] h-[100px] object-contain rounded-lg"
-                />
-                <input type="file" className="hidden" id="modalImg" />
-                <p className="absolute mt-36 text-sm">Agregar una imagen</p>
-              </label>
-            </div>
-            <div className="mb-6">
-              <p className="font-semibold text-gray-800">Nombre</p>
-              <input
-                type="text"
-                className="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-pinkish"
-              />
-              <button className="bg-pinkish text-white px-4 py-2 rounded font-semibold mt-2 w-full">
-                Actualizar
-              </button>
-            </div>
-            <div className="flex justify-end">
-              <button
-                className="px-4 py-2 bg-red-600 text-white rounded font-semibold"
-                onClick={closeCreateModal}
-              >
-                Cerrar
-              </button>
-            </div>
-          </div>
+      <div className="flex flex-col h-screen bg-gray-100">
+        <div className="w-full">
+          <Navbar
+            userName="Hola Rodri"
+            userRole="Cargo"
+            userAvatar="/src/assets/chica-admin.png"
+          />
         </div>
-      )} */}
+        <div className="p-4">
+          <div className="bg-white rounded shadow-md p-10 flex flex-col items-start gap-8 mt-4 overflow-y-auto">
+            <button
+              onClick={openCreateModal}
+              className="flex items-center gap-3 px-5 py-2.5 shadow-square border border-black bg-[#FFE9E9] hover:bg-[#FFD0D0] hover:transition-bg ease-in duration-200"
+            >
+              <AiOutlinePlus className="w-6 h-6" />
+              <p>Crear un nuevo idioma</p>
+            </button>
+            <div className="flex flex-wrap gap-x-5 gap-y-10 p-8 w-full justify-between">
+              {lenguajes &&
+                lenguajes.map((lenguaje) => (
+                  <FlagCard
+                    flagImg={lenguaje.imagen_bandera}
+                    idioma={lenguaje}
+                    keyProp={lenguaje.id}
+                    buttonImg1="/src/assets/Pencil.png"
+                    buttonImg2="/src/assets/delete.png"
+                  />
+                ))}
+            </div>
+            <ToastContainer />
+            <Transition appear show={isCreateModalOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="relative z-10 h-screen"
+                onClose={closeCreateModal}
+              >
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 overflow-y-auto">
+                  <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                        <Dialog.Title
+                          as="h3"
+                          className="text-lg font-medium leading-6 text-gray-900"
+                        ></Dialog.Title>
+                        <form onSubmit={handleSubmit(onSubmitLanguage)}>
+                          <h2 className="text-2xl font-bold mb-6">
+                            Crear Idioma
+                          </h2>
+                          <div className="mb-6">
+                            <p className="font-semibold text-gray-800">
+                              Adjuntar Bandera
+                            </p>
+                            <label
+                              className="cursor-pointer rounded-lg border-gray-400 bg-light-light flex flex-col justify-center items-center"
+                              htmlFor="modalImg"
+                            >
+                              <img
+                                src={selectedImage}
+                                alt=""
+                                className="w-48 h-48 rounded-full object-cover cursor-pointer"
+                              />
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                className="hidden"
+                                id="modalImg"
+                              />
+                              <p className="mt-5 text-sm">Agregar una imagen</p>
+                            </label>
+                          </div>
+                          <div className="mb-6">
+                            <p className="font-semibold text-gray-800">Nombre</p>
+                            <input
+                              {...register("idioma")}
+                              type="text"
+                              className="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-pinkish"
+                            />
+                            <button
+                              type="submit"
+                              className="bg-pinkish text-white px-4 py-2 rounded font-semibold mt-2 w-full"
+                            >
+                              Crear idioma
+                            </button>
+                          </div>
+                          <div className="flex justify-end">
+                            <button
+                              className="px-4 py-2 bg-red-600 text-white rounded font-semibold"
+                              onClick={closeCreateModal}
+                            >
+                              Cerrar
+                            </button>
+                          </div>
+                          <input
+                            type="text"
+                            className="hidden"
+                            {...register("imagen_bandera")}
+                          />
+                        </form>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
+                </div>
+              </Dialog>
+            </Transition>
+          </div>
         </div>
       </div>
     </>
