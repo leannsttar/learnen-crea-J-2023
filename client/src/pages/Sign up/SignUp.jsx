@@ -60,7 +60,7 @@ export function SignUp() {
     const fechaActual = new Date();
     const diferenciaTiempo = fechaActual - fechaNacimientoObj;
     const edadAnios = diferenciaTiempo / (1000 * 60 * 60 * 24 * 365.25);
-console.log(edadAnios);
+    console.log(edadAnios);
 
     if (edadAnios == NaN) {
       return console.log('error');
@@ -73,10 +73,10 @@ console.log(edadAnios);
         ...prevState,
         BirthDate: fechaNacimientoObj,
       }));
-      setState({...state, BirthDate: fechaNacimientoObj})
+      setState({ ...state, BirthDate: fechaNacimientoObj })
       next()
     }
-    
+
   };
 
   const [lenguajes, setLenguajes] = useState(null);
@@ -161,37 +161,35 @@ console.log(edadAnios);
     });
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    return emailRegex.test(email);
+  };
+
   const next = () => {
     if (!passwordMatch) {
       toast.warn("Las contraseñas no coinciden");
       return;
     }
 
-
-
-
-    
-    if (!isValidPassword(state.password)) {
-      toast.error("La contraseña no cumple con los requisitos.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return;
-    }
-
-
     if (
       (formNo === 1 && state.email && state.password && state.password_ok) ||
-      (formNo === 2 && state.Name && state.Lastname && state.BirthDate) ||
+      (formNo === 2 && state.Name && state.Lastname && st
+        (formNo === 4 && state.photoProfile) || ate.BirthDate) ||
       (formNo === 3 && state.sex) ||
-      (formNo === 4 && state.photoProfile) ||
       (formNo === 5 && state.mother_language) ||
       (formNo === 6 && state.more_languages) ||
       (formNo === 7 && state.languages)
     ) {
       setFormNo(formNo + 1);
     } else {
-      if (formNo === 4 && !state.photoProfile) {
+      if (formNo === 1 && !isValidEmail(state.email)) {
+        toast.warning("El email debe ser una dirección válida de @gmail.com", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+      else if (formNo === 4 && !state.photoProfile) {
         setFormNo(formNo + 1);
       } else if (formNo === 5 && !state.mother_language) {
         toast.error("Por favor selecciona al menos un idioma materno");
@@ -233,6 +231,7 @@ console.log(edadAnios);
     });
     updateIdioma(idioma);
   };
+
 
   const selectIdioma = (idioma) => {
     if (idiomasSeleccionados.includes(idioma)) {
@@ -334,11 +333,10 @@ console.log(edadAnios);
                     <div className={`my-6`}></div>
                     {i !== formArray.length - 1 && (
                       <div
-                        className={`w-full h-[7px] ${
-                          formNo === i + 2 || formNo === formArray.length
-                            ? "bg-black"
-                            : "bg-slate-400"
-                        }`}
+                        className={`w-full h-[7px] ${formNo === i + 2 || formNo === formArray.length
+                          ? "bg-black"
+                          : "bg-slate-400"
+                          }`}
                       ></div>
                     )}
                   </>
@@ -367,9 +365,8 @@ console.log(edadAnios);
                       Contraseña<span className="text-red-600">*</span>
                     </label>
                     <div
-                      className={`relative ${
-                        passwordMatch ? "" : "border-red-600"
-                      }`}
+                      className={`relative ${passwordMatch ? "" : "border-red-600"
+                        }`}
                     >
                       <input
                         value={state.password}
@@ -426,6 +423,7 @@ console.log(edadAnios);
                     <button
                       onClick={next}
                       className="px-2 py-2 text-xl rounded-md text-[#FF8399] hover:text-red-500"
+                      disabled={!isValidEmail(state.email)}
                     >
                       <div className="flex flex-row items-center space-x-2">
                         <div onClick={sendRegister}>Continuar</div>
@@ -490,9 +488,8 @@ console.log(edadAnios);
                     <DatePicker
                       selected={state.BirthDate}
                       onChange={(date) => handleDateChange(date)}
-                      className={`p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg ${
-                        !isValidDate ? "border-red-600" : ""
-                      }`}
+                      className={`p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg ${!isValidDate ? "border-red-600" : ""
+                        }`}
                     />
                     {!isValidDate && (
                       <>
@@ -800,11 +797,10 @@ console.log(edadAnios);
                           <div
                             key={idioma.id}
                             onClick={() => selectIdioma(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${
-                              idiomasSeleccionados.includes(idioma)
-                                ? "border-[#FF8399]"
-                                : "border-stone-200"
-                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionados.includes(idioma)
+                              ? "border-[#FF8399]"
+                              : "border-stone-200"
+                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
@@ -882,11 +878,10 @@ console.log(edadAnios);
                           <div
                             key={idioma.id}
                             onClick={() => selectIdiomaLearning(idioma)}
-                            className={`p-[14px] w-full border-b-2 ${
-                              idiomasSeleccionadosLearning.includes(idioma)
-                                ? "border-[#FF8399]"
-                                : "border-stone-200"
-                            } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
+                            className={`p-[14px] w-full border-b-2 ${idiomasSeleccionadosLearning.includes(idioma)
+                              ? "border-[#FF8399]"
+                              : "border-stone-200"
+                              } hover:bg-stone-200 bg-stone-50 justify-start items-center gap-3.5 inline-flex cursor-pointer`}
                           >
                             <img
                               className="w-8"
