@@ -125,10 +125,11 @@ export function SignUp() {
   console.log(state.languages);
 
   const isValidPassword = (password) => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@.]).{8,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
 
     return passwordRegex.test(password);
   };
+
 
   const sendRegister = async () => {
     try {
@@ -174,8 +175,8 @@ export function SignUp() {
 
     if (
       (formNo === 1 && state.email && state.password && state.password_ok) ||
-      (formNo === 2 && state.Name && state.Lastname && st
-        (formNo === 4 && state.photoProfile) || ate.BirthDate) ||
+      (formNo === 2 && state.Name && state.Lastname && state.BirthDate) ||
+        (formNo === 4 && state.photoProfile) || 
       (formNo === 3 && state.sex) ||
       (formNo === 5 && state.mother_language) ||
       (formNo === 6 && state.more_languages) ||
@@ -183,8 +184,8 @@ export function SignUp() {
     ) {
       setFormNo(formNo + 1);
     } else {
-      if (formNo === 1 && !isValidEmail(state.email)) {
-        toast.warning("El email debe ser una dirección válida de @gmail.com", {
+      if (formNo === 1 && !isValidEmail(state.email) && !isValidPassword(state.password)) {
+        toast.warning("El email debe ser una dirección válida de @gmail.com, y tambiena a contraseña", {
           position: "top-right",
           autoClose: 3000,
         });
@@ -359,6 +360,9 @@ export function SignUp() {
                       id="email"
                       required
                     />
+                    {!isValidEmail(state.email) && (
+                      <p className="text-red-600">El correo debe ser válido y terminar en @gmail.com.</p>
+                    )}
                   </div>
                   <div className="flex flex-col">
                     <label htmlFor="password">
@@ -379,6 +383,9 @@ export function SignUp() {
                         id="password"
                         required
                       />
+                      {!isValidPassword(state.password) && (
+                      <p className="text-red-600">La contraseña debe iniciar con mayúscula y mayor a 8 caracteres, entre ellos numeros y letras.</p>
+                    )}
                       <div
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
                         onClick={toggleShowPassword}
@@ -487,7 +494,12 @@ export function SignUp() {
                     </label>
                     <DatePicker
                       selected={state.BirthDate}
-                      onChange={(date) => handleDateChange(date)}
+                      //onChange={(date) => handleDateChange(date)}
+                      onChange={(date) =>
+                        inputHandle({
+                          target: { name: "BirthDate", value: date.$d },
+                        })
+                      }
                       className={`p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg ${!isValidDate ? "border-red-600" : ""
                         }`}
                     />
@@ -508,7 +520,7 @@ export function SignUp() {
                       Regresar
                     </button>
                     <button
-                      onClick={handleDateChange}
+                      onClick={next}
                       className="px-2 py-2 text-xl rounded-md w-full text-[#FF8399] hover:text-red-500"
                     >
                       Siguiente
