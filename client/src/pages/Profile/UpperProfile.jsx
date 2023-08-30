@@ -53,7 +53,7 @@ export function UpperProfile({ alreadyFollow, usuarioPerfil, followersCount, set
               <img
                 src={`http://localhost:5000${usuarioPerfil.imagen_perfil}`}
                 alt=""
-                className="rounded-full w-full h-full translate-y-[-80px] 800:translate-y-[-60px] object-cover"
+                className="rounded-full w-full h-full lgv:w-48 translate-y-[-80px] 800:translate-y-[-60px] object-cover"
                 style={{
                   clipPath: "circle(50% at 50% 50%)",
                 }}

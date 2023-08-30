@@ -132,14 +132,6 @@ console.log(edadAnios);
 
   const sendRegister = async () => {
     try {
-      if (!isValidPassword(state.password)) {
-        toast.error("La contraseña no cumple con los requisitos.", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-        return;
-      }
-
       const res = await axios.postForm(
         "http://localhost:5000/auth/register",
         state,
@@ -174,6 +166,20 @@ console.log(edadAnios);
       toast.warn("Las contraseñas no coinciden");
       return;
     }
+
+
+
+
+    
+    if (!isValidPassword(state.password)) {
+      toast.error("La contraseña no cumple con los requisitos.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+
     if (
       (formNo === 1 && state.email && state.password && state.password_ok) ||
       (formNo === 2 && state.Name && state.Lastname && state.BirthDate) ||
