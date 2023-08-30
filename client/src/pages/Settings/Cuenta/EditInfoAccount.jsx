@@ -173,7 +173,7 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
   const { register, handleSubmit, reset, getValues } = useForm();
 
   const onSubmit = async (data) => {
-    
+
     try {
       const mappedData = {
         [name]: inputValue,
@@ -204,8 +204,8 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
           success
           open={isMessageOpen}
         />
-        <div className="flex border-b-2 border-[#e2e2e2] py-4 text-[20px] justify-between">
-          <div className="flex gap-8">
+        <div className="flex flex-row flex-wrap border-b-2 border-[#e2e2e2] py-4 text-[20px] justify-between">
+          <div className="flex gap-8 lgv:gap-2">
             <p className="font-[600]">{dataName}</p>
             {/* Si esta en modo edición que se ponga ese input */}
             {onEdit ? (

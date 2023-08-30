@@ -116,16 +116,16 @@ export function ChangePhoto({ userPhoto }) {
     `}
       </style> */}
       <ToastContainer />
-      <div className="flex items-center gap-12 ">
+      <div className="flex flex-row flex-wrap lgv:justify-center items-center gap-12 ">
         <img
           src={`http://localhost:5000${usuario.imagen_perfil}`}
           alt=""
-          className="rounded-full w-[15rem] h-[15rem] object-cover"
+          className="rounded-full w-[15rem] h-[15rem] object-cover lgv:w-[10rem] lgv:h-[10rem]"
         />
         <button
           // onClick={() => setModal2Open(true)}
           onClick={openModal}
-          className=" hover:bg-[#364C97] bg-black text-white p-3 rounded-xl"
+          className=" hover:bg-[#364C97] bg-black text-white p-3 lgv:p-3 rounded-xl"
         >
           Cambiar foto de perfil
         </button>

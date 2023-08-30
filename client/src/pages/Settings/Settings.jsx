@@ -52,7 +52,7 @@ export function Settings() {
           <div className="min-h-screen flex flex-col items-center font-Poppins">
             <div className="mt-12 w-[90%] mb-16">
               <div className="flex justify-center items-center p-2">
-                <Select>
+                <Select className=" h-10">
                   <Option>
                     <LinkMiniNav
                       layout={layout}
