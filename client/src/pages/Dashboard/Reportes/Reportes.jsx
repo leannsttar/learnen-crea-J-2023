@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-export function Reportes() {
+export function Reportes(posts) {
   const [reportes, setReportes] = useState([]);
 
   useEffect(() => {
