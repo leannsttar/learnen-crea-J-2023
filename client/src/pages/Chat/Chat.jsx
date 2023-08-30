@@ -174,7 +174,7 @@ export function Chat() {
             </div>
 
             <div className="flex flex-row justify-between bg-white">
-                <div className={`flex flex-col ${id ? 'h-[calc(100vh-205px)]' : 'h-[calc(100vh-186px)]'} w-2/5 lgv:w-full border-r-2 overflow-y-auto`}>
+                <div className={`flex flex-col  ${id ? 'h-[calc(100vh-205px)]' : 'h-[calc(100vh-186px)]'} w-2/5 lgv:w-full border-r-2 overflow-y-auto`}>
                     {/* <div className="border-b-2 py-4 px-2">
                         <input
                             type="text"

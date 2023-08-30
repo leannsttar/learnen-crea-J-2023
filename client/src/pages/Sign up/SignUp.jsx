@@ -47,6 +47,38 @@ const LanguageFlags = [
 export function SignUp() {
   const { usuario } = useSession();
 
+  const [stateBirthDate, setStateBirthDate] = useState({
+    BirthDate: null,
+  });
+
+  const [isValidDate, setIsValidDate] = useState(true);
+
+
+  const handleDateChange = (date) => {
+
+    const fechaNacimientoObj = new Date(date);
+    const fechaActual = new Date();
+    const diferenciaTiempo = fechaActual - fechaNacimientoObj;
+    const edadAnios = diferenciaTiempo / (1000 * 60 * 60 * 24 * 365.25);
+console.log(edadAnios);
+
+    if (edadAnios == NaN) {
+      return console.log('error');
+    }
+    if (edadAnios <= 13) {
+      setIsValidDate(false);
+    } else {
+      setIsValidDate(true);
+      setStateBirthDate((prevState) => ({
+        ...prevState,
+        BirthDate: fechaNacimientoObj,
+      }));
+      setState({...state, BirthDate: fechaNacimientoObj})
+      next()
+    }
+    
+  };
+
   const [lenguajes, setLenguajes] = useState(null);
 
   const obtenerLenguajes = async () => {
@@ -94,34 +126,33 @@ export function SignUp() {
 
   const isValidPassword = (password) => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@.]).{8,}$/;
-  
+
     return passwordRegex.test(password);
   };
 
-
   const sendRegister = async () => {
     try {
-    if (!isValidPassword(state.password)) {
-      toast.error("La contraseña no cumple con los requisitos.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return;
-    }
-
-    const res = await axios.postForm(
-      "http://localhost:5000/auth/register",
-      state,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
+      if (!isValidPassword(state.password)) {
+        toast.error("La contraseña no cumple con los requisitos.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
       }
-    );
-    toast.success("Formulario enviado exitosamente");
-    console.log(state);
-    // <Redirect to="/login" />;
-  } catch (error) {
-    console.log(error);
-  }
+
+      const res = await axios.postForm(
+        "http://localhost:5000/auth/register",
+        state,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      toast.success("Formulario enviado exitosamente");
+      console.log(state);
+      // <Redirect to="/login" />;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const [passwordMatch, setPasswordMatch] = useState(true);
@@ -158,15 +189,22 @@ export function SignUp() {
         setFormNo(formNo + 1);
       } else if (formNo === 5 && !state.mother_language) {
         toast.error("Por favor selecciona al menos un idioma materno");
-      } else if (formNo === 6 && (!state.more_languages || state.more_languages.length === 0)) {
+      } else if (
+        formNo === 6 &&
+        (!state.more_languages || state.more_languages.length === 0)
+      ) {
         setFormNo(formNo + 1);
-      } else if (formNo === 7 && (!state.languages || state.languages.length === 0)) {
-        toast.error("Por favor selecciona al menos un idioma que quieres practicar");
+      } else if (
+        formNo === 7 &&
+        (!state.languages || state.languages.length === 0)
+      ) {
+        toast.error(
+          "Por favor selecciona al menos un idioma que quieres practicar"
+        );
       } else {
         toast.error("Por favor llena todos los campos");
       }
     }
-  
   };
 
   const pre = () => {
@@ -200,7 +238,7 @@ export function SignUp() {
     }
     setState({
       ...state,
-      more_languages: [...idiomasSeleccionados, idioma]
+      more_languages: [...idiomasSeleccionados, idioma],
     });
   };
 
@@ -209,17 +247,15 @@ export function SignUp() {
       updateIdiomasSeleccionadosLearning(
         idiomasSeleccionadosLearning.filter((item) => item !== idioma)
       );
-      
     } else {
       updateIdiomasSeleccionadosLearning([
         ...idiomasSeleccionadosLearning,
         idioma,
       ]);
-      
     }
     setState({
       ...state,
-      languages: [...idiomasSeleccionadosLearning, idioma]
+      languages: [...idiomasSeleccionadosLearning, idioma],
     });
   };
 
@@ -227,29 +263,27 @@ export function SignUp() {
     const updatedIdiomasSeleccionados = idiomasSeleccionados.filter(
       (item) => item !== idioma
     );
-  
+
     setState((prevState) => ({
       ...prevState,
       more_languages: updatedIdiomasSeleccionados,
     }));
-  
+
     updateIdiomasSeleccionados(updatedIdiomasSeleccionados);
   };
-  
+
   const eliminarIdiomaSeleccionadoLearning = (idioma) => {
-    const updatedIdiomasSeleccionadosLearning = idiomasSeleccionadosLearning.filter(
-      (item) => item !== idioma
-    );
-  
+    const updatedIdiomasSeleccionadosLearning =
+      idiomasSeleccionadosLearning.filter((item) => item !== idioma);
+
     setState((prevState) => ({
       ...prevState,
       languages: updatedIdiomasSeleccionadosLearning,
     }));
-  
+
     updateIdiomasSeleccionadosLearning(updatedIdiomasSeleccionadosLearning);
   };
-  
-  
+
   // Vista previa de la imagen
   const [previewImage, setPreviewImage] = useState(null);
 
@@ -449,13 +483,19 @@ export function SignUp() {
                     </label>
                     <DatePicker
                       selected={state.BirthDate}
-                      onChange={(date) =>
-                        inputHandle({
-                          target: { name: "BirthDate", value: date.$d },
-                        })
-                      }
-                      className="p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg"
+                      onChange={(date) => handleDateChange(date)}
+                      className={`p-2 mt-1 bg-slate-100 rounded-md focus:outline-none focus:shadow-lg ${
+                        !isValidDate ? "border-red-600" : ""
+                      }`}
                     />
+                    {!isValidDate && (
+                      <>
+                        {toast.error("La fecha no cumple con los requisitos.", {
+                          position: "top-right",
+                          autoClose: 3000,
+                        })}
+                      </>
+                    )}
                   </div>
                   <div className="mt-4 gap-3 flex justify-center items-center">
                     <button
@@ -465,7 +505,7 @@ export function SignUp() {
                       Regresar
                     </button>
                     <button
-                      onClick={next}
+                      onClick={handleDateChange}
                       className="px-2 py-2 text-xl rounded-md w-full text-[#FF8399] hover:text-red-500"
                     >
                       Siguiente

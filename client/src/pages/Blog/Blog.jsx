@@ -76,13 +76,13 @@ export function CardPrincipal() {
             </p>
 
             <div className="flex flex-row flex-wrap justify-center mx-auto pl-24 pr-24 mb-32">
-              <div className="flex flex-col bg-custom-bg w-[60%] lgv:w-[80%] lgv:bg-none bg-cover h-fit rounded">
-                <div className="flex flex-col w-[50%] overflow-hidden">
-                  <h1 className="text-4xl mt-10 ml-10">
-                  Récord de  <br /> alfabetos
+              <div className="flex flex-col bg-custom-bg w-[60%] lgv:w-[80%] lgv:w-full bg-cover h-fit rounded">
+                <div className="flex flex-col w-[50%] p-1">
+                  <h1 className="text-4xl mt-10 ml-10 ">
+                  Récord de alfabetos
                   </h1>
-                  <p className="mt-8 ml-10">Datos que te harán volar</p>
-                  <p className="mt-8 ml-10">
+                  <p className="mt-8 ml-10 ">Datos que te harán volar</p>
+                  <p className="mt-8 ml-10 ">
                   El etíope tiene la mayor cantidad de formas únicas de escritura de las letras en cualquier alfabeto del mundo: ¡un total de 345 caracteres!
                   </p>
                 </div>
