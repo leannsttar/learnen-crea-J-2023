@@ -1,6 +1,7 @@
 import { React, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSession } from '../Header/useSession';
+import learnen from '../../assets/learnen.png'
 
 
 export function Footer() {
@@ -9,7 +10,7 @@ export function Footer() {
       <div className="bg-[#1E2833] font-Poppins">
         <div className="flex flex-col items-center pt-16 pb-20 bottom-0 w-full">
             <Link to={"/"}>
-              <img className="w-[104px] h-[104px]" src="../../assets/learnen.png" alt="" />
+              <img className="w-[104px] h-[104px]" src={learnen} alt="" />
             </Link>
           <p className="text-white text-center pt-8 pb-8 text-lg italic">
             La red social donde todo el mundo <br />puede aprender y practicar.

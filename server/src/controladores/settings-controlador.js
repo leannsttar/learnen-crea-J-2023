@@ -168,9 +168,31 @@ const getLikedPosts = async (req, res) => {
 
 const updateUserLanguages = async (req, res) => {
   try {
-    const {id, } = req.body
+    const {id, idioma_materno, idiomas_fluidos, idiomas_aprendiendo } = req.body
+
+    console.log(req.body)
+
+    const languagesUpdated = await prisma.cliente.update({
+      where: {
+        id: +id
+      }, 
+      data: {
+        idioma_materno,
+        idiomas_fluidos,
+        idiomas_aprendiendo
+      }
+    })
+
+    return res.json({
+      message: "Idiomas actualizados",
+      data: languagesUpdated,
+    });
+
   } catch (error) {
-    
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Error al editar los idiomas" });
   }
 }
 
@@ -178,5 +200,6 @@ module.exports = {
   updatePhoto,
   updateProfileInfo,
   updateAccountInfo,
-  getLikedPosts
+  getLikedPosts,
+  updateUserLanguages
 };

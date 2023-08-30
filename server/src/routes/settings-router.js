@@ -19,5 +19,6 @@ router.put('/settings/imagen', upload.single("imagen_perfil")
 router.put('/settings/sobremi', settingsController.updateProfileInfo);
 router.put('/settings/cuentaInfo', settingsController.updateAccountInfo)
 router.get("/settings/likes/:id", settingsController.getLikedPosts)
+router.put("/settings/idiomas", settingsController.updateUserLanguages)
 
 module.exports = router;

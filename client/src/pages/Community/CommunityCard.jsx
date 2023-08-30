@@ -3,9 +3,13 @@ import { LanguagesCommunityCard } from "./LanguagesCommunityCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSession } from "../../components/Header/useSession"
 
 export function CommunityCard({ searchText }) {
   const [usuarios, setUsuarios] = useState([]);
+
+  const {usuario} = useSession()
+  console.log(usuario)
 
   const obtenerUsuarios = async () => {
     try {
@@ -32,7 +36,7 @@ export function CommunityCard({ searchText }) {
   return (
     <div className="flex flex-wrap gap-8 w-full justify-start items-center 800:flex-row flex-col">
       {filteredUsuarios.length === 0 ? (
-        <p className="text-lg font-bold">No se encontraron usuarios</p>
+        <p className="text-lg font-bold">{usuario ? "No se encontraron usuarios" : "Debes iniciar sesión para ver a los usuarios"}</p>
       ) : (
         filteredUsuarios.map((usuario) => (
           <Link

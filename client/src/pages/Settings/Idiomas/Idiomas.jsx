@@ -43,32 +43,33 @@ export function Idiomas() {
         languages={usuario.idioma_materno}
         allUserLanguages={{
           motherLanguages: [usuario.idioma_materno.idioma, usuario.idioma_materno.imagen_bandera],
-          fluentLanguages: usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]),
+          fluentLanguages: usuario.idiomas_fluidos ? usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]) : [],
           learningLanguages: usuario.idiomas_aprendiendo.map(idioma => [idioma.idioma, idioma.imagen_bandera])
         }}
         native
         allLanguages={lenguajes}
       />
-      {usuario.idiomas_fluidos && (
+      
         <DiffLanguages
           label="También hablo"
-          languages={usuario.idiomas_fluidos}
+          languages={usuario.idiomas_fluidos ? usuario.idiomas_fluidos : []}
           allUserLanguages={{
             motherLanguages: [usuario.idioma_materno.idioma, usuario.idioma_materno.imagen_bandera],
-            fluentLanguages: usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]),
+            
+            fluentLanguages: usuario.idiomas_fluidos ? usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]) : [],
             learningLanguages: usuario.idiomas_aprendiendo.map(idioma => [idioma.idioma, idioma.imagen_bandera])
           }}
           fluent
           allLanguages={lenguajes}
         />
-      )}
+     
 
       <DiffLanguages
         label="Estoy aprendiendo"
         languages={usuario.idiomas_aprendiendo}
         allUserLanguages={{
           motherLanguages: [usuario.idioma_materno.idioma, usuario.idioma_materno.imagen_bandera],
-          fluentLanguages: usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]),
+          fluentLanguages: usuario.idiomas_fluidos ? usuario.idiomas_fluidos.map(idioma => [idioma.idioma, idioma.imagen_bandera]) : [],
           learningLanguages: usuario.idiomas_aprendiendo.map(idioma => [idioma.idioma, idioma.imagen_bandera])
         }}
         learning

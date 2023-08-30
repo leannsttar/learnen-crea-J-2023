@@ -2,7 +2,7 @@ import React from "react";
 import editProfile from "../../../assets/editProfile.svg";
 
 
-export function EditButtonLanguages({ size, fontSize, onClick }) {
+export function EditButtonLanguages({ size, fontSize, onClick, text }) {
   return (
     <>
         <button
@@ -11,7 +11,8 @@ export function EditButtonLanguages({ size, fontSize, onClick }) {
         >
           <img src={editProfile} alt="" className={size} />
           <div className={fontSize}>
-            <p className="text-[#FF8399]">Editar</p>
+            {text ? <p className="text-[#FF8399]">{text}</p> : <p className="text-[#FF8399]">"Editar"</p>}
+            
           </div>
         </button>
     </>
