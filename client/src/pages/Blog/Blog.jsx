@@ -43,7 +43,7 @@ export function SliderBlog() {
   return (
     <>
       <motion.div
-        className="w-full h-[60vh] md:h-1/6 overflow-hidden relative font-Poppins"
+        className="w-full h-[60vh overflow-hidden relative font-Poppins"
         key={currentIndex}
         initial={{ opacity: 1, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
@@ -54,7 +54,7 @@ export function SliderBlog() {
           alt={`Slider Image ${currentIndex + 1}`}
           className="w-full h-full md:h-full object-cover"
         />
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+        <div className="absolute top-0 left-0 w-full h-full backdrop-brightness-50 bg-white/30 flex items-center justify-center">
           <div className="text-white text-4xl md:text-4xl font-bold text-center">
             {data[currentIndex].text}
           </div>
@@ -76,7 +76,7 @@ export function CardPrincipal() {
             </p>
 
             <div className="flex flex-row flex-wrap justify-center mx-auto pl-24 pr-24 mb-32">
-              <div className="flex flex-col bg-custom-bg w-[60%] lgv:w-[80%] lgv:w-full bg-cover h-fit rounded">
+              <div className="flex flex-col bg-custom-bg w-[60%] lgv:w-full bg-cover h-fit rounded">
                 <div className="flex flex-col w-[50%] p-1">
                   <h1 className="text-4xl mt-10 ml-10 ">
                   Récord de alfabetos
