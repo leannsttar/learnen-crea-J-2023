@@ -216,7 +216,7 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
                   ref={inputRef}
                   onChange={handleInputChange}
                   // onBlur={handleInputBlur}
-                  className="font-[300] bg-[#e2e2e2a9] rounded-md px-2 outline-none"
+                  className="font-[300] bg-[#e2e2e2a9] w-fit rounded-md px-2 outline-none"
                 />
                 <input
                   {...register(name)}
@@ -231,7 +231,7 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
           </div>
           <div className={pass ? "hidden" : "block"}>
             {onEdit ? (
-              <div className="flex gap-5">
+              <div className="flex gap-5 mt-5">
                 <button
                   onClick={() => notOnEdit()}
                   className="font-bold  text-[17px]"

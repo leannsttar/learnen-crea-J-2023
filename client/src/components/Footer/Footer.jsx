@@ -1,17 +1,23 @@
-import { React, useEffect } from 'react';
+import { React, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSession } from '../Header/useSession';
 import learnen from '../../assets/learnen.png'
 
 
 export function Footer() {
+  const { usuario } = useSession();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return usuario ? true : false;
+  });
+
   return (
     <>
       <div className="bg-[#1E2833] font-Poppins">
         <div className="flex flex-col items-center pt-16 pb-20 bottom-0 w-full">
-            <Link to={"/"}>
-              <img className="w-[104px] h-[104px]" src={learnen} alt="" />
-            </Link>
+          <Link to={"/"}>
+            <img className="w-[104px] h-[104px]" src={learnen} alt="" />
+          </Link>
           <p className="text-white text-center pt-8 pb-8 text-lg italic">
             La red social donde todo el mundo <br />puede aprender y practicar.
           </p>
@@ -21,15 +27,29 @@ export function Footer() {
               <Link to={"/"}>
                 <li className="text-base">Inicio</li>
               </Link>
-              <Link to={"/feed"}>
-                <li className="text-base">Publicaciones</li>
-              </Link>
+              {isLoggedIn ? (
+                <Link
+                  to={"/feed"}
+                  className="text-base"
+                >
+                  Publicaciones
+                </Link>
+              ) : (
+                ""
+              )}
               <Link to={"/community"}>
                 <li className="text-base">Comunidad</li>
               </Link>
-              <Link to={"/chat"}>
-                <li className="text-base">Chat</li>
-              </Link>
+              {isLoggedIn ? (
+                <Link
+                  to={"/chat"}
+                  className="text-base"
+                >
+                  Chat
+                </Link>
+              ) : (
+                ""
+              )}
               <Link to={"/blog"}>
                 <li className="text-base">Blog</li>
               </Link>

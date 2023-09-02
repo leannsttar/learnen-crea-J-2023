@@ -23,10 +23,10 @@ export function Error404() {
               </svg>
             </div>
           </div>
-          <h1 class="mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]">
+          <h1 class="mt-5 text-[36px] lgv:text-[24px] font-bold text-slate-800 lg:text-[50px]">
             404 - Página no encontrada
           </h1>
-          <p class="text-slate-600 mt-5 lg:text-lg pb-12">
+          <p class="text-slate-600 mt-5 lg:text-lg text-base pb-12">
             La página que tu estas buscando no existe
             <br />o ha sido removida.
           </p>

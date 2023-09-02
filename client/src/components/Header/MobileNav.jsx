@@ -3,6 +3,7 @@ import { CgMenuRight } from "react-icons/cg";
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useSession } from "./useSession.js";
 
 import { ButtonHeader } from "./ButtonHeader.jsx";
 
@@ -22,8 +23,12 @@ const menuVariants = {
   },
 };
 
-export function MobileNav({ isLogged }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(isLogged);
+export function MobileNav() {
+  const { usuario, logout } = useSession();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return usuario ? true : false;
+  });
 
   const [openMenu, setOpenMenu] = useState(false);
   return (
@@ -72,19 +77,19 @@ export function MobileNav({ isLogged }) {
           </li>
           {isLoggedIn ? (
             <div className="flex gap-x-4">
-              <Link to="/profile"><img src={HeaderPhoto} alt="" className="h-14 w-14" /></Link>
+              <Link to={"/profile/" + usuario.id}><img src={`http://localhost:5000${usuario.imagen_perfil}`} alt="" className="h-14 w-14 rounded-full" /></Link>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-5">
               <ButtonHeader
-                className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-white items-center"
-                imgClassName="h-[30px]"
+                className="flex gap-3 px-5 py-2.5 lgv:px-2 lgv:py-1 lgv:text-xl shadow-square border border-black bg-white items-center"
+                imgClassName="h-[30px] lgv:h-[20px]"
                 to="/login"
                 text="Iniciar sesión"
               />
               <ButtonHeader
-                className="flex gap-3 px-6 py-2.5 shadow-square border border-white bg-black text-white flex-row-reverse items-center"
-                imgClassName="invert h-[30px]"
+                className="flex gap-3 px-6 py-2.5 lgv:px-2 lgv:py-1 lgv:text-xl shadow-square border border-white bg-black text-white flex-row-reverse items-center"
+                imgClassName="invert h-[30px] lgv:h-[20px]"
                 to="/signup"
                 text="Registrarse"
               />

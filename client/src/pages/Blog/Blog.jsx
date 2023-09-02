@@ -43,7 +43,7 @@ export function SliderBlog() {
   return (
     <>
       <motion.div
-        className="w-full h-[60vh overflow-hidden relative font-Poppins"
+        className="w-full h-[70vh] overflow-hidden relative font-Poppins"
         key={currentIndex}
         initial={{ opacity: 1, x: 40 }}
         animate={{ opacity: 1, x: 0 }}

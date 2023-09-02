@@ -135,7 +135,7 @@ export function Login() {
   return (
     <form action="post" onSubmit={handleSubmit(handleFormSubmit)}>
       <div className="grid grid-cols-2 lgv:grid-cols-1 lgv:mt-44 gap-2 place-items-center font-Poppins">
-        <div className="flex flex-col space-y-12">
+        <div className="flex flex-col space-y-12 lgv:w-screen lgv:p-4">
           <div className="space-y-2">
             <h1 className="text-2xl font-bold">Inicia sesión</h1>
             <p className="text-xl">¡Nos alegra verte de vuelta!</p>

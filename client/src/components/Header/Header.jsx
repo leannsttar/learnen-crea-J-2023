@@ -9,7 +9,7 @@ import Notification from "../../assets/notification.svg";
 import HeaderPhoto from "../../assets/NacePhoto.jpg";
 import settingsIcon from "../../assets/settingsIcon.svg";
 import logoutIcon from "../../assets/logoutIcon.svg";
-import {BiUserCircle, BiChat} from 'react-icons/bi'
+import { BiUserCircle, BiChat } from 'react-icons/bi'
 import { LuSettings } from 'react-icons/lu'
 import { AiOutlineLogout } from 'react-icons/ai'
 import {
@@ -181,9 +181,9 @@ export function ProfileMenu() {
         />
       </MenuHandler>
       <MenuList className="z-[1000000] absolute right-[1] flex min-w-[180px] flex-col gap-2 overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
-        <Link to={"/profile/"+usuario.id} className="outline-none">
+        <Link to={"/profile/" + usuario.id} className="outline-none">
           <MenuItem className="flex items-center gap-3 hover:bg-[#ececec] pt-2">
-            <BiUserCircle size={20}/>
+            <BiUserCircle size={20} />
             <Typography
               variant="small"
               className="font-normal block font-sans text-sm leading-normal text-inherit antialiased"
@@ -210,7 +210,7 @@ export function ProfileMenu() {
         </Link>
         <hr className="my-2 border-blue-gray-50" />
         <MenuItem onClick={logout} className="flex items-center gap-2 hover:bg-[#ececec] pt-2">
-          <AiOutlineLogout size={20} color="rgb(239 68 68)"/>
+          <AiOutlineLogout size={20} color="rgb(239 68 68)" />
           <Typography variant="small" className="font-normal text-red-500">
             Cerrar sesión
           </Typography>
