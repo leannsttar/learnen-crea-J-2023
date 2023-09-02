@@ -291,7 +291,7 @@ export function IndexBlog() {
   return (
     <>
       <div className="bg-gray-100 pb-14">
-        <p className="font-bold text-4xl pt-24 text-center md:text-center md:text-left">
+        <p className="font-bold text-4xl pt-24 text-center md:text-center">
           De nuestro <span className="text-indigo-600"> Blog</span>
         </p>
         <div className="flex flex-row flex-wrap justify-center mt-20">
