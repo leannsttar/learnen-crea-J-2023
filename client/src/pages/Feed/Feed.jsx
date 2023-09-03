@@ -74,7 +74,7 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
   const [commentData, setCommentData] = useState([]);
 
   const [newComment, setNewComment] = useState("");
-  
+
   const addComment = async () => {
     try {
       await postComent({
@@ -407,7 +407,7 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
           </div>
         </Dialog>
       </Transition>
-      <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
+      <div className="border-l border-r border-t border-black flex flex-col p-4 w-[431px]">
         <div className="flex flex-row items-center justify-between w-full">
           <img
             className="w-12 h-12 -mr-3 z-[1] className="
@@ -433,7 +433,7 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
             <Space wrap>
               <Dropdown
                 menu={{
-                  items:[
+                  items: [
                     usuario.id == posts.cliente.id && {
                       key: "1",
                       label: <button onClick={openModalDelete}>Eliminar</button>,
@@ -733,8 +733,8 @@ const BlogSection = () => {
       </h1>
       {blogData.map((card, index) => (
         <Link to={card.url} key={index}>
-          <div className="flex flex-row flex-wrap mt-12 p-8 pr-6">
-            <img className="w-[170px] h-[120px]  lgv:w-[275px] lgv:h-[175px] mr" src={card.image} alt="" />
+          <div className="flex flex-row items-center justify-center flex-wrap mt-12 p-8 pr-6">
+            <img className="w-[170px] h-[120px]  lgv:w-[275px] lgv:h-[175px]" src={card.image} alt="" />
             <div className="flex flex-col pr-4">
               <p className="font-bold text-xl ml-4">{card.title}</p>
               <p className="ml-4 mt-4">{card.content}</p>

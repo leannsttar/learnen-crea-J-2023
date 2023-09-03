@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Fade, Flip } from "react-reveal";
 import { motion } from "framer-motion";
 import { Element } from "react-scroll";
@@ -168,7 +168,7 @@ export function IndexCard() {
               >
                 <Flip left delay={index * 200}>
                   <div className="relative w-full">
-                    <img src={card.imgSrc} alt="" className="w-full" />
+                    <img src={card.imgSrc} alt="" className="w-full hover:scale-125 ease-in duration-300" />
                     <p className="absolute bottom-4 left-0 m-2 text-white text-xl">
                       {card.description}
                     </p>
@@ -356,6 +356,17 @@ export function Slider() {
     },
   ];
 
+  const nextSlide = () => {
+    const newIndex = (activeIndex + 1) % slides.length;
+    setActiveIndex(newIndex);
+  };
+
+  // Configura un intervalo para cambiar de diapositiva cada 5 segundos
+  useEffect(() => {
+    const intervalId = setInterval(nextSlide, 5000); // Cambia cada 5 segundos
+    return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
+  }, [activeIndex]);
+
   const handleSlideChange = (index) => {
     setActiveIndex(index);
   };
@@ -393,9 +404,8 @@ export function Slider() {
                 {slides.map((slide, index) => (
                   <span
                     key={slide.id}
-                    className={`w-3 h-3 rounded-full bg-gray-500 ${
-                      activeIndex === index && "bg-blue-500"
-                    }`}
+                    className={`w-3 h-3 rounded-full bg-gray-500 ${activeIndex === index && "bg-blue-500"
+                      }`}
                     onClick={() => handleSlideChange(index)}
                   ></span>
                 ))}
