@@ -163,7 +163,6 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
 
   function closeModal() {
     setIsOpen(false);
-    console.log('yes')
   }
 
   function openModal() {
@@ -263,7 +262,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
   }, []);
 
   return (
-    <div key={keyProp} className="cursor-pointer" onClick={openModal}>
+    <div key={keyProp} className="flex flex-col items-center cursor-pointer">
       {/* Modal de eliminar post */}
 
       <Transition appear show={isOpenDelete} as={React.Fragment}>
@@ -401,233 +400,53 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
         </Dialog>
       </Transition>
       <div className="">
+        
+        
         <img
           className="w-full"
           src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
           alt=""
+          onClick={openModal}
         />
+        <div className="flex items-center w-full">
+          
 
-        {ventanaMenos800px ? (
-          <Transition appear show={isOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-10 h-screen"
-              onClose={closeModal}
-            >
-              <Transition.Child
-                as={React.Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+          {ventanaMenos800px ? (
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="relative z-10 h-screen"
+                onClose={closeModal}
               >
-                <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
-              </Transition.Child>
+                <Transition.Child
+                  as={React.Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
+                </Transition.Child>
 
-              <div className="fixed inset-0 overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4 text-center">
-                  <Transition.Child
-                    as={React.Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                  >
-                    <Dialog.Panel className="h-[95vh] w-[80vw] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
-                      <div className="h-full flex flex-col">
-                        <div className=" border-b-[1px] p-5 flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <img
-                              src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
-                             
-                              alt=""
-                              className="w-10 "
-                              object-cover
-                              style={{
-                                clipPath: "circle(50% at 50% 50%)",
-                              }}
-                            />
-                            <p className="font-semibold">
-                              {posts.cliente.nombre} {posts.cliente.apellido}
-                            </p>
-                          </div>
-                          <div>
-                            <Space direction="vertical">
-                              <Space wrap>
-                                <Dropdown
-                                  menu={{
-                                    items: [
-                                      usuario.id == posts.cliente.id && {
-                                        key: "1",
-                                        label: (
-                                          <button onClick={openModalDelete}>
-                                            Eliminar
-                                          </button>
-                                        ),
-                                        danger: true,
-                                      },
-                                      usuario.id != posts.cliente.id && {
-                                        key: "2",
-                                        label: (
-                                          <button onClick={openModalReport}>
-                                            Reportar
-                                          </button>
-                                        ),
-                                      },
-                                    ],
-                                  }}
-                                  placement="bottomLeft"
-                                >
-                                  <BsThreeDots className="" size={25} />
-                                </Dropdown>
-                              </Space>
-                            </Space>
-                          </div>
-                        </div>
-                        <div className=" bg-black w-full flex items-center justify-center">
-                          <img
-                            src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
-                            alt=""
-                            className="w-auto"
-                          />
-                        </div>
-                        <div className="w-full flex flex-col justify-between h-full overflow-y-scroll">
-                          <div className="flex flex-col h-full items-start justify-start text-base p-5 border-b-[1px] overflow-y-scroll">
-                            {commentData.length !== 0 ? (
-                              commentData.map((comentario) => (
-                                <div
-                                  key={comentario.id}
-                                  className="mb-2 flex items-start gap-2"
-                                >
-                                  <img
-                                    src={`http://localhost:5000${comentario.cliente.imagen_perfil}`}
-                                    alt=""
-                                    className="w-7 h-7 rounded-full"
-                                    object-cover
-                                  />
-                                  <p className="">
-                                    <span className="font-semibold">
-                                      {" "}
-                                      {comentario.cliente.nombre}{" "}
-                                      {comentario.cliente.apellido}:{" "}
-                                    </span>
-
-                                    {comentario.descripcion}
-                                  </p>
-                                </div>
-                              ))
-                            ) : (
-                              <p >Sin comentarios aún</p>
-                            )}
-                          </div>
-
-                          <div className="flex flex-col gap-2">
-                            <div className="p-5  flex items-center gap-3">
-                              {isLiked ? (
-                                <AiFillHeart
-                                  className="mr-2 w-8 h-8 cursor-pointer"
-                                  style={{
-                                    fill: "#FF0000",
-                                    animation: "heartBeat 0.8s ease infinite",
-                                    cursor: "pointer",
-                                    opacity: 1,
-                                  }}
-                                  onClick={setLikes}
-                                />
-                              ) : (
-                                <AiOutlineHeart
-                                  className="mr-2 w-8 h-8 cursor-pointer"
-                                  onClick={setLikes}
-                                  w
-                                />
-                              )}
-                              <div>
-                                <p className="font-semibold">{like} likes</p>
-                                <p className="text-[#9c9c9c] text-sm">
-                                  Hace {timeAgo}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="p-5 h-full border-t-[1px] flex justify-between gap-3 items-center">
-                              <textarea
-                                value={newComment}
-                                onChange={(e) => setNewComment(e.target.value)}
-                                type="text"
-                                className="outline-none w-full resize-none"
-                                placeholder="Añade un comentario..."
-                              />
-                              <button
-                                onClick={async () => {
-                                  await addComment({
-                                    comentario: newComment,
-                                  });
-                                  const data = await getComments();
-                                  setCommentData(data);
-                                  setNewComment("");
-                                }}
-                                className="text-[#ff8399] font-semibold cursor-pointer"
-                              >
-                                Publicar
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Dialog.Panel>
-                  </Transition.Child>
-                </div>
-              </div>
-            </Dialog>
-          </Transition>
-        ) : (
-          <Transition appear show={isOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-10 h-screen"
-              onClose={closeModal}
-            >
-              <Transition.Child
-                as={React.Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
-              </Transition.Child>
-
-              <div className="fixed inset-0 overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4 text-center">
-                  <Transition.Child
-                    as={React.Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                  >
-                    <Dialog.Panel className="h-[95vh] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
-                      <div className="h-full flex">
-                        <div className=" bg-black w-[65%] flex items-center justify-center">
-                          <img
-                            src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
-                            alt=""
-                            className="w-auto"
-                          />
-                        </div>
-                        <div className="w-[35%] max-w-[35%] h-full flex-col">
-                          <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
+                <div className="fixed inset-0 overflow-y-auto">
+                  <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <Transition.Child
+                      as={React.Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Dialog.Panel className="h-[95vh] w-[80vw] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
+                        <div className="h-full flex flex-col">
+                          <div className=" border-b-[1px] p-5 flex items-center justify-between">
                             <div className="flex items-center gap-3">
                               <img
                                 src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
-                                onClick={closeModal}
                                 alt=""
                                 className="w-10 "
                                 object-cover
@@ -672,20 +491,27 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
                               </Space>
                             </div>
                           </div>
-                          <div className="flex flex-col h-[70%] items-start justify-start text-base p-5 overflow-y-scroll">
-                            {commentData.length !== 0 ? (
-                              commentData.map((comentario) => (
-                                <div
-                                  key={comentario.id}
-                                  className="mb-2 flex items-start gap-2 w-full"
-                                >
-                                  <img
-                                    src={`http://localhost:5000${comentario.cliente.imagen_perfil}`}
-                                    alt=""
-                                    className="w-7 h-7 rounded-full"
-                                    object-cover
-                                  />
-                                  <div className="flex gap-1">
+                          <div className=" bg-black w-full flex items-center justify-center">
+                            <img
+                              src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+                              alt=""
+                              className="w-auto"
+                            />
+                          </div>
+                          <div className="w-full flex flex-col justify-between h-full overflow-y-scroll">
+                            <div className="flex flex-col h-full items-start justify-start text-base p-5 border-b-[1px] overflow-y-scroll">
+                              {commentData.length !== 0 ? (
+                                commentData.map((comentario) => (
+                                  <div
+                                    key={comentario.id}
+                                    className="mb-2 flex items-start gap-2"
+                                  >
+                                    <img
+                                      src={`http://localhost:5000${comentario.cliente.imagen_perfil}`}
+                                      alt=""
+                                      className="w-7 h-7 rounded-full"
+                                      object-cover
+                                    />
                                     <p className="">
                                       <span className="font-semibold">
                                         {" "}
@@ -696,76 +522,261 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
                                       {comentario.descripcion}
                                     </p>
                                   </div>
-                                </div>
-                              ))
-                            ) : (
-                              <p>Sin comentarios aún</p>
-                            )}
-                          </div>
-
-                          <div className="h-[20%]">
-                            <div className="p-5 border-t-[1px] flex items-center gap-3">
-                              {isLiked ? (
-                                <AiFillHeart
-                                  className="mr-2 w-8 h-8 cursor-pointer"
-                                  style={{
-                                    fill: "#FF0000",
-                                    animation: "heartBeat 0.8s ease infinite",
-                                    cursor: "pointer",
-                                    opacity: 1,
-                                  }}
-                                  onClick={setLikes}
-                                />
+                                ))
                               ) : (
-                                <AiOutlineHeart
-                                  className="mr-2 w-8 h-8 cursor-pointer"
-                                  onClick={setLikes}
-                                  w
-                                />
+                                <p>Sin comentarios aún</p>
                               )}
-                              <div>
-                                <p className="font-semibold">{like} likes</p>
-                                <p className="text-[#9c9c9c] text-sm">
-                                  Hace {timeAgo}
-                                </p>
-                              </div>
                             </div>
-                            <div className="p-5 border-t-[1px] flex justify-between gap-3 items-center">
-                              <textarea
-                                value={newComment}
-                                onChange={(e) => setNewComment(e.target.value)}
-                                type="text"
-                                className="outline-none w-full resize-none"
-                                placeholder="Añade un comentario..."
-                              />
-                              <button
-                                onClick={async () => {
-                                  await addComment({
-                                    comentario: newComment,
-                                  });
-                                  const data = await getComments();
-                                  setCommentData(data);
-                                  setNewComment("");
-                                }}
-                                className="text-[#ff8399] font-semibold cursor-pointer"
-                              >
-                                Publicar
-                              </button>
+
+                            <div className="flex flex-col gap-2">
+                              <div className="p-5  flex items-center gap-3">
+                                {isLiked ? (
+                                  <AiFillHeart
+                                    className="mr-2 w-8 h-8 cursor-pointer"
+                                    style={{
+                                      fill: "#FF0000",
+                                      animation: "heartBeat 0.8s ease infinite",
+                                      cursor: "pointer",
+                                      opacity: 1,
+                                    }}
+                                    onClick={setLikes}
+                                  />
+                                ) : (
+                                  <AiOutlineHeart
+                                    className="mr-2 w-8 h-8 cursor-pointer"
+                                    onClick={setLikes}
+                                    w
+                                  />
+                                )}
+                                <div>
+                                  <p className="font-semibold">{like} likes</p>
+                                  <p className="text-[#9c9c9c] text-sm">
+                                    Hace {timeAgo}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="p-5 h-full border-t-[1px] flex justify-between gap-3 items-center">
+                                <textarea
+                                  value={newComment}
+                                  onChange={(e) =>
+                                    setNewComment(e.target.value)
+                                  }
+                                  type="text"
+                                  className="outline-none w-full resize-none"
+                                  placeholder="Añade un comentario..."
+                                />
+                                <button
+                                  onClick={async () => {
+                                    await addComment({
+                                      comentario: newComment,
+                                    });
+                                    const data = await getComments();
+                                    setCommentData(data);
+                                    setNewComment("");
+                                  }}
+                                  className="text-[#ff8399] font-semibold cursor-pointer"
+                                >
+                                  Publicar
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </Dialog.Panel>
-                  </Transition.Child>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
                 </div>
-              </div>
-            </Dialog>
-          </Transition>
-        )}
+              </Dialog>
+            </Transition>
+          ) : (
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="relative z-10 h-screen"
+                onClose={closeModal}
+              >
+                <Transition.Child
+                  as={React.Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 overflow-y-auto">
+                  <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <Transition.Child
+                      as={React.Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Dialog.Panel className="h-[95vh] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
+                        <div className="h-full flex">
+                          <div className=" bg-black w-[65%] flex items-center justify-center">
+                            <img
+                              src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+                              alt=""
+                              className="w-auto"
+                            />
+                          </div>
+                          <div className="w-[35%] max-w-[35%] h-full flex-col">
+                            <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
+                              <div className="flex items-center gap-3">
+                                <img
+                                  src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
+                                  alt=""
+                                  className="w-10 "
+                                  object-cover
+                                  style={{
+                                    clipPath: "circle(50% at 50% 50%)",
+                                  }}
+                                />
+                                <p className="font-semibold">
+                                  {posts.cliente.nombre}{" "}
+                                  {posts.cliente.apellido}
+                                </p>
+                              </div>
+                              <div>
+                                <Space direction="vertical">
+                                  <Space wrap>
+                                    <Dropdown
+                                      menu={{
+                                        items: [
+                                          usuario.id == posts.cliente.id && {
+                                            key: "1",
+                                            label: (
+                                              <button onClick={openModalDelete}>
+                                                Eliminar
+                                              </button>
+                                            ),
+                                            danger: true,
+                                          },
+                                          usuario.id != posts.cliente.id && {
+                                            key: "2",
+                                            label: (
+                                              <button onClick={openModalReport}>
+                                                Reportar
+                                              </button>
+                                            ),
+                                          },
+                                        ],
+                                      }}
+                                      placement="bottomLeft"
+                                    >
+                                      <BsThreeDots className="" size={25} />
+                                    </Dropdown>
+                                  </Space>
+                                </Space>
+                              </div>
+                            </div>
+                            <div className="flex flex-col h-[70%] items-start justify-start text-base p-5 overflow-y-scroll">
+                              {commentData.length !== 0 ? (
+                                commentData.map((comentario) => (
+                                  <div
+                                    key={comentario.id}
+                                    className="mb-2 flex items-start gap-2 w-full"
+                                  >
+                                    <img
+                                      src={`http://localhost:5000${comentario.cliente.imagen_perfil}`}
+                                      alt=""
+                                      className="w-7 h-7 rounded-full"
+                                      object-cover
+                                    />
+                                    <div className="flex gap-1">
+                                      <p className="">
+                                        <span className="font-semibold">
+                                          {" "}
+                                          {comentario.cliente.nombre}{" "}
+                                          {comentario.cliente.apellido}:{" "}
+                                        </span>
+
+                                        {comentario.descripcion}
+                                      </p>
+                                    </div>
+                                  </div>
+                                ))
+                              ) : (
+                                <p>Sin comentarios aún</p>
+                              )}
+                            </div>
+
+                            <div className="h-[20%]">
+                              <div className="p-5 border-t-[1px] flex items-center gap-3">
+                                {isLiked ? (
+                                  <AiFillHeart
+                                    className="mr-2 w-8 h-8 cursor-pointer"
+                                    style={{
+                                      fill: "#FF0000",
+                                      animation: "heartBeat 0.8s ease infinite",
+                                      cursor: "pointer",
+                                      opacity: 1,
+                                    }}
+                                    onClick={setLikes}
+                                  />
+                                ) : (
+                                  <AiOutlineHeart
+                                    className="mr-2 w-8 h-8 cursor-pointer"
+                                    onClick={setLikes}
+                                    w
+                                  />
+                                )}
+                                <div>
+                                  <p className="font-semibold">{like} likes</p>
+                                  <p className="text-[#9c9c9c] text-sm">
+                                    Hace {timeAgo}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="p-5 border-t-[1px] flex justify-between gap-3 items-center">
+                                <textarea
+                                  value={newComment}
+                                  onChange={(e) =>
+                                    setNewComment(e.target.value)
+                                  }
+                                  type="text"
+                                  className="outline-none w-full resize-none"
+                                  placeholder="Añade un comentario..."
+                                />
+                                <button
+                                  onClick={async () => {
+                                    await addComment({
+                                      comentario: newComment,
+                                    });
+                                    const data = await getComments();
+                                    setCommentData(data);
+                                    setNewComment("");
+                                  }}
+                                  className="text-[#ff8399] font-semibold cursor-pointer"
+                                >
+                                  Publicar
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
+                </div>
+              </Dialog>
+            </Transition>
+          )}
+        </div>
+        <div className="500:hidden w-full h-[1px] mt-6 rounded-full bg-[#d6d6d6]"></div>
       </div>
     </div>
   );
 };
+
+
 
 export function LowerProfile({
   usuarioPerfil,
@@ -773,6 +784,7 @@ export function LowerProfile({
   followersCount,
   followingsCount,
 }) {
+
   const { usuario } = useSession();
 
   const [posts, setPosts] = useState(null);
@@ -781,9 +793,7 @@ export function LowerProfile({
 
   const obtenerPosts = async () => {
     try {
-      const { data } = await axios.get(
-        `http://localhost:5000/feed/userPosts/${usuario.id}`
-      );
+      const { data } = await axios.get(`http://localhost:5000/feed/userPosts/${usuario.id}`);
       console.log(data);
       setPosts(data);
     } catch (error) {
@@ -797,32 +807,30 @@ export function LowerProfile({
 
   const [userImages, setUserImages] = useState([]);
   const [numPublicaciones, setNumPublicaciones] = useState(0);
-  const [loadingImages, setLoadingImages] = useState(true);
-  const [errorImages, setErrorImages] = useState(null);
+  const [loadingImages, setLoadingImages] = useState(true); 
+  const [errorImages, setErrorImages] = useState(null); 
   useEffect(() => {
     async function fetchUserImages() {
       try {
-        const response = await clienteAxios.get(
-          `/user/images/${usuarioPerfil.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await clienteAxios.get(`/user/images/${usuarioPerfil.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
         setUserImages(response.data.images);
         setNumPublicaciones(response.data.numPublicaciones);
-        setLoadingImages(false);
+        setLoadingImages(false); 
       } catch (error) {
         console.log("Error", error);
         setErrorImages(error.message);
-        setLoadingImages(false);
+        setLoadingImages(false); 
       }
     }
 
     fetchUserImages();
   }, [usuarioPerfil]);
+
 
   return (
     <Element className=" flex justify-center mx-auto">
@@ -830,7 +838,7 @@ export function LowerProfile({
         <div className=" mb-20 flex flex-col 800:flex-row-reverse gap-8 800:gap-4 1280:gap-20 1280:w-[80%] w-[95%]">
           <div className="800:w-[25%] 800:h-full flex flex-col w-full gap-5">
             <DataProfile
-              posts={numPublicaciones}
+              posts={numPublicaciones} 
               followers={followersCount}
               following={followingsCount}
               usuarioPerfil={usuarioPerfil}
@@ -838,6 +846,7 @@ export function LowerProfile({
 
             {/* {Acá solo mando la info de userLanguages} */}
             <LanguagesProfile
+            
               motherLanguages={usuarioPerfil.idioma_materno}
               fluentLanguages={usuarioPerfil.idiomas_fluidos}
               learningLanguages={usuarioPerfil.idiomas_aprendiendo}
@@ -861,14 +870,14 @@ export function LowerProfile({
               ))
             )} */}
             {posts &&
-              posts.map((post) => (
-                <PostProfile
-                  keyProp={post.id}
-                  posts={post}
-                  key={post.id}
-                  setPosts={setPosts}
-                />
-              ))}
+            posts.map((post) => (
+              <PostProfile
+                keyProp={post.id}
+                posts={post}
+                key={post.id}
+                setPosts={setPosts}
+              />
+            ))}
           </div>
         </div>
       </Fade>
