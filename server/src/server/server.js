@@ -19,7 +19,8 @@ const {
   deleteLike,
   alreadyLiked,
   deletePost,
-  getUserImages
+  getUserImages,
+  getUserPosts
 } = require("../controladores/feed-controlador.js");
 const {
   countUsers,
@@ -71,6 +72,7 @@ app.post("/auth/register", upload.single("photoProfile"), createUser);
 
 app.post("/feed", createPost);
 app.get("/feed", readPosts);
+app.get("/feed/userPosts/:id", getUserPosts)
 app.post("/feed/like", setlikes)
 // app.get("/feed/like/:id", likepost)
 

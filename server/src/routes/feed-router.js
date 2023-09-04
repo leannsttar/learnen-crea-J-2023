@@ -7,6 +7,7 @@ const {feedController, deletePost} = require('../controladores/feed-controlador.
 router.post('/feed', feedController.createPost);
 
 router.get('/feed', feedController.readPosts);
+router.get('/feed/userPosts/:id', feedController.getUserPosts)
 
 router.post('/feed/like', feedController.setlikes)
 

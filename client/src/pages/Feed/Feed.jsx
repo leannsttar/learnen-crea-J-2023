@@ -9,6 +9,7 @@ import {
 import { BsChatText, BsThreeDots } from "react-icons/bs";
 import { AppTitle } from "../../components/AppTitle";
 import { Dialog, Transition } from "@headlessui/react";
+import { RoundedFlag } from "../../components/RoundedFlag";
 import galleryAdd from "../../assets/gallery-add.svg";
 import { allLanguages } from "../../data/languages";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,15 +18,16 @@ import { useSession } from "../../components/Header/useSession";
 import axios from "axios";
 import { Button, Dropdown, Space } from "antd";
 import iconTrash from "../../assets/Icontrash.svg";
+import { LanguagesCommunityCard } from "../Community/LanguagesCommunityCard";
 import { getComents, postComent, getCommentCount } from "./authComments";
 import { Link } from "react-router-dom";
 import { clienteAxios } from "../../config/clienteAxios";
 import { headers } from "../../helpers/headers";
-headers
+headers;
 
+import xSymbol from '../../assets/xSymbol.svg'
 
-
-function timeAgoSincePublication(publicationDate) {
+export function timeAgoSincePublication(publicationDate) {
   const now = new Date();
   const publicationTime = new Date(publicationDate);
 
@@ -56,10 +58,8 @@ const feedData = {
   comments: 13,
 };
 
-
-const PostCard = ({ keyProp, posts, setPosts }) => {
+export const PostCard = ({ keyProp, posts, setPosts }) => {
   const { usuario } = useSession();
-
 
   let [isOpen, setIsOpen] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
@@ -74,7 +74,7 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
   const [commentData, setCommentData] = useState([]);
 
   const [newComment, setNewComment] = useState("");
-  
+
   const addComment = async () => {
     try {
       await postComent({
@@ -98,7 +98,6 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
       console.log(error);
     }
   };
-
 
   const getComments = async () => {
     try {
@@ -211,7 +210,6 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
     setIsOpenReport(true);
   }
 
-
   let matchingLanguage;
 
   allLanguages.forEach((language) => {
@@ -262,15 +260,34 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
     try {
       await clienteAxios.delete(`/delete-post/${keyProp}`, headers());
       // alert("Publicación eliminada exitosamente");
-      obtenerPosts()
+      obtenerPosts();
       closeModalDelete();
     } catch (error) {
       console.error(error);
     }
   };
 
+  const [ventanaMenos800px, setVentanaMenos800px] = useState(false);
+
+  const verificarTamañoVentana = () => {
+    if (window.innerWidth <= 800) {
+      setVentanaMenos800px(true);
+    } else {
+      setVentanaMenos800px(false);
+    }
+  };
+
+  useEffect(() => {
+    verificarTamañoVentana();
+    window.addEventListener("resize", verificarTamañoVentana);
+
+    return () => {
+      window.removeEventListener("resize", verificarTamañoVentana);
+    };
+  }, []);
+
   return (
-    <div key={keyProp} className="flex flex-col items-center mt-16">
+    <div key={keyProp} className="flex flex-col items-center mb-5 500:mt-16">
       {/* Modal de eliminar post */}
 
       <Transition appear show={isOpenDelete} as={React.Fragment}>
@@ -407,13 +424,10 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
           </div>
         </Dialog>
       </Transition>
-      <div className="border-l border-r border-t border-black bg-gray-100 flex flex-col p-4 w-[431px]">
-        <div className="flex flex-row items-center justify-between w-full">
+      <div className="flex flex-col w-full 500:w-[28rem] 500:bg-[#f7f7f7] rounded-2xl">
+        <div className="flex flex-row items-center justify-between w-full px-4 pt-4">
           <img
-            className="w-12 h-12 -mr-3 z-[1] className="
-            w-16
-            h-16
-            object-cover
+            className="w-10 h-10 500:w-12 500:h-12 -mr-3 z-[1]"
             style={{
               clipPath: "circle(50% at 50% 50%)",
             }}
@@ -421,7 +435,11 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
             alt=""
           />
           {/* {console.log(posts.cliente.imagen_perfil)} */}
-          <img className="w-12 h-12 " src={matchingLanguage[1]} alt="" />
+          <img
+            className="w-10 h-10 500:w-12 500:h-12 "
+            src={matchingLanguage[1]}
+            alt=""
+          />
 
           <div className="flex flex-col ml-6">
             <h6 className="font-bold">
@@ -433,17 +451,21 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
             <Space wrap>
               <Dropdown
                 menu={{
-                  items:[
+                  items: [
                     usuario.id == posts.cliente.id && {
                       key: "1",
-                      label: <button onClick={openModalDelete}>Eliminar</button>,
+                      label: (
+                        <button onClick={openModalDelete}>Eliminar</button>
+                      ),
                       danger: true,
                     },
-                    {
+                    usuario.id != posts.cliente.id && {
                       key: "2",
-                      label: <button onClick={openModalReport}>Reportar</button>,
+                      label: (
+                        <button onClick={openModalReport}>Reportar</button>
+                      ),
                     },
-                  ]
+                  ],
                 }}
                 placement="bottomLeft"
               >
@@ -452,190 +474,399 @@ const PostCard = ({ keyProp, posts, setPosts }) => {
             </Space>
           </Space>
         </div>
-        <div className="mt-4">
+        <div className="500:mt-4 mt-2 px-4">
           <p>{posts.descripcion}</p>
         </div>
-      </div>
-      <img
-        className="w-[431px] border-black border-[1px]"
-        src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
-        alt=""
-      />
-      <div className="border-l border-r border-b border-black bg-gray-100 flex flex-row items-center w-[431px] p-4">
-        {isLiked ? (
-          <AiFillHeart
-            className="mr-2 w-6 h-6 cursor-pointer"
-            style={{
-              fill: "#FF0000",
-              animation: "heartBeat 0.8s ease infinite",
-              cursor: "pointer",
-              opacity: 1,
-            }}
-            onClick={setLikes}
-          />
-        ) : (
-          <AiOutlineHeart
-            className="mr-2 w-6 h-6 cursor-pointer"
-            onClick={setLikes}
-          />
-        )}
-        <p>{like}</p>
-        <div className="flex-grow"></div>
-        <div onClick={openModal} className="cursor-pointer flex">
-          <BsChatText className="mr-2 w-6 h-5" />
-          <p className="text-sm">{commentCount} comentarios</p>
-        </div>
+        <img
+          className="w-full mt-3 500:mt-6"
+          src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+          alt=""
+        />
+        <div className="flex items-center w-full mt-4 px-4 pb-4">
+          {isLiked ? (
+            <AiFillHeart
+              className="mr-2 w-6 h-6 cursor-pointer"
+              style={{
+                fill: "#FF0000",
+                animation: "heartBeat 0.8s ease infinite",
+                cursor: "pointer",
+                opacity: 1,
+              }}
+              onClick={setLikes}
+            />
+          ) : (
+            <AiOutlineHeart
+              className="mr-2 w-6 h-6 cursor-pointer"
+              onClick={setLikes}
+            />
+          )}
+          <p>{like}</p>
+          <div className="flex-grow"></div>
+          <div onClick={openModal} className="cursor-pointer flex">
+            <BsChatText className="mr-2 w-6 h-5" />
+            <p className="text-sm">{commentCount} comentarios</p>
+          </div>
 
-        <Transition appear show={isOpen} as={Fragment}>
-          <Dialog
-            as="div"
-            className="relative z-10 h-screen"
-            onClose={closeModal}
-          >
-            <Transition.Child
-              as={React.Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
-            </Transition.Child>
-
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
+          {ventanaMenos800px ? (
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="relative z-10 h-screen"
+                onClose={closeModal}
+              >
                 <Transition.Child
                   as={React.Fragment}
                   enter="ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
                   leave="ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
                 >
-                  <Dialog.Panel className="h-[95vh] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
-                    <div className="h-full flex">
-                      <div className=" bg-black flex items-center justify-center">
-                        <img
-                          src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
-                          alt=""
-                          className="w-auto"
-                        />
-                      </div>
-                      <div className="w-[25vw] h-full flex-col">
-                        <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
-                          <div className="flex items-center gap-3">
-                            <img
-                              src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
-                              alt=""
-                              className="w-10 "
-                              object-cover
-                              style={{
-                                clipPath: "circle(50% at 50% 50%)",
-                              }}
-                            />
-                            <p className="font-semibold">
-                              {posts.cliente.nombre} {posts.cliente.apellido}
-                            </p>
-                          </div>
-                          <div>
-                            <Space direction="vertical">
-                              <Space wrap>
-                                <Dropdown
-                                  menu={{
-                                    items: [
-                                      {
-                                        label: <button onClick={openModalDelete}>Eliminar</button>,
-                                        danger: true,
-                                      },
-                                      {
-                                        key: "2",
-                                        label: <button onClick={openModalReport}>Reportar</button>,
-                                      },
-                                    ]
-                                  }}
-                                  placement="bottomLeft"
-                                >
-                                  <BsThreeDots className="" size={25} />
-                                </Dropdown>
-                              </Space>
-                            </Space>
-                          </div>
-                        </div>
-                        <div className="flex flex-col h-[70%] items-start justify-start text-base p-5">
-                          {commentData.length !== 0 ? (
-                            commentData.map((comentario) => (
-                              <div key={comentario.id} className="mb-2">
-                                <p>
-                                  {comentario.cliente.nombre}{" "}
-                                  {comentario.cliente.apellido}:{" "}
-                                  {comentario.descripcion}
-                                </p>
-                              </div>
-                            ))
-                          ) : (
-                            <p>Sin comentarios aún</p>
-                          )}
-                        </div>
+                  <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
+                </Transition.Child>
 
-                        <div className="h-[20%]">
-                          <div className="p-5 border-t-[1px] flex items-center gap-3">
-                            {isLiked ? (
-                              <AiFillHeart
-                                className="mr-2 w-8 h-8 cursor-pointer"
+                <div className="fixed inset-0 overflow-y-auto">
+                  <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <Transition.Child
+                      as={React.Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Dialog.Panel className="h-[95vh] w-[80vw] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
+                        <div className="h-full flex flex-col">
+                          <div className=" border-b-[1px] p-5 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <img
+                                src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
+                                alt=""
+                                className="w-10 "
+                                object-cover
                                 style={{
-                                  fill: "#FF0000",
-                                  animation: "heartBeat 0.8s ease infinite",
-                                  cursor: "pointer",
-                                  opacity: 1,
+                                  clipPath: "circle(50% at 50% 50%)",
                                 }}
-                                onClick={setLikes}
                               />
-                            ) : (
-                              <AiOutlineHeart
-                                className="mr-2 w-8 h-8 cursor-pointer"
-                                onClick={setLikes}
-                                w
-                              />
-                            )}
-                            <div>
-                              <p className="font-semibold">{like} likes</p>
-                              <p className="text-[#9c9c9c] text-sm">
-                                Hace {timeAgo}
+                              <p className="font-semibold">
+                                {posts.cliente.nombre} {posts.cliente.apellido}
                               </p>
                             </div>
+                            <div>
+                              <Space direction="vertical">
+                                <Space wrap>
+                                  <Dropdown
+                                    menu={{
+                                      items: [
+                                        usuario.id == posts.cliente.id && {
+                                          key: "1",
+                                          label: (
+                                            <button onClick={openModalDelete}>
+                                              Eliminar
+                                            </button>
+                                          ),
+                                          danger: true,
+                                        },
+                                        usuario.id != posts.cliente.id && {
+                                          key: "2",
+                                          label: (
+                                            <button onClick={openModalReport}>
+                                              Reportar
+                                            </button>
+                                          ),
+                                        },
+                                      ],
+                                    }}
+                                    placement="bottomLeft"
+                                  >
+                                    <BsThreeDots className="" size={25} />
+                                  </Dropdown>
+                                </Space>
+                              </Space>
+                            </div>
                           </div>
-                          <div className="p-5 border-t-[1px] flex justify-between gap-3 items-center">
-                            <textarea
-                              value={newComment}
-                              onChange={(e) => setNewComment(e.target.value)}
-                              type="text"
-                              className="outline-none w-full resize-none"
-                              placeholder="Añade un comentario..."
+                          <div className=" bg-black w-full flex items-center justify-center">
+                            <img
+                              src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+                              alt=""
+                              className="w-auto"
                             />
-                            <button
-                              onClick={async () => {
-                                await addComment({ comentario: newComment });
-                                const data = await getComments();
-                                setCommentData(data);
-                                setNewComment("");
-                              }}
-                              className="text-[#ff8399] font-semibold cursor-pointer"
-                            >
-                              Publicar
-                            </button>
+                          </div>
+                          <div className="w-full flex flex-col justify-between h-full overflow-y-scroll">
+                            <div className="flex flex-col h-full items-start justify-start text-base p-5 border-b-[1px] overflow-y-scroll">
+                              {commentData.length !== 0 ? (
+                                commentData.map((comentario) => (
+                                  <div
+                                    key={comentario.id}
+                                    className="mb-2 flex items-start gap-2"
+                                  >
+                                    <img
+                                      src={`http://localhost:5000${comentario.cliente.imagen_perfil}`}
+                                      alt=""
+                                      className="w-7 h-7 rounded-full"
+                                      object-cover
+                                    />
+                                    <p className="">
+                                      <span className="font-semibold">
+                                        {" "}
+                                        {comentario.cliente.nombre}{" "}
+                                        {comentario.cliente.apellido}:{" "}
+                                      </span>
+
+                                      {comentario.descripcion}
+                                    </p>
+                                  </div>
+                                ))
+                              ) : (
+                                <p>Sin comentarios aún</p>
+                              )}
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                              <div className="p-5  flex items-center gap-3">
+                                {isLiked ? (
+                                  <AiFillHeart
+                                    className="mr-2 w-8 h-8 cursor-pointer"
+                                    style={{
+                                      fill: "#FF0000",
+                                      animation: "heartBeat 0.8s ease infinite",
+                                      cursor: "pointer",
+                                      opacity: 1,
+                                    }}
+                                    onClick={setLikes}
+                                  />
+                                ) : (
+                                  <AiOutlineHeart
+                                    className="mr-2 w-8 h-8 cursor-pointer"
+                                    onClick={setLikes}
+                                    w
+                                  />
+                                )}
+                                <div>
+                                  <p className="font-semibold">{like} likes</p>
+                                  <p className="text-[#9c9c9c] text-sm">
+                                    Hace {timeAgo}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="p-5 h-full border-t-[1px] flex justify-between gap-3 items-center">
+                                <textarea
+                                  value={newComment}
+                                  onChange={(e) =>
+                                    setNewComment(e.target.value)
+                                  }
+                                  type="text"
+                                  className="outline-none w-full resize-none"
+                                  placeholder="Añade un comentario..."
+                                />
+                                <button
+                                  onClick={async () => {
+                                    await addComment({
+                                      comentario: newComment,
+                                    });
+                                    const data = await getComments();
+                                    setCommentData(data);
+                                    setNewComment("");
+                                  }}
+                                  className="text-[#ff8399] font-semibold cursor-pointer"
+                                >
+                                  Publicar
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </Dialog.Panel>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
+                </div>
+              </Dialog>
+            </Transition>
+          ) : (
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="relative z-10 h-screen"
+                onClose={closeModal}
+              >
+                <Transition.Child
+                  as={React.Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <div className="fixed inset-0 bg-black bg-opacity-50 h-screen z-100" />
                 </Transition.Child>
-              </div>
-            </div>
-          </Dialog>
-        </Transition>
+
+                <div className="fixed inset-0 overflow-y-auto">
+                  <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <Transition.Child
+                      as={React.Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Dialog.Panel className="h-[95vh] transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all">
+                        <div className="h-full flex">
+                          <div className=" bg-black w-[65%] flex items-center justify-center">
+                            <img
+                              src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
+                              alt=""
+                              className="w-auto"
+                            />
+                          </div>
+                          <div className="w-[35%] max-w-[35%] h-full flex-col">
+                            <div className=" border-b-[1px] p-5 flex items-center justify-between h-[10%]">
+                              <div className="flex items-center gap-3">
+                                <img
+                                  src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
+                                  alt=""
+                                  className="w-10 "
+                                  object-cover
+                                  style={{
+                                    clipPath: "circle(50% at 50% 50%)",
+                                  }}
+                                />
+                                <p className="font-semibold">
+                                  {posts.cliente.nombre}{" "}
+                                  {posts.cliente.apellido}
+                                </p>
+                              </div>
+                              <div>
+                                <Space direction="vertical">
+                                  <Space wrap>
+                                    <Dropdown
+                                      menu={{
+                                        items: [
+                                          usuario.id == posts.cliente.id && {
+                                            key: "1",
+                                            label: (
+                                              <button onClick={openModalDelete}>
+                                                Eliminar
+                                              </button>
+                                            ),
+                                            danger: true,
+                                          },
+                                          usuario.id != posts.cliente.id && {
+                                            key: "2",
+                                            label: (
+                                              <button onClick={openModalReport}>
+                                                Reportar
+                                              </button>
+                                            ),
+                                          },
+                                        ],
+                                      }}
+                                      placement="bottomLeft"
+                                    >
+                                      <BsThreeDots className="" size={25} />
+                                    </Dropdown>
+                                  </Space>
+                                </Space>
+                              </div>
+                            </div>
+                            <div className="flex flex-col h-[70%] items-start justify-start text-base p-5 overflow-y-scroll">
+                              {commentData.length !== 0 ? (
+                                commentData.map((comentario) => (
+                                  <div
+                                    key={comentario.id}
+                                    className="mb-2 flex items-start gap-2 w-full"
+                                  >
+                                    <img
+                                      src={`http://localhost:5000${comentario.cliente.imagen_perfil}`}
+                                      alt=""
+                                      className="w-7 h-7 rounded-full"
+                                      object-cover
+                                    />
+                                    <div className="flex gap-1">
+                                      <p className="">
+                                        <span className="font-semibold">
+                                          {" "}
+                                          {comentario.cliente.nombre}{" "}
+                                          {comentario.cliente.apellido}:{" "}
+                                        </span>
+
+                                        {comentario.descripcion}
+                                      </p>
+                                    </div>
+                                  </div>
+                                ))
+                              ) : (
+                                <p>Sin comentarios aún</p>
+                              )}
+                            </div>
+
+                            <div className="h-[20%]">
+                              <div className="p-5 border-t-[1px] flex items-center gap-3">
+                                {isLiked ? (
+                                  <AiFillHeart
+                                    className="mr-2 w-8 h-8 cursor-pointer"
+                                    style={{
+                                      fill: "#FF0000",
+                                      animation: "heartBeat 0.8s ease infinite",
+                                      cursor: "pointer",
+                                      opacity: 1,
+                                    }}
+                                    onClick={setLikes}
+                                  />
+                                ) : (
+                                  <AiOutlineHeart
+                                    className="mr-2 w-8 h-8 cursor-pointer"
+                                    onClick={setLikes}
+                                    w
+                                  />
+                                )}
+                                <div>
+                                  <p className="font-semibold">{like} likes</p>
+                                  <p className="text-[#9c9c9c] text-sm">
+                                    Hace {timeAgo}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="p-5 border-t-[1px] flex justify-between gap-3 items-center">
+                                <textarea
+                                  value={newComment}
+                                  onChange={(e) =>
+                                    setNewComment(e.target.value)
+                                  }
+                                  type="text"
+                                  className="outline-none w-full resize-none"
+                                  placeholder="Añade un comentario..."
+                                />
+                                <button
+                                  onClick={async () => {
+                                    await addComment({
+                                      comentario: newComment,
+                                    });
+                                    const data = await getComments();
+                                    setCommentData(data);
+                                    setNewComment("");
+                                  }}
+                                  className="text-[#ff8399] font-semibold cursor-pointer"
+                                >
+                                  Publicar
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
+                </div>
+              </Dialog>
+            </Transition>
+          )}
+        </div>
+        <div className="500:hidden w-full h-[1px] mt-6 rounded-full bg-[#d6d6d6]"></div>
       </div>
     </div>
   );
@@ -662,22 +893,41 @@ const PeopleSection = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-4xl font-bold text-pink-400 mt-14 ml-10">Personas</h1>
+    <div className="min-h-screen">
+      <h1 className="text-4xl font-bold text-[#FF8399] mt-14">Personas</h1>
       {usuarios.map((usuario) => (
-        <div className="flex flex-row mt-16 ml-8 items-center" key={usuario.id}>
-          <img
-            className="object-cover w-[6rem] h-[6rem]"
-            style={{
-              clipPath: "circle(50% at 50% 50%)",
-            }}
-            src={`http://localhost:5000${usuario.imagen_perfil}`}
-            alt=""
-          />
-          <h3 className="p-6 font-bold text-lg">{`${usuario.nombre} ${usuario.apellido}`}</h3>
-          <div className="ml-auto flex items-center">
+        <div
+          className="flex mt-16 items-center justify-between"
+          key={usuario.id}
+        >
+          <div className="flex">
+            <img
+              className="object-cover w-[3rem] h-[3rem]"
+              style={{
+                clipPath: "circle(50% at 50% 50%)",
+              }}
+              src={`http://localhost:5000${usuario.imagen_perfil}`}
+              alt=""
+            />
+
+            <div className="ml-3 ">
+              <h3 className="font-bold text-md w-full">{`${usuario.nombre} ${usuario.apellido}`}</h3>
+              <div className="flex gap-1">
+                {usuario.idiomas_aprendiendo.length &&
+                  usuario.idiomas_aprendiendo.map((language, index) => (
+                    <RoundedFlag
+                      key={index}
+                      country={`http://localhost:5000${language.imagen_bandera}`}
+                      className="h-6 w-6 rounded-full object-fill"
+                    />
+                  ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="justify-between flex items-center">
             <Link to={"/profile/" + usuario.id} key={usuario.id}>
-              <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] mr-8 hover:scale-105 hover: transition-scale ease-in duration-200">
+              <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] mr-8 hover:bg-[#ffc6d1] transition-all ease-in duration-200">
                 Ver perfil
               </button>
             </Link>
@@ -734,7 +984,11 @@ const BlogSection = () => {
       {blogData.map((card, index) => (
         <Link to={card.url} key={index}>
           <div className="flex flex-row flex-wrap mt-12 p-8 pr-6">
-            <img className="w-[170px] h-[120px]  lgv:w-[275px] lgv:h-[175px] mr" src={card.image} alt="" />
+            <img
+              className="w-[170px] h-[120px]  lgv:w-[275px] lgv:h-[175px] mr"
+              src={card.image}
+              alt=""
+            />
             <div className="flex flex-col pr-4">
               <p className="font-bold text-xl ml-4">{card.title}</p>
               <p className="ml-4 mt-4">{card.content}</p>
@@ -872,193 +1126,428 @@ export function Feed() {
     setIsOpen(true);
   }
 
+  const [ventanaMenos800px, setVentanaMenos800px] = useState(false);
+
+  const verificarTamañoVentana = () => {
+    if (window.innerWidth <= 800) {
+      setVentanaMenos800px(true);
+    } else {
+      setVentanaMenos800px(false);
+    }
+  };
+
+  useEffect(() => {
+    verificarTamañoVentana();
+    window.addEventListener("resize", verificarTamañoVentana);
+
+    return () => {
+      window.removeEventListener("resize", verificarTamañoVentana);
+    };
+  }, []);
+
   return (
     <>
-      <div className="grid grid-cols-[1fr_650px] lgv:grid-cols-1">
-        <div className="mt-[40px] mx-[80px] h-full mb-10">
-          <AppTitle title="Publicaciones" />
-          <button
-            onClick={openModal}
-            className="flex items-center gap-3 px-5 mt-6 py-2.5 shadow-square border border-black bg-[#FFE9E9] hover:bg-[#FFD0D0] hover:transition-bg ease-in duration-200"
-          >
-            <AiOutlinePlus className="w-6 h-6" />
-            <p>Crear una publicación</p>
-          </button>
-          <ToastContainer />
-          <Transition appear show={isOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-10 h-screen"
-              onClose={closeModal2}
+      <div className="flex w-full">
+        <div className="mt-[40px] 1370:mx-[80px] h-full mb-10 w-full lg:w-[70%] 500:px-[10%] justify-center">
+          <div className="ml-10 mb-16 500:ml-0">
+            <AppTitle title="Publicaciones" />
+            <button
+              onClick={openModal}
+              className="flex items-center gap-3 px-5 mt-6 py-2.5 shadow-square border border-black bg-[#FFE9E9] hover:bg-[#FFD0D0] hover:transition-bg ease-in duration-200"
             >
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+              <AiOutlinePlus className="w-6 h-6" />
+              <p>Crear una publicación</p>
+            </button>
+          </div>
+          <ToastContainer />
+          {ventanaMenos800px ? (
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="relative z-10 h-screen"
+                onClose={closeModal2}
               >
-                <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
-              </Transition.Child>
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+                </Transition.Child>
 
-              <div className="fixed inset-0 overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4 text-center">
-                  <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                  >
-                    <Dialog.Panel className="w-full max-w-[70vw] h-[80vh] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
-                      <form
-                        onSubmit={handleSubmit(onSubmit)}
-                        encType="multipart/form-data"
-                      >
-                        <Dialog.Title
-                          as="div"
-                          className="flex justify-between border-b-[1px] py-2 px-5"
+                <div className="fixed inset-0 overflow-y-auto">
+                  <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      
+                      <Dialog.Panel className="w-[90vw] overflow-y-auto 1370:w-[70vw] h-[90vh] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
+                      
+                        <form
+                          onSubmit={handleSubmit(onSubmit)}
+                          encType="multipart/form-data"
+                          className="h-full"
                         >
-                          <button
-                            className="text-indigo-800 font-semibold"
-                            onClick={closeModal2}
+                          {/* <Dialog.Title
+                            as="div"
+                            className="flex justify-between border-b-[1px] py-2 px-5"
                           >
-                            Cancelar
-                          </button>
-                          <h3 className="text-lg font-medium leading-6 text-gray-900 text-center ">
-                            Crea nueva publicación
-                          </h3>
-                          <input
-                            type="submit"
-                            onClick={() => {
-                              if (selectedImage === null) {
-                                toast.error("Debes subir una imagen");
-                              } else if (selectedLanguage === null) {
-                                toast.error("Debes seleccionar el idioma");
-                              } else {
-                                closeModal();
-                              }
-                            }}
-                            className="text-[#FF8399] font-semibold cursor-pointer"
-                            value={"Compartir"}
-                          ></input>
-                        </Dialog.Title>
+                            <button
+                              className="text-indigo-800 font-semibold"
+                              onClick={closeModal2}
+                            >
+                              Cancelar
+                            </button>
+                            <h3 className="text-lg font-medium leading-6 text-gray-900 text-center ">
+                              Crea nueva publicación
+                            </h3>
+                            <input
+                              type="submit"
+                              onClick={() => {
+                                if (selectedImage === null) {
+                                  toast.error("Debes subir una imagen");
+                                } else if (selectedLanguage === null) {
+                                  toast.error("Debes seleccionar el idioma");
+                                } else {
+                                  closeModal();
+                                }
+                              }}
+                              className="text-[#FF8399] font-semibold cursor-pointer"
+                              value={"Compartir"}
+                            ></input>
+                          </Dialog.Title> */}
+                          <Dialog.Title
+                            as="div"
+                            className="flex justify-center border-b-[1px] h-[5%] items-center px-5"
+                          >
+                            <h3 className="text-lg font-medium leading-6 text-gray-900 text-center ">
+                              Crea nueva publicación
+                            </h3>
+                          </Dialog.Title>
 
-                        <div className="flex h-full">
-                          {!selectedImage && (
-                            <div className="w-[75%]  flex justify-center items-center border-r-[1px]">
-                              <div className="flex flex-col gap-7">
-                                <img
-                                  src={galleryAdd}
-                                  alt=""
-                                  className="w-full h-full"
-                                />
-                                <label className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 cursor-pointer">
-                                  Selecciona una imagen
-                                  <input
-                                    {...register("imagen")}
-                                    type="file"
-                                    accept="image/*"
-                                    className="hidden"
-                                    onChange={handleImageSelect}
+                          <div className="flex flex-col justify-between h-[95%] gap-2">
+                            {!selectedImage && (
+                              <div className="w-full flex justify-center items-center my-6">
+                                <div className="flex flex-col gap-3 justify-center items-center">
+                                  <img
+                                    src={galleryAdd}
+                                    alt=""
+                                    className="w-[50%] h-[50%]"
                                   />
-                                </label>
+                                  <label className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-sm   text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 cursor-pointer">
+                                    Selecciona una imagen
+                                    <input
+                                      {...register("imagen")}
+                                      type="file"
+                                      accept="image/*"
+                                      className="hidden"
+                                      onChange={handleImageSelect}
+                                    />
+                                  </label>
+                                </div>
+                              </div>
+                            )}
+
+                            {selectedImage && (
+                              <div className=" flex justify-center items-center">
+                                <img
+                                  src={selectedImage}
+                                  alt=""
+                                  className="w-full h-[14rem] object-cover"
+                                />
+                              </div>
+                            )}
+                            <div className="flex justify-between flex-col w-full h-full p-4 pr-5 gap-5">
+                              <div className="flex gap-3 items-center">
+                                <img
+                                  src={`http://localhost:5000${usuario.imagen_perfil}`}
+                                  alt=""
+                                  className="w-9 h-9 rounded-full object-cover"
+                                />
+                                <p className="font-semibold">
+                                  {usuario.nombre} {usuario.apellido}
+                                </p>
+                              </div>
+                              <textarea
+                                {...register("descripcion")}
+                                className="outline-none resize-none"
+                                id=""
+                                cols="30"
+                                rows="3"
+                                placeholder="Escribe un pie de foto"
+                                onChange={handleCaptionChange}
+                              ></textarea>
+                              <p className="text-sm text-end text-gray-500">
+                                {caption.length}/200 caracteres
+                              </p>
+                              <div className="flex flex-col gap-4">
+                                <p className="text-[#646464] text-[18px]">
+                                  Idioma
+                                </p>
+
+                                <div className="flex w-full items-center justify-around gap-5 mb-2">
+                                  <div className="flex w-[63%] flex-col overflow-y-scroll 1370:h-[260px] h-[10rem] ">
+                                    {allLanguages.map((language, index) => (
+                                      <div
+                                        key={index}
+                                        className="flex gap-4 items-center hover:bg-[#e4e4e4] rounded-lg py-2 px-4 cursor-pointer"
+                                        onClick={() =>
+                                          handleLanguageClick(language)
+                                        }
+                                      >
+                                        <img
+                                          src={language[1]}
+                                          alt=""
+                                          className="w-6"
+                                        />
+                                        <p>{language[0]}</p>
+                                      </div>
+                                    ))}
+                                  </div>
+                                  {selectedLanguage && (
+                                    <div className="flex h-min py-2 px-4 rounded-lg bg-[#f5f5f5] justify-center items-center gap-2">
+                                      <img
+                                        src={selectedLanguage[1]}
+                                        alt=""
+                                        className="w-6"
+                                      />
+                                      <p>{selectedLanguage[0]}</p>
+                                      <input
+                                        className="hidden"
+                                        {...register("idioma")}
+                                        type="text"
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex justify-center items-center gap-5">
+                                <button
+                                  className="inline-flex justify-center rounded-md border border-transparent bg-[#000000] px-7 py-2 text-sm font-medium text-white hover:bg-[#364C97] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                  onClick={closeModal2}
+                                >
+                                  Cancelar
+                                </button>
+
+                                <input
+                                  type="submit"
+                                  onClick={() => {
+                                    if (selectedImage === null) {
+                                      toast.error("Debes subir una imagen");
+                                    } else if (selectedLanguage === null) {
+                                      toast.error(
+                                        "Debes seleccionar el idioma"
+                                      );
+                                    } else {
+                                      closeModal();
+                                    }
+                                  }}
+                                  className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                  value={"Compartir"}
+                                ></input>
                               </div>
                             </div>
-                          )}
+                          </div>
+                        </form>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
+                </div>
+              </Dialog>
+            </Transition>
+          ) : (
+            <Transition appear show={isOpen} as={Fragment}>
+              <Dialog
+                as="div"
+                className="relative z-10 h-screen"
+                onClose={closeModal2}
+              >
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <div className="fixed inset-0 bg-black bg-opacity-25 h-screen z-100" />
+                </Transition.Child>
 
-                          {selectedImage && (
-                            <div className="w-[75%] flex justify-center items-center border-r-[1px]">
-                              <img
-                                src={selectedImage}
-                                alt=""
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          )}
-                          <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
-                            <div className="flex gap-3 items-center">
-                              <img
-                                src={`http://localhost:5000${usuario.imagen_perfil}`}
-                                alt=""
-                                className="w-9 h-9 rounded-full object-cover"
-                              />
-                              <p className="font-semibold">
-                                {usuario.nombre} {usuario.apellido}
-                              </p>
-                            </div>
-                            <textarea
-                              {...register("descripcion")}
-                              className="outline-none resize-none"
-                              id=""
-                              cols="30"
-                              rows="7"
-                              placeholder="Escribe un pie de foto"
-                              onChange={handleCaptionChange}
-                            ></textarea>
-                            <p className="text-sm text-end text-gray-500">
-                              {caption.length}/200 caracteres
-                            </p>
-                            <div className="flex flex-col gap-4">
-                              <p className="text-[#646464] text-[18px]">
-                                Idioma
-                              </p>
+                <div className="fixed inset-0 overflow-y-auto">
+                  <div className="flex min-h-full items-center justify-center p-4 text-center">
 
-                              <div className="flex flex-col gap-1 overflow-y-scroll h-[260px]">
-                                {allLanguages.map((language, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex gap-4 items-center hover:bg-[#e4e4e4] rounded-lg p-2 cursor-pointer"
-                                    onClick={() =>
-                                      handleLanguageClick(language)
-                                    }
-                                  >
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <Dialog.Panel className="w-[90vw] 1370:w-[70vw] h-[80vh] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
+                        <form
+                          onSubmit={handleSubmit(onSubmit)}
+                          encType="multipart/form-data"
+                          className="h-full"
+                        >
+                          <Dialog.Title
+                            as="div"
+                            className="flex justify-between border-b-[1px] py-2 px-5"
+                          >
+                            <button
+                              className="text-indigo-800 font-semibold"
+                              onClick={closeModal2}
+                            >
+                              Cancelar
+                            </button>
+                            <h3 className="text-lg font-medium leading-6 text-gray-900 text-center ">
+                              Crea nueva publicación
+                            </h3>
+                            <input
+                              type="submit"
+                              onClick={() => {
+                                if (selectedImage === null) {
+                                  toast.error("Debes subir una imagen");
+                                } else if (selectedLanguage === null) {
+                                  toast.error("Debes seleccionar el idioma");
+                                } else {
+                                  closeModal();
+                                }
+                              }}
+                              className="text-[#FF8399] font-semibold cursor-pointer"
+                              value={"Compartir"}
+                            ></input>
+                          </Dialog.Title>
+
+                          <div className="flex h-[95%] items-center justify-center">
+                            {!selectedImage && (
+                              <div className="w-[75%] h-full flex justify-center items-center border-r-[1px]">
+                                <div className="flex flex-col gap-7">
+                                  <img
+                                    src={galleryAdd}
+                                    alt=""
+                                    className="w-full h-full"
+                                  />
+                                  <label className="inline-flex justify-center rounded-md border border-transparent bg-[#ffdfe5b9] px-4 py-2 text-sm font-medium text-[#FF8399] hover:bg-[#ffdfe5f5] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 cursor-pointer">
+                                    Selecciona una imagen
+                                    <input
+                                      {...register("imagen")}
+                                      type="file"
+                                      accept="image/*"
+                                      className="hidden"
+                                      onChange={handleImageSelect}
+                                    />
+                                  </label>
+                                </div>
+                              </div>
+                            )}
+
+                            {selectedImage && (
+                              <div className="w-[75%] h-full flex justify-center items-center border-r-[1px]">
+                                <img
+                                  src={selectedImage}
+                                  alt=""
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                            )}
+                            <div className="flex flex-col w-[25%] h-full p-4 pr-5 gap-5">
+                              <div className="flex gap-3 items-center">
+                                <img
+                                  src={`http://localhost:5000${usuario.imagen_perfil}`}
+                                  alt=""
+                                  className="w-9 h-9 rounded-full object-cover"
+                                />
+                                <p className="font-semibold">
+                                  {usuario.nombre} {usuario.apellido}
+                                </p>
+                              </div>
+                              <textarea
+                                {...register("descripcion")}
+                                className="outline-none resize-none"
+                                id=""
+                                cols="30"
+                                rows="7"
+                                placeholder="Escribe un pie de foto"
+                                onChange={handleCaptionChange}
+                              ></textarea>
+                              <p className="text-sm text-end text-gray-500">
+                                {caption.length}/200 caracteres
+                              </p>
+                              <div className="flex flex-col gap-4">
+                                <p className="text-[#646464] text-[18px]">
+                                  Idioma
+                                </p>
+
+                                <div className="flex flex-col gap-1 overflow-y-scroll 1370:h-[260px] h-[10rem]">
+                                  {allLanguages.map((language, index) => (
+                                    <div
+                                      key={index}
+                                      className="flex gap-4 items-center hover:bg-[#e4e4e4] rounded-lg p-2 cursor-pointer"
+                                      onClick={() =>
+                                        handleLanguageClick(language)
+                                      }
+                                    >
+                                      <img
+                                        src={language[1]}
+                                        alt=""
+                                        className="w-8"
+                                      />
+                                      <p>{language[0]}</p>
+                                    </div>
+                                  ))}
+                                </div>
+                                {selectedLanguage && (
+                                  <div className="mt-4 flex max-w-[200px] mx-auto my-10 py-2 px-5 rounded-lg bg-[#f5f5f5] justify-center items-center gap-2">
                                     <img
-                                      src={language[1]}
+                                      src={selectedLanguage[1]}
                                       alt=""
                                       className="w-8"
                                     />
-                                    <p>{language[0]}</p>
+                                    <p>{selectedLanguage[0]}</p>
+                                    <input
+                                      className="hidden"
+                                      {...register("idioma")}
+                                      type="text"
+                                    />
                                   </div>
-                                ))}
+                                )}
                               </div>
-                              {selectedLanguage && (
-                                <div className="mt-4 flex max-w-[200px] mx-auto py-2 px-5 rounded-lg bg-[#f5f5f5] justify-center items-center gap-2">
-                                  <img
-                                    src={selectedLanguage[1]}
-                                    alt=""
-                                    className="w-8"
-                                  />
-                                  <p>{selectedLanguage[0]}</p>
-                                  <input
-                                    className="hidden"
-                                    {...register("idioma")}
-                                    type="text"
-                                  />
-                                </div>
-                              )}
                             </div>
                           </div>
-                        </div>
-                      </form>
-                    </Dialog.Panel>
-                  </Transition.Child>
+                        </form>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
                 </div>
-              </div>
-            </Dialog>
-          </Transition>
+              </Dialog>
+            </Transition>
+          )}
           {posts &&
             posts.map((post) => (
-              <PostCard keyProp={post.id} posts={post} key={post.id} setPosts={setPosts} />
+              <PostCard
+                keyProp={post.id}
+                posts={post}
+                key={post.id}
+                setPosts={setPosts}
+              />
             ))}
         </div>
-        <div className="border-l border-solid border-black">
+        <div className="w-[28rem] hidden lg:block">
           <PeopleSection />
-          <BlogSection />
         </div>
       </div>
     </>

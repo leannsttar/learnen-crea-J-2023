@@ -197,6 +197,35 @@ const getUserImages = async (req, res) => {
   }
 };
 
+const getUserPosts = async (req, res) => {
+  try {
+
+    console.log(req.params.id)
+  
+    const allPosts = await prisma.publicaciones.findMany({
+      where: {
+        id_cliente: +req.params.id,
+      },
+      include: {
+        Likes: true,
+        cliente: true,
+      },
+    });
+    const postsWithLikesCount = allPosts.map((post) => ({
+      ...post,
+      numLikes: post.Likes.length,
+    }));
+
+    res.json(postsWithLikesCount);
+  } catch (error) {
+    console.log(error)
+    return res
+      .status(500)
+      .json({ error: "Error al obtener las publicaciones" });
+  }
+};
+
+
 
 
 module.exports = {
@@ -206,5 +235,6 @@ module.exports = {
   deleteLike,
   alreadyLiked,
   deletePost,
-  getUserImages
+  getUserImages,
+  getUserPosts
 };
