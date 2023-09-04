@@ -677,7 +677,7 @@ const PeopleSection = () => {
           <h3 className="p-6 font-bold text-lg">{`${usuario.nombre} ${usuario.apellido}`}</h3>
           <div className="ml-auto flex items-center">
             <Link to={"/profile/" + usuario.id} key={usuario.id}>
-              <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] mr-8 hover:scale-105 hover: transition-scale ease-in duration-200">
+              <button className="shadow-circle border-2 border-black bg-white h-[45px] w-[100px] mr-8 hover:scale-105 hover:transition-scale hover:bg-pink-200 ease-in duration-200">
                 Ver perfil
               </button>
             </Link>

@@ -297,7 +297,7 @@ export function IndexBlog() {
         <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
             <Link to={card.url} key={index}>
-              <Element className="mb-8 w-96 mx-4" name={`card-${index}`}>
+              <Element className="mb-8 w-96 mx-4 hover:scale-95 ease-in duration-300" name={`card-${index}`}>
                 <Fade bottom delay={index * 300}>
                   <div className="relative">
                     <img
