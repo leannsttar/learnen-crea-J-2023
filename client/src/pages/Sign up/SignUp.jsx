@@ -16,34 +16,7 @@ import axios from "axios";
 import { Form } from "react-hook-form";
 import { useSession } from "../../components/Header/useSession";
 
-const LanguageFlags = [
-  {
-    src: greekFlag,
-    country: "日本語",
-  },
-  {
-    src: frenchFlag,
-    country: "Francia",
-  },
-  {
-    src: germanFlag,
-    country: "Aleman",
-  },
-  {
-    src: englishFlag,
-    country: "Ingles",
-  },
-  {
-    src: norwayFlag,
-    country: "Noruega",
-  },
-  {
-    src: portugalFlag,
-    country: "Portugal",
-  },
-];
-
-//register xd
+//register 
 export function SignUp() {
   const { usuario } = useSession();
 
@@ -163,9 +136,10 @@ export function SignUp() {
   };
 
   const isValidEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
+
 
   const next = () => {
     if (!passwordMatch) {
@@ -176,7 +150,7 @@ export function SignUp() {
     if (
       (formNo === 1 && state.email && state.password && state.password_ok) ||
       (formNo === 2 && state.Name && state.Lastname && state.BirthDate) ||
-        (formNo === 4 && state.photoProfile) || 
+      (formNo === 4 && state.photoProfile) ||
       (formNo === 3 && state.sex) ||
       (formNo === 5 && state.mother_language) ||
       (formNo === 6 && state.more_languages) ||
@@ -361,7 +335,7 @@ export function SignUp() {
                       required
                     />
                     {!isValidEmail(state.email) && (
-                      <p className="text-red-600">El correo debe ser válido y terminar en @gmail.com.</p>
+                      <p className="text-red-600">El correo debe ser válido y terminar en .com </p>
                     )}
                   </div>
                   <div className="flex flex-col">
@@ -384,8 +358,8 @@ export function SignUp() {
                         required
                       />
                       {!isValidPassword(state.password) && (
-                      <p className="text-red-600">La contraseña debe iniciar con mayúscula y mayor a 8 caracteres, entre ellos numeros y letras.</p>
-                    )}
+                        <p className="text-red-600">La contraseña debe iniciar con mayúscula y mayor a 8 caracteres, entre ellos numeros y letras.</p>
+                      )}
                       <div
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
                         onClick={toggleShowPassword}

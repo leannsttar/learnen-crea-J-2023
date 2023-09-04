@@ -86,11 +86,11 @@ export function ArticleCopi_1() {
                 recomendados
               </h1>
             </div>
-            <div className=" pb-14">
+            <div className="pb-14">
               <div className="flex flex-row flex-wrap justify-center mt-20">
                 {dataCards.map((card, index) => (
                   <Link to={card.url} key={index}>
-                  <div  className="mb-8 w-96 mx-4">
+                  <div className="mb-8 w-96 mx-4 hover:scale-95 ease-in-out duration-300">
                     <div className="">
                       <img src={card.img} className="w-full" alt="" />
                     </div>

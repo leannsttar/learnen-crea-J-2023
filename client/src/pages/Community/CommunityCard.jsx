@@ -42,7 +42,7 @@ export function CommunityCard({ searchText }) {
           <Link
             to={"/profile/" + usuario.id}
             key={usuario.id}
-            className="flex gap-x-6 bg-[#F7F2EF] p-4 rounded-xl hover:scale-[101%] hover:transition-scale ease-in duration-150 cursor-pointer h-full w-full 800:w-[45%] 1280:w-[30%] 400:flex-row flex-col gap-y-5 400:gap-y-0"
+            className="flex gap-x-6 bg-[#F7F2EF] p-4 rounded-xl hover:scale-[104%] hover:transition-scale ease-in duration-150 cursor-pointer h-full w-full 800:w-[45%] 1280:w-[30%] 400:flex-row flex-col gap-y-5 400:gap-y-0"
           >
             <div className="w-full 400:w-[30%] flex items-center justify-center">
               <img
