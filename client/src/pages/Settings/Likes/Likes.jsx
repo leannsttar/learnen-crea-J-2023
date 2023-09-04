@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "../../../components/Header/useSession.js";
 import axios from "axios";
+import { PostProfile } from "../../Profile/LowerProfile.jsx";
 
 const userLikes = [
   {
@@ -57,6 +58,7 @@ export function Likes() {
   const { usuario } = useSession();
 
   const [likes, setLikes] = useState(null);
+  const [posts, setPosts] = useState(null);
 
   const getLikedPosts = async () => {
     try {
@@ -70,24 +72,42 @@ export function Likes() {
     }
   };
 
+  const obtenerPosts = async () => {
+    try {
+      const { data } = await axios.get(`http://localhost:5000/feed/userPosts/${usuario.id}`);
+      console.log(data);
+      setPosts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getLikedPosts();
+    obtenerPosts()
   }, []);
 
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap gap-5 px-10">
-        {likes &&
+        {/* {likes &&
           likes.map((post, index) => (
             <img
               key={index}
               src={`http://localhost:5000/imagenes/processed-${post.imagen}`}
               className="w-[12rem] h-[12rem] object-cover"
             />
+          ))} */}
+        {posts &&
+          posts.map((post) => (
+            <PostProfile
+              keyProp={post.id}
+              posts={post}
+              key={post.id}
+              setPosts={setPosts}
+            />
           ))}
-        {/* {userLikes.map((post, index) => (
-          <img key={index} src={post.picture} className="w-[200px]" />
-        ))} */}
+
       </div>
     </div>
   );

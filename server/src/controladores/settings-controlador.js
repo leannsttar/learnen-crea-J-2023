@@ -138,44 +138,42 @@ const updateAccountInfo = async (req, res) => {
 
 const getLikedPosts = async (req, res) => {
   try {
-    const id = req.params.id
 
-    console.log(id)
+    console.log(req.params.id)
 
-    const allLikedPosts = await prisma.publicaciones.findMany({
+    const allPosts = await prisma.publicaciones.findMany({
+      where: {
+        id_cliente: +req.params.id,
+      },
       include: {
-        Likes: {
-          where: {
-            id_cliente: +id
-          }
-        }
-      }
-    })
-
-    return res.json({
-      message: "Posts likeados obtenidos",
-      data: allLikedPosts,
+        Likes: true,
+        cliente: true,
+      },
     });
+    const postsWithLikesCount = allPosts.map((post) => ({
+      ...post,
+      numLikes: post.Likes.length,
+    }));
 
-
+    res.json(postsWithLikesCount);
   } catch (error) {
-    console.error(error);
+    console.log(error)
     return res
       .status(500)
-      .json({ message: "Error al obtener likeados" });
+      .json({ error: "Error al obtener las publicaciones" });
   }
 }
 
 const updateUserLanguages = async (req, res) => {
   try {
-    const {id, idioma_materno, idiomas_fluidos, idiomas_aprendiendo } = req.body
+    const { id, idioma_materno, idiomas_fluidos, idiomas_aprendiendo } = req.body
 
     console.log(req.body)
 
     const languagesUpdated = await prisma.cliente.update({
       where: {
         id: +id
-      }, 
+      },
       data: {
         idioma_materno,
         idiomas_fluidos,

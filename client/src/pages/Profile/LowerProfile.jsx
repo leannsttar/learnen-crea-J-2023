@@ -403,7 +403,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
         
         
         <img
-          className="w-full"
+          className="w-full h-full object-cover"
           src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
           alt=""
           onClick={openModal}
@@ -793,7 +793,7 @@ export function LowerProfile({
 
   const obtenerPosts = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/feed/userPosts/${usuario.id}`);
+      const { data } = await axios.get(`http://localhost:5000/feed/userPosts/${usuarioPerfil.id}`);
       console.log(data);
       setPosts(data);
     } catch (error) {
