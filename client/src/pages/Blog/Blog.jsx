@@ -74,7 +74,6 @@ export function CardPrincipal() {
             <p className="text-pink-400 font-bold text-4xl ml-24 mt-24 mb-24">
               Nuestro blog
             </p>
-
             <div className="flex flex-row flex-wrap justify-center mx-auto pl-24 pr-24 mb-32">
               <div className="flex flex-col bg-custom-bg w-[60%] lgv:w-full bg-cover h-fit rounded">
                 <div className="flex flex-col w-[50%] p-1">
@@ -107,6 +106,7 @@ export function CardPrincipal() {
     </>
   );
 }
+
 
 export function CardsBlog() {
   const dataCards = [
@@ -187,6 +187,9 @@ export function CardsBlog() {
     </>
   );
 }
+
+
+
 
 export function AllBlogContent() {
   return (
