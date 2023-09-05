@@ -13,7 +13,7 @@ export const Navbar = ({ userName, userRole }) => {
     return (
       <nav className="flex-col items-start gap-4 flex md:flex-row md:justify-between bg-white p-6">
         <div>
-        <div className="text-xl font-bold">{userName}</div>
+        <div className="text-xl font-bold" translate="no">{userName}</div>
         <div className="text-sm">¡Veamos que hay de nuevo hoy!</div>
         </div>
         <div className="flex items-center justify-center">
@@ -23,7 +23,7 @@ export const Navbar = ({ userName, userRole }) => {
             alt="Foto de perfil"
           />
           <div>
-            <div className="text-sm font-medium">{userName}</div>
+            <div className="text-sm font-medium" translate="no">{userName}</div>
             <div className="text-xs text-gray-500">{userRole}</div>
           </div>
         </div>

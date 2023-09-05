@@ -30,11 +30,13 @@ export function Cuenta() {
           dataName="Nombre"
           dataUser={usuario.nombre}
           name="nombre"
+          translate="no"
         />
         <EditInfoAccount
           dataName="Apellido"
           dataUser={usuario.apellido}
           name="apellido"
+          translate="no"
         />
         <EditInfoAccount
           dataName="Fecha de nacimiento"

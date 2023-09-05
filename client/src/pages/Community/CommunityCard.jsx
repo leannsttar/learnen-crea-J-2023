@@ -58,11 +58,11 @@ export function CommunityCard({ searchText }) {
             <div className="justify-between flex flex-col gap-y-4 w-full 500:w-[70%] 400:w-[55%]">
               <div>
                 <div className="flex gap-x-3 items-center">
-                  <p className="font-bold text-xl">
+                  <p className="font-bold text-xl" translate="no">
                     {usuario.nombre} {usuario.apellido}
                   </p>
                 </div>
-                <p className="text-sm font-normal line-clamp-2 1370:h-auto h-[40px]">
+                <p className="text-sm font-normal line-clamp-2 1370:h-auto h-[40px]" translate="no">
                   {usuario.como_soy}
                 </p>
               </div>

@@ -337,22 +337,20 @@ export function Slider() {
     {
       id: 1,
       image: "/assets/slider1.png",
-      quote:
-        "Learnen me ha permitido abrir mi brecha laboral, gracias a su formato de aprendizaje.",
-      author: "Beatriz Rivera",
+      quote:<p><span translate="no">"Learnen</span> me ha permitido abrir mi brecha laboral, gracias a su formato de aprendizaje."</p>,
+      author: "Beatriz Rivera"
     },
     {
       id: 2,
       image: "/assets/leandro.png",
-      quote:
-        "El contexto educativo de Learnen me parece fascinante, aprendo y me divierto.",
-      author: "Rodrigo Pineda",
+      quote: <p>"El contexto educativo de <span translate="no">Learnen</span> me parece fascinante, aprendo y me divierto."</p>,
+      author: "Rodrigo Pineda"
     },
     {
       id: 3,
       image: "/assets/Group3.png",
-      quote: "Me volví más sociable y conseguí amigos gracias a Learnen",
-      author: "Daniela Milla",
+      quote: <p>"Me volví más sociable y conseguí amigos gracias a <span translate="no">Learnen</span>"</p>,
+      author: "Daniela Milla"
     },
   ];
 

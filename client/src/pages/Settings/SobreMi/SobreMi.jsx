@@ -123,20 +123,23 @@ export function SobreMi() {
           data={usuario.como_soy}
           name="como_soy"
           register={register}
+          translate="no"
         />
         <SobreMiData
           onEdit={onEdit ? true : false}
-          label="Cuáles son tus metas para aprender idiomas?"
+          label="¿Cuáles son tus metas para aprender idiomas?"
           data={usuario.objetivos}
           name="objetivos"
           register={register}
+          translate="no"
         />
         <SobreMiData
           onEdit={onEdit ? true : false}
-          label="De qué te gusta hablar?"
+          label="¿De qué te gusta hablar?"
           data={usuario.me_gusta}
           name="me_gusta"
           register={register}
+          translate="no"
         />
       </div>
     </form>

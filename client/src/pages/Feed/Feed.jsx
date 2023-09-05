@@ -787,7 +787,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
                                       object-cover
                                     />
                                     <div className="flex gap-1">
-                                      <p className="">
+                                      <p className="" translate="no">
                                         <span className="font-semibold">
                                           {" "}
                                           {comentario.cliente.nombre}{" "}

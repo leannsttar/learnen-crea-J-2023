@@ -169,7 +169,7 @@ export function Dashboard() {
       <div className="w-full bg-gray-100 pb-12">
         {/* Navbar */}
         <Navbar
-          userName="Hola Rodri"
+          userName="Rodri"
           userRole="Cargo"
           userAvatar="/src/assets/chica-admin.png"
         />

@@ -41,17 +41,17 @@ export function AboutProfile({ usuarioPerfil }) {
             <div className="flex flex-col gap-5">
               <div>
                 <p className="font-[700]">Me gusta:</p>
-                <p>{usuarioPerfil.me_gusta}</p>
+                <p translate="no">{usuarioPerfil.me_gusta}</p>
               </div>
               <div>
                 <p className="font-[700]">
                   Mis objetivos para aprender idiomas:
                 </p>
-                <p>{usuarioPerfil.objetivos}</p>
+                <p translate="no">{usuarioPerfil.objetivos}</p>
               </div>
               <div>
                 <p className="font-[700]">Cómo soy:</p>
-                <p>{usuarioPerfil.como_soy}</p>
+                <p translate="no">{usuarioPerfil.como_soy}</p>
               </div>
             </div>
           </AccordionBody>
@@ -59,21 +59,21 @@ export function AboutProfile({ usuarioPerfil }) {
       ) : (
         <>
           <div className="flex justify-center">
-            <p className="font-semibold text-[23px]">Sobre {usuarioPerfil.nombre}</p>
+            <p className="font-semibold text-[23px]">Sobre:<span translate="no"> {usuarioPerfil.nombre}</span></p>
           </div>
 
           <div className="flex flex-col gap-5">
             <div>
               <p className="font-[700]">Me gusta:</p>
-              <p>{usuarioPerfil.me_gusta}</p>
+              <p translate="no">{usuarioPerfil.me_gusta}</p>
             </div>
             <div>
               <p className="font-[700]">Mis objetivos para aprender idiomas:</p>
-              <p>{usuarioPerfil.objetivos}</p>
+              <p translate="no">{usuarioPerfil.objetivos}</p>
             </div>
             <div>
               <p className="font-[700]">Cómo soy:</p>
-              <p>{usuarioPerfil.como_soy}</p>
+              <p translate="no">{usuarioPerfil.como_soy}</p>
             </div>
           </div>
         </>

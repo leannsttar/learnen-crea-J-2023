@@ -112,7 +112,7 @@ export function Settings() {
                   />
                   <LinkMiniNav
                     layout={layout}
-                    name="Sobre Mi"
+                    name="Sobre mí"
                     onClick={() => changeLayout("Sobre Mi")}
                   />
                   <LinkMiniNav

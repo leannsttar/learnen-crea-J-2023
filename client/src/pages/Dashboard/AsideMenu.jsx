@@ -5,7 +5,7 @@ import { useSession } from "../../components/Header/useSession";
 export const AsideMenu = ({ onLogout }) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
-  const { logout, usuario } = useSession(); 
+  const { logout, usuario } = useSession();
 
   const handleDropdownToggle = () => {
     setDropdownVisible(!isDropdownVisible);
@@ -30,7 +30,9 @@ export const AsideMenu = ({ onLogout }) => {
                 src="/src/assets/learnen-palabra.png"
                 alt="Texto"
               />
-              <p className="absolute mt-16">Admin Dashboard</p>
+              <p className="absolute mt-16" translate="no">
+                Admin Dashboard
+              </p>
             </div>
           </div>
 
@@ -109,10 +111,7 @@ export const AsideMenu = ({ onLogout }) => {
           </button>
         </div>
         <div className="pl-8">
-          <Link
-            to="/"
-            className="focus:outline-none "
-          >
+          <Link to="/" className="focus:outline-none ">
             <button
               className="w-full py-2 px-4 rounded flex items-center mb-32 pr-6"
               onClick={logout}
