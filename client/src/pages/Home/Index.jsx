@@ -236,7 +236,7 @@ export function IndexSteps() {
       <hr className="mt-14" />
       <div className="flex flex-row justify-center mt-10 text-[1.8rem] font-extrabold">
         <p className="text-center">
-          ¿Cómo funciona?<span className="text-indigo-600"> Learnen</span>
+          ¿Cómo funciona?<span className="text-indigo-600" translate="no"> Learnen</span>
         </p>
       </div>
 

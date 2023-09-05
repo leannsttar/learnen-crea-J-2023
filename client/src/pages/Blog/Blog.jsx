@@ -176,7 +176,7 @@ export function CardsBlog() {
                     </h2>
                     <h4 className="mt-4 text-base">{card.p}</h4>
                     <hr className="mt-12" />
-                    <p className="text-sm absolute bottom-2 right-10"><span className="text-indigo-600"> Learnen</span></p>
+                    <p className="text-sm absolute bottom-2 right-10"><span className="text-indigo-600" translate="no"> Learnen</span></p>
                   </div>
                 </Fade>
               </Element>

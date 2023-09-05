@@ -442,7 +442,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
           />
 
           <div className="flex flex-col ml-6">
-            <h6 className="font-bold">
+            <h6 className="font-bold" translate="no">
               {posts.cliente.nombre} {posts.cliente.apellido}
             </h6>
             <h6 className="text-sm">Hace {timeAgo}</h6>
@@ -475,7 +475,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
           </Space>
         </div>
         <div className="500:mt-4 mt-2 px-4">
-          <p>{posts.descripcion}</p>
+          <p translate="no">{posts.descripcion}</p>
         </div>
         <img
           className="w-full mt-3 500:mt-6"
@@ -550,7 +550,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
                                   clipPath: "circle(50% at 50% 50%)",
                                 }}
                               />
-                              <p className="font-semibold">
+                              <p className="font-semibold" translate="no">
                                 {posts.cliente.nombre} {posts.cliente.apellido}
                               </p>
                             </div>
@@ -608,7 +608,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
                                       className="w-7 h-7 rounded-full"
                                       object-cover
                                     />
-                                    <p className="">
+                                    <p className="" translate="no">
                                       <span className="font-semibold">
                                         {" "}
                                         {comentario.cliente.nombre}{" "}
@@ -735,7 +735,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
                                     clipPath: "circle(50% at 50% 50%)",
                                   }}
                                 />
-                                <p className="font-semibold">
+                                <p className="font-semibold" translate="no">
                                   {posts.cliente.nombre}{" "}
                                   {posts.cliente.apellido}
                                 </p>
@@ -911,7 +911,7 @@ const PeopleSection = () => {
             />
 
             <div className="ml-3 ">
-              <h3 className="font-bold text-md w-full">{`${usuario.nombre} ${usuario.apellido}`}</h3>
+              <h3 className="font-bold text-md w-full" translate="no">{`${usuario.nombre} ${usuario.apellido}`}</h3>
               <div className="flex gap-1">
                 {usuario.idiomas_aprendiendo.length &&
                   usuario.idiomas_aprendiendo.map((language, index) => (
