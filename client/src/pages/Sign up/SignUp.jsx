@@ -140,6 +140,8 @@ export function SignUp() {
     return emailRegex.test(email);
   };
 
+  console.log(isValidEmail())
+
 
   const next = () => {
     if (!passwordMatch) {
@@ -148,7 +150,7 @@ export function SignUp() {
     }
 
     if (
-      (formNo === 1 && state.email && state.password && state.password_ok) ||
+      (formNo === 1 && state.email && state.password && state.password_ok && isValidEmail(state.email) && isValidPassword(state.password) && isValidPassword(state.password_ok)) ||
       (formNo === 2 && state.Name && state.Lastname && state.BirthDate) ||
       (formNo === 4 && state.photoProfile) ||
       (formNo === 3 && state.sex) ||
@@ -158,8 +160,14 @@ export function SignUp() {
     ) {
       setFormNo(formNo + 1);
     } else {
-      if (formNo === 1 && !isValidEmail(state.email) && !isValidPassword(state.password)) {
-        toast.warning("El email debe ser una dirección válida de @gmail.com, y tambiena a contraseña", {
+      if (formNo === 1 && isValidEmail(state.email) === false ) {
+        toast.warning("El email debe ser una dirección válida de un dominio", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+      else if (formNo === 1 && isValidPassword(state.password) === false && isValidPassword(state.password_ok) === false) {
+        toast.warning("La contraseña debe tener 8 caracteres, al menos 1 mayúscula y 1 número", {
           position: "top-right",
           autoClose: 3000,
         });
@@ -328,15 +336,15 @@ export function SignUp() {
                       value={state.email}
                       onChange={inputHandle}
                       className="p-2  bg-slate-100 rounded-md focus:outline-none focus:shadow-lg"
-                      type="email"
+                      // type="email"
                       name="email"
                       placeholder="Por favor introduzca su correo electrónico"
                       id="email"
                       required
                     />
-                    {!isValidEmail(state.email) && (
+                    {/* {!isValidEmail(state.email) && (
                       <p className="text-red-600">El correo debe ser válido y terminar en .com </p>
-                    )}
+                    )} */}
                   </div>
                   <div className="flex flex-col">
                     <label htmlFor="password">
@@ -357,9 +365,9 @@ export function SignUp() {
                         id="password"
                         required
                       />
-                      {!isValidPassword(state.password) && (
+                      {/* {!isValidPassword(state.password) && (
                         <p className="text-red-600">La contraseña debe iniciar con mayúscula y mayor a 8 caracteres, entre ellos numeros y letras.</p>
-                      )}
+                      )} */}
                       <div
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
                         onClick={toggleShowPassword}
@@ -404,7 +412,7 @@ export function SignUp() {
                     <button
                       onClick={next}
                       className="px-2 py-2 text-xl rounded-md text-[#FF8399] hover:text-red-500"
-                      disabled={!isValidEmail(state.email)}
+                    // disabled={!isValidEmail(state.email)}
                     >
                       <div className="flex flex-row items-center space-x-2">
                         <div onClick={sendRegister}>Continuar</div>

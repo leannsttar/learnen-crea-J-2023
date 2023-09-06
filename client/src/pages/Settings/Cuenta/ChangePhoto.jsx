@@ -125,7 +125,7 @@ export function ChangePhoto({ userPhoto }) {
         <button
           // onClick={() => setModal2Open(true)}
           onClick={openModal}
-          className=" hover:bg-red-500 ease-in duration-200 bg-black text-white p-3 lgv:p-3 rounded-xl"
+          className=" ease-in duration-200 bg-black hover:bg-[#364C97] text-white p-3 lgv:p-3 rounded-xl"
         >
           Cambiar foto de perfil
         </button>

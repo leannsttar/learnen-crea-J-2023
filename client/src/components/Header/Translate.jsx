@@ -4,7 +4,7 @@ const Translate = () => {
     new window.google.translate.TranslateElement(
       {
         autoDisplay: false,
-        includedLanguages: 'en,es,de,ja',
+        includedLanguages: 'en,es,de,ja,fr,it,pt,zh-CN,hi,ru,el,no',
       },
     //   
     // layout: google.translate.TranslateElement.InlineLayout.SIMPLE

@@ -21,6 +21,7 @@ import {
   Typography,
   IconButton,
 } from "@material-tailwind/react";
+import Translate from "./Translate";
 
 function ClockIcon() {
   return (
@@ -355,6 +356,7 @@ export function Header() {
                 >
                   <img src={Notification} alt="" className="w-8 h-8 " />
                 </Link> */}
+                
                 <p className="font-medium" translate="no">
                   {usuario.nombre} {usuario.apellido}{" "}
                 </p>

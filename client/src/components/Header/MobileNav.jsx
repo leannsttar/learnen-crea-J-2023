@@ -4,6 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSession } from "./useSession.js";
+import { LuSettings } from "react-icons/lu";
 
 import { ButtonHeader } from "./ButtonHeader.jsx";
 
@@ -77,7 +78,17 @@ export function MobileNav() {
           </li>
           {isLoggedIn ? (
             <div className="flex gap-x-4">
-              <Link to={"/profile/" + usuario.id}><img src={`http://localhost:5000${usuario.imagen_perfil}`} alt="" className="h-14 w-14 rounded-full" /></Link>
+              <Link to={'/settings'} onClick={() => setOpenMenu(false)}>
+                
+                <LuSettings size={50} />
+              </Link>
+              <Link to={"/profile/" + usuario.id} onClick={() => setOpenMenu(false)}>
+                <img
+                  src={`http://localhost:5000${usuario.imagen_perfil}`}
+                  alt=""
+                  className="h-14 w-14 rounded-full"
+                />
+              </Link>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-5">

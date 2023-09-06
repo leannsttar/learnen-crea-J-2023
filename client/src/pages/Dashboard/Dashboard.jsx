@@ -175,7 +175,7 @@ export function Dashboard() {
         />
         <div className="flex flex-col md:grid grid-cols-[1fr_max-content] md:p-4 gap-6 max-w-6xl md:ml-12">
           <div className="">
-            <div className="flex flex-col md:grid grid-cols-2 max-w-xl md:ml-16">
+            <div className="flex md:ml-16 mb-10">
               <InfoCard
                 title="Usuarios"
                 value={totalUsers}
@@ -190,11 +190,6 @@ export function Dashboard() {
                 title="Reportes"
                 value={totalReports.length}
                 icon="/src/assets/reports-div.png"
-              />
-              <InfoCard
-                title="Artículos"
-                value={6}
-                icon="/src/assets/articles-div.png"
               />
             </div>
 

@@ -58,7 +58,7 @@ export function Likes() {
   const { usuario } = useSession();
 
   const [likes, setLikes] = useState(null);
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   const getLikedPosts = async () => {
     try {
@@ -66,30 +66,30 @@ export function Likes() {
         `http://localhost:5000/settings/likes/${usuario.id}`
       );
       console.log(data);
-      setLikes(data.data);
+      setPosts(data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const obtenerPosts = async () => {
-    try {
-      const { data } = await axios.get(`http://localhost:5000/feed/userPosts/${usuario.id}`);
-      console.log(data);
-      setPosts(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const obtenerPosts = async () => {
+  //   try {
+  //     const { data } = await axios.get(`http://localhost:5000/feed/userPosts/${usuario.id}`);
+  //     console.log(data);
+  //     setPosts(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     getLikedPosts();
-    obtenerPosts()
+    // obtenerPosts()
   }, []);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-wrap gap-5 px-10">
+    <div className="flex flex-col w-full h-full">
+      <div className="flex flex-wrap gap-5 justify-center 800:justify-start">
         {/* {likes &&
           likes.map((post, index) => (
             <img
@@ -98,15 +98,20 @@ export function Likes() {
               className="w-[12rem] h-[12rem] object-cover"
             />
           ))} */}
+        {console.log(posts)}
         {posts &&
           posts.map((post) => (
-            <PostProfile
-              keyProp={post.id}
-              posts={post}
-              key={post.id}
-              setPosts={setPosts}
-            />
-          ))}
+            <div className="w-[15rem] h-[15rem]">
+              <PostProfile
+                keyProp={post.id}
+                posts={post}
+                key={post.id}
+                setPosts={setPosts}
+              />
+            </div>
+          ))
+        }
+       {posts.length === 0 && 'No has likeado ninguna publicación'}
 
       </div>
     </div>

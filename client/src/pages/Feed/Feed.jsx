@@ -22,10 +22,11 @@ import { LanguagesCommunityCard } from "../Community/LanguagesCommunityCard";
 import { getComents, postComent, getCommentCount } from "./authComments";
 import { Link } from "react-router-dom";
 import { clienteAxios } from "../../config/clienteAxios";
+import { MessageModal } from "../../components/modalMessages/MessageModal";
 import { headers } from "../../helpers/headers";
 headers;
 
-import xSymbol from '../../assets/xSymbol.svg'
+import xSymbol from "../../assets/xSymbol.svg";
 
 export function timeAgoSincePublication(publicationDate) {
   const now = new Date();
@@ -210,13 +211,13 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
     setIsOpenReport(true);
   }
 
-  let matchingLanguage;
+  // let matchingLanguage;
 
-  allLanguages.forEach((language) => {
-    if (posts.idioma === language[0]) {
-      matchingLanguage = language;
-    }
-  });
+  // allLanguages.forEach((language) => {
+  //   if (posts.idioma === language[0]) {
+  //     matchingLanguage = language;
+  //   }
+  // });
 
   function timeAgoSincePublication(publicationDate) {
     const now = new Date();
@@ -250,7 +251,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
         id_cliente: usuario.id,
         id_publicacion: keyProp,
       });
-
+      openMessageModal("Reporte enviado")
       closeModalReport();
     } catch (error) {
       console.error("Error al enviar el reporte:", error);
@@ -260,7 +261,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
     try {
       await clienteAxios.delete(`/delete-post/${keyProp}`, headers());
       // alert("Publicación eliminada exitosamente");
-      obtenerPosts();
+      openMessageModal("Publicación eliminada")
       closeModalDelete();
     } catch (error) {
       console.error(error);
@@ -286,10 +287,23 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
     };
   }, []);
 
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState()
+
+  function openMessageModal(message) {
+    setIsMessageOpen(true);
+    setModalMessage(message)
+  }
+
   return (
     <div key={keyProp} className="flex flex-col items-center mb-5 500:mt-16">
       {/* Modal de eliminar post */}
-
+      <MessageModal
+        to={"/feed"}
+        message={modalMessage}
+        success
+        open={isMessageOpen}
+      />
       <Transition appear show={isOpenDelete} as={React.Fragment}>
         <Dialog
           as="div"
@@ -436,8 +450,8 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
           />
           {/* {console.log(posts.cliente.imagen_perfil)} */}
           <img
-            className="w-10 h-10 500:w-12 500:h-12 "
-            src={matchingLanguage[1]}
+            className="w-10 h-10 rounded-full object-cover 500:w-12 500:h-12"
+            src={`http://localhost:5000${posts.idioma.imagen_bandera}`}
             alt=""
           />
 
@@ -544,11 +558,16 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
                               <img
                                 src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
                                 alt=""
-                                className="w-10 "
+                                className="w-10 h-10"
                                 object-cover
                                 style={{
                                   clipPath: "circle(50% at 50% 50%)",
                                 }}
+                              />
+                              <img
+                                className="-ml-6 w-10 h-10 rounded-full  object-cover 500:w-12 500:h-12 "
+                                src={`http://localhost:5000${posts.idioma.imagen_bandera}`}
+                                alt=""
                               />
                               <p className="font-semibold" translate="no">
                                 {posts.cliente.nombre} {posts.cliente.apellido}
@@ -729,11 +748,16 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
                                 <img
                                   src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
                                   alt=""
-                                  className="w-10 "
+                                  className="w-10 h-10"
                                   object-cover
                                   style={{
                                     clipPath: "circle(50% at 50% 50%)",
                                   }}
+                                />
+                                <img
+                                  className="-ml-6 w-10 h-10 rounded-full  object-cover"
+                                  src={`http://localhost:5000${posts.idioma.imagen_bandera}`}
+                                  alt=""
                                 />
                                 <p className="font-semibold" translate="no">
                                   {posts.cliente.nombre}{" "}
@@ -911,7 +935,10 @@ const PeopleSection = () => {
             />
 
             <div className="ml-3 ">
-              <h3 className="font-bold text-md w-full" translate="no">{`${usuario.nombre} ${usuario.apellido}`}</h3>
+              <h3
+                className="font-bold text-md w-full"
+                translate="no"
+              >{`${usuario.nombre} ${usuario.apellido}`}</h3>
               <div className="flex gap-1">
                 {usuario.idiomas_aprendiendo.length &&
                   usuario.idiomas_aprendiendo.map((language, index) => (
@@ -1032,15 +1059,15 @@ export function Feed() {
   const onSubmit = async (data) => {
     if (selectedImage !== null && selectedLanguage !== null) {
       try {
-        console.log(selectedImage2);
         console.log(selectedImage3);
+        console.log(selectedLanguage);
         console.log(caption);
         const response = await axios.post(
           "http://localhost:5000/feed",
           {
             id_cliente: usuario.id,
             imagen: selectedImage3,
-            idioma: selectedLanguage[0],
+            idioma: selectedLanguage,
             descripcion: caption,
           },
           {
@@ -1145,6 +1172,27 @@ export function Feed() {
     };
   }, []);
 
+  const [lenguajes, setLenguajes] = useState([]);
+
+  const obtenerLenguajes = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:5000/dashboard/lenguajes"
+      );
+      setLenguajes(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerLenguajes();
+  }, []);
+
+  useEffect(() => {
+    console.log(lenguajes);
+  }, [lenguajes]);
+
   return (
     <>
       <div className="flex w-full">
@@ -1181,7 +1229,6 @@ export function Feed() {
 
                 <div className="fixed inset-0 overflow-y-auto">
                   <div className="flex min-h-full items-center justify-center p-4 text-center">
-                  
                     <Transition.Child
                       as={Fragment}
                       enter="ease-out duration-300"
@@ -1191,9 +1238,7 @@ export function Feed() {
                       leaveFrom="opacity-100 scale-100"
                       leaveTo="opacity-0 scale-95"
                     >
-                      
                       <Dialog.Panel className="w-[90vw] overflow-y-auto 1370:w-[70vw] h-[90vh] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
-                      
                         <form
                           onSubmit={handleSubmit(onSubmit)}
                           encType="multipart/form-data"
@@ -1269,28 +1314,31 @@ export function Feed() {
                               </div>
                             )}
                             <div className="flex justify-between flex-col w-full h-full p-4 pr-5 gap-5">
-                              <div className="flex gap-3 items-center">
-                                <img
-                                  src={`http://localhost:5000${usuario.imagen_perfil}`}
-                                  alt=""
-                                  className="w-9 h-9 rounded-full object-cover"
-                                />
-                                <p className="font-semibold">
-                                  {usuario.nombre} {usuario.apellido}
+                              <div className="flex flex-col gap-3 justify-center">
+                                <div className="flex items-center gap-2">
+                                  <img
+                                    src={`http://localhost:5000${usuario.imagen_perfil}`}
+                                    alt=""
+                                    className="w-9 h-9 rounded-full object-cover"
+                                  />
+                                  <p className="font-semibold">
+                                    {usuario.nombre} {usuario.apellido}
+                                  </p>
+                                </div>
+                                <textarea
+                                  {...register("descripcion")}
+                                  className="outline-none resize-none"
+                                  id=""
+                                  cols="30"
+                                  rows="3"
+                                  placeholder="Escribe un pie de foto"
+                                  onChange={handleCaptionChange}
+                                ></textarea>
+                                <p className="text-sm text-end text-gray-500">
+                                  {caption.length}/200 caracteres
                                 </p>
                               </div>
-                              <textarea
-                                {...register("descripcion")}
-                                className="outline-none resize-none"
-                                id=""
-                                cols="30"
-                                rows="3"
-                                placeholder="Escribe un pie de foto"
-                                onChange={handleCaptionChange}
-                              ></textarea>
-                              <p className="text-sm text-end text-gray-500">
-                                {caption.length}/200 caracteres
-                              </p>
+
                               <div className="flex flex-col gap-4">
                                 <p className="text-[#646464] text-[18px]">
                                   Idioma
@@ -1298,7 +1346,7 @@ export function Feed() {
 
                                 <div className="flex w-full items-center justify-around gap-5 mb-2">
                                   <div className="flex w-[63%] flex-col overflow-y-scroll 1370:h-[260px] h-[10rem] ">
-                                    {allLanguages.map((language, index) => (
+                                    {lenguajes.map((language, index) => (
                                       <div
                                         key={index}
                                         className="flex gap-4 items-center hover:bg-[#e4e4e4] rounded-lg py-2 px-4 cursor-pointer"
@@ -1307,22 +1355,22 @@ export function Feed() {
                                         }
                                       >
                                         <img
-                                          src={language[1]}
+                                          src={`http://localhost:5000${language.imagen_bandera}`}
                                           alt=""
-                                          className="w-6"
+                                          className="w-6 h-6 rounded-full"
                                         />
-                                        <p>{language[0]}</p>
+                                        <p>{language.idioma}</p>
                                       </div>
                                     ))}
                                   </div>
                                   {selectedLanguage && (
                                     <div className="flex h-min py-2 px-4 rounded-lg bg-[#f5f5f5] justify-center items-center gap-2">
                                       <img
-                                        src={selectedLanguage[1]}
+                                        src={`http://localhost:5000${selectedLanguage.imagen_bandera}`}
                                         alt=""
-                                        className="w-6"
+                                        className="w-6 h-6 rounded-full"
                                       />
-                                      <p>{selectedLanguage[0]}</p>
+                                      <p>{selectedLanguage.idioma}</p>
                                       <input
                                         className="hidden"
                                         {...register("idioma")}
@@ -1387,7 +1435,6 @@ export function Feed() {
 
                 <div className="fixed inset-0 overflow-y-auto">
                   <div className="flex min-h-full items-center justify-center p-4 text-center">
-
                     <Transition.Child
                       as={Fragment}
                       enter="ease-out duration-300"
@@ -1493,7 +1540,7 @@ export function Feed() {
                                 </p>
 
                                 <div className="flex flex-col gap-1 overflow-y-scroll 1370:h-[260px] h-[10rem]">
-                                  {allLanguages.map((language, index) => (
+                                  {lenguajes.map((language, index) => (
                                     <div
                                       key={index}
                                       className="flex gap-4 items-center hover:bg-[#e4e4e4] rounded-lg p-2 cursor-pointer"
@@ -1502,22 +1549,22 @@ export function Feed() {
                                       }
                                     >
                                       <img
-                                        src={language[1]}
+                                        src={`http://localhost:5000${language.imagen_bandera}`}
                                         alt=""
-                                        className="w-8"
+                                        className="w-8 h-8 rounded-full object-cover"
                                       />
-                                      <p>{language[0]}</p>
+                                      <p>{language.idioma}</p>
                                     </div>
                                   ))}
                                 </div>
                                 {selectedLanguage && (
                                   <div className="mt-4 flex max-w-[200px] mx-auto my-10 py-2 px-5 rounded-lg bg-[#f5f5f5] justify-center items-center gap-2">
                                     <img
-                                      src={selectedLanguage[1]}
+                                      src={`http://localhost:5000${selectedLanguage.imagen_bandera}`}
                                       alt=""
-                                      className="w-8"
+                                      className="w-8 h-8 rounded-full object-cover"
                                     />
-                                    <p>{selectedLanguage[0]}</p>
+                                    <p>{selectedLanguage.idioma}</p>
                                     <input
                                       className="hidden"
                                       {...register("idioma")}

@@ -24,11 +24,14 @@ export function LinkMiniNav({ name, onClick, layout }) {
   );
 }
 
+
 export function Settings() {
   const [layout, setLayout] = useState("Cuenta");
+  const [selectedTab, setSelectedTab] = useState("Cuenta");
 
   const changeLayout = (newLayout) => {
     setLayout(newLayout);
+    setSelectedTab(newLayout);
   };
 
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
@@ -50,9 +53,9 @@ export function Settings() {
       {isSmallScreen ? (
         <>
           <div className="min-h-screen flex flex-col items-center font-Poppins">
-            <div className="mt-12 w-[90%] mb-16">
-              <div className="flex justify-center items-center p-3">
-                <Select className="rounded-md h-10">
+            <div className="mt-10 w-[90%] mb-16">
+              <div className="flex justify-center items-center p-3 mb-10">
+                <Select className="rounded-lg pb-7" value={selectedTab}>
                   <Option>
                     <LinkMiniNav
                       layout={layout}
@@ -63,7 +66,7 @@ export function Settings() {
                     <LinkMiniNav
                       layout={layout}
                       name="Sobre mí"
-                      onClick={() => changeLayout("Sobre Mi")}
+                      onClick={() => changeLayout("Sobre mí")}
                     /></Option>
                   <Option>
                     <LinkMiniNav
@@ -74,7 +77,7 @@ export function Settings() {
                   <Option>
                     <LinkMiniNav
                       layout={layout}
-                      name="Me gusta"
+                      name="Likes"
                       onClick={() => changeLayout("Likes")}
                     /></Option>
                 </Select>
@@ -83,7 +86,7 @@ export function Settings() {
               <div>
                 {layout === "Cuenta" ? (
                   <Cuenta />
-                ) : layout === "Sobre Mi" ? (
+                ) : layout === "Sobre mí" ? (
                   <SobreMi />
                 ) : layout === "Idiomas" ? (
                   <Idiomas />
@@ -113,7 +116,7 @@ export function Settings() {
                   <LinkMiniNav
                     layout={layout}
                     name="Sobre mí"
-                    onClick={() => changeLayout("Sobre Mi")}
+                    onClick={() => changeLayout("Sobre mí")}
                   />
                   <LinkMiniNav
                     layout={layout}
@@ -135,7 +138,7 @@ export function Settings() {
               <div>
                 {layout === "Cuenta" ? (
                   <Cuenta />
-                ) : layout === "Sobre Mi" ? (
+                ) : layout === "Sobre mí" ? (
                   <SobreMi />
                 ) : layout === "Idiomas" ? (
                   <Idiomas />

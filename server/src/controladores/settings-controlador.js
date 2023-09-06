@@ -139,23 +139,25 @@ const updateAccountInfo = async (req, res) => {
 const getLikedPosts = async (req, res) => {
   try {
 
-    console.log(req.params.id)
-
-    const allPosts = await prisma.publicaciones.findMany({
+    const id = req.params.id
+    console.log(id)
+    const allLikedPosts = await prisma.publicaciones.findMany({
       where: {
-        id_cliente: +req.params.id,
+        Likes: {
+          some: {
+            id_cliente: +id
+          }
+        }
       },
       include: {
-        Likes: true,
         cliente: true,
-      },
+        Likes: true
+      }
+    })
+    return res.json({
+      message: "Posts likeados obtenidos",
+      data: allLikedPosts,
     });
-    const postsWithLikesCount = allPosts.map((post) => ({
-      ...post,
-      numLikes: post.Likes.length,
-    }));
-
-    res.json(postsWithLikesCount);
   } catch (error) {
     console.log(error)
     return res

@@ -53,7 +53,7 @@ model ClienteIdiomas {
 model Publicaciones {
   id             Int           @id @default(autoincrement())
   descripcion    String
-  idioma         String
+  idioma         Json
   imagen         String
   fecha_creacion DateTime      @default(now())
   id_cliente     Int?

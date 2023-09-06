@@ -43,7 +43,7 @@ const createPost = async (req, res) => {
         data: {
           id_cliente: +id_cliente,
           descripcion: descripcion,
-          idioma: idioma,
+          idioma: req.body.idioma,
           imagen: req.file.filename,
         },
       });
@@ -139,6 +139,7 @@ const alreadyLiked = async (req, res) => {
 
     return res.json({ message: "Like" });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ error: "Error al encontrar el like" });
   }
 };

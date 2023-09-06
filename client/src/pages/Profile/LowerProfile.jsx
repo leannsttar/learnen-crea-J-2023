@@ -32,6 +32,7 @@ import { headers } from "../../helpers/headers";
 headers;
 
 import { timeAgoSincePublication } from "../Feed/Feed";
+import { MessageModal } from "../../components/modalMessages/MessageModal.jsx";
 
 export const PostProfile = ({ keyProp, posts, setPosts }) => {
   const { usuario } = useSession();
@@ -64,15 +65,15 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
     }
   };
 
-  const obtenerPosts = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:5000/feed");
-      console.log(data);
-      setPosts(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const obtenerPosts = async () => {
+  //   try {
+  //     const { data } = await axios.get("http://localhost:5000/feed");
+  //     console.log(data);
+  //     setPosts(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const getComments = async () => {
     try {
@@ -235,7 +236,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
     try {
       await clienteAxios.delete(`/delete-post/${keyProp}`, headers());
       // alert("Publicación eliminada exitosamente");
-      obtenerPosts();
+      openMessageModal()
       closeModalDelete();
     } catch (error) {
       console.error(error);
@@ -261,10 +262,24 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
     };
   }, []);
 
-  return (
-    <div key={keyProp} className="flex flex-col items-center cursor-pointer">
-      {/* Modal de eliminar post */}
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
 
+  function openMessageModal() {
+    setIsMessageOpen(true);
+  }
+
+  return (
+    <div
+      key={keyProp}
+      className="flex flex-col h-full w-full items-center cursor-pointer"
+    >
+      {/* Modal de eliminar post */}
+      <MessageModal
+        to={"/settings"}
+        message="Publicación eliminada"
+        success
+        open={isMessageOpen}
+      />
       <Transition appear show={isOpenDelete} as={React.Fragment}>
         <Dialog
           as="div"
@@ -399,9 +414,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
           </div>
         </Dialog>
       </Transition>
-      <div className="">
-        
-        
+      <div className="flex w-full h-full">
         <img
           className="w-full h-full object-cover"
           src={`http://localhost:5000/imagenes/processed-${posts.imagen}`}
@@ -409,9 +422,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
           onClick={openModal}
         />
         <div className="flex items-center w-full">
-          
-
-          {ventanaMenos800px ? (
+        {ventanaMenos800px ? (
             <Transition appear show={isOpen} as={Fragment}>
               <Dialog
                 as="div"
@@ -448,13 +459,18 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
                               <img
                                 src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
                                 alt=""
-                                className="w-10 "
+                                className="w-10 h-10"
                                 object-cover
                                 style={{
                                   clipPath: "circle(50% at 50% 50%)",
                                 }}
                               />
-                              <p className="font-semibold">
+                              <img
+                                className="-ml-6 w-10 h-10 rounded-full  object-cover 500:w-12 500:h-12 "
+                                src={`http://localhost:5000${posts.idioma.imagen_bandera}`}
+                                alt=""
+                              />
+                              <p className="font-semibold" translate="no">
                                 {posts.cliente.nombre} {posts.cliente.apellido}
                               </p>
                             </div>
@@ -512,7 +528,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
                                       className="w-7 h-7 rounded-full"
                                       object-cover
                                     />
-                                    <p className="">
+                                    <p className="" translate="no">
                                       <span className="font-semibold">
                                         {" "}
                                         {comentario.cliente.nombre}{" "}
@@ -633,13 +649,18 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
                                 <img
                                   src={`http://localhost:5000${posts.cliente.imagen_perfil}`}
                                   alt=""
-                                  className="w-10 "
+                                  className="w-10 h-10"
                                   object-cover
                                   style={{
                                     clipPath: "circle(50% at 50% 50%)",
                                   }}
                                 />
-                                <p className="font-semibold">
+                                <img
+                                  className="-ml-6 w-10 h-10 rounded-full  object-cover"
+                                  src={`http://localhost:5000${posts.idioma.imagen_bandera}`}
+                                  alt=""
+                                />
+                                <p className="font-semibold" translate="no">
                                   {posts.cliente.nombre}{" "}
                                   {posts.cliente.apellido}
                                 </p>
@@ -691,7 +712,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
                                       object-cover
                                     />
                                     <div className="flex gap-1">
-                                      <p className="">
+                                      <p className="" translate="no">
                                         <span className="font-semibold">
                                           {" "}
                                           {comentario.cliente.nombre}{" "}
@@ -776,15 +797,12 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
   );
 };
 
-
-
 export function LowerProfile({
   usuarioPerfil,
   setFollowersCount,
   followersCount,
   followingsCount,
 }) {
-
   const { usuario } = useSession();
 
   const [posts, setPosts] = useState(null);
@@ -793,7 +811,9 @@ export function LowerProfile({
 
   const obtenerPosts = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/feed/userPosts/${usuarioPerfil.id}`);
+      const { data } = await axios.get(
+        `http://localhost:5000/feed/userPosts/${usuarioPerfil.id}`
+      );
       console.log(data);
       setPosts(data);
     } catch (error) {
@@ -807,30 +827,32 @@ export function LowerProfile({
 
   const [userImages, setUserImages] = useState([]);
   const [numPublicaciones, setNumPublicaciones] = useState(0);
-  const [loadingImages, setLoadingImages] = useState(true); 
-  const [errorImages, setErrorImages] = useState(null); 
+  const [loadingImages, setLoadingImages] = useState(true);
+  const [errorImages, setErrorImages] = useState(null);
   useEffect(() => {
     async function fetchUserImages() {
       try {
-        const response = await clienteAxios.get(`/user/images/${usuarioPerfil.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await clienteAxios.get(
+          `/user/images/${usuarioPerfil.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
         setUserImages(response.data.images);
         setNumPublicaciones(response.data.numPublicaciones);
-        setLoadingImages(false); 
+        setLoadingImages(false);
       } catch (error) {
         console.log("Error", error);
         setErrorImages(error.message);
-        setLoadingImages(false); 
+        setLoadingImages(false);
       }
     }
 
     fetchUserImages();
   }, [usuarioPerfil]);
-
 
   return (
     <Element className=" flex justify-center mx-auto">
@@ -838,7 +860,7 @@ export function LowerProfile({
         <div className=" mb-20 flex flex-col 800:flex-row-reverse gap-8 800:gap-4 1280:gap-20 1280:w-[80%] w-[95%]">
           <div className="800:w-[25%] 800:h-full flex flex-col w-full gap-5">
             <DataProfile
-              posts={numPublicaciones} 
+              posts={numPublicaciones}
               followers={followersCount}
               following={followingsCount}
               usuarioPerfil={usuarioPerfil}
@@ -846,7 +868,6 @@ export function LowerProfile({
 
             {/* {Acá solo mando la info de userLanguages} */}
             <LanguagesProfile
-            
               motherLanguages={usuarioPerfil.idioma_materno}
               fluentLanguages={usuarioPerfil.idiomas_fluidos}
               learningLanguages={usuarioPerfil.idiomas_aprendiendo}
@@ -870,14 +891,14 @@ export function LowerProfile({
               ))
             )} */}
             {posts &&
-            posts.map((post) => (
-              <PostProfile
-                keyProp={post.id}
-                posts={post}
-                key={post.id}
-                setPosts={setPosts}
-              />
-            ))}
+              posts.map((post) => (
+                <PostProfile
+                  keyProp={post.id}
+                  posts={post}
+                  key={post.id}
+                  setPosts={setPosts}
+                />
+              ))}
           </div>
         </div>
       </Fade>
