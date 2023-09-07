@@ -99,10 +99,10 @@ export function SignUp() {
 
   const isValidPassword = (password) => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
-
+  
     return passwordRegex.test(password);
   };
-
+  
 
   const sendRegister = async () => {
     try {

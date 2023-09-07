@@ -15,6 +15,7 @@ CREATE TABLE `Cliente` (
     `idioma_materno` JSON NOT NULL,
     `idiomas_fluidos` JSON NOT NULL,
     `idiomas_aprendiendo` JSON NOT NULL,
+    `role` ENUM('cliente', 'admin') NOT NULL DEFAULT 'cliente',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -105,6 +106,7 @@ CREATE TABLE `Administradores` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
     `contrasenia` VARCHAR(191) NOT NULL,
+    `role` ENUM('cliente', 'admin') NOT NULL DEFAULT 'admin',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

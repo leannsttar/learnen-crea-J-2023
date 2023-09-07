@@ -4,6 +4,8 @@ import { clienteAxios } from "../../config/clienteAxios";
 import { data } from "autoprefixer";
 import { headers } from "../../helpers/headers";
 import { useSession } from "../../components/Header/useSession";
+import { BsArrowLeft } from "react-icons/bs";
+
 
 import io from "socket.io-client";
 
@@ -38,6 +40,8 @@ export function Chat() {
 
   const { usuario } = useSession();
   const [messages, setMessages] = useState([]);
+
+  const [chatVisible, setChatVisible] = useState(true);
 
   //Obtener Datos del otro men
   useEffect(() => {
@@ -156,6 +160,10 @@ export function Chat() {
     };
   }, []);
 
+  const toggleChatVisibility = () => {
+    setChatVisible(!chatVisible);
+  };
+
   return (
     <>
       {ventanaMenos800px ? (
@@ -167,7 +175,9 @@ export function Chat() {
               <source src="/mario.wav" type="audio/wav" />
             </audio>
             {id && (
-              <div className="w-full flex items-center">
+              <div className="w-full flex items-center gap-3">
+                    
+                <BsArrowLeft size={50} onClick={toggleChatVisibility}/>
                 <img
                   src={"http://localhost:5000" + usuarioPerfil.imagen_perfil}
                   className="object-cover h-16 w-16 rounded-full"
@@ -175,7 +185,7 @@ export function Chat() {
                   srcset=""
                 />
                 <div className="w-full flex items-center">
-                  <div className="p-3">
+                  <div className="p-3 ">
                     <span translate="no" className="text-black font-bold text-xl">
                       {usuarioPerfil.nombre} {usuarioPerfil.apellido}
                     </span>
@@ -196,7 +206,7 @@ export function Chat() {
 
           <div className="flex flex-row h-full justify-between bg-white">
             <div
-              className={`hidden flex-col  ${
+              className={`${id ? 'hidden' : 'flex'} flex-col  ${
                 id ? "h-[calc(100vh-205px)]" : "h-[calc(100vh-186px)]"
               } w-2/5 lgv:w-full border-r-2 overflow-y-auto`}
             >
@@ -227,7 +237,7 @@ export function Chat() {
                         <div translate="no" className="text-lg font-semibold">
                           {user.nombre} {user.apellido}
                         </div>
-                        <div className="text-gray-600 text-sm">
+                        <div translate="no" className="text-gray-600 text-sm">
                           {user.id == id && messages.length
                             ? timeAgoSincePublication(
                                 messages[messages.length - 1].fecha
@@ -249,7 +259,7 @@ export function Chat() {
             {id ? (
               <div
                 ref={chat}
-                className="w-full relative min-h-[calc(100vh-205px) overflow-y-auto px-5 flex flex-col justify-between bg-[url(/assets/chatbg.jpg)]"
+                className={`w-full relative min-h-[80vh] overflow-y-auto px-5 flex-col justify-between bg-[url(/assets/chatbg.jpg)]"`} 
               >
                 <div className="flex flex-col h-full justify-between">
                   <div>
@@ -392,10 +402,10 @@ export function Chat() {
                     </div>
                     <div className="w-full ml-4">
                       <div className="flex justify-between items-center">
-                        <div className="text-lg font-semibold">
+                        <div translate="no" className="text-lg font-semibold">
                           {user.nombre} {user.apellido}
                         </div>
-                        <div className="text-gray-600 text-sm">
+                        <div translate="no" className="text-gray-600 text-sm">
                           {user.id == id && messages.length
                             ? timeAgoSincePublication(
                                 messages[messages.length - 1].fecha
