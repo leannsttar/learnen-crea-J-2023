@@ -156,7 +156,7 @@ export function Chat() {
                             <img src={"http://localhost:5000"+usuarioPerfil.imagen_perfil} className='object-cover h-16 w-16 rounded-full' alt="" srcset="" />
                             <div className="w-1/2 flex items-center">
                                 <div className="p-3">
-                                    <span className='text-black font-bold text-xl'>{usuarioPerfil.nombre} {usuarioPerfil.apellido}</span>
+                                    <span className='text-black font-bold text-xl' translate='no'>{usuarioPerfil.nombre} {usuarioPerfil.apellido}</span>
 
                                     {/* <div className="flex items-center">
                                 <div
@@ -200,8 +200,8 @@ export function Chat() {
                                 </div>
                                 <div className="w-full ml-4">
                                     <div className="flex justify-between items-center">
-                                        <div className="text-lg font-semibold">{user.nombre} {user.apellido}</div>
-                                        <div className="text-gray-600 text-sm">{user.id==id && messages.length ? timeAgoSincePublication(messages[messages.length-1].fecha) : timeAgoSincePublication(user.mensajes[0].fecha)}</div>
+                                        <div className="text-lg font-semibold" translate='no'>{user.nombre} {user.apellido}</div>
+                                        <div className="text-gray-600 text-sm" translate='no'>{user.id==id && messages.length ? timeAgoSincePublication(messages[messages.length-1].fecha) : timeAgoSincePublication(user.mensajes[0].fecha)}</div>
                                     </div>
                                     <p className="text-gray-500 max-w-[20ch] truncate">{user.id==id && messages.length ? messages[messages.length-1].mensaje :user.mensajes[0].mensaje}</p>
                                 </div>

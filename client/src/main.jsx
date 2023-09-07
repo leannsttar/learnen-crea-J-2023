@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Error404 } from "./pages/404/404";
 import { Home } from "./pages/Home/Index.jsx";
@@ -34,6 +38,8 @@ import { ArticleCopi_3 } from "./pages/Blog/Article/info/card-3";
 import { ArticleCopi_4 } from "./pages/Blog/Article/info/card-4";
 import { ArticleCopi_5 } from "./pages/Blog/Article/info/card-5";
 import { ArticleCopi_6 } from "./pages/Blog/Article/info/card-6";
+import { Redirect } from "./redirect";
+import ProtectedRoute from "./protectedRouter";
 
 const routes = [
   {
@@ -91,6 +97,7 @@ const routes = [
     path: "feed",
     element: (
       <>
+        <ProtectedRoute>
         <AnimatePresence wait>
           <Header />
           <motion.div
@@ -104,6 +111,7 @@ const routes = [
             <Footer />
           </motion.div>
         </AnimatePresence>
+        </ProtectedRoute>
       </>
     ),
     requireAuth: true,
@@ -115,6 +123,7 @@ const routes = [
         index: true,
         element: (
           <>
+            <ProtectedRoute>
             <AnimatePresence wait>
               <Header />
               <motion.div
@@ -126,18 +135,20 @@ const routes = [
                 <Chat />
               </motion.div>
             </AnimatePresence>
+            </ProtectedRoute>
           </>
         ),
       },
       {
         path: ":id",
-        element: <>
-          <Header />
-          <Chat />
-
-        </>
-      }
-    ]
+        element: (
+          <>
+            <Header />
+            <Chat />
+          </>
+        ),
+      },
+    ],
   },
   {
     path: "blog",
@@ -223,6 +234,7 @@ const routes = [
     path: "profile/:id",
     element: (
       <>
+        <ProtectedRoute>
         <AnimatePresence wait>
           <Header />
           <motion.div
@@ -236,6 +248,7 @@ const routes = [
             <Footer />
           </motion.div>
         </AnimatePresence>
+        </ProtectedRoute>
       </>
     ),
     requireAuth: true,
@@ -244,6 +257,7 @@ const routes = [
     path: "settings",
     element: (
       <>
+        <ProtectedRoute>
         <AnimatePresence wait>
           <Header />
           <motion.div
@@ -256,6 +270,7 @@ const routes = [
             <Footer />
           </motion.div>
         </AnimatePresence>
+        </ProtectedRoute>
       </>
     ),
     requireAuth: true,
@@ -264,6 +279,7 @@ const routes = [
     path: "dashboard",
     element: (
       <>
+        <ProtectedRoute>
         <AnimatePresence wait>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
@@ -274,6 +290,7 @@ const routes = [
             <Dashboard />
           </motion.div>
         </AnimatePresence>
+        </ProtectedRoute>
       </>
     ),
     requireAuth: true,
@@ -282,6 +299,7 @@ const routes = [
     path: "dashboard/lenguajes",
     element: (
       <>
+        <ProtectedRoute>
         <AnimatePresence wait>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
@@ -295,6 +313,7 @@ const routes = [
             </div>
           </motion.div>
         </AnimatePresence>
+        </ProtectedRoute>
       </>
     ),
     requireAuth: true,
@@ -304,6 +323,7 @@ const routes = [
     path: "dashboard/users",
     element: (
       <>
+        <ProtectedRoute>
         <AnimatePresence wait>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
@@ -317,6 +337,7 @@ const routes = [
             </div>
           </motion.div>
         </AnimatePresence>
+        </ProtectedRoute>
       </>
     ),
     requireAuth: true,
@@ -325,6 +346,7 @@ const routes = [
     path: "dashboard/administradores",
     element: (
       <>
+        <ProtectedRoute>
         <AnimatePresence wait>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
@@ -338,6 +360,7 @@ const routes = [
             </div>
           </motion.div>
         </AnimatePresence>
+        </ProtectedRoute>
       </>
     ),
     requireAuth: true,
@@ -346,6 +369,7 @@ const routes = [
     path: "dashboard/reportes",
     element: (
       <>
+        <ProtectedRoute>
         <AnimatePresence wait>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
@@ -359,6 +383,7 @@ const routes = [
             </div>
           </motion.div>
         </AnimatePresence>
+        </ProtectedRoute>
       </>
     ),
     requireAuth: true,
@@ -380,8 +405,7 @@ const routes = [
         </motion.div>
       </>
     ),
-  }
-  ,
+  },
   {
     path: "blog/article/info/card-2",
     element: (
@@ -399,8 +423,7 @@ const routes = [
         </motion.div>
       </>
     ),
-  }
-  ,
+  },
   {
     path: "blog/article/info/card-3",
     element: (
@@ -418,8 +441,7 @@ const routes = [
         </motion.div>
       </>
     ),
-  }
-  ,
+  },
   {
     path: "blog/article/info/card-4",
     element: (
@@ -437,8 +459,7 @@ const routes = [
         </motion.div>
       </>
     ),
-  }
-  ,
+  },
   {
     path: "blog/article/info/card-5",
     element: (
@@ -456,8 +477,7 @@ const routes = [
         </motion.div>
       </>
     ),
-  }
-  ,
+  },
   {
     path: "blog/article/info/card-6",
     element: (
@@ -475,18 +495,24 @@ const routes = [
         </motion.div>
       </>
     ),
-  }
-]
+  },
+  {
+    path: "/redirect",
+    element: (
+      <>
+        <Redirect />
+      </>
+    ),
+  },
+];
 
 const router = createBrowserRouter(routes);
-
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <SessionProvider>
     <Translate />
     <RouterProvider router={router}>
-      {routes.map((route) =>(
+      {routes.map((route) => (
         <PrivateRoute
           key={route.path}
           path={route.path}
@@ -497,4 +523,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </RouterProvider>
   </SessionProvider>
 );
-

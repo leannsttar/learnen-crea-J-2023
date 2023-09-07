@@ -115,6 +115,7 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
   const { usuario } = useSession();
   //Este open es para el modal de contraseña
   let [isOpen, setIsOpen] = useState(false);
+  
 
   // const [isLoading, setIsLoading] = useState(false);
 
