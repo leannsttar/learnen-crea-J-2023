@@ -205,7 +205,7 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
           open={isMessageOpen}
         />
         <div className="flex flex-row flex-wrap border-b-2 border-[#e2e2e2] py-4 text-[20px] justify-between">
-          <div className="flex gap-8 lgv:gap-2">
+          <div className="550:flex-row flex flex-col gap-8 lgv:gap-2">
             <p className="font-[600]">{dataName}</p>
             {/* Si esta en modo edición que se ponga ese input */}
             {onEdit ? (

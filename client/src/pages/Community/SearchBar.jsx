@@ -25,7 +25,7 @@ export function SearchBar({ setSearchText }) {
             className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 bg-[#F5F5F5]"
             type="text"
             id="search"
-            placeholder="Encuentra personas o temas.."
+            placeholder="Encuentra personas.."
             onChange={handleSearchChange}
           />
         </div>

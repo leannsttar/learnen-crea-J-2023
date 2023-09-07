@@ -54,7 +54,7 @@ export function Settings() {
         <>
           <div className="min-h-screen flex flex-col items-center font-Poppins">
             <div className="mt-10 w-[90%] mb-16">
-              <div className="flex justify-center items-center p-3 mb-10">
+              <div className="flex justify-center items-center py-3 mb-10">
                 <Select className="rounded-lg pb-7" value={selectedTab}>
                   <Option>
                     <LinkMiniNav
@@ -83,7 +83,7 @@ export function Settings() {
                 </Select>
 
               </div>
-              <div>
+              <div className="w-full">
                 {layout === "Cuenta" ? (
                   <Cuenta />
                 ) : layout === "Sobre mí" ? (
