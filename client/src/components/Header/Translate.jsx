@@ -5,7 +5,7 @@ const Translate = () => {
       {
         autoDisplay: false,
         includedLanguages: 'en,es,de,ja,fr,it,pt,zh-CN,hi,ru,el,no',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       },
     //   
     // layout: google.translate.TranslateElement.InlineLayout.SIMPLE

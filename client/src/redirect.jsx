@@ -8,6 +8,7 @@ export const Redirect = () => {
     const navigate = useNavigate();
   
     useEffect(() => {
+      //console.log(usuario.role)
       if (usuario.role == "admin") {
         navigate("/dashboard");
         return

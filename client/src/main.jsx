@@ -154,6 +154,7 @@ const routes = [
     path: "blog",
     element: (
       <>
+        <ProtectedRoute>
         <Header />
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -165,6 +166,7 @@ const routes = [
           <ScrollButton />
           <Footer />
         </motion.div>
+        </ProtectedRoute>
       </>
     ),
   },
@@ -172,6 +174,7 @@ const routes = [
     path: "blog/article",
     element: (
       <>
+        <ProtectedRoute>
         <Header />
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -183,6 +186,7 @@ const routes = [
           <ScrollButton />
           <Footer />
         </motion.div>
+        </ProtectedRoute>
       </>
     ),
   },
@@ -392,7 +396,8 @@ const routes = [
     path: "blog/article/info/card-1",
     element: (
       <>
-        <Header />
+       <ProtectedRoute>
+       <Header />
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -403,6 +408,7 @@ const routes = [
           <ScrollButton />
           <Footer />
         </motion.div>
+       </ProtectedRoute>
       </>
     ),
   },
@@ -410,7 +416,8 @@ const routes = [
     path: "blog/article/info/card-2",
     element: (
       <>
-        <Header />
+       <ProtectedRoute>
+       <Header />
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -421,6 +428,7 @@ const routes = [
           <ScrollButton />
           <Footer />
         </motion.div>
+       </ProtectedRoute>
       </>
     ),
   },
@@ -428,6 +436,7 @@ const routes = [
     path: "blog/article/info/card-3",
     element: (
       <>
+        <ProtectedRoute>
         <Header />
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -439,6 +448,7 @@ const routes = [
           <ScrollButton />
           <Footer />
         </motion.div>
+        </ProtectedRoute>
       </>
     ),
   },
@@ -446,6 +456,7 @@ const routes = [
     path: "blog/article/info/card-4",
     element: (
       <>
+        <ProtectedRoute>
         <Header />
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -457,6 +468,7 @@ const routes = [
           <ScrollButton />
           <Footer />
         </motion.div>
+        </ProtectedRoute>
       </>
     ),
   },
@@ -464,17 +476,7 @@ const routes = [
     path: "blog/article/info/card-5",
     element: (
       <>
-        <Header />
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 100 }}
-          transition={{ duration: 2 }}
-        >
-          <ArticleCopi_5 />
-          <ScrollButton />
-          <Footer />
-        </motion.div>
+       <ProtectedRoute></ProtectedRoute>
       </>
     ),
   },

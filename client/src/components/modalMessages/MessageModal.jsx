@@ -1,4 +1,4 @@
-import { React, Fragment, useState, useRef } from "react";
+import { React, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { redirect, useNavigate } from "react-router-dom";
 import successIcon from "../../assets/success.svg";
