@@ -251,7 +251,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
         id_cliente: usuario.id,
         id_publicacion: keyProp,
       });
-      openMessageModal("Reporte enviado")
+      openMessageModal("Reporte enviado");
       closeModalReport();
     } catch (error) {
       console.error("Error al enviar el reporte:", error);
@@ -261,7 +261,7 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
     try {
       await clienteAxios.delete(`/delete-post/${keyProp}`, headers());
       // alert("Publicación eliminada exitosamente");
-      openMessageModal("Publicación eliminada")
+      openMessageModal("Publicación eliminada");
       closeModalDelete();
     } catch (error) {
       console.error(error);
@@ -288,11 +288,11 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
   }, []);
 
   const [isMessageOpen, setIsMessageOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState()
+  const [modalMessage, setModalMessage] = useState();
 
   function openMessageModal(message) {
     setIsMessageOpen(true);
-    setModalMessage(message)
+    setModalMessage(message);
   }
 
   return (
@@ -456,9 +456,11 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
           />
 
           <div className="flex flex-col ml-6">
-            <h6 className="font-bold" translate="no">
-              {posts.cliente.nombre} {posts.cliente.apellido}
-            </h6>
+            <Link to={"/profile/" + usuario.id} key={usuario.id}>
+              <h6 className="font-bold" translate="no">
+                {posts.cliente.nombre} {posts.cliente.apellido}
+              </h6>
+            </Link>
             <h6 className="text-sm">Hace {timeAgo}</h6>
           </div>
           <Space direction="vertical" className="ml-auto">
@@ -759,10 +761,15 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
                                   src={`http://localhost:5000${posts.idioma.imagen_bandera}`}
                                   alt=""
                                 />
-                                <p className="font-semibold" translate="no">
-                                  {posts.cliente.nombre}{" "}
-                                  {posts.cliente.apellido}
-                                </p>
+                                <Link
+                                  to={"/profile/" + usuario.id}
+                                  key={usuario.id}
+                                >
+                                  <p className="font-semibold" translate="no">
+                                    {posts.cliente.nombre}{" "}
+                                    {posts.cliente.apellido}
+                                  </p>
+                                </Link>
                               </div>
                               <div>
                                 <Space direction="vertical">
@@ -810,17 +817,22 @@ export const PostCard = ({ keyProp, posts, setPosts }) => {
                                       className="w-7 h-7 rounded-full"
                                       object-cover
                                     />
-                                    <div className="flex gap-1">
-                                      <p className="" translate="no">
-                                        <span className="font-semibold">
-                                          {" "}
-                                          {comentario.cliente.nombre}{" "}
-                                          {comentario.cliente.apellido}:{" "}
-                                        </span>
+                                    <Link
+                                      to={"/profile/" + usuario.id}
+                                      key={usuario.id}
+                                    >
+                                      <div className="flex gap-1">
+                                        <p className="" translate="no">
+                                          <span className="font-semibold">
+                                            {" "}
+                                            {comentario.cliente.nombre}{" "}
+                                            {comentario.cliente.apellido}:{" "}
+                                          </span>
 
-                                        {comentario.descripcion}
-                                      </p>
-                                    </div>
+                                          {comentario.descripcion}
+                                        </p>
+                                      </div>
+                                    </Link>
                                   </div>
                                 ))
                               ) : (

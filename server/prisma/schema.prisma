@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Rol {
+  cliente
+  admin
+} 
+
 model Cliente {
   id                 Int              @id @default(autoincrement())
   nombre             String
@@ -32,6 +37,7 @@ model Cliente {
   seguidos           Follows[]        @relation("Seguidos")
   mensajes_enviados  Mensajes[]       @relation("mensajes_enviados")
   mensajes_recibidos Mensajes[]       @relation("mensajes_recibidos")
+  role Rol @default(cliente) 
 }
 
 model Idiomas {
@@ -111,4 +117,6 @@ model Administradores {
   id          Int    @id @default(autoincrement())
   email       String
   contrasenia String
+  role Rol  @default(admin) 
 }
+

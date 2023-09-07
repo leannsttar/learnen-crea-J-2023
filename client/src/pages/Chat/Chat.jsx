@@ -176,7 +176,7 @@ export function Chat() {
                 />
                 <div className="w-full flex items-center">
                   <div className="p-3">
-                    <span className="text-black font-bold text-xl">
+                    <span translate="no" className="text-black font-bold text-xl">
                       {usuarioPerfil.nombre} {usuarioPerfil.apellido}
                     </span>
 
@@ -224,7 +224,7 @@ export function Chat() {
                     </div>
                     <div className="w-full ml-4">
                       <div className="flex justify-between items-center">
-                        <div className="text-lg font-semibold">
+                        <div translate="no" className="text-lg font-semibold">
                           {user.nombre} {user.apellido}
                         </div>
                         <div className="text-gray-600 text-sm">
@@ -344,7 +344,7 @@ export function Chat() {
                 />
                 <div className="w-1/2 flex items-center">
                   <div className="p-3">
-                    <span className="text-black font-bold text-xl">
+                    <span translate="no" className="text-black font-bold text-xl">
                       {usuarioPerfil.nombre} {usuarioPerfil.apellido}
                     </span>
 

@@ -60,7 +60,7 @@ export function UpperProfile({ alreadyFollow, usuarioPerfil, followersCount, set
               />
             </div>
             <div className="flex gap-[30px] 800:gap-0 items-center 800:mt-10 800:w-full justify-between flex-col 800:flex-row translate-y-[-50px] 800:translate-y-[-40px]">
-              <p className="text-[40px] leading-none text-center 800:w-min 880:w-auto">
+              <p className="text-[40px] leading-none text-center 800:w-min 880:w-auto" translate="no">
                 {usuarioPerfil.nombre} {usuarioPerfil.apellido}
               </p>
               <div className="flex gap-7">
