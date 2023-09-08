@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+div.skiptranslate.goog-te-gadget {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    
+}
+
+div.goog-te-gadget-simple {
+    white-space: nowrap;
+    border: none;
+    padding: 1rem 1.5rem;
+    background: #ffa6b6;
+    border-radius: 8px;
+    
+}
+
+div.goog-te-gadget-simple span span[style] {
+    display: none;
+} 
+
+div.goog-te-gadget-simple span {
+    color: white;
+    font-size: 1rem;
+} 

@@ -236,7 +236,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
     try {
       await clienteAxios.delete(`/delete-post/${keyProp}`, headers());
       // alert("Publicación eliminada exitosamente");
-      openMessageModal()
+      openMessageModal();
       closeModalDelete();
     } catch (error) {
       console.error(error);
@@ -422,7 +422,7 @@ export const PostProfile = ({ keyProp, posts, setPosts }) => {
           onClick={openModal}
         />
         <div className="flex items-center w-full">
-        {ventanaMenos800px ? (
+          {ventanaMenos800px ? (
             <Transition appear show={isOpen} as={Fragment}>
               <Dialog
                 as="div"
@@ -875,33 +875,66 @@ export function LowerProfile({
 
             <AboutProfile usuarioPerfil={usuarioPerfil} />
           </div>
-          <div className="grid grid-cols-3 auto-rows-min gap-1 relative w-full 800:w-[75%] h-auto">
-            {/* {loadingImages ? (
-              <p>Cargando imágenes...</p>
-            ) : errorImages ? (
-              <p>Error al cargar imágenes: {errorImages}</p>
-            ) : (
-              userImages.map((imgSrc, index) => (
-                <Fade bottom key={index} delay={index * 300}>
-                  <img
-                    src={`http://localhost:5000/imagenes/processed-${imgSrc}`}
-                    className="cursor-pointer"
+
+          {posts != null && posts.length != 0 ? (
+            <div className="grid grid-cols-3 auto-rows-min gap-1 relative w-full 800:w-[75%] h-auto">
+              {posts &&
+                posts.map((post) => (
+                  <PostProfile
+                    keyProp={post.id}
+                    posts={post}
+                    key={post.id}
+                    setPosts={setPosts}
                   />
-                </Fade>
-              ))
-            )} */}
-            {posts &&
-              posts.map((post) => (
-                <PostProfile
-                  keyProp={post.id}
-                  posts={post}
-                  key={post.id}
-                  setPosts={setPosts}
-                />
-              ))}
-          </div>
+                ))}
+            </div>
+          ) : <div className="flex justify-center w-auto text-xl mt-10 800:w-[75%]">Este usuario no tiene publicaciones</div>}
         </div>
       </Fade>
     </Element>
   );
 }
+
+// <Element className=" flex justify-center mx-auto">
+//       <Fade bottom delay={300}>
+//         <div className=" mb-20 flex flex-col 800:flex-row-reverse gap-8 800:gap-4 1280:gap-20 1280:w-[80%] w-[95%]">
+//           <div
+//             className={`flex ${
+//               posts != null && posts.length != 0
+//                 ? "800:w-[25%] 800:h-full flex-col"
+//                 : "flex-col"
+//             } w-full gap-5`}
+//           >
+//             <DataProfile
+//               posts={numPublicaciones}
+//               followers={followersCount}
+//               following={followingsCount}
+//               usuarioPerfil={usuarioPerfil}
+//             />
+
+//             <LanguagesProfile
+//               motherLanguages={usuarioPerfil.idioma_materno}
+//               fluentLanguages={usuarioPerfil.idiomas_fluidos}
+//               learningLanguages={usuarioPerfil.idiomas_aprendiendo}
+//             />
+
+//             <AboutProfile usuarioPerfil={usuarioPerfil} />
+//           </div>
+
+//           {posts != null && posts.length != 0 && (
+//             <div className="grid grid-cols-3 auto-rows-min gap-1 relative w-full 800:w-[75%] h-auto">
+
+//               {posts &&
+//                 posts.map((post) => (
+//                   <PostProfile
+//                     keyProp={post.id}
+//                     posts={post}
+//                     key={post.id}
+//                     setPosts={setPosts}
+//                   />
+//                 ))}
+//             </div>
+//           )}
+//         </div>
+//       </Fade>
+//     </Element>

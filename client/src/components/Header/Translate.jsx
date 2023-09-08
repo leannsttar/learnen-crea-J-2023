@@ -5,7 +5,7 @@ const Translate = () => {
       {
         autoDisplay: false,
         includedLanguages: 'en,es,de,ja,fr,it,pt,zh-CN,hi,ru,el,no',
-        // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
       },
     //   
     // layout: google.translate.TranslateElement.InlineLayout.SIMPLE
@@ -14,7 +14,7 @@ const Translate = () => {
   };
   useEffect(() => {
     const translateDiv = document.createElement('div');
-    translateDiv.classList.add('z-50', 'bg-[#FFD0D0]', 'bottom-0', 'left-0', 'fixed', 'rounded-md', 'shadow-box'); 
+    translateDiv.classList.add('z-50', 'bg-[#FFD0D0]', 'bottom-0', 'left-0', 'fixed', 'rounded-md', 'shadow-box', 'scale-75', '800:scale-100'); 
     translateDiv.id = 'google_translate_element'
     document.getElementById('root').appendChild(translateDiv);
     var addScript = document.createElement("script");

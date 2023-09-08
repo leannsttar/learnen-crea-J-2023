@@ -6,7 +6,6 @@ import { headers } from "../../helpers/headers";
 import { useSession } from "../../components/Header/useSession";
 import { BsArrowLeft } from "react-icons/bs";
 
-
 import io from "socket.io-client";
 
 let socket = io("http://localhost:5000");
@@ -33,6 +32,7 @@ function timeAgoSincePublication(publicationDate) {
 
 export function Chat() {
   const { id } = useParams();
+
   const chat = useRef();
   const sonidoNotificacion = useRef();
   const [usuariosChats, setUsuariosChats] = useState([]);
@@ -69,7 +69,9 @@ export function Chat() {
         setMessages(data);
 
         setTimeout(() => {
-          chat.current.scrollTo(0, 99999999999999);
+          if (chat.current) {
+            chat.current.scrollTo(0, 99999999999999);
+          }
         }, 10);
       } catch (error) {
         console.log(error);
@@ -99,7 +101,9 @@ export function Chat() {
       console.log("mario.wav");
     });
     setTimeout(() => {
-      chat.current.scrollTo(0, 99999999999999);
+      if (chat.current) {
+        chat.current.scrollTo(0, 99999999999999);
+      }
     }, 10);
   }, [messages]);
 
@@ -144,7 +148,7 @@ export function Chat() {
   const [ventanaMenos800px, setVentanaMenos800px] = useState(false);
 
   const verificarTamañoVentana = () => {
-    if (window.innerWidth <= 800) {
+    if (window.innerWidth <= 874) {
       setVentanaMenos800px(true);
     } else {
       setVentanaMenos800px(false);
@@ -161,32 +165,49 @@ export function Chat() {
   }, []);
 
   const toggleChatVisibility = () => {
-    setChatVisible(!chatVisible);
+    console.log("toggleChatVisibility called");
+    setChatVisible((prevState) => !prevState);
+    console.log(chatVisible);
   };
-
+  
   return (
     <>
       {ventanaMenos800px ? (
         <div className=" w-full  font-Poppins">
-          <div className={`px-5 py-5 flex ${!id && "justify-between "} w-full items-center bg-white border-b-2`}>
-            {!id && <div className="font-semibold text-black text-4xl">Mensajes</div>}
-           
+          <div
+            className={`px-5 py-5 flex ${
+              !id && "justify-between "
+            } w-full items-center bg-white border-b-2`}
+          >
+            {!id && (
+              <div className="font-semibold text-black text-4xl">Mensajes</div>
+            )}
+
             <audio ref={sonidoNotificacion}>
               <source src="/mario.wav" type="audio/wav" />
             </audio>
+            {console.log(chatVisible)}
             {id && (
               <div className="w-full flex items-center gap-3">
-                    
-                <BsArrowLeft size={50} onClick={toggleChatVisibility}/>
+                <Link to={"/chat"}>
+                  <BsArrowLeft
+                    className="cursor-pointer"
+                    size={50}
+                    // onClick={toggleChatVisibility}
+                  />
+                </Link>
                 <img
                   src={"http://localhost:5000" + usuarioPerfil.imagen_perfil}
-                  className="object-cover h-16 w-16 rounded-full"
+                  className="object-cover h-12 w-12 rounded-full"
                   alt=""
                   srcset=""
                 />
                 <div className="w-full flex items-center">
-                  <div className="p-3 ">
-                    <span translate="no" className="text-black font-bold text-xl">
+                  <div className="">
+                    <span
+                      translate="no"
+                      className="text-black font-bold text-xl"
+                    >
                       {usuarioPerfil.nombre} {usuarioPerfil.apellido}
                     </span>
 
@@ -206,7 +227,7 @@ export function Chat() {
 
           <div className="flex flex-row h-full justify-between bg-white">
             <div
-              className={`${id ? 'hidden' : 'flex'} flex-col  ${
+              className={`${!id ? "flex" : "hidden"} flex-col  ${
                 id ? "h-[calc(100vh-205px)]" : "h-[calc(100vh-186px)]"
               } w-2/5 lgv:w-full border-r-2 overflow-y-auto`}
             >
@@ -219,6 +240,20 @@ export function Chat() {
                     </div> */}
 
               <div className="flex flex-col overflow-y-auto">
+                {usuariosChats.length === 0 && (
+                  <div className="flex flex-col items-center gap-5 mt-10">
+                    <p className="text-2xl text-center mx-8">
+                      Parece que no tienes conversaciones con nadie. Visita
+                      nuestra comunidad y encuentra a alguien para conversar
+                    </p>
+                    <Link className="" to={"/community"}>
+                      <button className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-[#fff] hover:bg-[#ffa6b6] hover:transition-bg ease-in duration-200 flex-row-reverse">
+                        Comunidad
+                      </button>
+                    </Link>
+                  </div>
+                )}
+                <div className=" border-red-600 w-full flex justify-center items-center lgv:hidden"></div>
                 {usuariosChats.map((user) => (
                   <Link
                     to={"/chat/" + user.id}
@@ -245,7 +280,10 @@ export function Chat() {
                             : timeAgoSincePublication(user.mensajes[0].fecha)}
                         </div>
                       </div>
-                      <p className="text-gray-500 max-w-[20ch] truncate">
+                      <p
+                        className="text-gray-500 max-w-[20ch] truncate"
+                        translate="no"
+                      >
                         {user.id == id && messages.length
                           ? messages[messages.length - 1].mensaje
                           : user.mensajes[0].mensaje}
@@ -259,10 +297,10 @@ export function Chat() {
             {id ? (
               <div
                 ref={chat}
-                className={`w-full relative min-h-[80vh] overflow-y-auto px-5 flex-col justify-between bg-[url(/assets/chatbg.jpg)]"`} 
+                className={`w-full relative h-[78vh] px-1 flex-col justify-between bg-[url(/assets/chatbg.jpg)]"`}
               >
                 <div className="flex flex-col h-full justify-between">
-                  <div>
+                  <div className="pt-4 pr-4 overflow-y-auto h-full">
                     {messages.map((message) => (
                       <div
                         key={message.id}
@@ -278,6 +316,7 @@ export function Chat() {
                               ? "flex-row-reverse"
                               : "flex-row"
                           } items-center`}
+                          translate="no"
                         >
                           <img
                             src={
@@ -297,6 +336,7 @@ export function Chat() {
                                 ? "text-right !bg-[#FF8399]"
                                 : "text-left text-gray-800"
                             }`}
+                            onClick={setChatVisible}
                           >
                             {message.mensaje}
                           </div>
@@ -330,9 +370,23 @@ export function Chat() {
               </div>
             ) : (
               <div className=" border-red-600 w-full flex justify-center items-center lgv:hidden">
-                <p className="font-black text-4xl text-center">
-                  Da click a un nuevo chat
-                </p>
+                {usuariosChats.length === 0 ? (
+                  <div className="flex flex-col items-center gap-5">
+                    <p className="text-2xl text-center px-[10rem]">
+                      Parece que no tienes conversaciones con nadie. Visita
+                      nuestra comunidad y encuentra a alguien para conversar
+                    </p>
+                    <Link className="" to={"/community"}>
+                      <button className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-[#fff] hover:bg-[#ffa6b6] hover:transition-bg ease-in duration-200 flex-row-reverse">
+                        Comunidad
+                      </button>
+                    </Link>
+                  </div>
+                ) : (
+                  <p className="font-black text-4xl text-center">
+                    Da click a un nuevo chat
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -340,12 +394,12 @@ export function Chat() {
       ) : (
         <div className=" w-full font-Poppins">
           <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2 ">
-            <div className="font-semibold text-black text-4xl">Mensajes</div>
+            <div className="font-semibold text-black text-4xl w-2/5 lgv:w-full">Mensajes</div>
             <audio ref={sonidoNotificacion}>
               <source src="/mario.wav" type="audio/wav" />
             </audio>
             {id && (
-              <div className="w-1/2 flex items-center">
+              <div className="w-full flex items-center">
                 <img
                   src={"http://localhost:5000" + usuarioPerfil.imagen_perfil}
                   className="object-cover h-16 w-16 rounded-full"
@@ -354,7 +408,10 @@ export function Chat() {
                 />
                 <div className="w-1/2 flex items-center">
                   <div className="p-3">
-                    <span translate="no" className="text-black font-bold text-xl">
+                    <span
+                      translate="no"
+                      className="text-black font-bold text-xl"
+                    >
                       {usuarioPerfil.nombre} {usuarioPerfil.apellido}
                     </span>
 
@@ -369,7 +426,7 @@ export function Chat() {
                 </div>
               </div>
             )}
-            <div className="invisible">aawdawdawdad</div>
+            {/* <div className="invisible">aawdawdawdad</div> */}
           </div>
 
           <div className="flex flex-row justify-between bg-white">
@@ -413,7 +470,10 @@ export function Chat() {
                             : timeAgoSincePublication(user.mensajes[0].fecha)}
                         </div>
                       </div>
-                      <p className="text-gray-500 max-w-[20ch] truncate">
+                      <p
+                        className="text-gray-500 max-w-[20ch] truncate"
+                        translate="no"
+                      >
                         {user.id == id && messages.length
                           ? messages[messages.length - 1].mensaje
                           : user.mensajes[0].mensaje}
@@ -430,7 +490,7 @@ export function Chat() {
                 className="w-full relative max-h-[calc(100vh-220px)] overflow-auto px-5 flex flex-col justify-between bg-[url(/assets/chatbg.jpg)]"
               >
                 <div className="flex flex-col h-full justify-between">
-                  <div>
+                  <div className="mt-4">
                     {messages.map((message) => (
                       <div
                         key={message.id}
@@ -446,6 +506,7 @@ export function Chat() {
                               ? "flex-row-reverse"
                               : "flex-row"
                           } items-center`}
+                          translate="no"
                         >
                           <img
                             src={
@@ -498,9 +559,23 @@ export function Chat() {
               </div>
             ) : (
               <div className=" border-red-600 w-full flex justify-center items-center lgv:hidden">
-                <p className="font-black text-4xl text-center">
-                  Da click a un nuevo chat
-                </p>
+                {usuariosChats.length === 0 ? (
+                  <div className="flex flex-col items-center gap-5">
+                    <p className="text-2xl text-center px-[10rem]">
+                      Parece que no tienes conversaciones con nadie. Visita
+                      nuestra comunidad y encuentra a alguien para conversar
+                    </p>
+                    <Link className="" to={"/community"}>
+                      <button className="flex gap-3 px-5 py-2.5 shadow-square border border-black bg-[#fff] hover:bg-[#ffa6b6] hover:transition-bg ease-in duration-200 flex-row-reverse">
+                        Comunidad
+                      </button>
+                    </Link>
+                  </div>
+                ) : (
+                  <p className="font-black text-4xl text-center">
+                    Da click a un nuevo chat
+                  </p>
+                )}
               </div>
             )}
           </div>

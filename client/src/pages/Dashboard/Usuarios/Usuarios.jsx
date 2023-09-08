@@ -44,9 +44,9 @@ export function Usuarios() {
                   <th className="px-4 py-2 border text-center">Como soy</th>
                 </tr>
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white overflow-x-auto">
                 {usuarios.map((usuario) => (
-                  <tr key={usuario.id}>
+                  <tr key={usuario.id} className="overflow-x-auto">
                     <td className="px-4 py-2 border-b flex items-center border-l">
                       <img
                         src={`http://localhost:5000${usuario.imagen_perfil}`}
@@ -57,8 +57,8 @@ export function Usuarios() {
                     </td>
                     <td className="px-4 py-2 border text-center">{usuario.correo}</td>
                     <td className="px-4 py-2 border text-center">{usuario.genero ? "Masculino" : "Femenino"}</td>
-                    <td className="px-4 py-2 border text-center">{usuario.me_gusta}</td>
-                    <td className="px-4 py-2 border text-center">{usuario.objetivos}</td>
+                    <td className="px-4 py-2 border text-center truncate">{usuario.me_gusta}</td>
+                    <td className="px-4 py-2 border text-center truncate" >{usuario.objetivos}</td>
                     <td className="px-4 py-2 border text-center">
                       {usuario.como_soy}
                     </td>

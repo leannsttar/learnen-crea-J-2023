@@ -144,6 +144,9 @@ export function SignUp() {
 
 
   const next = () => {
+
+    
+
     if (!passwordMatch) {
       toast.warn("Las contraseñas no coinciden");
       return;
@@ -310,6 +313,7 @@ export function SignUp() {
             <ToastContainer />
             <div className="card w-[400px]">
               <div className="text-2xl font-thin mb-3">Paso {formNo} </div>
+              {console.log(formNo)}
               <div className="flex">
                 {formArray.map((v, i) => (
                   <>
@@ -863,7 +867,7 @@ export function SignUp() {
                   <div className="flex flex-col mb-4 space-y-7">
                     <div className="space-y-10">
                       <label htmlFor="Sex" className="flex justify-center">
-                        ¿Qué idiomas quieres practicar?
+                        ¿Qué idiomas estás aprendiendo?
                       </label>
                     </div>
                     <div className="w-full h-[20rem] overflow-y-scroll scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100 scrollbar-thumb:!rounded scrollbar-thumb:!bg-slate-300 scrollbar-track:!rounded dark:scrollbar-track:!bg-slate-500/[0.16] justify-start items-start">

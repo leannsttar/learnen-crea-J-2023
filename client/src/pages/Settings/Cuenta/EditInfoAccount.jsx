@@ -205,7 +205,7 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
           success
           open={isMessageOpen}
         />
-        <div className="flex flex-row flex-wrap border-b-2 border-[#e2e2e2] py-4 text-[20px] justify-between">
+        <div className="flex flex-row flex-wrap border-b-2 border-[#e2e2e2] py-4 text-[20px] justify-between items-center gap-y-7 ">
           <div className="550:flex-row flex flex-col gap-8 lgv:gap-2">
             <p className="font-[600]">{dataName}</p>
             {/* Si esta en modo edición que se ponga ese input */}
@@ -232,7 +232,7 @@ export function EditInfoAccount({ dataName, dataUser, pass, name }) {
           </div>
           <div className={pass ? "hidden" : "block"}>
             {onEdit ? (
-              <div className="flex gap-5 mt-5">
+              <div className="flex gap-5">
                 <button
                   onClick={() => notOnEdit()}
                   className="font-bold  text-[17px]"

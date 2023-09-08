@@ -39,7 +39,7 @@ export function Cuenta() {
           translate="no"
         />
         <EditInfoAccount
-          dataName="Fecha de nacimiento"
+          dataName="Nacimiento"
           dataUser={onlyDate}
           name="fecha_nacimiento"
         />

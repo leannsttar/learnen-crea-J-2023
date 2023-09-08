@@ -21,6 +21,9 @@ export function FloatFlag({ img, className }) {
 }
 
 export function IndexStart() {
+  const { usuario } = useSession();
+  console.log(usuario);
+
   return (
     <div className="mt-10 800:mt-0 h-[89.7vh] w-full flex">
       <div className="w-full 1370:w-[40%] 800:w-[60%] flex justify-center items-center 800:translate-y-[-50px] 400:scale-90 1370:scale-100 scale-75">
@@ -63,9 +66,12 @@ export function IndexStart() {
           />
           <div className="">
             <p className="font-normal text-[30px] text-[#6c6d75] ml-2">
-              Aprende con 
+              Aprende con
             </p>
-            <p className="font-[700] text-[#242635] text-[80px] 800:text-[120px] leading-[4rem] 800:leading-[9rem]" translate="no">
+            <p
+              className="font-[700] text-[#242635] text-[80px] 800:text-[120px] leading-[4rem] 800:leading-[9rem]"
+              translate="no"
+            >
               Learnen
             </p>
           </div>
@@ -75,12 +81,21 @@ export function IndexStart() {
             className="800:hidden w-full h-full object-cover"
           />
           <div className="flex justify-center 800:justify-start">
-            <ButtonHeader
-              className="ml-2 text-[22px] flex items-center gap-3 px-8 py-5 shadow-squareIndex bg-[#FF8399] text-black hover:scale-105 hover: transition-scale ease-in duration-200"
-              imgClassName=" w-8"
-              text="Empieza ya"
-              to="/login"
-            />
+            {usuario ? (
+              <ButtonHeader
+                className="ml-2 text-[22px] flex items-center gap-3 px-8 py-5 shadow-squareIndex bg-[#FF8399] text-black hover:scale-105 hover: transition-scale ease-in duration-200"
+                imgClassName=" w-8"
+                text="Empieza ya"
+                to={"/community"}
+              />
+            ) : (
+              <ButtonHeader
+                className="ml-2 text-[22px] flex items-center gap-3 px-8 py-5 shadow-squareIndex bg-[#FF8399] text-black hover:scale-105 hover: transition-scale ease-in duration-200"
+                imgClassName=" w-8"
+                text="Empieza ya"
+                to={"/login"}
+              />
+            )}
           </div>
           <img
             src={downArrow}
@@ -168,7 +183,11 @@ export function IndexCard() {
               >
                 <Flip left delay={index * 200}>
                   <div className="relative w-full">
-                    <img src={card.imgSrc} alt="" className="w-full hover:scale-125 ease-in duration-300" />
+                    <img
+                      src={card.imgSrc}
+                      alt=""
+                      className="w-full hover:scale-125 ease-in duration-300"
+                    />
                     <p className="absolute bottom-4 left-0 m-2 text-white text-xl">
                       {card.description}
                     </p>
@@ -236,7 +255,11 @@ export function IndexSteps() {
       <hr className="mt-14" />
       <div className="flex flex-row justify-center mt-10 text-[1.8rem] font-extrabold">
         <p className="text-center">
-          ¿Cómo funciona?<span className="text-indigo-600" translate="no"> Learnen</span>
+          ¿Cómo funciona?
+          <span className="text-indigo-600" translate="no">
+            {" "}
+            Learnen
+          </span>
         </p>
       </div>
 
@@ -297,7 +320,10 @@ export function IndexBlog() {
         <div className="flex flex-row flex-wrap justify-center mt-20">
           {dataCards.map((card, index) => (
             <Link to={card.url} key={index}>
-              <Element className="mb-8 w-96 mx-4 hover:scale-95 ease-in duration-300" name={`card-${index}`}>
+              <Element
+                className="mb-8 w-96 mx-4 hover:scale-95 ease-in duration-300"
+                name={`card-${index}`}
+              >
                 <Fade bottom delay={index * 300}>
                   <div className="relative">
                     <img
@@ -337,20 +363,35 @@ export function Slider() {
     {
       id: 1,
       image: "/assets/slider1.png",
-      quote:<p><span translate="no">"Learnen</span> me ha permitido abrir mi brecha laboral, gracias a su formato de aprendizaje."</p>,
-      author: "Beatriz Rivera"
+      quote: (
+        <p>
+          <span translate="no">"Learnen</span> me ha permitido abrir mi brecha
+          laboral, gracias a su formato de aprendizaje."
+        </p>
+      ),
+      author: "Beatriz Rivera",
     },
     {
       id: 2,
       image: "/assets/leandro.png",
-      quote: <p>"El contexto educativo de <span translate="no">Learnen</span> me parece fascinante, aprendo y me divierto."</p>,
-      author: "Rodrigo Pineda"
+      quote: (
+        <p>
+          "El contexto educativo de <span translate="no">Learnen</span> me
+          parece fascinante, aprendo y me divierto."
+        </p>
+      ),
+      author: "Rodrigo Pineda",
     },
     {
       id: 3,
       image: "/assets/Group3.png",
-      quote: <p>"Me volví más sociable y conseguí amigos gracias a <span translate="no">Learnen</span>"</p>,
-      author: "Daniela Milla"
+      quote: (
+        <p>
+          "Me volví más sociable y conseguí amigos gracias a{" "}
+          <span translate="no">Learnen</span>"
+        </p>
+      ),
+      author: "Daniela Milla",
     },
   ];
 
@@ -402,8 +443,9 @@ export function Slider() {
                 {slides.map((slide, index) => (
                   <span
                     key={slide.id}
-                    className={`w-3 h-3 rounded-full bg-gray-500 ${activeIndex === index && "bg-blue-500"
-                      }`}
+                    className={`w-3 h-3 rounded-full bg-gray-500 ${
+                      activeIndex === index && "bg-blue-500"
+                    }`}
                     onClick={() => handleSlideChange(index)}
                   ></span>
                 ))}

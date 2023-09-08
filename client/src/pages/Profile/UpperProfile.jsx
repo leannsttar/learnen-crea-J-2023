@@ -49,14 +49,12 @@ export function UpperProfile({ alreadyFollow, usuarioPerfil, followersCount, set
       <Element className="w-full flex justify-center items-center">
         <Fade bottom delay={500}>
           <div className="flex flex-col items-center 800:flex-row 800:gap-8 mb-4 800:mb-10 1280:w-[80%] w-[95%] ">
-            <div className="800:w-[17rem]">
+            <div className="800:w-[22rem]">
               <img
                 src={`http://localhost:5000${usuarioPerfil.imagen_perfil}`}
                 alt=""
-                className="rounded-full w-full h-full lgv:w-48 translate-y-[-80px] 800:translate-y-[-60px] object-cover"
-                style={{
-                  clipPath: "circle(50% at 50% 50%)",
-                }}
+                className="rounded-full w-[13rem] h-[13rem] 800:w-[16rem] 800:h-[16rem] translate-y-[-80px] 800:translate-y-[-60px] object-cover"
+                
               />
             </div>
             <div className="flex gap-[30px] 800:gap-0 items-center 800:mt-10 800:w-full justify-between flex-col 800:flex-row translate-y-[-50px] 800:translate-y-[-40px]">
